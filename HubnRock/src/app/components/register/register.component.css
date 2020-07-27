@@ -1,4 +1,13 @@
+
+#hub-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #hub-rock-choose #title {
+    font-family: 'WorkSans-Bold';
     font-size: 34px;
     letter-spacing: -0.85px;
     margin-bottom: 60px;
@@ -9,11 +18,12 @@
 }
 
 #hub-rock-choose #subtitle {
+    font-family: 'WorkSans-Bold';
     font-size: 18px;
     letter-spacing: -0.45px;
 }
 
-#hub-rock-choose #hr {
+#hub-rock-choose hr {
     border-color: #979797;
     height: 1px;
     margin-bottom: 38px;
@@ -26,13 +36,13 @@
     background-color: #f7f7f7;
 }
 
-
 #hub-rock-choose #text {
     font-size: 15px;
     line-height: 23px;
     letter-spacing: -0.62px;
     margin-bottom: 85px;
     margin-top: 41px;
+    font-family: 'WorkSans-Regular';
 }
 
 #hub-rock-choose #btn-next {

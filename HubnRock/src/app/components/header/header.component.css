@@ -1,0 +1,37 @@
+* {
+    font-family: 'WorkSans-Regular';
+    color: #020e7d;
+}
+
+#hubrock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 26px 10%;
+}
+
+#hubrock-header #logo {
+    max-width: 145px;
+    max-height: 48px;
+    cursor: pointer;
+}
+
+#hubrock-header .nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+
+}
+
+.nav-links li a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
+.hubrock-border-right {
+    padding-right: 40px;
+    border-right: 1px solid #333;
+}

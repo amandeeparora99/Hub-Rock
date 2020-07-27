@@ -25,7 +25,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/fonts/WorkSans/WorkSans.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -93,7 +94,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/fonts/WorkSans/WorkSans.css"
             ],
             "scripts": []
           }

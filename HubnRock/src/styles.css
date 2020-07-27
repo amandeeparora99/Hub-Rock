@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'WorkSans-Bold';
+    src: url('./assets/fonts/WorkSans/WorkSans-Bold.ttf')
+}
+
+@font-face {
+    font-family: 'WorkSans-Regular';
+    src: url('./assets/fonts/WorkSans/WorkSans-Regular.ttf')
+}
+
+@font-face {
+    font-family: 'WorkSans-Thin';
+    src: url('./assets/fonts/WorkSans/WorkSans-Thin.ttf')
+}

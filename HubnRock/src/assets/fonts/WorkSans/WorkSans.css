@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "WorkSans";
+    src: url("./WorkSans-Regular.ttf");
+}
+  
+@font-face {
+    font-family: "WorkSans-Thin";
+    src: url("./WorkSans-Thin.ttf");
+}
