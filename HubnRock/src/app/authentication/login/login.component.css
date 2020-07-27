@@ -1,0 +1,63 @@
+#login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-container .container {
+    max-width: 729px;
+}
+
+form input {
+    height: 55px;
+}
+
+#login-container .container form label {
+    font-size: 18px;
+    letter-spacing: -0, 45px;
+    font-weight: 100;
+    font-family: 'WorkSans-Bold';
+}
+
+#login-container .container #title {
+    font-weight: bold;
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 60px;
+}
+
+#login-container #btn-login {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-weight: bold;
+}
+
+a {
+    color: #020e7d;
+}
+
+#no-user {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: -0.9px;
+}
+
+#forgot-password {
+    font-family: 'WorkSans-Regular';
+    font-size: 18px;
+    text-align: right;
+    letter-spacing: -0.45px;
+}
+
+#login-container hr {
+    border-color: #020e7d;
+    margin-top: 57px;
+}

@@ -1,1 +1,34 @@
-<p>login works!</p>
+<app-header></app-header>
+
+<section id="login-section">
+
+    <div id="login-container">
+
+        <div class="container">
+
+            <h1 id="title" class="text-center">Inicia sessió</h1>
+
+            <form>
+                <div class="form-group">
+                    <label for="InputCorreu">Correu</label>
+                    <input type="email" class="form-control" id="InputCorreu" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="InputContrasenya">Contrasenya</label>
+                    <input type="password" class="form-control" id="InputContrasenya">
+                    <p id="forgot-password"><a href="#">Has oblidat la contrasenya?</a></p>
+                </div>
+                <div class="text-center">
+                    <button type="submit" id="btn-login" class="btn btn-primary">INICIA SESSIÓ</button>
+                </div>
+            </form>
+            <hr>
+            <p id="no-user">
+                No ets usuari? Crea el teu <a href="#">aquí</a>
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<app-footer></app-footer>
