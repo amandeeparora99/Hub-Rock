@@ -1,0 +1,47 @@
+#hub-rock-choose #title {
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 60px;
+}
+
+#hub-rock-choose .container {
+    max-width: 530px;
+}
+
+#hub-rock-choose #subtitle {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+}
+
+#hub-rock-choose #hr {
+    border-color: #979797;
+    height: 1px;
+    margin-bottom: 38px;
+}
+
+#hub-rock-choose #img {
+    border-radius: 16px;
+    width: 237px;
+    height: 223px;
+    background-color: #f7f7f7;
+}
+
+
+#hub-rock-choose #text {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.62px;
+    margin-bottom: 85px;
+    margin-top: 41px;
+}
+
+#hub-rock-choose #btn-next {
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-weight: bold;
+}
