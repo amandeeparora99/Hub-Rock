@@ -16,12 +16,10 @@ form input {
 #login-container .container form label {
     font-size: 18px;
     letter-spacing: -0, 45px;
-    font-weight: 100;
     font-family: 'WorkSans-Bold';
 }
 
 #login-container .container #title {
-    font-weight: bold;
     font-family: 'WorkSans-Bold';
     font-size: 34px;
     letter-spacing: -0.85px;
@@ -37,17 +35,28 @@ form input {
     background-color: #00e292;
     color: black;
     border: 0;
-    font-weight: bold;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
 }
 
 a {
     color: #020e7d;
 }
 
+a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
 #no-user {
     text-align: center;
     font-size: 18px;
     letter-spacing: -0.9px;
+}
+
+#no-user a {
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
 }
 
 #forgot-password {
