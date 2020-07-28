@@ -1,4 +1,68 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
 #hubrock-footer {
-    height: 369px;
     background-color: #020e7d;
+    align-items: start;
+    padding: 50px 10%;
+    color: white;
+}
+
+#logo {
+    width: 145px;
+    height: 48px;
+    margin-bottom: 20px;
+}
+
+.footer-heading {
+    font-family: 'WorkSans-Bold';
+    font-size: 16px;
+    letter-spacing: -0.66px;
+    margin-bottom: 24px;
+}
+
+.footer-text {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+    letter-spacing: -0.58px;
+}
+
+.nav-links {
+    font-size: 14px;
+    line-height: 19px;
+    list-style: none;
+    padding-inline-start: 0;
+    letter-spacing: -0.58px;
+}
+
+.nav-links a {
+    color: white;
+}
+
+#hubrock-footer input[type=text] {
+    max-width: 285px;
+    background-color: #020e7d;
+    color: white;
+    border-color: white;
+}
+
+#hubrock-footer input[type=text]:focus {
+    outline: none;
+    border-right: none;
+}
+
+#icon {
+    background-color: #020e7d;
+    color: white;
+    border-color: white;
+    border-left: 0;
+}
+
+.spacing-top {
+    margin-top: 33px;
+}
+
+.include-padding p, .include-padding a {
+    margin-right: 25px;
 }
