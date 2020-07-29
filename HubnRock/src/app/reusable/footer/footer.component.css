@@ -7,6 +7,7 @@
     align-items: start;
     padding: 50px 10%;
     color: white;
+    max-width: 100vw;
 }
 
 #logo {
