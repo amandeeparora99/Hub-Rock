@@ -1,5 +1,5 @@
 
-#hub-container {
+#hub-container, #register-container {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -54,4 +54,79 @@
     color: black;
     border: 0;
     font-weight: bold;
+}
+
+/* SPACE */
+
+#register-container .container {
+    max-width: 729px;
+}
+
+form input {
+    height: 55px;
+}
+
+#register-container .container form label {
+    font-size: 18px;
+    letter-spacing: -0, 45px;
+    font-family: 'WorkSans-Bold';
+}
+
+#register-container .container #register-title {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 60px;
+}
+
+#register-container #btn-login {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
+
+
+.accountType-container{
+    position: relative;
+    border-radius: 16px;
+    width: 237px;
+    height: 223px;
+    background-color: #f7f7f7;
+}
+
+.accountType-container p {
+    font-family: 'WorkSans-Regular';
+}
+
+.clickable{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    border-radius: 16px;
+    transition: all ease .2s;
+    z-index: 10;
+}
+
+input[name="myradio"]:checked + .clickable{
+    border-color: #00e292; 
+    box-shadow: 0px 0px 1px 1px #00e292;
+}
+
+input[name="myradio"] {
+    appearance: none;
+}
+
+.ilustration {
+    height: 136px;
+    width: 136px;
+    margin-bottom: 10px;
 }

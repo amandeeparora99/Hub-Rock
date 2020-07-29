@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  accountType: number;
+  register: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  registerNextStep(){
+    this.register = 1
+  }
+
+  radioChangedHandler(event: any){
+    this.accountType = event.target.value;
   }
 
 }
