@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,12 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  registerForm: FormGroup;
   accountType: number;
   register: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      nomEmpresa: new FormControl(),
+      nomResponsable: new FormControl(),
+      nomCorreu: new FormControl(),
+      nomContrasenya: new FormControl(),
+      nomRepeteixContrasenya: new FormControl(),
+      nomNifEmpresa: new FormControl()
+    });
   }
 
   registerNextStep(){

@@ -58,30 +58,30 @@
 
             <h1 id="register-title" class="text-center">Dona't d'alta</h1>
 
-            <form>
+            <form [formGroup]="registerForm">
                 <div class="form-group">
                     <label for="InputNom">Nom empresa</label>
-                    <input type="text" class="form-control" id="InputNom">
+                    <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom">
                 </div>
                 <div class="form-group">
                     <label for="InputRealName">Nom responsable</label>
-                    <input type="text" class="form-control" id="InputRealName">
+                    <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName">
                 </div>
                 <div class="form-group">
                     <label for="InputMail">Correu electrònic</label>
-                    <input type="email" class="form-control" id="InputMail" aria-describedby="emailHelp">
+                    <input formControlName="nomCorreu" type="email" class="form-control" id="InputMail" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="InputPassword">Contrasenya</label>
-                    <input type="password" class="form-control" id="InputPassword">
+                    <input formControlName="nomContrasenya" type="password" class="form-control" id="InputPassword">
                 </div>
                 <div class="form-group">
                     <label for="InputPasswordRepeat">Repeteix contrasenya</label>
-                    <input type="password" class="form-control" id="InputPasswordRepeat">
+                    <input formControlName="nomRepeteixContrasenya" type="password" class="form-control" id="InputPasswordRepeat">
                 </div>
                 <div class="form-group" *ngIf="accountType == 2">
                     <label for="InputNIF">NIF empresa</label>
-                    <input type="text" class="form-control" id="InputNIF">
+                    <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF">
                 </div>
                 <div class="text-center">
                     <button type="submit" id="btn-login" class="btn btn-primary">CREAR L'USUARI</button>
