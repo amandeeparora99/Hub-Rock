@@ -8,18 +8,18 @@
 
             <h1 id="title" class="text-center">Inicia sessió</h1>
 
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <div class="form-group">
                     <label for="InputCorreu">Correu</label>
-                    <input type="email" class="form-control" id="InputCorreu" aria-describedby="emailHelp">
+                    <input formControlName="email" type="email" class="form-control" id="InputCorreu" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group">
                     <label for="InputContrasenya">Contrasenya</label>
-                    <input type="password" class="form-control" id="InputContrasenya">
+                    <input fromControlName="password" type="password" class="form-control" id="InputContrasenya">
                     <p id="forgot-password"><a href="#">Has oblidat la contrasenya?</a></p>
                 </div>
                 <div class="text-center">
-                    <button type="submit" id="btn-login" class="btn btn-primary">INICIA SESSIÓ</button>
+                    <button id="btn-login" class="btn btn-primary">INICIA SESSIÓ</button>
                 </div>
             </form>
             <hr>

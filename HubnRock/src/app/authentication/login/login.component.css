@@ -67,6 +67,7 @@ a:hover {
 }
 
 #login-container hr {
-    border-color: #020e7d;
+    height: 2px;
+    background-color: #020e7d;
     margin-top: 57px;
 }
