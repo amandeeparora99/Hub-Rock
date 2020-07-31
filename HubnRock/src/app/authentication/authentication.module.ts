@@ -6,7 +6,8 @@ import { ReusableModule } from '../reusable/reusable.module';
 
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { RestorePasswordComponent } from './restorePassword/restore-password.component';  
+import { RestorePasswordComponent } from './restorePassword/restore-password.component';
+import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 
 @NgModule({
@@ -19,6 +20,9 @@ import { RestorePasswordComponent } from './restorePassword/restore-password.com
     CommonModule,
     ReusableModule,
     RouterModule
+  ],
+  providers: [
+    HttpCommunicationService
   ]
 })
 export class AuthenticationModule { }

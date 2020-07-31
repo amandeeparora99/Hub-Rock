@@ -37,7 +37,7 @@ form input {
     color: black;
     border: 0;
     font-family: 'WorkSans-Regular';
-    font-weight: 800;
+    font-weight: 600;
 }
 
 a {
@@ -57,7 +57,7 @@ a:hover {
 
 #no-user a {
     font-family: 'WorkSans-Regular';
-    font-weight: 800;
+    font-weight: 600;
 }
 
 #forgot-password {
