@@ -5,15 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { ReptesComponent } from './reptes/reptes.component';
+import { ReusableModule } from './reusable/reusable.module'; 
 
 @NgModule({
   declarations: [
     AppComponent,
+    ReptesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthenticationModule
+    AuthenticationModule,
+    ReusableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

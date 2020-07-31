@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +28,10 @@ export class RegisterComponent implements OnInit {
       'required': 'Introdueix una contrasenya'
     },
     'nomRepeteixContrasenya': {
-      'required': 'Introdueix una contrasenya'
+      'required': 'Introdueix de nou la contrasenya'
+    },
+    'contrasenyaGroup': {
+      'passwordMismatch': 'Les contrasenyes no coincideixen'
     },
     'nomNifEmpresa': {
       'required': 'Introdueix un NIF empresa'
@@ -41,6 +44,7 @@ export class RegisterComponent implements OnInit {
     'nomCorreu': '',
     'nomContrasenya': '',
     'nomRepeteixContrasenya': '',
+    'contrasenyaGroup': '',
     'nomNifEmpresa': ''
   }
 
@@ -51,8 +55,10 @@ export class RegisterComponent implements OnInit {
       nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       nomResponsable: ['', Validators.required],
       nomCorreu: ['', Validators.required],
-      nomContrasenya: ['', Validators.required],
-      nomRepeteixContrasenya: ['', Validators.required],
+      contrasenyaGroup: this.fb.group({
+        nomContrasenya: ['', Validators.required],
+        nomRepeteixContrasenya: ['', Validators.required]
+      }, {validator: passwordsMatch}),
       nomNifEmpresa: ['', Validators.required]
     })
 
@@ -64,22 +70,23 @@ export class RegisterComponent implements OnInit {
   logValidationErrors(group: FormGroup = this.registerForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
-      if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
-      }
-      else {
-        this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid && 
-          (abstractControl.touched || abstractControl.dirty)) {
-          const messages = this.validationMessages[key];
-          
-          for (const errorKey in abstractControl.errors) {
-            if (errorKey) {
-              this.formErrors[key] += messages[errorKey] + ' ';
-            }
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid && 
+        (abstractControl.touched || abstractControl.dirty)) {
+        const messages = this.validationMessages[key];
+        
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
       }
+
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+
     })
   }
 
@@ -100,4 +107,17 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm.value);
   }
 
+  
+}
+
+function passwordsMatch(group: AbstractControl): {[key: string]: any} | null {
+  const passwordControl = group.get('nomContrasenya');
+  const confirmPasswordControl = group.get('nomRepeteixContrasenya');
+
+  if (passwordControl.value === confirmPasswordControl.value || confirmPasswordControl.pristine){
+    return null;
+  }
+  else {
+    return { 'passwordMismatch': true };
+  }
 }

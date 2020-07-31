@@ -1,0 +1,90 @@
+#hubrock-reptes #banner {
+    height: 453px;
+    background-color: #00e292;
+}
+
+#hubrock-reptes #banner .container {
+    max-width: 1110px;
+}
+
+#hubrock-reptes #banner .container .title {
+    font-family: 'WorkSans-Bold';
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: -2.47px;
+    color: #020e7d;
+}
+
+#hubrock-reptes #banner .container .subtitle {
+    font-family: 'WorkSans-Regular';
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.99px;
+    color: #020e7d;
+}
+
+#hubrock-reptes #toolbar {
+    margin-top: 72px;
+}
+
+
+#hubrock-reptes #toolbar #searchbar {
+    width: 445px;
+    max-width: 445px;
+    height: 50px;
+    border-color: #020e7d;
+}
+
+#icon {
+    background-color: white;
+    border-color: #020e7d;
+    border-right: 0;
+}
+
+#icon:hover {
+    color: black
+}
+
+#hubrock-reptes #toolbar #category {
+    max-width: 500px;
+}
+
+#category .category-item {
+    flex-basis: 100px;
+    flex-grow: 1;
+    margin: 0px 10px;
+}
+
+#category .category-item .category-text {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: -0.58px;
+}
+
+
+.reptestitle {
+    margin-top: 60px;
+    font-family: 'WorkSans-Bold';
+    font-size: 50px;
+    letter-spacing: -2.06px;
+    color: #020e7d;
+    margin-bottom: 56px;
+}
+
+#hubrock-reptesoberts, #hubrock-reptesproces, #hubrock-reptestancats {
+    margin-bottom: 128px;
+}
+
+.btn-veure-mes {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
