@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { ReusableModule } from '../reusable/reusable.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -19,7 +20,8 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   imports: [
     CommonModule,
     ReusableModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [
     HttpCommunicationService

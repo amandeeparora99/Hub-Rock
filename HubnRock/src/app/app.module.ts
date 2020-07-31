@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     AuthenticationModule,
     ReusableModule
   ],
-  providers: [],
+  providers: [HttpCommunicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

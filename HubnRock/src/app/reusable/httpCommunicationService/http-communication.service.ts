@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ReusableModule } from '../reusable.module';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+interface User {
+  email: String,
+  password: String
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class HttpCommunicationService {
-/*
+
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -22,11 +30,12 @@ export class HttpCommunicationService {
 
   login(email: string, password: string) {
     console.log(email + " " + password);
-    return this.http.post<any>(environment.api_url + '/login', { email, password })
+    return this.http.post<any>('http://apimin.cenobify.com' + '/login', { email, password })
       .pipe(map(data => {
         // login successful if there's a jwt token in the response
         if (data.code == "302") {
           if (data && data.token) {
+            console.log("error servei")
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
             this.currentUserSubject.next(data);
@@ -35,5 +44,5 @@ export class HttpCommunicationService {
         return data;
       }));
   }
-*/
+
 }
