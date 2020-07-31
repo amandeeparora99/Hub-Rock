@@ -1,0 +1,66 @@
+
+
+#h1-div {
+    max-width: 780px;
+}
+
+#h2-div {
+    max-width: 700px;
+}
+
+.espai-left {
+    max-width: 165px;
+}
+
+#reptes-section {
+    background-color: red;
+}
+
+#intro-section {
+    height: 100vh;
+    font-family: 'WorkSans-Regular';
+    color: #020e7d;
+    flex-wrap: wrap;
+    background-color: rgba(0, 226, 146, 0.64);
+    z-index: 2;
+}
+
+h1 {
+    font-size: 60px;
+    letter-spacing: -2.47px;
+    font-family: 'WorkSans-Bold';
+    line-height: 60px;
+}
+
+h2 {
+    font-size: 24px;
+    letter-spacing: -0.99px;
+    line-height: 30px;
+    font-weight: 500;
+}
+
+#crear-repte {
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    color: #020e7d;
+}
+
+#veure-reptes {
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    color: white;
+}
