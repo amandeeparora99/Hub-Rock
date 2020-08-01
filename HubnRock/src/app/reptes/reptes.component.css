@@ -1,3 +1,8 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+}
+
 #hubrock-reptes #banner {
     height: 453px;
     background-color: #00e292;
@@ -25,6 +30,10 @@
 
 #hubrock-reptes #toolbar {
     margin-top: 72px;
+}
+
+#hubrock-reptes #toolbar > div{
+    margin-bottom: 12px;
 }
 
 
@@ -87,4 +96,24 @@
     border: 0;
     font-family: 'WorkSans-Regular';
     font-weight: 800;
+}
+
+.fitxa-repte .desc-repte {
+    margin-bottom: 39px;
+    font-size: 14px;
+    letter-spacing: -0.95px;
+}
+
+.fitxa-repte .titol-repte {
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.54px;
+}
+
+.tags {
+    margin-top: 30px;
+}
+
+.tags .tag {
+    margin: 2px;
 }
