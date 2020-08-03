@@ -38,10 +38,12 @@
 
 
 #hubrock-reptes #toolbar #searchbar {
-    width: 445px;
-    max-width: 445px;
     height: 50px;
     border-color: #020e7d;
+}
+
+#hubrock-reptes .container .test {
+    max-width: 451px;
 }
 
 #icon {
@@ -55,11 +57,18 @@
 }
 
 #hubrock-reptes #toolbar #category {
-    max-width: 500px;
+    max-width: 445px;
+}
+
+@media (min-width: 1199.98px) {
+    .flex-end-desktop {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 #category .category-item {
-    flex-basis: 100px;
+    flex-basis: 77px;
     flex-grow: 1;
     margin: 0px 10px;
 }
@@ -116,4 +125,8 @@
 
 .tags .tag {
     margin: 2px;
+}
+
+.card {
+    margin-bottom: 20px;
 }
