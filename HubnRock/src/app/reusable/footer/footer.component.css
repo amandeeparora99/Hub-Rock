@@ -64,6 +64,7 @@
     margin-top: 33px;
 }
 
-.include-padding p, .include-padding a {
+.include-padding p,
+.include-padding a {
     margin-right: 25px;
 }

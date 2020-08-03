@@ -1,43 +1,301 @@
-
-
-#h1-div {
-    max-width: 780px;
-}
-
-#h2-div {
-    max-width: 700px;
-}
-
-.espai-left {
-    max-width: 165px;
-}
-
-#reptes-section {
-    background-color: red;
-}
-
-#intro-section {
-    height: 600px;
+* {
     font-family: 'WorkSans-Regular';
-    color: #020e7d;
-    flex-wrap: wrap;
-    background-color: rgba(0, 226, 146, 0.64);
-    z-index: 2;
+    font-size: 14px;
 }
 
-h1 {
+#container-fluid {
+    height: 599px;
+    background-color: rgba(0, 226, 146, 0.64);
+}
+
+#banner-background-image {
+    background-image: url('https://images3.alphacoders.com/823/82317.jpg');
+    background-repeat: no-repeat;
+}
+
+#banner-title-div {
+    max-width: 734px;
+    margin-bottom: 30px;
+}
+
+#banner-subtitle-div {
+    max-width: 734px;
+    margin-bottom: 79px;
+}
+
+.max-width-button {
+    max-width: 597px;
+}
+
+#crear-repte {
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    color: #020e7d;
+}
+
+#veure-reptes {
+    margin-bottom: 20px;
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    color: white;
+}
+
+#banner-title {
+    color: #020e7d;
     font-size: 60px;
     letter-spacing: -2.47px;
     font-family: 'WorkSans-Bold';
     line-height: 60px;
 }
 
-h2 {
+#banner-subtitle {
+    font-family: 'WorkSans-Regular';
+    color: #020e7d;
     font-size: 24px;
     letter-spacing: -0.99px;
     line-height: 30px;
-    font-weight: 500;
+    font-weight: 600;
 }
+
+.reptestitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 50px;
+    letter-spacing: -2.06px;
+    color: #020e7d;
+    margin-bottom: 56px;
+}
+
+#btn-veure-tots-reptes {
+    background-color: #00e292;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    color: #000000;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+    border-radius: 8px;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 78px;
+}
+
+#hubrock-reptes .container {
+    max-width: 1110px;
+    padding-top: 82px;
+}
+
+#hubrock-what .container {
+    max-width: 1110px;
+}
+
+img {
+    max-width: 100%;
+}
+
+#hubrock-reptes {
+    background-color: #f7faff;
+}
+
+#hubrock-what {
+    padding-top: 84px;
+    padding-bottom: 115px;
+}
+
+#what-title {
+    color: #020e7d;
+    font-size: 50px;
+    letter-spacing: -2.06px;
+    font-family: 'WorkSans-Bold';
+    line-height: 52px;
+    margin-bottom: 38px;
+}
+
+#what-text {
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: -0.66px;
+    font-family: 'WorkSans-Regular';
+    margin-bottom: 34px;
+}
+
+#what-btn {
+    color: #000000;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    border-radius: 8px;
+    background-color: white;
+    border: 2px solid #020e7d;
+    font-weight: 800;
+    font-family: 'WorkSans-Regular';
+    width: 206px;
+    height: 40px;
+    margin-bottom: 28px;
+}
+
+#what-small-letter {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+    letter-spacing: -0.58px;
+    columns: #000000;
+    margin: auto;
+    margin-left: 16px;
+}
+
+#what-desc-col {
+    min-width: 300px;
+}
+
+#hubrock-who .container {
+    max-width: 1110px;
+}
+
+#hubrock-who {
+    padding-top: 76px;
+    padding-bottom: 107px;
+    background-color: #f7faff;
+}
+
+.section-titles {
+    font-family: 'WorkSans-Bold';
+    font-size: 50px;
+    letter-spacing: -2.06px;
+    color: #020e7d;
+}
+
+#hubrock-who-card-row .card {
+    border: none;
+    background-color: #f7faff;
+}
+
+.who-image {
+    margin-bottom: 50px;
+    margin-top: 90px;
+}
+
+.who-title {
+    font-size: 22px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -0.91px;
+    color: #020e7d;
+}
+
+.who-text {
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.58px;
+    font-size: 14px;
+}
+
+.who-btn {
+    color: #000000;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    border-radius: 8px;
+    background-color: #f7faff;
+    border: 2px solid #020e7d;
+    font-weight: 800;
+    font-family: 'WorkSans-Regular';
+    width: 146px;
+    height: 40px;
+}
+
+#hubrock-sponsors .container {
+    max-width: 1110px;
+}
+
+#sponsors-text-div {
+    text-align: center;
+    max-width: 747px;
+}
+
+#sponsors-text {
+    line-height: 23px;
+    font-size: 18px;
+    letter-spacing: -0.74;
+    font-family: 'WorkSans-Regular';
+}
+
+#sponsors-title {
+    font-size: 50px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -2.06px;
+    color: #020e7d;
+}
+
+#hubrock-sponsors {
+    padding-top: 90px;
+    padding-bottom: 149px;
+}
+
+#sponsors-img-div img {
+    margin-bottom: 95px;
+}
+
+#sponsors-small-letter {
+    font-family: 'WorkSans-Regular';
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    color: #020e7d;
+    font-weight: 800;
+}
+
+#sponsors-btn {
+    border: none;
+    background-color: #00e292;
+    border-radius: 8px;
+    width: 285px;
+    height: 55px;
+    font-family: 'WorkSans-Regular';
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    color: #000000;
+    font-weight: 800;
+}
+
+.fitxa-repte .desc-repte {
+    margin-bottom: 39px;
+    font-size: 14px;
+    letter-spacing: -0.95px;
+}
+
+.fitxa-repte .titol-repte {
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.54px;
+}
+
+.tags {
+    margin-top: 30px;
+}
+
+.tags .tag {
+    margin: 2px;
+}
+
+
+/* 
+
+
+
+#reptes-section {
+    background-color: red;
+}
+
+
 
 #crear-repte {
     width: 277px;
@@ -63,4 +321,4 @@ h2 {
     border-radius: 8px;
     border: none;
     color: white;
-}
+} */
