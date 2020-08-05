@@ -9,17 +9,19 @@
             <h1 id="title" class="text-center">Inicia sessió</h1>
 
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{'has-errors' : formErrors.email}">
                     <label for="InputCorreu">Correu</label>
-                    <input formControlName="email" type="email" class="form-control" id="InputCorreu" aria-describedby="emailHelp">
+                    <input formControlName="email" type="email" class="form-control" id="InputCorreu" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.email">{{formErrors.email}}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{'has-errors' : formErrors.password}">
                     <label for="InputContrasenya">Contrasenya</label>
-                    <input fromControlName="password" type="password" class="form-control" id="InputContrasenya">
+                    <input formControlName="password" type="password" class="form-control" id="InputContrasenya" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.password">{{formErrors.password}}</span>
                     <p id="forgot-password"><a routerLink='/restore'>Has oblidat la contrasenya?</a></p>
                 </div>
                 <div class="text-center">
-                    <button id="btn-login" class="btn btn-primary">INICIA SESSIÓ</button>
+                    <button id="btn-login" [disabled]="loginForm.invalid" class="btn btn-primary">INICIA SESSIÓ</button>
                 </div>
             </form>
             <hr>

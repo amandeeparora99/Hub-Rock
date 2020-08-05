@@ -27,6 +27,18 @@ form input {
     margin-bottom: 60px;
 }
 
+.has-errors input {
+    border: 1px solid red;
+}
+
+.has-errors label {
+    color: red;
+}
+
+.has-errors span {
+    color: red;
+}
+
 #login-container #btn-login {
     margin-top: 60px;
     width: 350px;
