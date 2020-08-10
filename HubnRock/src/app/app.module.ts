@@ -8,12 +8,14 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { ReptesComponent } from './reptes/reptes.component';
 import { ReusableModule } from './reusable/reusable.module'; 
 import { HomepageComponent } from './homepage/homepage.component';
+import { RepteComponent } from './repte/repte.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReptesComponent,
     HomepageComponent,
+    RepteComponent,
   ],
   imports: [
     BrowserModule,

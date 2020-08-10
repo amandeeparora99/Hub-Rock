@@ -6,6 +6,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { ReptesComponent } from './reptes/reptes.component';
 import { RestorePasswordComponent } from './authentication/restorePassword/restore-password.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { RepteComponent } from './repte/repte.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'reptes', component: ReptesComponent},
   { path: 'restore', component: RestorePasswordComponent},
-  { path: 'homepage', component: HomepageComponent}
+  { path: 'homepage', component: HomepageComponent},
+  { path: 'repte', component: RepteComponent }
 ];
 
 @NgModule({

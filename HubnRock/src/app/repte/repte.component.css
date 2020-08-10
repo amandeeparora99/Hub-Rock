@@ -1,0 +1,175 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+#hubrock-repte-banner {
+    height: 542px;
+    background-color: burlywood;
+}
+
+#hubrock-repte-info {
+    background-color: #f7faff;
+}
+
+#hubrock-repte-info .repteowner{
+    font-size: 24px;
+    letter-spacing: -0.33px;
+    color: #020e7d;
+    margin-left: 10px
+}
+
+#hubrock-repte-info .owner {
+    margin: 27px 0;
+}
+
+#repte-infobox .reptetitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    line-height: 42px;
+    letter-spacing: -0.47px;
+}
+
+#repte-infobox .reptedesc {
+    max-width: 531px;
+    line-height: 20px;
+    letter-spacing: -0.22px;
+    margin-top: 17px;
+}
+
+#repte-infobox .whocanparticipate {
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.25px;
+    margin-top: 40px;
+    margin-bottom: 16px;
+}
+
+#repte-infobox .participateimg {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px
+}
+
+.typetext {
+    font-size: 14px;
+}
+
+
+.category-div {
+    max-width: 315px;
+}
+
+.info-div {
+    max-width: 574px;
+}
+
+
+@media (min-width: 1199.98px) {
+    .flex-end-desktop {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .flex-items-end {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    
+
+    .tablet-left {
+        justify-content: flex-end;
+    }
+}
+
+
+#category .category-item {
+    flex-basis: 77px;
+    flex-grow: 1;
+    margin: 0px 10px;
+}
+
+
+
+
+
+#infobox .infobox-container {
+    margin-top: 50px;
+}
+
+#infobox #tabs {
+    border: 3px solid #f3f3f3;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+}
+
+#infobox .nav-link {
+    background-color: #f3f3f3;
+    color: black;
+}
+
+#infobox .nav-link.active {
+    background-color: #00e292;
+    color: black;
+    font-family: 'WorkSans-Bold';
+}
+
+.tab-content p{
+    letter-spacing: -0.22px;
+}
+
+.tab-content .tabtitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 36px;
+    letter-spacing: -0.5px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.tab-content .maxwidth-540 {
+    margin-bottom: 40px;
+    max-width: 540px;
+}
+
+.margin-top {
+    margin-top: 40px;
+}
+
+.tab-content #videorepte {
+    margin-bottom: 87px;
+}
+
+.solucio-info h5{
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.25px;
+}
+
+.solucio-info p{
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.2px;
+}
+
+#sabermes {
+    margin-bottom: 110px;
+}
+
+#solucionsbuscades {
+    background-color: #f7faff;
+    margin-bottom: 30px;
+}
+
+#solucionsbuscades .card {
+    margin-bottom: 20px;
+}
+
+.howtoparticipateimg {
+    width: 40px;
+    height: 40px;
+}
+
+#comparticiparwho > div {
+    margin: 0px 15px;
+}
