@@ -37,7 +37,8 @@ form input {
     color: black;
     border: 0;
     font-family: 'WorkSans-Regular';
-    font-weight: 600;
+    font-weight: 800;
+    border-radius: 8px;
 }
 
 a {
