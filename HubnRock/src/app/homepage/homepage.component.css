@@ -95,12 +95,7 @@
 }
 
 #hubrock-reptes .container {
-    max-width: 1110px;
     padding-top: 82px;
-}
-
-#hubrock-what .container {
-    max-width: 1110px;
 }
 
 img {
@@ -284,6 +279,10 @@ img {
 
 .tags .tag {
     margin: 2px;
+}
+
+.card {
+    margin-bottom: 20px;
 }
 
 
