@@ -140,6 +140,7 @@
     margin-bottom: 87px;
 }
 
+
 .solucio-info h5{
     font-family: 'WorkSans-Bold';
     font-size: 18px;
@@ -172,4 +173,33 @@
 
 #comparticiparwho > div {
     margin: 0px 15px;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px;
+}
+
+.text-readmore {
+    margin-bottom: 100px;
+}
+.text-readmore div p {
+    max-width: 506px;
+    margin-bottom: 60px;
+    font-size: 16px;
+    letter-spacing: -0.22px;
+}
+
+
+
+
+#premis-tab .nav-link{
+    border-radius: 50%;
+    height: 96px;
+    width: 96px;
+    padding-top: 20px;
+}
+
+@media (min-width: 992px) { 
+    #premis-tab .nav-link{
+    }
 }
