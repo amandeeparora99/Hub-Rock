@@ -21,18 +21,6 @@
     color: #020e7d;
 }
 
-#btn-crear {
-    font-size: 17px;
-    border: none;
-    border-radius: 8px;
-    width: 214px;
-    font-family: 'WorkSans-Regular';
-    font-weight: 900;
-    letter-spacing: -0.9px;
-    background-color: #00e292;
-    color: #020e7d;
-}
-
 #perfil-nom {
     font-family: 'WorkSans-Regular';
     font-size: 30px;
@@ -59,7 +47,7 @@
     }
 }
 
-#perfil-empresa-tabs .nav-link {
+#perfil-usuari-tabs .nav-link {
     background-color: white;
     color: black;
     letter-spacing: -0.85px;
@@ -68,7 +56,7 @@
     font-family: 'WorkSans-Regular';
 }
 
-#perfil-empresa-tabs .nav-link.active {
+#perfil-usuari-tabs .nav-link.active {
     color: #020e7d;
     font-size: 18px;
     letter-spacing: -0.85px;
@@ -76,19 +64,19 @@
     padding: 0px;
 }
 
-#perfil-empresa-tabs {
+#perfil-usuari-tabs {
     padding-top: 70px;
     padding-bottom: 70px;
 }
 
-#empresa .card-title {
+#usuari .card-title {
     font-size: 20px;
     letter-spacing: -1.06px;
     font-family: 'WorkSans-Bold';
     color: #000000;
 }
 
-#empresa .card-text {
+#usuari .card-text {
     font-size: 16px;
     letter-spacing: -0.22px;
     font-family: 'WorkSans-Regular';
@@ -126,7 +114,7 @@ a {
     cursor: default;
 }
 
-.link-perfil-empresa {
+.link-perfil-usuari {
     color: #020e7d;
     font-family: 'WorkSans-Regular';
     letter-spacing: -0.25px;

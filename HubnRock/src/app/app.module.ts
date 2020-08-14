@@ -10,6 +10,7 @@ import { ReusableModule } from './reusable/reusable.module';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RepteComponent } from './repte/repte.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.componen
     HomepageComponent,
     RepteComponent,
     PerfilEmpresaComponent,
+    PerfilUsuariComponent,
   ],
   imports: [
     BrowserModule,
