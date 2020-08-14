@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,18 +11,21 @@ export class RestorePasswordComponent implements OnInit {
 
   restoreForm: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-
-    this.restoreForm = new FormGroup({
-      email: new FormControl(),
+    this.restoreForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
     });
-
+    
   }
 
   onRestore(): void {
     console.log(this.restoreForm.value)
+    console.log(this.restoreForm.get('email').errors)
+    console.log(this.restoreForm.get('email').touched)
+    console.log(this.restoreForm.get('email').dirty)
+
   }
   
 

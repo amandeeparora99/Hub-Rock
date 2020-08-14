@@ -9,6 +9,8 @@ import { ReptesComponent } from './reptes/reptes.component';
 import { ReusableModule } from './reusable/reusable.module'; 
 import { HomepageComponent } from './homepage/homepage.component';
 import { RepteComponent } from './repte/repte.component';
+import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { RepteComponent } from './repte/repte.component';
     ReptesComponent,
     HomepageComponent,
     RepteComponent,
+    PerfilEmpresaComponent,
   ],
   imports: [
     BrowserModule,
