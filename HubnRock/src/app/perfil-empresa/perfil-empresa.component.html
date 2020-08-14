@@ -53,13 +53,13 @@
                 <a class="nav-link tab-label" data-toggle="pill" href="#solucions">Solucions</a>
             </li>
         </ul>
-        <hr>
+        <hr class="tab-content-mb">
 
         <!-- Tab panes -->
         <div class="tab-content">
 
             <!-- TABS INFO EMPRESA -->
-            <div id="empresa" class="container tab-pane card active card-radius tab-content-mt">
+            <div id="empresa" class="container tab-pane card active card-radius">
                 <div class="card-body">
                     <div class="mb-5 mt-3">
                         <h5 class="card-title">Sobre nosaltres</h5>
@@ -82,10 +82,10 @@
             <!-- TABS REPTES CREATS -->
             <div id="reptes" class="tab-pane fade">
                 <!-- ESBORRANYS -->
-                <h1 class="reptestitle tab-content-mt">Esborranys</h1>
+                <h1 class="reptestitle">Esborranys</h1>
                 <p class="small-letter">Fes clic sobre un repte per seguir creant-lo</p>
 
-                <div class="d-flex mt-5">
+                <div class="d-flex mt-5 flex-column align-items-center esborranys-mb">
                     <div class="row w-100">
                         <div class="col-md-4 col-sm-6">
                             <div class="card">
@@ -117,9 +117,9 @@
                 </div>
 
                 <!-- RETPES PUBLICATS -->
-                <h1 class="reptestitle tab-content-mt">Reptes publicats</h1>
+                <h1 class="reptestitle">Reptes publicats</h1>
 
-                <div class="d-flex mt-5">
+                <div class="d-flex flex-column align-items-center mt-5">
                     <div class="row w-100">
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
@@ -204,60 +204,88 @@
 
             <!-- TABS SOLUCIONS -->
             <div id="solucions" class="tab-pane fade">
-                <h1 class="reptestitle tab-content-mt">Esborranys</h1>
-                <div class="d-flex flex-column align-items-center mt-5">
+                <h1 class="reptestitle">Esborranys</h1>
+                <div class="d-flex flex-column align-items-center mt-5 esborranys-mb">
                     <div class="row w-100">
                         <div class="col-md-4 col-sm-6">
-                            <div class="card card-solucio">
+                            <div class="card solucio-esborrany p-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Nou packaging ecològic</h5>
-                                    <h6 class="card-subtitle mb-5">Repte Creació nou packaging</h6>
+                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Creació nou packaging</a></h6>
 
+                                </div>
+                                <div class="card-footer bg-transparent">
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-auto pr-0">
                                             <img src="https://dummyimage.com/45x45/00e292/fff" alt="">
                                         </div>
-                                        <div class="col">
-                                            6 de juliol <br> Queden 8 dies
+                                        <div class="col solucio-footer m-auto">
+                                            <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="card card-solucio">
+                    </div>
+                </div>
+
+                <h1 class="reptestitle">Solucions enviades</h1>
+                <div class="d-flex flex-column align-items-center mt-5 esborranys-mb">
+                    <div class="row w-100">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card solucio-enviat p-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Nou packaging ecològic</h5>
-                                    <h6 class="card-subtitle mb-5">Repte Creació nou packaging</h6>
+                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Creació nou packaging</a></h6>
 
+                                </div>
+                                <div class="card-footer bg-transparent">
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-auto pr-0">
                                             <img src="https://dummyimage.com/45x45/00e292/fff" alt="">
                                         </div>
-                                        <div class="col">
-                                            6 de juliol <br> Queden 8 dies
+                                        <div class="col m-auto solucio-footer">
+                                            Pol Roig
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="card card-solucio">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card solucio-enviat p-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Nou packaging ecològic</h5>
-                                    <h6 class="card-subtitle mb-5">Repte Creació nou packaging</h6>
+                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Creació nou packaging</a></h6>
 
+                                </div>
+                                <div class="card-footer bg-transparent">
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-auto pr-0">
                                             <img src="https://dummyimage.com/45x45/00e292/fff" alt="">
                                         </div>
-                                        <div class="col">
-                                            6 de juliol <br> Queden 8 dies
+                                        <div class="col m-auto solucio-footer">
+                                            Pol Roig
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card solucio-enviat p-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nou packaging ecològic</h5>
+                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Creació nou packaging</a></h6>
 
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
+                                            <img src="https://dummyimage.com/45x45/00e292/fff" alt="">
+                                        </div>
+                                        <div class="col m-auto solucio-footer">
+                                            Pol Roig
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

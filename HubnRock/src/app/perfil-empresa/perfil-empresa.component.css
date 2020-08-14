@@ -174,8 +174,12 @@ a {
     color: #000000;
 }
 
-.tab-content-mt {
-    margin-top: 65px;
+.tab-content-mb {
+    margin-bottom: 65px;
+}
+
+.esborranys-mb {
+    margin-bottom: 90px;
 }
 
 .tags {
@@ -193,8 +197,63 @@ a {
     color: #000000;
 }
 
-.card-solucio {
+
+/* SOLUCIONS CARD */
+
+#solucions .card {
     border-radius: 14px;
+    height: 250px;
+    border: none;
+}
+
+#solucions .card-footer {
+    border: none;
+}
+
+#solucions .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#solucions .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#solucions .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#solucions .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#solucions .card-subtitle a {
+    color: #020e7d;
+}
+
+#solucions .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#solucions .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#solucions .esborrany-inici {
+    color: #000000;
+}
+
+#solucions .esborrany-final {
+    color: #9e0193;
 }
 
 
