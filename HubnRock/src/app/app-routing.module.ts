@@ -9,6 +9,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RepteComponent } from './repte/repte.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
 import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
+import { SolucioComponent } from './solucio/solucio.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'repte', component: RepteComponent },
   { path: 'perfil-empresa', component: PerfilEmpresaComponent},
-  { path: 'perfil-usuari', component: PerfilUsuariComponent}
+  { path: 'perfil-usuari', component: PerfilUsuariComponent},
+  { path: 'solucio', component: SolucioComponent}
 ];
 
 @NgModule({

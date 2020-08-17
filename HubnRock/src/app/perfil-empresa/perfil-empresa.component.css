@@ -3,12 +3,6 @@
     font-size: 14px;
 }
 
-@media (max-width: 766px) {
-    .col-mt {
-        margin-top: 1%;
-    }
-}
-
 #btn-editar {
     font-size: 17px;
     border: 1px solid #020e7d;
@@ -45,18 +39,6 @@
     font-family: 'WorkSans-Regular';
     font-size: 18px;
     letter-spacing: -0.95px;
-}
-
-@media (min-width: 990px) {
-    .col-mr {
-        margin-right: 4%;
-    }
-}
-
-@media (max-width: 450px) {
-    #btn-editar {
-        margin-bottom: 10px;
-    }
 }
 
 #perfil-empresa-tabs .nav-link {
@@ -252,4 +234,22 @@ a {
 
 #solucions .esborrany-final {
     color: #9e0193;
+}
+
+@media (max-width: 766px) {
+    .col-mt {
+        margin-top: 1%;
+    }
+}
+
+@media (min-width: 990px) {
+    .col-mr {
+        margin-right: 4%;
+    }
+}
+
+@media (max-width: 450px) {
+    #btn-editar {
+        margin-bottom: 10px;
+    }
 }
