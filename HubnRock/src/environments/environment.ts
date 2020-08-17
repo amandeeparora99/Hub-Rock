@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://apimin.cenobify.com'
+  api: 'http://api.hubandrock.com'
 };
 /*
  * For easier debugging in development mode, you can import the following file

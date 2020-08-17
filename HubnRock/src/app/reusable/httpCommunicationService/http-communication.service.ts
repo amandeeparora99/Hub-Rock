@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReusableModule } from '../reusable.module';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -44,6 +44,46 @@ export class HttpCommunicationService {
         }
         return data;
       }));
+  }
+
+  registerEmpresa(email, password, empresa_rockstar, nom_empresa, nom_responsable, nif_empresa, ubicacio, bio): Observable<any> {
+    const body = new HttpParams()
+      .set('email', email)
+      .set('password', password)
+      .set('empresa_rockstar', empresa_rockstar)
+      .set('nom_empresa', nom_empresa)
+      .set('nom_responsable', nom_responsable)
+      .set('nif_empresa', nif_empresa)
+      .set('ubicacio', ubicacio)
+      .set('bio', bio);
+
+    return this.http.post(environment.api + '/user/register',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    );
+  }
+
+  registerRockstar(email, password, nom_rockstar, ocupacio, ubicacio, bio, experiencia, educacio): Observable<any> {
+    const body = new HttpParams()
+      .set('email', email)
+      .set('password', password)
+      .set('nom_rockstar', nom_rockstar)
+      .set('ocupacio', ocupacio)
+      .set('ubicacio', ubicacio)
+      .set('bio', bio)
+      .set('experiencia', experiencia)
+      .set('educacio', educacio);
+
+    return this.http.post(environment.api + '/user/register',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    );
   }
 
 }

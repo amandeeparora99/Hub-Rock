@@ -15,7 +15,7 @@
             <div class="row d-flex justify-content-around">
 
                 <div class="accountType-container">
-                    <input id="account-type1" type="radio" name="myradio" value="1" checked (change)="radioChangedHandler($event)">
+                    <input id="account-type1" type="radio" name="myradio" value="empresa" checked (change)="radioChangedHandler($event)">
                     <label for="account-type1" class="clickable"></label>
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" src="../../../assets/illustrations/Company.png">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="accountType-container">
-                    <input id="account-type2" type="radio" name="myradio" value="2" (change)="radioChangedHandler($event)">
+                    <input id="account-type2" type="radio" name="myradio" value="rockstar" (change)="radioChangedHandler($event)">
                     <label for="account-type2" class="clickable"></label>
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" src="../../../assets/illustrations/Startup.png">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" *ngIf="accountType == 2" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
+                <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
                     <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomNifEmpresa">
@@ -105,9 +105,11 @@
                     </span>
                 </div>
                 <div class="text-center">
-                    <button (click)="onLoadDataClick()" type="submit" id="btn-login" class="btn btn-primary">CREAR L'USUARI</button>
+                    <button type="submit" id="btn-login" [disabled]="registerForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
                 </div>
             </form>
+
+            
         </div>
     </div>
 

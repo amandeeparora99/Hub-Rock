@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  accountType: number;
+  accountType: string = 'empresa';
   register: number = 0;
 
   validationMessages = {
@@ -48,7 +50,7 @@ export class RegisterComponent implements OnInit {
     'nomNifEmpresa': ''
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -58,7 +60,7 @@ export class RegisterComponent implements OnInit {
       contrasenyaGroup: this.fb.group({
         nomContrasenya: ['', Validators.required],
         nomRepeteixContrasenya: ['', Validators.required]
-      }, {validator: passwordsMatch}),
+      }, { validator: passwordsMatch }),
       nomNifEmpresa: ['', Validators.required]
     })
 
@@ -72,10 +74,10 @@ export class RegisterComponent implements OnInit {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
-      if (abstractControl && !abstractControl.valid && 
+      if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
-        
+
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
             this.formErrors[key] += messages[errorKey] + ' ';
@@ -88,33 +90,72 @@ export class RegisterComponent implements OnInit {
       }
 
     })
+
   }
 
-  onLoadDataClick(): void {
-    this.logValidationErrors(this.registerForm);
-    console.log(this.formErrors)
-  }
-
-  registerNextStep(){
+  registerNextStep() {
     this.register = 1
+
   }
 
-  radioChangedHandler(event: any){
+  radioChangedHandler(event: any) {
     this.accountType = event.target.value;
+    const nifControl = this.registerForm.get('nomNifEmpresa');
+    if (event.target.value == "rockstar") {
+      nifControl.clearValidators();
+    }
+    else {
+      nifControl.setValidators(Validators.required);
+    }
   }
 
-  onSubmit(){
-    console.log(this.registerForm.value);
+  onSubmit(): void {
+    if (this.accountType == 'empresa') {
+      this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
+        this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+        '0',
+         this.registerForm.controls.nomEmpresa.value,
+         this.registerForm.controls.nomResponsable.value,
+         this.registerForm.controls.nomNifEmpresa.value,
+         null,
+         null
+         )
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            if (data.code == 302) {
+              //this._router.navigate(["/apps"]);
+              console.log("succcessful")
+
+            }
+            else if (data.code == 534) {
+              this.registerForm.controls['password'].setErrors({ 'password': true });
+              console.log("fallat");
+            }
+            else if (data.code == 533) {
+              this.registerForm.controls['email'].setErrors({ 'email': true });
+              console.log("fallat");
+
+            }
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
+
+    }
   }
 
-  
+
+
 }
 
-function passwordsMatch(group: AbstractControl): {[key: string]: any} | null {
+function passwordsMatch(group: AbstractControl): { [key: string]: any } | null {
   const passwordControl = group.get('nomContrasenya');
   const confirmPasswordControl = group.get('nomRepeteixContrasenya');
 
-  if (passwordControl.value === confirmPasswordControl.value || confirmPasswordControl.pristine){
+  if (passwordControl.value === confirmPasswordControl.value || confirmPasswordControl.pristine) {
     return null;
   }
   else {
