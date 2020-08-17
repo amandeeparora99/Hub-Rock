@@ -9,6 +9,8 @@
 }
 
 #hubrock-repte-info {
+    padding-top: 34px;
+    padding-bottom: 55px;
     background-color: #f7faff;
 }
 
@@ -19,9 +21,6 @@
     margin-left: 10px
 }
 
-#hubrock-repte-info .owner {
-    margin: 27px 0;
-}
 
 #repte-infobox .reptetitle {
     font-family: 'WorkSans-Bold';
@@ -154,7 +153,7 @@
 }
 
 #sabermes {
-    margin-bottom: 110px;
+    margin-bottom: 70px;
 }
 
 #solucionsbuscades {
@@ -189,17 +188,77 @@
     letter-spacing: -0.22px;
 }
 
-
+.text-premis div p {
+    max-width: 506px;
+    font-size: 16px;
+    letter-spacing: -0.22px;
+    margin-bottom: 0;
+}
 
 
 #premis-tab .nav-link{
     border-radius: 50%;
-    height: 96px;
-    width: 96px;
+    height: 94px;
+    width: 94px;
     padding-top: 20px;
 }
 
+#premis-tab {
+    margin-bottom: 64px;
+}
+
 @media (min-width: 992px) { 
-    #premis-tab .nav-link{
+    #premis-tab{
+        max-width: 574px;
+        margin-right: auto;
+        margin-left: auto;
     }
+}
+
+.pricetitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 30px;
+    letter-spacing: -0.42px;
+    margin-bottom: 36px;
+}
+
+#premis-tabContent {
+    margin-bottom: 102px;
+}
+
+#quebusquem .tabtitle {
+    margin-bottom: 70px;
+}
+
+#quebusquem .text-premis {
+    margin-bottom: 100px;
+}
+#quebusquem .text-premis div p {
+    margin-bottom: 35px;
+}
+
+#quebusquem .tematicatitle {
+    margin-bottom: 20px;
+    font-family: 'WorkSans-Bold';
+    font-size: 30px;
+    letter-spacing: -0.42px;
+}
+
+#quebusquem .separator {
+    width: 100%;
+    height: 1px;
+    border: solid 1px #979797;
+    margin-bottom: 52px;
+}
+
+#quebusquem #altresrecursos h1 {
+    margin-bottom: 41px;
+}
+
+#altresrecursosfiles div img {
+    margin-right: 30px;
+}
+
+#altresrecursosfiles div {
+    margin-bottom: 20px;
 }
