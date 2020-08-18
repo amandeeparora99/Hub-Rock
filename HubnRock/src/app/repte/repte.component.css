@@ -18,13 +18,12 @@ img {
     background-color: #f7faff;
 }
 
-#hubrock-repte-info .repteowner{
+#hubrock-repte-info .repteowner {
     font-size: 24px;
     letter-spacing: -0.33px;
     color: #020e7d;
     margin-left: 10px
 }
-
 
 #repte-infobox .reptetitle {
     font-family: 'WorkSans-Bold';
@@ -58,7 +57,6 @@ img {
     font-size: 14px;
 }
 
-
 .category-div {
     max-width: 315px;
 }
@@ -66,7 +64,6 @@ img {
 .info-div {
     max-width: 574px;
 }
-
 
 @media (min-width: 1199.98px) {
     .flex-end-desktop {
@@ -78,24 +75,16 @@ img {
         justify-content: flex-end;
         align-items: flex-end;
     }
-
-    
-
     .tablet-left {
         justify-content: flex-end;
     }
 }
-
 
 #category .category-item {
     flex-basis: 77px;
     flex-grow: 1;
     margin: 0px 10px;
 }
-
-
-
-
 
 #infobox .infobox-container {
     margin-top: 50px;
@@ -118,7 +107,7 @@ img {
     font-family: 'WorkSans-Bold';
 }
 
-.tab-content p{
+.tab-content p {
     letter-spacing: -0.22px;
 }
 
@@ -143,14 +132,13 @@ img {
     margin-bottom: 87px;
 }
 
-
-.solucio-info h5{
+.solucio-info h5 {
     font-family: 'WorkSans-Bold';
     font-size: 18px;
     letter-spacing: -0.25px;
 }
 
-.solucio-info p{
+.solucio-info p {
     font-size: 14px;
     line-height: 1.29;
     letter-spacing: -0.2px;
@@ -174,7 +162,7 @@ img {
     height: 40px;
 }
 
-#comparticiparwho > div {
+#comparticiparwho>div {
     margin: 0px 15px;
 }
 
@@ -185,6 +173,7 @@ img {
 .text-readmore {
     margin-bottom: 100px;
 }
+
 .text-readmore div p {
     max-width: 506px;
     margin-bottom: 60px;
@@ -199,8 +188,7 @@ img {
     margin-bottom: 0;
 }
 
-
-#premis-tab .nav-link{
+#premis-tab .nav-link {
     border-radius: 50%;
     height: 94px;
     width: 94px;
@@ -211,8 +199,8 @@ img {
     margin-bottom: 64px;
 }
 
-@media (min-width: 992px) { 
-    #premis-tab{
+@media (min-width: 992px) {
+    #premis-tab {
         max-width: 574px;
         margin-right: auto;
         margin-left: auto;
@@ -237,6 +225,7 @@ img {
 #quebusquem .text-premis {
     margin-bottom: 100px;
 }
+
 #quebusquem .text-premis div p {
     margin-bottom: 35px;
 }
@@ -266,18 +255,19 @@ img {
 #altresrecursosfiles {
     margin-bottom: 41px;
 }
+
 #altresrecursosfiles div {
     margin-bottom: 20px;
 }
 
-.videos, #baseslegals {
+.videos,
+#baseslegals {
     margin-bottom: 110px;
 }
 
 .videos div:first-child {
     margin-bottom: 40px;
 }
-
 
 #baseslegals .legaltext {
     font-size: 15px;
@@ -287,3 +277,62 @@ img {
 
 /* Solucions */
 
+#solucions .card {
+    border-radius: 14px;
+    height: 250px;
+    border: none;
+}
+
+#solucions .card-footer {
+    border: none;
+}
+
+#solucions .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#solucions .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#solucions .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#solucions .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#solucions .card-subtitle a {
+    color: #020e7d;
+}
+
+#solucions .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#solucions .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#solucions .esborrany-inici {
+    color: #000000;
+}
+
+#solucions .esborrany-final {
+    color: #9e0193;
+}
+
+#solucions .card {
+    margin-bottom: 20px;
+}
