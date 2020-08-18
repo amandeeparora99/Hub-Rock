@@ -3,6 +3,10 @@
     font-size: 16px;
 }
 
+img {
+    max-width: 100%;
+}
+
 #hubrock-repte-banner {
     height: 542px;
     background-color: burlywood;
@@ -259,6 +263,27 @@
     margin-right: 30px;
 }
 
+#altresrecursosfiles {
+    margin-bottom: 41px;
+}
 #altresrecursosfiles div {
     margin-bottom: 20px;
 }
+
+.videos, #baseslegals {
+    margin-bottom: 110px;
+}
+
+.videos div:first-child {
+    margin-bottom: 40px;
+}
+
+
+#baseslegals .legaltext {
+    font-size: 15px;
+    letter-spacing: -0.21px;
+}
+
+
+/* Solucions */
+
