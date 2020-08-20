@@ -12,6 +12,7 @@ import { RepteComponent } from './repte/repte.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
 import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
 import { SolucioComponent } from './solucio/solucio.component';
+import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SolucioComponent } from './solucio/solucio.component';
     PerfilEmpresaComponent,
     PerfilUsuariComponent,
     SolucioComponent,
+    CreacioRepteComponent,
   ],
   imports: [
     BrowserModule,

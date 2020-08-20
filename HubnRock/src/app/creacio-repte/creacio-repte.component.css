@@ -1,0 +1,121 @@
+label {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    font-family: 'WorkSans-Bold';
+}
+
+label.additional-info {
+    font-size: 15px;
+    letter-spacing: -0.38px;
+    font-family: 'WorkSans-Regular';
+}
+
+textarea#InputBreuDescripcio {
+    height: 100px;
+}
+
+input {
+    height: 55px;
+}
+
+textarea {
+    height: 230px;
+    box-sizing: border-box;
+    border: 1px solid #b6b6b6;
+    border-radius: 10px;
+    resize: none;
+    padding: 12px 20px;
+}
+
+#title {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+}
+
+#pagetitle {
+    font-size: 48px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -1.67px;
+}
+
+#reptetitle {
+    margin-top: 1rem;
+    font-size: 24px;
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.83px;
+}
+
+.has-errors input {
+    border: 1px solid red;
+}
+
+.has-errors label {
+    color: red;
+}
+
+.has-errors span {
+    color: red;
+}
+
+.step-text {
+    font-size: 20px;
+    letter-spacing: -0.68px;
+    font-family: 'WorkSans-Regular';
+}
+
+.step-text.active {
+    font-family: 'WorkSans-Bold';
+}
+
+.step {
+    height: 65px;
+    width: 65px;
+    margin: 15px 2px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 10px;
+    font-family: 'WorkSans-Regular';
+    font-size: 28px;
+    letter-spacing: -0.39px;
+}
+
+.step.active {
+    background-color: #00e292;
+    font-family: 'WorkSans-Bold';
+}
+
+.step.finish {
+    background-color: #4CAF50;
+}
+
+.btn-manage {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #020e7d;
+    color: #020e7d;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
+
+.btn-submit {
+    margin: 2px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    color: #000000;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: #00e292;
+    height: 55px;
+}
