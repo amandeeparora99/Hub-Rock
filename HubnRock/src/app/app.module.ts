@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -28,7 +28,8 @@ import { SolucioComponent } from './solucio/solucio.component';
     BrowserModule,
     AppRoutingModule,
     AuthenticationModule,
-    ReusableModule
+    ReusableModule,
+    FormsModule
   ],
   providers: [HttpCommunicationService],
   bootstrap: [AppComponent]
