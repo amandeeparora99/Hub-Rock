@@ -260,6 +260,15 @@ img {
     margin-bottom: 20px;
 }
 
+.btn-quebusquem {
+    width: 346px;
+    height: 61px;
+    border-radius: 12px;
+    border: solid 2px #020e7d;
+    color: #020e7d;
+    background-color: white;
+}
+
 .videos,
 #baseslegals {
     margin-bottom: 110px;
@@ -335,4 +344,71 @@ img {
 
 #solucions .card {
     margin-bottom: 20px;
+}
+
+
+
+
+
+.jurat-container {
+    margin-bottom: 50px;
+}
+
+.jurat-container h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.31px;
+    color: #020e7d;
+}
+
+.jurat-container p {
+    font-size: 18px;
+    letter-spacing: -0.25px;
+}
+
+.jurat-img {
+    margin-bottom: 24px;
+}
+
+
+
+
+
+.partner-container {
+    margin-bottom: 85px;
+}
+
+.partner-container .partner-info{
+    max-width: 740px;
+}
+
+.partner-container .partner-info .partner-name{
+    font-size: 30px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -0.42px;
+    margin-bottom: 10px;
+}
+
+.partner-container .partner-info p{
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.22px;
+    margin-bottom: 40px;
+}
+
+.partner-container .partner-info button{
+    width: 222px;
+    height: 40px;
+    color: #020e7d;
+    border: solid 2px #020e7d;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.partnersinfo {
+    margin-bottom: 40px;
+}
+
+.juratinfo {
+    margin-bottom: 40px;
 }

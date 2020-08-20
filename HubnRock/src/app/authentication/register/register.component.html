@@ -34,7 +34,13 @@
             </div>
 
             <p id="text" class="text-center">
-                <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de participar en els reptes de Hub & Rock.
+                <ng-container *ngIf="accountType == 'empresa'; else rockstarType">
+                    <i>Empresa:</i> inventore numerum rem eu lacus desiderabilis ea jormavit et affectus w ea effecerunt ea aut tempor ab Cum & Modo.
+                </ng-container>
+                <ng-template #rockstarType>
+                    <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de participar en els reptes de Hub & Rock.
+                </ng-template>
+                
             </p>
 
             <div class="text-center">
