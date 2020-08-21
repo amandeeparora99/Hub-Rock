@@ -4,7 +4,7 @@
     <h1 id="pagetitle" class="text-center">La teva solució</h1>
 
     <div class="text-center dot-spacing">
-        <img src="https://dummyimage.com/16x16/030038/ffffff" alt="">
+        <span class="dot"></span>
     </div>
 
     <p id="reptetitle" class="text-center">Repte "Packáging ecològic"</p>
@@ -12,59 +12,60 @@
     <div style="max-width:500px" class="container text-center steps-mt">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-12">
-                <span class="step">1</span>
-                <span class="step-text" style="display:block">Informació general</span>
+                <span class="step" [ngClass]="{'active' : currentTab == 0}">1</span>
+                <span class="step-text" [ngClass]="{'active' : currentTab == 0}" style="display:block">Informació general</span>
             </div>
             <div class="col-md-6 col-sm-6 col-12">
-                <span class="step">2</span>
-                <span class="step-text" style="display:block">L'equip</span>
+                <span class="step" [ngClass]="{'active' : currentTab == 1}">2</span>
+                <span class="step-text" [ngClass]="{'active' : currentTab == 1}" style="display:block">L'equip</span>
             </div>
         </div>
     </div>
 
     <hr class="mt-4 mb-4">
 
-    <form id="regForm" [formGroup]="loginForm">
+    <form id="regForm" [formGroup]="solucioForm" (ngSubmit)="onSubmit()">
 
         <div class="row mb-110">
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage">DESA COM A ESBORRANY</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit" [disabled]="solucioForm.invalid">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="container" style="max-width: 731px; margin-bottom:100px;">
-            <h1 class="title-form">Informació general</h1>
-
-            <div class="tab">
+            <div class="tab" *ngIf="currentTab == 0">
+                <h1 class="title-form">Informació general</h1>
                 <div class="form-group">
                     <label for="InputNom">Nom solució</label>
-                    <input type="text" class="form-control" id="InputNom" oninput="this.className = 'form-control'">
+                    <input type="text" formControlName="nomSolucio" class="form-control input-for-text" id="InputNom">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label for="InputBreuDescripcio" class="mb-0">Breu descripció de la solució</label><br>
-                    <label class="additional-info" for="InputBreuDescripcio">Descriu la solució en 1 o 2 frases </label>
-                    <textarea type="text" class="form-control" id="InputBreuDescripcio" maxlength="280" oninput="this.className = 'form-control'"></textarea>
+                    <div class="d-flex justify-content-between">
+                        <label class="additional-info" for="InputBreuDescripcio">Descriu la solució en 1 o 2 frases </label><span>{{this.solucioForm.get('descripcioBreuSolucio').value.length}} / 280</span>
+                    </div>
+                    <textarea type="text" formControlName="descripcioBreuSolucio" class="form-control" id="InputBreuDescripcio" maxlength="280"></textarea>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label for="InputProblema">Quin problema se soluciona? </label>
-                    <textarea type="text" class="form-control" id="InputProblema" oninput="this.className = 'form-control'"></textarea>
+                    <textarea type="text" formControlName="problemaSolucio" class="form-control" id="InputProblema"></textarea>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label for="InputDetalladaDescripcio">Descripció detallada de la solució </label>
-                    <textarea type="text" class="form-control" id="InputDetalladaDescripcio" oninput="this.className = 'form-control'"></textarea>
+                    <textarea type="text" formControlName="descripcioSolucio" class="form-control" id="InputDetalladaDescripcio"></textarea>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label for="InputPerque">Per què és una solució innovadora? </label>
-                    <textarea type="text" class="form-control" id="InputPerque" oninput="this.className = 'form-control'"></textarea>
+                    <textarea type="text" formControlName="innovadoraSolucio" class="form-control" id="InputPerque"></textarea>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label for="InputFase">En quina fase de desenvolupament està la solució? </label>
-                    <textarea type="text" class="form-control" id="InputFase" oninput="this.className = 'form-control'"></textarea>
+                    <textarea type="text" formControlName="faseSolucio" class="form-control" id="InputFase"></textarea>
                     <span class="help-block"></span>
                 </div>
                 <hr class="mb-5">
@@ -72,7 +73,7 @@
                 <div class="form-group">
                     <label for="link-video" class="mb-0 mr-3">Vídeo de la solució</label><span class="opcional-text">(Opcional)</span><br>
                     <label class="additional-info" for="link-video">Tens un video explicant la solució? Enganxa’l aquí. Només funcionen links de Youtube. </label>
-                    <input type="text" class="form-control" id="link-video" placeholder="https://www.youtube.com/video" oninput="this.className = 'form-control'">
+                    <input type="text" formControlName="videoSolucio" class="form-control input-for-text" id="link-video" placeholder="https://www.youtube.com/video">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group mb-0">
@@ -83,13 +84,50 @@
                 <hr class="mt-2 mb-5">
                 <div class="text-center"><a href="#">+ Afegeix PDFs</a></div>
             </div>
+            <div class="tab equip" *ngIf="currentTab == 1">
+                <h1 class="title-form">Informació sobre l'equip</h1>
+                <p class="bold-label mb-1">Individual o en equip?</p>
+                <hr class="mb-4">
+                <div class="custom-control custom-radio">
+                    <input (change)="onItemChange($event.target.value)" value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Individual</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input (change)="onItemChange($event.target.value)" checked type="radio" id="customRadio2" value="equip" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">En equip</label>
+                </div>
+
+                <div *ngIf="radioValue == 'equip'">
+                    <div class="form-group nom-equip ml-4 mt-4">
+                        <label for="InputNomEquip">Nom de l’equip / empresa</label>
+                        <input type="text" class="form-control input-for-text" id="InputNomEquip">
+                        <span class="help-block"></span>
+                    </div>
+
+
+
+                    <p class="bold-label mb-1">Membre</p>
+                    <hr class="mb-4">
+                    <div class="form-group input-mb">
+                        <label for="InputNomEquip">Nom i cognoms</label>
+                        <input type="text" class="form-control equip-text-input" id="InputNomEquip">
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group input-mb">
+                        <label for="InputNomEquip">Posició a l’equip</label>
+                        <input type="text" class="form-control equip-text-input" id="InputNomEquip">
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group input-mb">
+                        <label for="InputNomEquip" class="mr-3">Enllaç al perfil de Hub & Rock o de Linkedin</label><span class="opcional-text">(Opcional)</span>
+                        <input type="text" class="form-control equip-text-input" id="InputNomEquip">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
-
-
-
-
-
-
 
 
 

@@ -1,3 +1,7 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
 label {
     font-size: 20px;
     letter-spacing: -0.5px;
@@ -14,7 +18,7 @@ textarea#InputBreuDescripcio {
     height: 100px;
 }
 
-input {
+input.input-for-text {
     height: 55px;
 }
 
@@ -28,7 +32,6 @@ textarea {
 }
 
 ::placeholder {
-    font-family: 'WorkSans-Regular';
     font-size: 18px;
     letter-spacing: -0.45px;
     color: #b6b6b6;
@@ -50,7 +53,6 @@ textarea {
 #reptetitle {
     margin-top: 1rem;
     font-size: 24px;
-    font-family: 'WorkSans-Regular';
     letter-spacing: -0.83px;
 }
 
@@ -69,7 +71,6 @@ textarea {
 .step-text {
     font-size: 20px;
     letter-spacing: -0.68px;
-    font-family: 'WorkSans-Regular';
 }
 
 .step-text.active {
@@ -86,7 +87,6 @@ textarea {
     display: inline-block;
     vertical-align: middle;
     padding-top: 10px;
-    font-family: 'WorkSans-Regular';
     font-size: 28px;
     letter-spacing: -0.39px;
 }
@@ -107,7 +107,6 @@ textarea {
     color: #020e7d;
     letter-spacing: -0.9px;
     font-size: 17px;
-    font-family: 'WorkSans-Regular';
     font-weight: 600;
     background-color: white;
     height: 55px;
@@ -122,7 +121,6 @@ textarea {
     color: #000000;
     letter-spacing: -0.9px;
     font-size: 17px;
-    font-family: 'WorkSans-Regular';
     font-weight: 600;
     background-color: #00e292;
     height: 55px;
@@ -131,13 +129,21 @@ textarea {
 .opcional-text {
     color: #7b7b7b;
     letter-spacing: -0.38px;
-    font-family: 'WorkSans-Regular';
     font-size: 15px;
 }
 
 .dot-spacing {
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.dot {
+    height: 16px;
+    width: 16px;
+    background-color: #020e7d;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
 }
 
 .steps-mt {
@@ -149,6 +155,47 @@ textarea {
 }
 
 textarea,
-input {
+input.input-for-text {
     margin-bottom: 70px;
+}
+
+.counter {
+    font-size: 16px;
+    letter-spacing: -0.4px;
+}
+
+.equip label {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Regular';
+}
+
+.equip .nom-equip label {
+    font-size: 15px;
+    letter-spacing: -0.38px;
+    font-family: 'WorkSans-Regular';
+}
+
+.input-mb {
+    margin-bottom: 25px;
+}
+
+.equip .equip-text-input {
+    height: 55px;
+}
+
+.bold-label {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    font-family: 'WorkSans-Bold';
+}
+
+.equip hr {
+    margin-top: 0;
+}
+
+input,
+textarea {
+    font-size: 18px;
+    letter-spacing: -0.45px;
 }
