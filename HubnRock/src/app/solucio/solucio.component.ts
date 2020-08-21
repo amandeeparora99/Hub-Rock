@@ -61,46 +61,16 @@ export class SolucioComponent implements OnInit {
       faseSolucio: ['', Validators.required],
       videoSolucio: ['']
     });
-this.radioValue = 'equip';
+
     this.currentTab = 0;
-    // this.showTab(this.currentTab); // Display the current tab
-
+    this.radioValue = 'equip';
   }
-
-  // showTab(n: number) {
-  //   this.n = n;
-  //   // This function will display the specified tab of the form...
-  //   var x = document.getElementsByClassName("tab") as HTMLCollectionOf<HTMLElement>
-  //   x[n].style.display = "block";
-  //   //... and fix the Previous/Next buttons:
-  //   // if (n == 0) {
-  //   //   document.getElementById("prevBtn").style.display = "none";
-  //   // } else {
-  //   //   document.getElementById("prevBtn").style.display = "inline";
-  //   // }
-  //   if (n == (x.length - 1)) {
-  //     document.getElementById("nextBtn").innerHTML = "Submit";
-  //   } else {
-  //     document.getElementById("nextBtn").innerHTML = "Next";
-  //   }
-  //   //... and run a function that will display the correct step indicator:
-  //   // fixStepIndicator(n)
-  // }
 
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
-
+    this.radioValue = 'equip';
   }
 
-  fixStepIndicator(n) {
-    // // This function removes the "active" class of all steps...
-    // var i, x = document.getElementsByClassName("step");
-    // for (i = 0; i < x.length; i++) {
-    //   x[i].className = x[i].className.replace(" active", "");
-    // }
-    // //... and adds the "active" class on the current step:
-    // x[n].className += " active";
-  }
 
   onSubmit() {
     console.log(this.solucioForm.value)
