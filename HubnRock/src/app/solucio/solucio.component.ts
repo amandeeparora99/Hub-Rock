@@ -9,32 +9,74 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class SolucioComponent implements OnInit {
 
-  constructor(private builder: FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
-  loginForm: FormGroup;
+  solucioForm: FormGroup;
+  radioValue;
+  currentTab: number; // Current tab is set to be the first tab (0)
+  numberOfTabs = 1; //0 + 1 = 2 tabs
+
+  validationMessages = {
+    'nomSolucio': {
+      'required': 'És un camp obligatori.'
+    },
+    'descripcioBreuSolucio': {
+      'required': 'És un camp obligatori.',
+    },
+    'problemaSolucio': {
+      'required': 'És un camp obligatori.',
+    },
+    'descripcioSolucio': {
+      'required': 'És un camp obligatori.',
+    },
+    'innovadoraSolucio': {
+      'required': 'És un camp obligatori.',
+    },
+    'faseSolucio': {
+      'required': 'És un camp obligatori.',
+    },
+    'videoSolucio': {
+    }
+  };
+
+
+  formErrors = {
+    'nomSolucio': '',
+    'descripcioBreuSolucio': '',
+    'problemaSolucio': '',
+    'descripcioSolucio': '',
+    'innovadoraSolucio': '',
+    'faseSolucio': '',
+    'videoSolucio': ''
+  };
+
 
   ngOnInit(): void {
-    this.loginForm = this.builder.group({
-      dob: ['', Validators.required]
+    this.solucioForm = this.fb.group({
+      nomSolucio: ['', Validators.required],
+      descripcioBreuSolucio: ['', Validators.required],
+      problemaSolucio: ['', Validators.required],
+      descripcioSolucio: ['', Validators.required],
+      innovadoraSolucio: ['', Validators.required],
+      faseSolucio: ['', Validators.required],
+      videoSolucio: ['']
     });
+
+    this.currentTab = 0;
+    this.radioValue = 'equip';
   }
 
   nextPrev(n) {
-    // // This function will figure out which tab to display
-    // var x = document.getElementsByClassName("tab");
-    // // Exit the function if any field in the current tab is invalid:
-    // if (n == 1 && !validateForm()) return false;
-    // // Hide the current tab:
-    // x[currentTab].style.display = "none";
-    // // Increase or decrease the current tab by 1:
-    // currentTab = currentTab + n;
-    // // if you have reached the end of the form...
-    // if (currentTab >= x.length) {
-    //   // ... the form gets submitted:
-    //   document.getElementById("regForm").submit();
-    //   return false;
-    // }
-    // // Otherwise, display the correct tab:
-    // showTab(currentTab);
+    this.currentTab = this.currentTab + n;
+    this.radioValue = 'equip';
+  }
+
+
+  onSubmit() {
+    console.log(this.solucioForm.value)
+  }
+
+  onItemChange(value) {
+    this.radioValue = value;
   }
 }
