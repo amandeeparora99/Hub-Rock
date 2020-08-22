@@ -1,3 +1,11 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 label {
     font-size: 20px;
     letter-spacing: -0.5px;
@@ -14,6 +22,51 @@ textarea#InputBreuDescripcio {
     height: 100px;
 }
 
+.actionbtns {
+    margin-bottom: 110px;
+}
+
+#regForm .formpagetitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 45px;
+}
+
+.image-upload {
+    height: 211px;
+    border-radius: 10px;
+    border: solid 1px #b6b6b6;
+}
+
+.image-upload p {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.img-infohelp .maxwidth-348 label{
+    width: 348px;
+}
+
+.helpbutton {
+    margin-bottom: 0.5rem;
+}
+
+.optionalfield {
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.38px;
+    color: #7b7b7b;
+    font-family: 'WorkSans-Regular';
+}
+
+
 input {
     height: 55px;
 }
@@ -27,10 +80,22 @@ textarea {
     padding: 12px 20px;
 }
 
-#title {
+::placeholder {
+    font-family: 'WorkSans-Regular';
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    color: #b6b6b6;
+}
+
+.title-form {
     font-family: 'WorkSans-Bold';
     font-size: 34px;
     letter-spacing: -0.85px;
+    margin-bottom: 45px;
+}
+
+.max-width-1110 {
+    max-width: 1110px;
 }
 
 #pagetitle {
@@ -118,4 +183,29 @@ textarea {
     font-weight: 600;
     background-color: #00e292;
     height: 55px;
+}
+
+.opcional-text {
+    color: #7b7b7b;
+    letter-spacing: -0.38px;
+    font-family: 'WorkSans-Regular';
+    font-size: 15px;
+}
+
+.dot-spacing {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.steps-mt {
+    margin-top: 80px;
+}
+
+.mb-110 {
+    margin-bottom: 110px;
+}
+
+textarea,
+input {
+    margin-bottom: 70px;
 }
