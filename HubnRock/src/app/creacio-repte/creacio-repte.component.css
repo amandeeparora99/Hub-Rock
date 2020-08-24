@@ -188,7 +188,6 @@ textarea {
 .opcional-text {
     color: #7b7b7b;
     letter-spacing: -0.38px;
-    font-family: 'WorkSans-Regular';
     font-size: 15px;
 }
 
@@ -209,3 +208,23 @@ textarea,
 input {
     margin-bottom: 70px;
 }
+
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+
+input[type="checkbox"]:checked + label {
+    color: #F00;
+  }
+
+.ilustration {
+    width: 136px;
+    height: 136px;
+}
+
+@media (max-width: 768px) { 
+    .ilustration {
+        max-width: 70px;
+        max-height: 70px;
+    }
+ }

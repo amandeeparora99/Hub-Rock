@@ -8,13 +8,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreacioRepteComponent implements OnInit {
 
-  constructor(private builder: FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
-  loginForm: FormGroup;
+  repteForm: FormGroup;
 
   ngOnInit(): void {
-    this.loginForm = this.builder.group({
-      dob: ['', Validators.required]
+    this.repteForm = this.fb.group({
+      descripcioBreuRepte: ['', Validators.required]
     });
   }
 
