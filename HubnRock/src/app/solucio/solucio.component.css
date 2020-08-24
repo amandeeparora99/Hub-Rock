@@ -154,8 +154,7 @@ textarea {
     margin-bottom: 110px;
 }
 
-textarea,
-input.input-for-text {
+.input-spacing {
     margin-bottom: 70px;
 }
 
@@ -198,4 +197,28 @@ input,
 textarea {
     font-size: 18px;
     letter-spacing: -0.45px;
+}
+
+.afegeix-link a {
+    color: #020e7d;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+}
+
+.afegeix-link a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
+.elimina-link a {
+    color: #e74c3c;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+}
+
+a:hover,
+a:active,
+a:focus {
+    outline: 0;
+    cursor: pointer;
 }
