@@ -155,9 +155,9 @@ export class SolucioComponent implements OnInit {
     // }
 
     // (<FormArray>this.solucioForm.get('membreArray')).at(1).clearValidators()
-    this.solucioForm.get('membreArray').clearValidators();
-    this.solucioForm.get('membreArray').clearAsyncValidators();
-    this.solucioForm.get('membreArray').updateValueAndValidity();
-    console.log(this.solucioForm.get('membreArray'))
+    (<FormArray>this.solucioForm.get('membreArray')).clearValidators();
+    // this.solucioForm.get('membreArray').clearAsyncValidators();
+    (<FormArray>this.solucioForm.get('membreArray')).updateValueAndValidity();
+    console.log((<FormArray>this.solucioForm.get('membreArray')).controls)
   }
 }
