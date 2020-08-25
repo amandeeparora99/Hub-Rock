@@ -66,10 +66,11 @@ export class HttpCommunicationService {
     );
   }
 
-  registerRockstar(email, password, nom_rockstar, ocupacio, ubicacio, bio, experiencia, educacio): Observable<any> {
+  registerRockstar(email, password, empresa_rockstar, nom_rockstar, ocupacio, ubicacio, bio, experiencia, educacio): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
       .set('password', password)
+      .set('empresa_rockstar', empresa_rockstar)
       .set('nom_rockstar', nom_rockstar)
       .set('ocupacio', ocupacio)
       .set('ubicacio', ubicacio)

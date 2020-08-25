@@ -145,6 +145,42 @@ export class RegisterComponent implements OnInit {
           });
 
     }
+    else if (this.accountType == 'empresa') {
+      this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
+        this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+        '0',
+        this.registerForm.controls.nomResponsable.value,
+         null,
+         null,
+         null,
+         null,
+         null
+         )
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            if (data.code == 302) {
+              //this._router.navigate(["/apps"]);
+              console.log("succcessful")
+
+            }
+            else if (data.code == 534) {
+              this.registerForm.controls['password'].setErrors({ 'password': true });
+              console.log("fallat");
+            }
+            else if (data.code == 533) {
+              this.registerForm.controls['email'].setErrors({ 'email': true });
+              console.log("fallat");
+
+            }
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
+
+    }
   }
 
 

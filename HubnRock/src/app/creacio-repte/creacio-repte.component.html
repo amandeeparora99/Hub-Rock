@@ -159,9 +159,9 @@
             </div>
 
             <div class="form-group">
-                <label for="link-video" class="mb-0 mr-3">Qui pot participar?</label> <br>
-                <label class="additional-info" for="link-video">Podeu seleccionar més d'una opció</label>
-                <hr>
+                <label class="mb-0 mr-3">Qui pot participar?</label> <br>
+                <label class="additional-info">Podeu seleccionar més d'una opció</label>
+                <hr style="margin-top: 0; margin-bottom: 30px;">
             </div>
 
             <div class="d-flex justify-content-between">
@@ -203,45 +203,32 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="mb-0 mr-3">Individual o en equip?</label>
+                <hr style="margin-bottom: 30px;">
+            </div>
+
+            <p class="bold-label mb-1">Individual o en equip?</p>
+            <hr class="mb-4">
             
+            <div class="custom-control custom-radio">
+                <input  value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio1">Individual</label>
+            </div>
+                
+            <div class="custom-control custom-radio">
+                <input  type="radio" id="customRadio2" checked value="equip" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">En equip</label>
+            </div>
+            
+            <div *ngIf="radioValue=='equip'">
+                <div class="form-group nom-equip ml-4 mt-4 mb-5" [ngClass]="{'has-errors' : formErrors.nomEquip}">
+                    <label for="InputNomEquip">Nom de l’equip / empresa</label>
+                    <input type="text" formControlName="nomEquip" class="form-control input-for-text" id="InputNomEquip">
+                </div>
+            </div>
 
             <hr>
-        </div>
-
-
-
-
-
-
-
-
-        <!-- One "tab" for each step in the form: -->
-        <div class="tab">Name:
-            <p><input placeholder="First name..." oninput="this.className = ''"></p>
-            <p><input placeholder="Last name..." oninput="this.className = ''"></p>
-        </div>
-
-        <div class="tab">Contact Info:
-            <p><input placeholder="E-mail..." oninput="this.className = ''"></p>
-            <p><input placeholder="Phone..." oninput="this.className = ''"></p>
-        </div>
-
-        <div class="tab">Birthday:
-            <p><input placeholder="dd" oninput="this.className = ''"></p>
-            <p><input placeholder="mm" oninput="this.className = ''"></p>
-            <p><input placeholder="yyyy" oninput="this.className = ''"></p>
-        </div>
-
-        <div class="tab">Login Info:
-            <p><input placeholder="Username..." oninput="this.className = ''"></p>
-            <p><input placeholder="Password..." oninput="this.className = ''"></p>
-        </div>
-
-        <div style="overflow:auto;">
-            <div style="float:right;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-            </div>
         </div>
 
         <!-- Circles which indicates the steps of the form: -->
