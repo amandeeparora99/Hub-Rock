@@ -36,7 +36,6 @@ export class HttpCommunicationService {
         // login successful if there's a jwt token in the response
         if (data.code == "302") {
           if (data && data.token) {
-            console.log("error servei")
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
             this.currentUserSubject.next(data);

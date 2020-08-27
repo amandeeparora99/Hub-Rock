@@ -11,7 +11,10 @@ export class CreacioRepteComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   repteForm: FormGroup;
-  radioValue;
+  radioValue = 'equip';
+  radioToSValue = 'hubandrock'
+  currentTab: number = 0; // Current tab is set to be the first tab (0)
+  numberOfTabs = 3; //0 + 1 = 2 tabs
 
   validationMessages = {
     'nomSolucio': {
@@ -54,27 +57,36 @@ export class CreacioRepteComponent implements OnInit {
   
   ngOnInit(): void {
     this.repteForm = this.fb.group({
-      descripcioBreuRepte: ['', Validators.required]
+      nomRepte: ['', Validators.required],
+      descripcioBreuRepte: ['', Validators.required],
+      descripcioDetalladaRepte: [''],
+      fotoPortada: ['', Validators.required],
+      fotoRepresentativa1: ['', Validators.required],
+      fotoRepresentativa2: ['', Validators.required],
+      fotoRepresentativa3: ['', Validators.required],
+      videoSolucio: [''],
+      //Falta els checkbox
+      limitParticipants: [''],
+      dataInici: ['', Validators.required],
+      dataFinalitzacio: ['', Validators.required],
+      nomPremi: ['', Validators.required],
+      dotacioPremi: ['', Validators.required],
+      descripcioPremi: [''],
+      fotoPremi: [''],
     });
   }
 
   nextPrev(n) {
-    // // This function will figure out which tab to display
-    // var x = document.getElementsByClassName("tab");
-    // // Exit the function if any field in the current tab is invalid:
-    // if (n == 1 && !validateForm()) return false;
-    // // Hide the current tab:
-    // x[currentTab].style.display = "none";
-    // // Increase or decrease the current tab by 1:
-    // currentTab = currentTab + n;
-    // // if you have reached the end of the form...
-    // if (currentTab >= x.length) {
-    //   // ... the form gets submitted:
-    //   document.getElementById("regForm").submit();
-    //   return false;
-    // }
-    // // Otherwise, display the correct tab:
-    // showTab(currentTab);
+    this.currentTab = this.currentTab + n;
+    this.radioValue = 'equip';
+  }
+
+  changeRadio(value){
+    this.radioValue = value;
+  }
+
+  changeRadioToS(value){
+    this.radioToSValue = value;
   }
 
 }

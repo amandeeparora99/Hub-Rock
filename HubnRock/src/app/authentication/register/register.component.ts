@@ -94,8 +94,20 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNextStep() {
-    this.register = 1
+    this.register = 1;
 
+    const nomEmpresa = this.registerForm.get('nomEmpresa');
+    const nifEmpresa = this.registerForm.get('nomNifEmpresa');
+
+    if(this.accountType == 'empresa'){
+      nomEmpresa.setValidators(Validators.required);
+      nifEmpresa.setValidators(Validators.required);
+    }
+    else if(this.accountType == 'rockstar'){
+      nomEmpresa.clearValidators();
+      nifEmpresa.clearValidators();
+    }
+    
   }
 
   radioChangedHandler(event: any) {
@@ -107,6 +119,11 @@ export class RegisterComponent implements OnInit {
     else {
       nifControl.setValidators(Validators.required);
     }
+  }
+
+  stepBack(){
+    this.register = 0;
+    this.accountType = 'empresa';
   }
 
   onSubmit(): void {
@@ -145,10 +162,10 @@ export class RegisterComponent implements OnInit {
           });
 
     }
-    else if (this.accountType == 'empresa') {
+    else if (this.accountType == 'rockstar') {
       this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-        '0',
+        '1',
         this.registerForm.controls.nomResponsable.value,
          null,
          null,

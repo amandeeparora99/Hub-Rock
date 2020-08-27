@@ -143,3 +143,11 @@ input[name="myradio"] {
 .is-invalid span {
     color: red;
 }
+
+.elimina-link {
+    color: #020e7d;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 30px;
+}

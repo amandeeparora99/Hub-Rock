@@ -189,6 +189,7 @@ textarea {
     color: #7b7b7b;
     letter-spacing: -0.38px;
     font-size: 15px;
+    margin-left: 15px;
 }
 
 .dot-spacing {
@@ -204,8 +205,7 @@ textarea {
     margin-bottom: 110px;
 }
 
-textarea,
-input {
+.hubrockformgrup {
     margin-bottom: 70px;
 }
 
@@ -214,8 +214,11 @@ input {
 }
 
 input[type="checkbox"]:checked + label {
-    color: #F00;
-  }
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+
 
 .ilustration {
     width: 136px;
@@ -228,3 +231,44 @@ input[type="checkbox"]:checked + label {
         max-height: 70px;
     }
  }
+
+
+.regularFont label {
+    font-size: 18px;
+    font-family: 'WorkSans-Regular';
+}
+
+.regularFont .fontsize15 {
+    font-size: 15px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    border: solid 1px #020e7d;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.afegeix-link a {
+    color: #020e7d;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+}
+
+.afegeix-link a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
+.elimina-link a {
+    color: #e74c3c;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+}
+
+.inputToS {
+    height: 600px;
+}
