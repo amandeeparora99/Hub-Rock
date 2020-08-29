@@ -49,31 +49,37 @@
             <div class="tab" *ngIf="currentTab == 0">
                 <h1 class="formpagetitle">Informació general</h1>
 
-                <div class="form-group hubrockformgrup">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.nomRepte}">
                     <label for="InputNomRepte">Nom del repte</label>
-                    <input formControlName="nomRepte" type="text" class="form-control" id="InputNomRepte">
-                    <span class="help-block"></span>
+                    <input formControlName="nomRepte" type="text" class="form-control" id="InputNomRepte" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nomRepte">
+                        {{formErrors.nomRepte}}
+                    </span>
                 </div>
 
-                <div class="form-group hubrockformgrup">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioBreuRepte}">
                     <label for="InputDescripcioBreuRepte" class="mb-0">Breu descripció del repte</label><br>
                     <div class="d-flex justify-content-between">
                         <label class="additional-info" for="descripcioBreuRepte">Descriu la solució en 1 o 2 frases
                         </label><span>{{this.repteForm.get('descripcioBreuRepte').value.length}} / 280</span>
                     </div>
                     <textarea type="text" formControlName="descripcioBreuRepte" class="form-control"
-                        id="InputDescripcioBreuRepte" maxlength="280"></textarea>
-                    <span class="help-block"></span>
+                        id="InputDescripcioBreuRepte" maxlength="280" (blur)="logValidationErrors()"></textarea>
+                        <span class="help-block" *ngIf="formErrors.descripcioBreuRepte">
+                            {{formErrors.descripcioBreuRepte}}
+                        </span>
                 </div>
 
-                <div class="form-group hubrockformgrup">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioDetalladaRepte}">
                     <label for="InputDescripcioDetallada">Descripció detallada</label>
                     <textarea formControlName="descripcioDetalladaRepte" type="text" class="form-control"
-                        id="InputDescripcioDetallada"></textarea>
-                    <span class="help-block"></span>
+                        id="InputDescripcioDetallada" (blur)="logValidationErrors()"></textarea>
+                        <span class="help-block" *ngIf="formErrors.descripcioDetalladaRepte">
+                            {{formErrors.descripcioDetalladaRepte}}
+                        </span>
                 </div>
 
-                <div class="form-group hubrockformgrup">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioDetalladaRepte}">
                     <label for="InputFotoPortada" class="mb-0">Foto portada</label><br>
                     <div class="d-flex img-infohelp">
                         <div class="maxwidth-348">
@@ -94,9 +100,11 @@
                             </div>
                         </label>
 
-                        <input formControlName="fotoPortada" id="InputFotoPortada" type="file" />
+                        <input formControlName="fotoPortada" id="InputFotoPortada" type="file" (blur)="logValidationErrors()"/>
                     </div>
-                    <span class="help-block"></span>
+                    <span class="help-block" *ngIf="formErrors.fotoPortada">
+                        {{formErrors.fotoPortada}}
+                    </span>
                 </div>
 
                 <div class="form-group hubrockformgrup">
@@ -104,7 +112,7 @@
                         <label for="InputFotoRepresentativa1" class="mb-0">Fotos del repte</label><br><span
                             class="opcional-text">(Opcional)</span><br>
                     </div>
-                    <div class="d-flex img-infohelp">
+                    <div class="d-flex img-infohelp">   <!--COM A MOLT = MIN 1 MAX 3? PREGUNTAR VALIDACIO -->
                         <div class="maxwidth-348">
                             <label class="additional-info" for="InputFotoRepresentativa1">Puja com a molt 3 fotos
                                 representatives del repte</label>
@@ -244,7 +252,6 @@
                                 Deixeu el camp en blanc si no hi ha limit</label>
                             <input type="text" formControlName="limitParticipants" class="form-control input-for-text"
                                 id="InputLimitParticipants">
-                            <span class="help-block"></span>
                         </div>
                     </div>
                 </div>
@@ -256,15 +263,21 @@
                 </div>
 
                 <div class="container row d-flex justify-content-between regularFont hubrockformgrup">
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataInici}">
                         <label for="dataInici">Data inici</label>
                         <input formControlName="dataInici" type="date" id="dataInici" name="dataInici"
-                            style="width: 322px;">
+                            style="width: 322px;" (blur)="logValidationErrors()">
+                        <span class="help-block" *ngIf="formErrors.dataInici">
+                            {{formErrors.dataInici}}
+                        </span>
                     </div>
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataFinalitzacio}">
                         <label for="dataFinalitzacio">Data finalització</label>
                         <input formControlName="dataFinalitzacio" type="date" id="dataFinalitzacio"
-                            name="dataFinalitzacio" style="width: 322px;">
+                            name="dataFinalitzacio" style="width: 322px;" (blur)="logValidationErrors()">
+                        <span class="help-block" *ngIf="formErrors.dataFinalitzacio">
+                            {{formErrors.dataFinalitzacio}}
+                        </span>
                     </div>
                 </div>
 
@@ -277,16 +290,20 @@
                     <hr class="mt-1" style="margin-bottom: 30px;">
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.nomPremi}">
                     <label for="InputNomPremi">Nom del premi</label>
-                    <input formControlName="nomPremi" type="text" class="form-control" id="InputNomPremi">
-                    <span class="help-block"></span>
+                    <input formControlName="nomPremi" type="text" class="form-control" id="InputNomPremi" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nomPremi">
+                        {{formErrors.nomPremi}}
+                    </span>
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.dotacioPremi}">
                     <label for="InputDotacioPremi">Dotació del premi</label>
-                    <input formControlName="dotacioPremi" type="text" class="form-control" id="InputDotacioPremi">
-                    <span class="help-block"></span>
+                    <input formControlName="dotacioPremi" type="text" class="form-control" id="InputDotacioPremi" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.dotacioPremi">
+                        {{formErrors.dotacioPremi}}
+                    </span>
                 </div>
 
                 <div class="form-group regularFont">
@@ -327,20 +344,24 @@
                     <hr class="mt-1" style="margin-bottom: 30px;">
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.nomSolucio}">
                     <label for="InputNomSolucio">Nom de la solucio buscada</label>
-                    <input formControlName="nomSolucio" type="text" class="form-control" id="InputNomSolucio">
-                    <span class="help-block"></span>
+                    <input formControlName="nomSolucio" type="text" class="form-control" id="InputNomSolucio" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nomSolucio">
+                        {{formErrors.nomSolucio}}
+                    </span>
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.descripcioSolucio}">
                     <label for="InputDescripcioSolucio">Descripció de la solució</label>
                     <input formControlName="descripcioSolucio" type="text" class="form-control"
-                        id="InputDescripcioSolucio">
-                    <span class="help-block"></span>
+                        id="InputDescripcioSolucio" (blur)="logValidationErrors()">
+                        <span class="help-block" *ngIf="formErrors.descripcioSolucio">
+                            {{formErrors.descripcioSolucio}}
+                        </span>
                 </div>
 
-                <div class="form-group hubrockformgrup regularFont">
+                <div class="form-group hubrockformgrup regularFont" [ngClass]="{'is-invalid' : formErrors.fotoSolucio}">
                     <label for="InputFotoSolucio">Foto solució</label>
 
                     <div class="image-upload d-flex justify-content-center align-items-center mb-4">
@@ -353,6 +374,9 @@
                         </label>
 
                         <input formControlName="fotoSolucio" id="InputFotoSolucio" type="file" />
+                        <span class="help-block" *ngIf="formErrors.fotoSolucio">
+                            {{formErrors.fotoSolucio}}
+                        </span>
                     </div>
 
                     <span class="help-block"></span>
@@ -476,17 +500,21 @@
                     <hr class="mt-1" style="margin-bottom: 30px;">
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.pregunta}">
                     <label for="InputPregunta">Pregunta</label>
-                    <input formControlName="pregunta" type="text" class="form-control" id="InputPregunta">
-                    <span class="help-block"></span>
+                    <input formControlName="pregunta" type="text" class="form-control" id="InputPregunta" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.pregunta">
+                        {{formErrors.pregunta}}
+                    </span>
                 </div>
 
-                <div class="form-group regularFont">
+                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.resposta}">
                     <label for="InputResposta">Resposta</label>
                     <textarea formControlName="resposta" type="text" class="form-control"
-                        id="InputResposta"></textarea>
-                    <span class="help-block"></span>
+                        id="InputResposta" (blur)="logValidationErrors()"></textarea>
+                        <span class="help-block" *ngIf="formErrors.resposta">
+                            {{formErrors.resposta}}
+                        </span>
                 </div>
 
                 <div class="text-center afegeix-link mt-5 mb-5"><a href="#">+ Afegeix una altra pregunta</a></div>
@@ -498,15 +526,15 @@
                 <div class="regularFont hubrockformgrup">
                     <div class="custom-control custom-radio">
                         <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio"
-                            id="customRadio1" name="customRadio" class="custom-control-input" checked>
-                        <label class="custom-control-label" for="customRadio1">Utilitzar les bases legals genèriques de Hub & Rock</label>
+                            id="radioTOS1" name="customRadio" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub & Rock</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadio2"
+                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="radioTOS2"
                             name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio2">Escriure bases legals personalitzades</label>
+                        <label class="custom-control-label" for="radioTOS2">Escriure bases legals personalitzades</label>
                     </div>
-                    <textarea *ngIf="radioToSValue=='custom'" formControlName="resposta" type="text" class="form-control mt-3 inputToS"
+                    <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text" class="form-control mt-3 inputToS"
                         id="InputResposta"></textarea>
                     <span class="help-block"></span>
                 </div>

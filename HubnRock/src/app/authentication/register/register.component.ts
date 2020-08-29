@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
          null
          )
         .pipe(first())
-        .subscribe(
+        .subscribe(  
           data => {
             console.log(data);
             if (data.code == 302) {
