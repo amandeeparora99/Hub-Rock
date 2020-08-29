@@ -151,8 +151,15 @@
     margin-left: 16px;
 }
 
-#what-desc-col {
-    min-width: 300px;
+
+/* #what-desc-col {
+    min-width: 260px;
+} */
+
+@media (min-width: 750px) {
+    #what-desc-col {
+        margin-left: 30px;
+    }
 }
 
 #hubrock-who .container {
@@ -286,38 +293,38 @@
 }
 
 
-/*  
- 
- 
- 
-#reptes-section { 
-    background-color: red; 
-} 
- 
- 
- 
-#crear-repte { 
-    width: 277px; 
-    height: 55px; 
-    font-size: 17px; 
-    letter-spacing: -0.9px; 
-    background-color: rgba(0, 0, 0, 0); 
-    border: 2px solid #020e7d; 
-    font-family: 'WorkSans-Regular'; 
-    font-weight: 600; 
-    border-radius: 8px; 
-    color: #020e7d; 
-} 
- 
-#veure-reptes { 
-    width: 277px; 
-    height: 55px; 
-    font-size: 17px; 
-    letter-spacing: -0.9px; 
-    background-color: #020e7d; 
-    font-family: 'WorkSans-Regular'; 
-    font-weight: 600; 
-    border-radius: 8px; 
-    border: none; 
-    color: white; 
+/*
+
+
+
+#reptes-section {
+    background-color: red;
+}
+
+
+
+#crear-repte {
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    color: #020e7d;
+}
+
+#veure-reptes {
+    width: 277px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #020e7d;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    color: white;
 } */
