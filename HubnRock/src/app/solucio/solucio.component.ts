@@ -15,6 +15,7 @@ export class SolucioComponent implements OnInit {
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
   numberOfTabs = 1; //0 + 1 = 2 tabs
+  success = false;
 
   validationMessages = {
     'nomSolucio': {
@@ -134,30 +135,24 @@ export class SolucioComponent implements OnInit {
 
 
   onSubmit() {
+    
+    // FER IF SHA ENVIAT CORRECTAMENT O ALGO QUE CANVII A AQUESTA VARIABLE
+    this.success = true;
+
+
     console.log(this.solucioForm.value)
   }
 
   onItemChange(value) {
     this.radioValue = value;
+    // (<FormArray>this.solucioForm.get('membreArray')).clearValidators();
+    // (<FormArray>this.solucioForm.get('membreArray')).clearAsyncValidators();
 
-    // const membreArray = this.solucioForm.get('membreArray');
-    // if (this.radioValue == 'individual') {
-    //   membreArray.clearValidators();
-    // }
+    // (<FormArray>this.solucioForm.get('membreArray')).updateValueAndValidity();
+    
+    // console.log(this.solucioForm.controls);
 
-    // this.accountType = event.target.value;
-    // const nifControl = this.registerForm.get('nomNifEmpresa');
-    // if (event.target.value == "rockstar") {
-    //   nifControl.clearValidators();
-    // }
-    // else {
-    //   nifControl.setValidators(Validators.required);
-    // }
 
-    // (<FormArray>this.solucioForm.get('membreArray')).at(1).clearValidators()
-    (<FormArray>this.solucioForm.get('membreArray')).clearValidators();
-    // this.solucioForm.get('membreArray').clearAsyncValidators();
-    (<FormArray>this.solucioForm.get('membreArray')).updateValueAndValidity();
-    console.log((<FormArray>this.solucioForm.get('membreArray')).controls)
+
   }
 }

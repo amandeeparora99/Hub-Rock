@@ -222,3 +222,23 @@ a:focus {
     outline: 0;
     cursor: pointer;
 }
+
+#solucioSuccess .btn-manage {
+    width: 255px;
+}
+
+#solucioSuccess h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+#solucioSuccess p {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+}
+
+#solucioSuccess .paragraph-container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
