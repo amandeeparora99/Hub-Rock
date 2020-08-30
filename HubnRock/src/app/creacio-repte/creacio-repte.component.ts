@@ -133,34 +133,35 @@ export class CreacioRepteComponent implements OnInit {
   
   ngOnInit(): void {
     this.repteForm = this.fb.group({
-      nomRepte: ['', Validators.required],
-      descripcioBreuRepte: ['', Validators.required],
-      descripcioDetalladaRepte: [''],
-      fotoPortada: ['', Validators.required],
-      fotoRepresentativa1: ['', Validators.required],
-      fotoRepresentativa2: ['', Validators.required],
-      fotoRepresentativa3: ['', Validators.required],
-      videoSolucio: [''],
+      nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
+      descripcioDetalladaRepte: ['', [Validators.required,  Validators.maxLength(1000), Validators.minLength(3)]],
+      fotoPortada: ['', [Validators.required]],
+      fotoRepresentativa1: ['', [Validators.required]],
+      fotoRepresentativa2: ['', [Validators.required]],
+      fotoRepresentativa3: ['', [Validators.required]],
+      videoSolucio: [''], //validador custom youtube format
       //Falta els checkbox
-      limitParticipants: [''],
-      dataInici: ['', Validators.required],
+      //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
+      limitParticipants: ['', [Validators.pattern('[0-9]+')]],
+      dataInici: ['', Validators.required],  //Data inici no pot ser anterior a la data actual
       dataFinalitzacio: ['', Validators.required],
-      nomPremi: ['', Validators.required],
-      dotacioPremi: ['', Validators.required],
-      descripcioPremi: [''],
+      nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]], //Preu
+      descripcioPremi: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       fotoPremi: [''],
-      nomSolucio: ['', Validators.required],
-      descripcioSolucio: ['', Validators.required],
-      fotoSolucio: ['', Validators.required],
-      nomPartner: [''],
-      breuDescripcioPartner: [''],
+      nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      fotoSolucio: ['', [Validators.required]],
+      nomPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      breuDescripcioPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       logoPartner: [''],
-      nomCognomsJurat: [''],
-      biografiaJurat: [''],
+      nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      biografiaJurat: ['', [Validators.maxLength(500), Validators.minLength(3)]],
       inputJurat: [''],
-      pregunta: ['', Validators.required],
-      resposta: ['', Validators.required],
-      customTOS: [''],
+      pregunta: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      resposta: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(3)]], //
+      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
     });
 
     this.repteForm.valueChanges.subscribe((data) => {
