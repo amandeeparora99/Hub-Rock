@@ -54,14 +54,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      nomResponsable: ['', Validators.required],
-      nomCorreu: ['', Validators.required],
+      nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
-        nomContrasenya: ['', Validators.required],
-        nomRepeteixContrasenya: ['', Validators.required]
+        nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
+        nomRepeteixContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]]
       }, { validator: passwordsMatch }),
-      nomNifEmpresa: ['', Validators.required]
+      nomNifEmpresa: ['', Validators.required] //format de nif empresa
+      //ELS CAMPS QUE NO HI HA AQUI I QUE PERTANYIN A UN 'USUARI' ELS HEM DE PODER PASSAR COM A NULL
     })
 
     this.registerForm.valueChanges.subscribe((data) => {

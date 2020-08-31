@@ -15,6 +15,10 @@ export class CreacioRepteComponent implements OnInit {
   radioToSValue = 'hubandrock'
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
+  fotoPortada = null;
+  pdfNom = null;
+
+
 
   validationMessages = {
     'nomRepte': {
@@ -130,12 +134,12 @@ export class CreacioRepteComponent implements OnInit {
     'resposta': '',
     'customTOS': ''
   };
-  
+
   ngOnInit(): void {
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
-      descripcioDetalladaRepte: ['', [Validators.required,  Validators.maxLength(1000), Validators.minLength(3)]],
+      descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       fotoPortada: ['', [Validators.required]],
       fotoRepresentativa1: ['', [Validators.required]],
       fotoRepresentativa2: ['', [Validators.required]],
@@ -199,12 +203,30 @@ export class CreacioRepteComponent implements OnInit {
     this.radioValue = 'equip';
   }
 
-  changeRadio(value){
+  changeRadio(value) {
     this.radioValue = value;
   }
 
-  changeRadioToS(value){
+  changeRadioToS(value) {
     this.radioToSValue = value;
+  }
+
+  onFileSelected(event) {
+    if (event.target.files) {
+
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0])
+
+      reader.onload = (event: any) => {
+        this.fotoPortada = event.target.result
+      }
+
+    }
+  }
+  onPDFSelected(event) {
+    console.log(event.target.files[0])
+    this.pdfNom = event.target.files[0].name
   }
 
 }

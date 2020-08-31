@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]]
     });
 
     this.loginForm.valueChanges.subscribe(value => {
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
             this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
-      
+
       }
 
       if (abstractControl instanceof FormGroup) {
@@ -100,5 +100,6 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value)
   }
 
+  
 }
 
