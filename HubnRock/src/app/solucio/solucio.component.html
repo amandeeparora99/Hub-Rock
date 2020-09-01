@@ -105,7 +105,7 @@
                             <div class="d-flex justify-content-between">
                                 <p class="bold-label mb-1">Membre {{i+1}}</p>
                                 <div class="text-center elimina-link" *ngIf="solucioForm.get('membreArray').length > 2">
-                                    <a (click)="removeMemberButtonClick(i)">+ Elimina aquest membre</a></div>
+                                    <a (click)="removeMemberButtonClick(i)">- Elimina aquest membre</a></div>
                             </div>
                             <hr class="mb-4">
                             <div class="form-group input-mb" [ngClass]="{'has-errors' : membre.get('nomICognomsMembre').invalid && membre.get('nomICognomsMembre').touched && radioValue=='equip'}">

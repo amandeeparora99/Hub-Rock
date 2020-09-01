@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-creacio-repte',
@@ -154,9 +154,9 @@ export class CreacioRepteComponent implements OnInit {
       dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]], //Preu
       descripcioPremi: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       fotoPremi: [''],
-      nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      descripcioSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      fotoSolucio: ['', [Validators.required]],
+      solucioArray: this.fb.array([
+        this.addSolucioFormGroup(),
+      ]),
       nomPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       breuDescripcioPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       logoPartner: [''],
@@ -229,4 +229,19 @@ export class CreacioRepteComponent implements OnInit {
     this.pdfNom = event.target.files[0].name
   }
 
+  addSolucioFormGroup(): FormGroup {
+    return this.fb.group({
+      nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      fotoSolucio: ['', [Validators.required]]
+    })
+  }
+
+  addSolucioButtonClick(): void {
+    (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
+  }
+
+  removeSolucioButtonClick(solucioGroupIndex: number): void {
+    (<FormArray>this.repteForm.get('solucioArray')).removeAt(solucioGroupIndex)
+  }
 }

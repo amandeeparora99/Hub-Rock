@@ -214,6 +214,7 @@ textarea {
     color: #e74c3c;
     letter-spacing: -0.45px;
     font-size: 18px;
+    cursor: pointer;
 }
 
 a:hover,
