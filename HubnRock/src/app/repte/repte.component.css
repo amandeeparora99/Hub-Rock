@@ -404,3 +404,30 @@ img {
 .juratinfo {
     margin-bottom: 40px;
 }
+
+.accordionbutton {
+    background-color: #d2f5e8;
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border-radius: 8px;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    font-family: 'WorkSans-Bold';
+    text-decoration: none;
+}
+
+.accordionbody .panel-body {
+    padding-top: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 45px;
+    font-size: 14px;
+    letter-spacing: -0.23px;
+}
+
+#faq {
+    margin-bottom: 100px;
+}

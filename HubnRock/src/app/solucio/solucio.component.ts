@@ -59,16 +59,16 @@ export class SolucioComponent implements OnInit {
 
   ngOnInit(): void {
     this.solucioForm = this.fb.group({
-      nomSolucio: ['', Validators.required],
-      descripcioBreuSolucio: ['', Validators.required],
-      problemaSolucio: ['', Validators.required],
-      descripcioSolucio: ['', Validators.required],
-      innovadoraSolucio: ['', Validators.required],
-      faseSolucio: ['', Validators.required],
+      nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioBreuSolucio: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],  //max 280 chars en aquest
+      problemaSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],  //textarea gran, 500 o 1000 va be?
+      innovadoraSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
+      faseSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       videoSolucio: [''],
-      nomEquip: ['', Validators.required],
+      nomEquip: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       membreArray: this.fb.array([
-        this.addMemberFormGroup(),
+        this.addMemberFormGroup(),  //
         this.addMemberFormGroup(),
       ])
     });
@@ -122,8 +122,8 @@ export class SolucioComponent implements OnInit {
 
   addMemberFormGroup(): FormGroup {
     return this.fb.group({
-      nomICognomsMembre: ['', Validators.required],
-      posicioMembre: ['', Validators.required],
+      nomICognomsMembre: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      posicioMembre: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       linkMembre: ['']
     })
   }
