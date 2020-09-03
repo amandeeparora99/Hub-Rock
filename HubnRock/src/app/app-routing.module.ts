@@ -19,7 +19,9 @@ const routes: Routes = [
   { path: 'reptes', component: ReptesComponent},
   { path: 'restore', component: RestorePasswordComponent},
   { path: 'homepage', component: HomepageComponent},
-  { path: 'repte', component: RepteComponent },
+  { path: 'repte', component: RepteComponent, children: [
+    { path: ':id', component: RepteComponent }
+  ] },
   { path: 'perfil-empresa', component: PerfilEmpresaComponent},
   { path: 'perfil-usuari', component: PerfilUsuariComponent},
   { path: 'solucio', component: SolucioComponent},

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-repte',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RepteComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router, public route: ActivatedRoute) { }
 
+  public idRepte;
+  
   ngOnInit(): void {
+    
+    let idRepte = parseInt(this.route.snapshot.paramMap.get('idrepte'));
+    this.idRepte = idRepte;
+    console.log(this.idRepte);
   }
 
   

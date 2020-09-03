@@ -157,9 +157,9 @@ export class CreacioRepteComponent implements OnInit {
       solucioArray: this.fb.array([
         this.addSolucioFormGroup(),
       ]),
-      nomPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      breuDescripcioPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      logoPartner: [''],
+      partnerArray: this.fb.array([
+        this.addPartnerFormGroup(),
+      ]),
       nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       biografiaJurat: ['', [Validators.maxLength(500), Validators.minLength(3)]],
       inputJurat: [''],
@@ -237,11 +237,28 @@ export class CreacioRepteComponent implements OnInit {
     })
   }
 
+  addPartnerFormGroup(): FormGroup {
+    return this.fb.group({
+      nomPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      breuDescripcioPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      logoPartner: [''],
+    })
+  }
+
   addSolucioButtonClick(): void {
     (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
   }
 
+  addPartnerButtonClick(): void {
+    (<FormArray>this.repteForm.get('partnerArray')).push(this.addPartnerFormGroup());
+  }
+
   removeSolucioButtonClick(solucioGroupIndex: number): void {
     (<FormArray>this.repteForm.get('solucioArray')).removeAt(solucioGroupIndex)
+  }
+
+  removePartnerButtonClick(partnerGroupIndex: number): void {
+    console.log("Deleting");
+    (<FormArray>this.repteForm.get('partnerArray')).removeAt(partnerGroupIndex)
   }
 }
