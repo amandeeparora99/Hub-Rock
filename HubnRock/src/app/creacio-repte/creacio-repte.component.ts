@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-creacio-repte',
@@ -17,6 +18,8 @@ export class CreacioRepteComponent implements OnInit {
   numberOfTabs = 3; //0 + 1 = 2 tabs
   fotoPortada = null;
   pdfNom = null;
+  
+  subscriptionForm$: Subscription;
 
 
 
@@ -168,7 +171,7 @@ export class CreacioRepteComponent implements OnInit {
       customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
     });
 
-    this.repteForm.valueChanges.subscribe((data) => {
+    this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.repteForm)
     });
   }
@@ -261,4 +264,8 @@ export class CreacioRepteComponent implements OnInit {
     console.log("Deleting");
     (<FormArray>this.repteForm.get('partnerArray')).removeAt(partnerGroupIndex)
   }
+
+  ngOnDestroy() {
+    this.subscriptionForm$.unsubscribe()
+}
 }

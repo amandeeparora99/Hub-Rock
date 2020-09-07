@@ -45,6 +45,12 @@ export class HttpCommunicationService {
       }));
   }
 
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+}
+
   registerEmpresa(email, password, empresa_rockstar, nom_empresa, nom_responsable, nif_empresa, ubicacio, bio): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
@@ -107,10 +113,35 @@ export class HttpCommunicationService {
         } else if (data.code == "110") {
           console.log('is not boolean')
         }
-        
+
         return data;
 
       }));
   }
 
+  getRepte(repte_id): Observable<any> {
+    return this.http.get<any>(environment.api + '/repte/get/' + repte_id)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
+
+        return data;
+
+      }));
+  }
 }
