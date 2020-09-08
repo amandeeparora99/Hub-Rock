@@ -49,7 +49,15 @@ export class HttpCommunicationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-}
+  }
+
+  loggedIn() {
+    return !!localStorage.getItem('currentUser');
+  }
+
+  getCurrentUser() {
+    return localStorage.getItem('currentUser');
+  }
 
   registerEmpresa(email, password, empresa_rockstar, nom_empresa, nom_responsable, nif_empresa, ubicacio, bio): Observable<any> {
     const body = new HttpParams()
