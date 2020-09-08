@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-repte',
@@ -8,18 +11,37 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RepteComponent implements OnInit {
 
-  constructor(public router: Router, public route: ActivatedRoute) { }
+  constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
-  public idRepte;
-  
+  public idRepte = null;
+  public repte = null;
+
+  subscriptionHttp$: Subscription
+
   ngOnInit(): void {
-    
-    let idRepte = parseInt(this.route.snapshot.paramMap.get('idrepte'));
-    this.idRepte = idRepte;
-    console.log(this.idRepte);
+    this.idRepte = this.aRouter.snapshot.params.id;
+    this.getRepteComponent(this.idRepte);
+
+
   }
 
-  
-  
+  getRepteComponent(id) {
+    this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == "1") {
+            this.repte = data.row
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionHttp$.unsubscribe()
+  }
 
 }

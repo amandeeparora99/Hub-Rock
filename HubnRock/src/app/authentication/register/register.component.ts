@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   accountType: string = 'empresa';
   register: number = 0;
+
+  subscriptionForm$: Subscription;
+  subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
 
   validationMessages = {
     'nomEmpresa': {
@@ -65,7 +70,7 @@ export class RegisterComponent implements OnInit {
       //ELS CAMPS QUE NO HI HA AQUI I QUE PERTANYIN A UN 'USUARI' ELS HEM DE PODER PASSAR COM A NULL
     })
 
-    this.registerForm.valueChanges.subscribe((data) => {
+    this.subscriptionForm$ = this.registerForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.registerForm)
     });
   }
@@ -129,7 +134,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.accountType == 'empresa') {
-      this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
+      this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
         '0',
          this.registerForm.controls.nomEmpresa.value,
@@ -164,7 +169,7 @@ export class RegisterComponent implements OnInit {
 
     }
     else if (this.accountType == 'rockstar') {
-      this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
+      this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
         '1',
         this.registerForm.controls.nomResponsable.value,
@@ -202,7 +207,12 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
+  ngOnDestroy() {
+    this.subscriptionForm$.unsubscribe()
+    this.subscriptionHttp1$.unsubscribe()
+    this.subscriptionHttp2$.unsubscribe()
+}
+  
 }
 
 function passwordsMatch(group: AbstractControl): { [key: string]: any } | null {

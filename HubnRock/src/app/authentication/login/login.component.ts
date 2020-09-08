@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,9 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-
+  subscriptionForm$: Subscription;
+  subscriptionHttp$: Subscription;
+  
   validationMessages = {
     'email': {
       'required': 'Introdueix un correu electrònic.',
@@ -37,7 +40,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]]
     });
 
-    this.loginForm.valueChanges.subscribe(value => {
+    this.subscriptionForm$ = this.loginForm.valueChanges.subscribe(value => {
       this.logValidationErrors(this.loginForm)
     });
   }
@@ -68,7 +71,7 @@ export class LoginComponent implements OnInit {
 
   onLogin(): void {
     // console.log("lo que passem" + this.loginForm.controls.email.value, this.loginForm.get(['password']).value)
-    this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+    this.subscriptionHttp$ = this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -95,11 +98,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onLoadDataClick() {
-    console.log("=========================================")
-    console.log(this.loginForm.value)
-  }
-
+  ngOnDestroy() {
+    this.subscriptionForm$.unsubscribe()
+    this.subscriptionHttp$.unsubscribe()
+}
   
 }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
   allReptes = null;
+
+  subscriptionHttp$: Subscription;
+
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
@@ -19,7 +23,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllReptesHomepage() {
-    this.httpCommunication.getAllReptes()
+    this.subscriptionHttp$ = this.httpCommunication.getAllReptes()
       .pipe(first())
       .subscribe(
         data => {
@@ -37,6 +41,10 @@ export class HomepageComponent implements OnInit {
   redirectRepte(idrepte) {
     let url: string = "/repte"
     this.router.navigate([url, idrepte]);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionHttp$.unsubscribe()
   }
 }
 

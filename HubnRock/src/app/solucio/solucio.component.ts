@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class SolucioComponent implements OnInit {
   currentTab: number; // Current tab is set to be the first tab (0)
   numberOfTabs = 1; //0 + 1 = 2 tabs
   success = false;
+
+  subscriptionForm$: Subscription;
 
   validationMessages = {
     'nomSolucio': {
@@ -76,7 +79,7 @@ export class SolucioComponent implements OnInit {
     this.currentTab = 0;
     this.radioValue = 'equip';
 
-    this.solucioForm.valueChanges.subscribe(value => {
+    this.subscriptionForm$ = this.solucioForm.valueChanges.subscribe(value => {
       this.logValidationErrors(this.solucioForm)
     });
   }
@@ -135,7 +138,7 @@ export class SolucioComponent implements OnInit {
 
 
   onSubmit() {
-    
+
     // FER IF SHA ENVIAT CORRECTAMENT O ALGO QUE CANVII A AQUESTA VARIABLE
     this.success = true;
 
@@ -149,10 +152,16 @@ export class SolucioComponent implements OnInit {
     // (<FormArray>this.solucioForm.get('membreArray')).clearAsyncValidators();
 
     // (<FormArray>this.solucioForm.get('membreArray')).updateValueAndValidity();
-    
+
     // console.log(this.solucioForm.controls);
 
 
 
   }
+
+  ngOnDestroy() {
+    this.subscriptionForm$.unsubscribe()
+  }
+
 }
+
