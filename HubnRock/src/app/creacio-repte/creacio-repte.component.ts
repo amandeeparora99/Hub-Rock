@@ -160,11 +160,13 @@ export class CreacioRepteComponent implements OnInit {
       partnerArray: this.fb.array([
         this.addPartnerFormGroup(),
       ]),
-      nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      biografiaJurat: ['', [Validators.maxLength(500), Validators.minLength(3)]],
-      inputJurat: [''],
-      pregunta: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      resposta: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(3)]], //
+      juratArray: this.fb.array([
+        this.addJuratFormGroup(),
+      ]),
+      preguntaArray: this.fb.array([
+        this.addPreguntaFormGroup(),
+      ]),
+      
       customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
     });
 
@@ -245,6 +247,21 @@ export class CreacioRepteComponent implements OnInit {
     })
   }
 
+  addJuratFormGroup(): FormGroup {
+    return this.fb.group({
+      nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      biografiaJurat: ['', [Validators.maxLength(500), Validators.minLength(3)]],
+      inputJurat: [''],
+    })
+  }
+
+  addPreguntaFormGroup(): FormGroup {
+    return this.fb.group({
+      pregunta: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      resposta: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(3)]],
+    })
+  }
+
   addSolucioButtonClick(): void {
     (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
   }
@@ -253,12 +270,28 @@ export class CreacioRepteComponent implements OnInit {
     (<FormArray>this.repteForm.get('partnerArray')).push(this.addPartnerFormGroup());
   }
 
+  addJuratButtonClick(): void {
+    (<FormArray>this.repteForm.get('juratArray')).push(this.addJuratFormGroup());
+  }
+
+  addPreguntaButtonClick(): void {
+    (<FormArray>this.repteForm.get('preguntaArray')).push(this.addPreguntaFormGroup());
+  }
+
   removeSolucioButtonClick(solucioGroupIndex: number): void {
     (<FormArray>this.repteForm.get('solucioArray')).removeAt(solucioGroupIndex)
   }
 
   removePartnerButtonClick(partnerGroupIndex: number): void {
-    console.log("Deleting");
     (<FormArray>this.repteForm.get('partnerArray')).removeAt(partnerGroupIndex)
   }
+
+  removeJuratButtonClick(partnerGroupIndex: number): void {
+    (<FormArray>this.repteForm.get('juratArray')).removeAt(partnerGroupIndex)
+  }
+
+  removePreguntaButtonClick(partnerGroupIndex: number): void {
+    (<FormArray>this.repteForm.get('preguntaArray')).removeAt(partnerGroupIndex)
+  }
+
 }
