@@ -174,45 +174,59 @@
                     <label class="additional-info">Podeu seleccionar més d'una opció</label>
                     <hr style="margin-top: 0; margin-bottom: 30px;">
                 </div>
-                <div class="d-flex justify-content-between hubrockformgrup">
-                    <div class="form-check form-check-inline checkboxes">
-                        <input class="form-check-input inputhidden" type="checkbox" id="InputEmpreses" value="empreses">
-                        <label class="form-check-label" for="InputEmpreses">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <img class="ilustration" src="../../../assets/illustrations/Company.png">
-                                <p class="checkboxtitle">Empreses</p>
-                            </div>
-                        </label>
+
+                <div class="hubrockformgrup">
+
+                    <div class="d-flex justify-content-between" formGroupName="checkboxGroup">
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputEmpreses"
+                                formControlName="empresesCheckbox" checked>
+                            <label class="form-check-label" for="InputEmpreses">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Company.png">
+                                    <p class="checkboxtitle">Empreses</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputStartups"
+                                formControlName="startupsCheckbox">
+                            <label class="form-check-label" for="InputStartups">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../assets/illustrations/Startup.png">
+                                    <p class="checkboxtitle">Startups</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputEstudiants"
+                                formControlName="estudiantsCheckbox">
+                            <label class="form-check-label" for="InputEstudiants">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Student.png">
+                                    <p class="checkboxtitle">Estudiants</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputExperts"
+                                formControlName="expertsCheckbox">
+                            <label class="form-check-label" for="InputExperts">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Experts.png">
+                                    <p class="checkboxtitle">Experts</p>
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline checkboxes">
-                        <input class="form-check-input inputhidden" type="checkbox" id="InputStartups" value="startups">
-                        <label class="form-check-label" for="InputStartups">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <img class="ilustration" src="../../assets/illustrations/Startup.png">
-                                <p class="checkboxtitle">Startups</p>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline checkboxes">
-                        <input class="form-check-input inputhidden" type="checkbox" id="InputEstudiants"
-                            value="estudiants">
-                        <label class="form-check-label" for="InputEstudiants">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <img class="ilustration" src="../../../assets/illustrations/Student.png">
-                                <p class="checkboxtitle">Estudiants</p>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline checkboxes">
-                        <input class="form-check-input inputhidden" type="checkbox" id="InputExperts" value="experts">
-                        <label class="form-check-label" for="InputExperts">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <img class="ilustration" src="../../../assets/illustrations/Experts.png">
-                                <p class="checkboxtitle">Experts</p>
-                            </div>
-                        </label>
-                    </div>
+
+                    <span class="help-block checkboxfail"
+                        *ngIf="repteForm.get('checkboxGroup').errors && repteForm.get('checkboxGroup').errors.requireCheckboxesToBeChecked">
+                        {{formErrors.checkboxGroup}}
+                    </span>
+
                 </div>
+
                 <div class="form-group">
                     <label class="mb-0 mr-3">Individual o en equip?</label>
                     <hr class="mt-1" style="margin-bottom: 30px;">
@@ -535,115 +549,118 @@
                         </div>
                         <div class="row d-flex justify-content-between regularFont"
                             [ngClass]="{'is-invalid' : jurat.get('inputJurat').invalid && jurat.get('inputJurat').touched}">
-                        
-                        <div class="col-md-4 mb-2">
-                            <label [attr.for]="'InputLogoPartner' + i">Foto</label>
-                            <div class="image-upload d-flex justify-content-center align-items-center">
-                                <label [attr.for]="'InputLogoPartner' + i" class="pointer mb-0">
-                                    <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
-                                            class="rounded-circle align-self-center" />
-                                        <p class="mb-0">Afegeix foto</p>
-                                    </div>
-                                </label>
-                                <input formControlName="inputJurat" [id]="'InputFotoJurat' + i" type="file" />
+
+                            <div class="col-md-4 mb-2">
+                                <label [attr.for]="'InputLogoPartner' + i">Foto</label>
+                                <div class="image-upload d-flex justify-content-center align-items-center">
+                                    <label [attr.for]="'InputLogoPartner' + i" class="pointer mb-0">
+                                        <div class="row d-flex flex-column justify-content-center">
+                                            <img src="https://dummyimage.com/61x61/00e293/000000"
+                                                class="rounded-circle align-self-center" />
+                                            <p class="mb-0">Afegeix foto</p>
+                                        </div>
+                                    </label>
+                                    <input formControlName="inputJurat" [id]="'InputFotoJurat' + i" type="file" />
+                                </div>
+                                <span class="help-block"
+                                    *ngIf="jurat.get('inputJurat').errors?.required && jurat.get('inputJurat').touched">
+                                    És un camp obligatori
+                                </span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addJuratButtonClick()">+ Afegeix unaltre
+                        jurat</a>
+                </div>
+            </div>
+
+
+            <div class="tab" *ngIf="currentTab == 3" style="margin-bottom: 110px;">
+
+
+                <h1 class="formpagetitle">Preguntes freqüents</h1>
+
+                <div formArrayName="preguntaArray"
+                    *ngFor="let pregunta of repteForm.get('preguntaArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group mb-0">
+                            <div class="d-flex justify-content-between mt-5">
+                                <div>
+                                    <label for="InputNomCognomsJurat" class="mb-0">Pregunta {{i+1}}</label>
+                                </div>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('preguntaArray').length > 1">
+                                    <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group regularFont"
+                            [ngClass]="{'is-invalid' : pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched}">
+                            <label [attr.for]="'InputPregunta' + i">Pregunta</label>
+                            <input formControlName="pregunta" type="text" class="form-control"
+                                [id]="'InputPregunta' + i" (blur)="logValidationErrors()">
                             <span class="help-block"
-                                *ngIf="jurat.get('inputJurat').errors?.required && jurat.get('inputJurat').touched">
+                                *ngIf="pregunta.get('pregunta').errors?.required && pregunta.get('pregunta').touched">
                                 És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="pregunta.get('pregunta').errors?.minlength && pregunta.get('pregunta').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="pregunta.get('pregunta').errors?.maxlength && pregunta.get('pregunta').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group regularFont"
+                            [ngClass]="{'is-invalid' : pregunta.get('resposta').invalid && pregunta.get('resposta').touched}">
+                            <label for="InputResposta">Resposta</label>
+                            <textarea formControlName="resposta" type="text" class="form-control"
+                                [id]="'InputResposta' + i" (blur)="logValidationErrors()"></textarea>
+                            <span class="help-block"
+                                *ngIf="pregunta.get('resposta').errors?.required && pregunta.get('resposta').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="pregunta.get('resposta').errors?.minlength && pregunta.get('resposta').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="pregunta.get('resposta').errors?.maxlength && pregunta.get('resposta').touched">
+                                Nom massa llarg
                             </span>
                         </div>
                     </div>
-                    </div>
                 </div>
-            
-            <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addJuratButtonClick()">+ Afegeix unaltre
-                    jurat</a>
+
+                <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addPreguntaButtonClick()">+ Afegeix unaltre
+                        pregunta</a>
+                </div>
+
+                <div class="separator hubrockformgrup"></div>
+                <h1 class="formpagetitle">Bases legals del repte</h1>
+                <div class="regularFont hubrockformgrup">
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio"
+                            id="radioTOS1" name="customRadio" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
+                            & Rock</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="radioTOS2"
+                            name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="radioTOS2">Escriure bases legals
+                            personalitzades</label>
+                    </div>
+                    <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text"
+                        class="form-control mt-3 inputToS" id="InputResposta"></textarea>
+                    <span class="help-block"></span>
+                </div>
             </div>
         </div>
-
-
-        <div class="tab" *ngIf="currentTab == 3" style="margin-bottom: 110px;">
-
-
-            <h1 class="formpagetitle">Preguntes freqüents</h1>
-
-            <div formArrayName="preguntaArray" 
-                *ngFor="let pregunta of repteForm.get('preguntaArray').controls; let i = index">
-                <div [formGroupName]="i">
-                    <div class="form-group mb-0">
-                        <div class="d-flex justify-content-between mt-5">
-                            <div>
-                                <label for="InputNomCognomsJurat" class="mb-0">Pregunta {{i+1}}</label>
-                            </div>
-                            <div class="text-center elimina-link" *ngIf="repteForm.get('preguntaArray').length > 1">
-                                <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched}">
-                        <label [attr.for]="'InputPregunta' + i">Pregunta</label>
-                        <input formControlName="pregunta" type="text" class="form-control" [id]="'InputPregunta' + i"
-                            (blur)="logValidationErrors()">
-                        <span class="help-block"
-                            *ngIf="pregunta.get('pregunta').errors?.required && pregunta.get('pregunta').touched">
-                            És un camp obligatori
-                        </span>
-                        <span class="help-block"
-                            *ngIf="pregunta.get('pregunta').errors?.minlength && pregunta.get('pregunta').touched">
-                            Nom massa curt
-                        </span>
-                        <span class="help-block"
-                            *ngIf="pregunta.get('pregunta').errors?.maxlength && pregunta.get('pregunta').touched">
-                            Nom massa llarg
-                        </span>
-                    </div>
-                    <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('resposta').invalid && pregunta.get('resposta').touched}">
-                        <label for="InputResposta">Resposta</label>
-                        <textarea formControlName="resposta" type="text" class="form-control" [id]="'InputResposta' + i"
-                            (blur)="logValidationErrors()"></textarea>
-                        <span class="help-block"
-                            *ngIf="pregunta.get('resposta').errors?.required && pregunta.get('resposta').touched">
-                            És un camp obligatori
-                        </span>
-                        <span class="help-block"
-                            *ngIf="pregunta.get('resposta').errors?.minlength && pregunta.get('resposta').touched">
-                            Nom massa curt
-                        </span>
-                        <span class="help-block"
-                            *ngIf="pregunta.get('resposta').errors?.maxlength && pregunta.get('resposta').touched">
-                            Nom massa llarg
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addPreguntaButtonClick()">+ Afegeix unaltre pregunta</a>
-            </div>
-
-            <div class="separator hubrockformgrup"></div>
-            <h1 class="formpagetitle">Bases legals del repte</h1>
-            <div class="regularFont hubrockformgrup">
-                <div class="custom-control custom-radio">
-                    <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="radioTOS1"
-                        name="customRadio" class="custom-control-input" checked>
-                    <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
-                        & Rock</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="radioTOS2"
-                        name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="radioTOS2">Escriure bases legals
-                        personalitzades</label>
-                </div>
-                <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text"
-                    class="form-control mt-3 inputToS" id="InputResposta"></textarea>
-                <span class="help-block"></span>
-            </div>
-        </div>
-</div>
-<!--Container principal-->
-</form>
+        <!--Container principal-->
+    </form>
 </div>
 <app-footer></app-footer>

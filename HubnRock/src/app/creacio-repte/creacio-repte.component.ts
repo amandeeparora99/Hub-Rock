@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -46,6 +46,9 @@ export class CreacioRepteComponent implements OnInit {
     },
     'videoSolucio': {
       'required': 'És un camp obligatori.',
+    },
+    'checkboxGroup':{
+      'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
     'limitParticipants': {
       'required': 'És un camp obligatori.',
@@ -117,6 +120,7 @@ export class CreacioRepteComponent implements OnInit {
     'fotoRepresentativa2': '',
     'fotoRepresentativa3': '',
     'videoSolucio': '',
+    'checkboxGroup': '',
     'limitParticipants': '',
     'dataInici': '',
     'dataFinalitzacio': '',
@@ -148,7 +152,12 @@ export class CreacioRepteComponent implements OnInit {
       fotoRepresentativa2: ['', [Validators.required]],
       fotoRepresentativa3: ['', [Validators.required]],
       videoSolucio: [''], //validador custom youtube format
-      //Falta els checkbox
+      checkboxGroup: this.fb.group({
+        empresesCheckbox: [true],
+        startupsCheckbox: [false],
+        estudiantsCheckbox: [false],
+        expertsCheckbox: [false]
+      }, { validator: requireCheckboxesToBeCheckedValidator() }),
       //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
       limitParticipants: ['', [Validators.pattern('[0-9]+')]],
       dataInici: ['', Validators.required],  //Data inici no pot ser anterior a la data actual
@@ -300,4 +309,35 @@ export class CreacioRepteComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptionForm$.unsubscribe()
   }
+
+  checkboxvalues(){
+    console.log("CHECKBOXES")
+    console.log(this.repteForm.get('checkboxGroup').value)
+    console.log(this.repteForm.get('checkboxGroup').errors)
+  }
+  
+}
+
+function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
+  return function validate (formGroup: FormGroup) {
+    let checked = 0;
+
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.controls[key];
+
+      if (control.value === true) {
+        checked ++;
+      }
+    });
+
+    if (checked < minRequired) {
+      console.log("SELECCIONA ALMENYS UN CHECKBOX!")
+      return {
+        requireCheckboxesToBeChecked: true,
+      };
+    }
+
+    console.log("NO ERRORS")
+    return null;
+  };
 }
