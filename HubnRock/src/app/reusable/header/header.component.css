@@ -23,7 +23,6 @@
 .nav-links li {
     display: inline-block;
     padding: 0px 20px;
-
 }
 
 .nav-links li a:hover {
@@ -34,4 +33,9 @@
 .hubrock-border-right {
     padding-right: 40px;
     border-right: 1px solid #333;
+}
+
+.elimina-link a {
+    color: #e74c3c;
+    cursor: pointer;
 }

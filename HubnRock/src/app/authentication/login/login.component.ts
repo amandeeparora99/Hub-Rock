@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,8 +22,7 @@ export class LoginComponent implements OnInit {
       'email': 'Introdueix un correu electrònic vàlid.',
     },
     'password': {
-      'required': 'Introdueix una contrasenya.',
-      'minlength': 'Contrasenya massa curta.'
+      'required': 'Introdueix una contrasenya.'
     }
   };
 
@@ -32,12 +32,15 @@ export class LoginComponent implements OnInit {
     'password': ''
   };
 
-  constructor(private httpCommunication: HttpCommunicationService, private fb: FormBuilder) { }
+  constructor(private httpCommunication: HttpCommunicationService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.httpCommunication.loggedIn()) {
+      this.router.navigate(["/homepage"]);
+    }
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]]
+      password: ['', Validators.required]
     });
 
     this.subscriptionForm$ = this.loginForm.valueChanges.subscribe(value => {
@@ -77,17 +80,16 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(data);
           if (data.code == 302) {
-            //this._router.navigate(["/apps"]);
-            console.log("succcessful")
+            this.router.navigate(["/homepage"]);
 
           }
           else if (data.code == 534) {
             this.loginForm.controls['password'].setErrors({ 'password': true });
-            console.log("fallat");
+            console.log("Contrasenya incorrecte");
           }
           else if (data.code == 533) {
             this.loginForm.controls['email'].setErrors({ 'email': true });
-            console.log("fallat");
+            console.log("Email incorrecte");
 
           }
         },
@@ -99,8 +101,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptionForm$.unsubscribe()
-    this.subscriptionHttp$.unsubscribe()
+    this.subscriptionForm$?.unsubscribe()
+    this.subscriptionHttp$?.unsubscribe()
 }
   
 }

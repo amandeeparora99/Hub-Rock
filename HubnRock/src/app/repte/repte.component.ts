@@ -41,7 +41,7 @@ export class RepteComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptionHttp$.unsubscribe()
+    this.subscriptionHttp$?.unsubscribe()
   }
 
 }

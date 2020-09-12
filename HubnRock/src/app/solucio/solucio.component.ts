@@ -120,7 +120,6 @@ export class SolucioComponent implements OnInit {
 
   addMemberButtonClick(): void {
     (<FormArray>this.solucioForm.get('membreArray')).push(this.addMemberFormGroup());
-    console.log(this.solucioForm.value)
   }
 
   addMemberFormGroup(): FormGroup {
@@ -148,19 +147,27 @@ export class SolucioComponent implements OnInit {
 
   onItemChange(value) {
     this.radioValue = value;
-    // (<FormArray>this.solucioForm.get('membreArray')).clearValidators();
-    // (<FormArray>this.solucioForm.get('membreArray')).clearAsyncValidators();
+    // if (this.radioValue == 'individual') {
 
-    // (<FormArray>this.solucioForm.get('membreArray')).updateValueAndValidity();
+    //   for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
+    //     console.log(i)
 
-    // console.log(this.solucioForm.controls);
+    //     this.removeMemberButtonClick(i);
+    //   }
 
+    //   this.solucioForm.get('nomEquip').clearValidators();
+    //   console.log((<FormArray>this.solucioForm.get('membreArray')).controls.length)
 
-
+    // } else if (this.radioValue == 'equip') {
+    //   this.solucioForm.get('nomEquip').setValidators(Validators.required);
+    //   this.addMemberButtonClick();
+    //   this.addMemberButtonClick();
+    // }
+    // console.log(this.radioValue)
   }
 
   ngOnDestroy() {
-    this.subscriptionForm$.unsubscribe()
+    this.subscriptionForm$?.unsubscribe()
   }
 
 }

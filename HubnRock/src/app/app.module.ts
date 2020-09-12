@@ -16,6 +16,7 @@ import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 import { AuthGuard } from './auth.guard'
 import { HttpInterceptorService } from './http-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     PerfilUsuariComponent,
     SolucioComponent,
     CreacioRepteComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
