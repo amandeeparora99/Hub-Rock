@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
   selector: 'app-creacio-repte',
@@ -9,7 +11,9 @@ import { Subscription } from 'rxjs';
 })
 export class CreacioRepteComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  private subscriptionHttp1$: Subscription;
+
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
   repteForm: FormGroup;
   radioValue = 'equip';
@@ -162,10 +166,9 @@ export class CreacioRepteComponent implements OnInit {
       limitParticipants: ['', [Validators.pattern('[0-9]+')]],
       dataInici: ['', Validators.required],  //Data inici no pot ser anterior a la data actual
       dataFinalitzacio: ['', Validators.required],
-      nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]], //Preu
-      descripcioPremi: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      fotoPremi: [''],
+      premiArray: this.fb.array([
+        this.addPremiFormGroup(),
+      ]),
       solucioArray: this.fb.array([
         this.addSolucioFormGroup(),
       ]),
@@ -243,6 +246,15 @@ export class CreacioRepteComponent implements OnInit {
     this.pdfNom = event.target.files[0].name
   }
 
+  addPremiFormGroup(): FormGroup {
+    return this.fb.group({
+      nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]],
+      descripcioPremi: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      fotoPremi: ['']
+    })
+  }
+
   addSolucioFormGroup(): FormGroup {
     return this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
@@ -274,6 +286,10 @@ export class CreacioRepteComponent implements OnInit {
     })
   }
 
+  addPremiButtonClick(): void {
+    (<FormArray>this.repteForm.get('premiArray')).push(this.addPremiFormGroup());
+  }
+
   addSolucioButtonClick(): void {
     (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
   }
@@ -288,6 +304,10 @@ export class CreacioRepteComponent implements OnInit {
 
   addPreguntaButtonClick(): void {
     (<FormArray>this.repteForm.get('preguntaArray')).push(this.addPreguntaFormGroup());
+  }
+
+  removePremiButtonClick(partnerGroupIndex: number): void {
+    (<FormArray>this.repteForm.get('premiArray')).removeAt(partnerGroupIndex)
   }
 
   removeSolucioButtonClick(solucioGroupIndex: number): void {
@@ -316,15 +336,78 @@ export class CreacioRepteComponent implements OnInit {
     console.log(this.repteForm.get('checkboxGroup').errors)
   }
 
-  // desaBorrador() {
-  //   const formData = new FormData();
-  //   formData.append('descripcio_short', this.uploadForm.get('profile').value);
+  desaBorrador() {
 
-  //   // this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
-  //   //   (res) => console.log(res),
-  //   //   (err) => console.log(err)
-  //   // );
-  // }
+    const formData = new FormData();
+    formData.append('descripcio_short', this.repteForm.get('descripcioBreuRepte').value);
+    formData.append('descripcio_long', this.repteForm.get('descripcioDetalladaRepte').value);
+    formData.append('individual_equip', '1');
+    formData.append('limit_participants', this.repteForm.get('limitParticipants').value);
+    formData.append('data_inici', this.repteForm.get('dataInici').value);
+    formData.append('data_final', this.repteForm.get('dataFinalitzacio').value);
+    formData.append('bases_legals', this.repteForm.get('customTOS').value);
+    formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
+    formData.append('url_photo_3', this.repteForm.get('fotoRepresentativa3').value);
+    formData.append('url_photo_2', this.repteForm.get('fotoRepresentativa2').value);
+    formData.append('url_photo_main', this.repteForm.get('fotoPortada').value);
+    formData.append('url_photo_1', this.repteForm.get('fotoRepresentativa1').value);
+    formData.append('nom', 'nomrepte');
+
+    //APPENDING PREMI
+    for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
+      formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
+      formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
+      formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
+      formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
+    }
+
+    //APPENDING SOLUCIO
+    for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
+      formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
+      formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
+      formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
+    }
+
+    //APPENDING PARTNER
+    for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
+      formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
+      formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
+      formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
+    }
+
+    //APPENDING JURAT
+    for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
+      formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
+      formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
+      formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
+    }
+
+    //APPENDING FAQ
+    for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+      formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
+      formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
+    }
+
+    //APENDING RECURSOS
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+    //   formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
+    //   formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
+    // }
+
+
+
+    this.subscriptionHttp1$ = this.httpClient.addRepte(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log("HOLAOL")
+          console.log(data);
+        },
+        error => {
+          console.log("Fail")
+        });
+
+  }
 }
 
 function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {

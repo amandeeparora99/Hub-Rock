@@ -30,7 +30,7 @@
     <hr>
     <form id="regForm" [formGroup]="repteForm">
         <div class="row actionbtns">
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage">DESA COM A ESBORRANY</button>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" (click)="desaBorrador()">DESA COM A ESBORRANY</button>
             </div>
             <div class="col-md-3 col-sm-6" [ngClass]="{'opacity0' : currentTab == 0}"><button
                     class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0"
@@ -275,49 +275,106 @@
                 </div>
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle">Els premis</h1>
-                <div class="form-group">
-                    <label class="mb-0 mr-3">Premi (numPremi)</label>
-                    <hr class="mt-1" style="margin-bottom: 30px;">
-                </div>
-                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.nomPremi}">
-                    <label for="InputNomPremi">Nom del premi</label>
-                    <input formControlName="nomPremi" type="text" class="form-control" id="InputNomPremi"
-                        (blur)="logValidationErrors()">
-                    <span class="help-block" *ngIf="formErrors.nomPremi">
-                        {{formErrors.nomPremi}}
-                    </span>
-                </div>
-                <div class="form-group regularFont" [ngClass]="{'is-invalid' : formErrors.dotacioPremi}">
-                    <label for="InputDotacioPremi">Dotació del premi</label>
-                    <input formControlName="dotacioPremi" type="text" class="form-control" id="InputDotacioPremi"
-                        (blur)="logValidationErrors()">
-                    <span class="help-block" *ngIf="formErrors.dotacioPremi">
-                        {{formErrors.dotacioPremi}}
-                    </span>
-                </div>
-                <div class="form-group regularFont">
-                    <label for="InputDescripcioPremi">Descripció del premi</label><span
-                        class="opcional-text">(Opcional)</span><br>
-                    <input formControlName="descripcioPremi" type="text" class="form-control" id="InputDescripcioPremi">
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group hubrockformgrup regularFont">
-                    <label for="InputFotoPremi">Foto portada</label><span class="opcional-text">(Opcional)</span><br>
-                    <div class="image-upload d-flex justify-content-center align-items-center mb-4">
-                        <label for="InputFotoPremi" class="pointer mb-0">
-                            <div class="row d-flex flex-column justify-content-center">
-                                <img src="https://dummyimage.com/61x61/00e293/000000"
-                                    class="rounded-circle align-self-center" />
-                                <p class="mb-0">Afegeix foto</p>
+
+                <div formArrayName="premiArray"
+                    *ngFor="let premi of repteForm.get('premiArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label class="mb-0 mr-3">Premi {{i+1}}</label>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('premiArray').length > 1">
+                                    <a (click)="removePremiButtonClick(i)">- Elimina aquest premi</a>
+                                </div>
                             </div>
-                        </label>
-                        <input formControlName="fotoPremi" id="InputFotoPremi" type="file" />
-                    </div>
-                    <span class="help-block"></span>
-                    <div class="text-center afegeix-link"><label>
-                            <input accept=".pdf" type="file" (change)="onPDFSelected($event)" style="display: none;">
-                            <a style="cursor:pointer">+ Afegeix PDFs</a>
-                        </label> {{pdfNom}}
+                            <hr class="mt-1" style="margin-bottom: 30px;">
+                        </div>
+
+                        <div class="form-group regularFont" 
+                            [ngClass]="{'is-invalid' : premi.get('nomPremi').invalid && premi.get('nomPremi').touched}">
+                            <label [attr.for]="'InputNomPremi'+i">Nom del premi</label>
+                            <input formControlName="nomPremi" type="text" class="form-control"
+                                [id]="'InputNomPremi' + i" (blur)="logValidationErrors()">
+                            <span class="help-block"
+                                *ngIf="premi.get('nomPremi').errors?.required && premi.get('nomPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('nomPremi').errors?.minlength && premi.get('nomPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('nomPremi').errors?.maxlength && premi.get('nomPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+
+                        <div class="form-group regularFont" 
+                            [ngClass]="{'is-invalid' : premi.get('nomPremi').invalid && premi.get('nomPremi').touched}">
+                            <label [attr.for]="'InputDotacioPremi'+i">Dotació del premi</label>
+                            <input formControlName="dotacioPremi" type="text" class="form-control"
+                                [id]="'InputDotacioPremi' + i" (blur)="logValidationErrors()">
+                            <span class="help-block"
+                                *ngIf="premi.get('dotacioPremi').errors?.required && premi.get('dotacioPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('dotacioPremi').errors?.minlength && premi.get('dotacioPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('dotacioPremi').errors?.maxlength && premi.get('dotacioPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+
+                        <div class="form-group regularFont">
+                            <label for="InputDescripcioPremi">Descripció del premi</label><span
+                                class="opcional-text">(Opcional)</span><br>
+                            <input formControlName="descripcioPremi" type="text" class="form-control"
+                                id="InputDescripcioPremi">
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group hubrockformgrup regularFont">
+                            <label for="InputFotoPremi">Foto premi</label><span
+                                class="opcional-text">(Opcional)</span><br>
+                            <div class="image-upload d-flex justify-content-center align-items-center mb-4">
+                                <label for="InputFotoPremi" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoPremi" id="InputFotoPremi" type="file" />
+                            </div>
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block"
+                                *ngIf="premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched">
+                                Nom massa llarg
+                            </span>
+
+                            <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix una altre
+                                premi</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -483,8 +540,8 @@
                     </div>
                 </div>
 
-                <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addPartnerButtonClick()">+ Afegeix unaltre
-                        partner</a>
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addPartnerButtonClick()">+ Afegeix un altre partner</a>
                 </div>
 
                 <div class="separator hubrockformgrup"></div>

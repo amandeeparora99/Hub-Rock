@@ -4,6 +4,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Form } from '@angular/forms';
 
 interface User {
   email: String,
@@ -153,5 +154,34 @@ export class HttpCommunicationService {
       }));
   }
 
+
+  addRepte(form: FormData): Observable<any>{
+  //   for (var value of form.values()) {
+  //     console.log(value); 
+  //  }
+    return this.http.post<any>(environment.api + '/repte/addBorrador', form, {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data'
+      })
+    })
+      .pipe(map(data => {
+        // login successful if there's a jwt token in the response
+        return data;
+      }));
+
+    // return this.http.post<any>(environment.api + '/repte/addBorrador', form)
+    //   .pipe(map(data => {
+    //     // login successful if there's a jwt token in the response
+    //     if (data.code == "302") {
+    //       if (data && data.token) {
+    //         // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //         localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
+    //         this.currentUserSubject.next(data);
+    //       }
+    //     }
+    //     return data;
+    //   }));
+
+  }
   
 }
