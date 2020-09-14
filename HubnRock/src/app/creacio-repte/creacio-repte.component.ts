@@ -18,7 +18,7 @@ export class CreacioRepteComponent implements OnInit {
   numberOfTabs = 3; //0 + 1 = 2 tabs
   fotoPortada = null;
   pdfNom = null;
-  
+
   subscriptionForm$: Subscription;
 
 
@@ -47,7 +47,7 @@ export class CreacioRepteComponent implements OnInit {
     'videoSolucio': {
       'required': 'És un camp obligatori.',
     },
-    'checkboxGroup':{
+    'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
     'limitParticipants': {
@@ -178,7 +178,7 @@ export class CreacioRepteComponent implements OnInit {
       preguntaArray: this.fb.array([
         this.addPreguntaFormGroup(),
       ]),
-      
+
       customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
     });
 
@@ -310,34 +310,41 @@ export class CreacioRepteComponent implements OnInit {
     this.subscriptionForm$.unsubscribe()
   }
 
-  checkboxvalues(){
+  checkboxvalues() {
     console.log("CHECKBOXES")
     console.log(this.repteForm.get('checkboxGroup').value)
     console.log(this.repteForm.get('checkboxGroup').errors)
   }
-  
+
+  // desaBorrador() {
+  //   const formData = new FormData();
+  //   formData.append('descripcio_short', this.uploadForm.get('profile').value);
+
+  //   // this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
+  //   //   (res) => console.log(res),
+  //   //   (err) => console.log(err)
+  //   // );
+  // }
 }
 
 function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
-  return function validate (formGroup: FormGroup) {
+  return function validate(formGroup: FormGroup) {
     let checked = 0;
 
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.controls[key];
 
       if (control.value === true) {
-        checked ++;
+        checked++;
       }
     });
 
     if (checked < minRequired) {
-      console.log("SELECCIONA ALMENYS UN CHECKBOX!")
       return {
         requireCheckboxesToBeChecked: true,
       };
     }
 
-    console.log("NO ERRORS")
     return null;
   };
 }

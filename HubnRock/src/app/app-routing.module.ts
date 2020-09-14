@@ -25,6 +25,8 @@ const routes: Routes = [
   { path: 'perfil-usuari', component: PerfilUsuariComponent},
   { path: 'solucio', component: SolucioComponent, canActivate:[AuthGuard]},
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate:[AuthGuard]}
+  // { path: '**', component: no exxiste}
+
 ];
 
 @NgModule({
