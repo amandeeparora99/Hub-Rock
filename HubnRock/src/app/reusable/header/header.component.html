@@ -3,6 +3,8 @@
     <nav class="nav-links">
         <li><a href="#" class="font-weight-bold hubrock-border-right">Veure reptes oberts</a></li>
         <li><a href="#">Dona't d'alta</a></li>
-        <li><a href="#">Entra</a></li>
+        <li *ngIf="!userLoggedIn()"><a href="#">Entra</a></li>
+        <li *ngIf="userLoggedIn()"><a href="#">{{currentUser.email}}</a></li>
+        <li *ngIf="userLoggedIn()" class="elimina-link"><a (click)="userLogout()">Sortir</a></li>
     </nav>
 </header>

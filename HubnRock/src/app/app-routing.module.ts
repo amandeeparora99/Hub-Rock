@@ -12,9 +12,10 @@ import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
 import { SolucioComponent } from './solucio/solucio.component';
 import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 import { AuthGuard } from './auth.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: HomepageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent},
   { path: 'reptes', component: ReptesComponent},
@@ -24,9 +25,8 @@ const routes: Routes = [
   { path: 'perfil-empresa', component: PerfilEmpresaComponent},
   { path: 'perfil-usuari', component: PerfilUsuariComponent},
   { path: 'solucio', component: SolucioComponent, canActivate:[AuthGuard]},
-  { path: 'creacio-repte', component: CreacioRepteComponent, canActivate:[AuthGuard]}
-  // { path: '**', component: no exxiste}
-
+  { path: 'creacio-repte', component: CreacioRepteComponent, canActivate:[AuthGuard]},
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

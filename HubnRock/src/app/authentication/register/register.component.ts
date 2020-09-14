@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,8 @@ export class RegisterComponent implements OnInit {
       'required': 'Introdueix un nom del responsable'
     },
     'nomCorreu': {
-      'required': 'Introdueix un correu'
+      'required': 'Introdueix un correu',
+      'email': 'Introdueix un correu vàlid'
     },
     'nomContrasenya': {
       'required': 'Introdueix una contrasenya'
@@ -55,9 +57,13 @@ export class RegisterComponent implements OnInit {
     'nomNifEmpresa': ''
   }
 
-  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService) { }
+  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.httpCommunication.loggedIn()) {
+      this.router.navigate(["/homepage"]);
+    }
+    
     this.registerForm = this.fb.group({
       nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
@@ -105,15 +111,15 @@ export class RegisterComponent implements OnInit {
     const nomEmpresa = this.registerForm.get('nomEmpresa');
     const nifEmpresa = this.registerForm.get('nomNifEmpresa');
 
-    if(this.accountType == 'empresa'){
+    if (this.accountType == 'empresa') {
       nomEmpresa.setValidators(Validators.required);
       nifEmpresa.setValidators(Validators.required);
     }
-    else if(this.accountType == 'rockstar'){
+    else if (this.accountType == 'rockstar') {
       nomEmpresa.clearValidators();
       nifEmpresa.clearValidators();
     }
-    
+
   }
 
   radioChangedHandler(event: any) {
@@ -127,7 +133,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  stepBack(){
+  stepBack() {
     this.register = 0;
     this.accountType = 'empresa';
   }
@@ -137,19 +143,23 @@ export class RegisterComponent implements OnInit {
       this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
         '0',
-         this.registerForm.controls.nomEmpresa.value,
-         this.registerForm.controls.nomResponsable.value,
-         this.registerForm.controls.nomNifEmpresa.value,
-         null,
-         null
-         )
+        this.registerForm.controls.nomEmpresa.value,
+        this.registerForm.controls.nomResponsable.value,
+        this.registerForm.controls.nomNifEmpresa.value,
+        null,
+        null
+      )
         .pipe(first())
         .subscribe(
           data => {
             console.log(data);
             if (data.code == 302) {
-              //this._router.navigate(["/apps"]);
-              console.log("succcessful")
+
+
+              //mirar si el registre dona token
+
+
+              this.router.navigate(["/homepage"]);
 
             }
             else if (data.code == 534) {
@@ -173,19 +183,23 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
         '1',
         this.registerForm.controls.nomResponsable.value,
-         null,
-         null,
-         null,
-         null,
-         null
-         )
+        null,
+        null,
+        null,
+        null,
+        null
+      )
         .pipe(first())
-        .subscribe(  
+        .subscribe(
           data => {
             console.log(data);
             if (data.code == 302) {
-              //this._router.navigate(["/apps"]);
-              console.log("succcessful")
+
+
+              //mirar si el registre dona token
+
+
+              this.router.navigate(["/homepage"]);
 
             }
             else if (data.code == 534) {
@@ -208,11 +222,11 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnDestroy() {
-    this.subscriptionForm$.unsubscribe()
-    this.subscriptionHttp1$.unsubscribe()
-    this.subscriptionHttp2$.unsubscribe()
-}
-  
+    this.subscriptionForm$?.unsubscribe()
+    this.subscriptionHttp1$?.unsubscribe()
+    this.subscriptionHttp2$?.unsubscribe()
+  }
+
 }
 
 function passwordsMatch(group: AbstractControl): { [key: string]: any } | null {
