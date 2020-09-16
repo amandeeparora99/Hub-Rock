@@ -18,25 +18,25 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getAllReptesHomepage();
+    // this.getAllReptesHomepage();
 
   }
 
-  getAllReptesHomepage() {
-    this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(1,10)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-          if (data.code == "1") {
-            this.allReptes = data.rows;
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
-  }
+  // getAllReptesHomepage() {
+  //   this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(1,10)
+  //     .pipe(first())
+  //     .subscribe(
+  //       data => {
+  //         console.log(data.rows);
+  //         if (data.code == "1") {
+  //           this.allReptes = data.rows;
+  //         }
+  //       },
+  //       error => {
+  //         //this.error = error;
+  //         //this.loading = false;
+  //       });
+  // }
 
   redirectRepte(idrepte) {
     let url: string = "/repte"

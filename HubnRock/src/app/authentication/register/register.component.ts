@@ -34,7 +34,8 @@ export class RegisterComponent implements OnInit {
       'email': 'Introdueix un correu vàlid'
     },
     'nomContrasenya': {
-      'required': 'Introdueix una contrasenya'
+      'required': 'Introdueix una contrasenya',
+      'pattern': 'La contrasenya ha de tenir almenys 8 caràcters, una majúscula i un número'
     },
     'nomRepeteixContrasenya': {
       'required': 'Introdueix de nou la contrasenya'
@@ -70,7 +71,7 @@ export class RegisterComponent implements OnInit {
       nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
         nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
-        nomRepeteixContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]]
+        nomRepeteixContrasenya: ['', [Validators.required]]
       }, { validator: passwordsMatch }),
       nomNifEmpresa: ['', Validators.required] //format de nif empresa
       //ELS CAMPS QUE NO HI HA AQUI I QUE PERTANYIN A UN 'USUARI' ELS HEM DE PODER PASSAR COM A NULL
@@ -139,6 +140,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     if (this.accountType == 'empresa') {
       this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
@@ -157,7 +159,7 @@ export class RegisterComponent implements OnInit {
               //mirar si el registre dona token
 
 
-              // this.router.navigate(["/homepage"]);
+              this.router.navigate(["/login"]);
 
             }
             else if (data.code == 534) {
@@ -192,7 +194,7 @@ export class RegisterComponent implements OnInit {
               //mirar si el registre dona token
 
 
-              this.router.navigate(["/homepage"]);
+              this.router.navigate(["/login"]);
 
             }
             else if (data.code == 534) {

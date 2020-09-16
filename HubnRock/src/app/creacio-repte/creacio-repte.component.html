@@ -64,7 +64,7 @@
                         {{formErrors.descripcioDetalladaRepte}}
                     </span>
                 </div>
-                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioDetalladaRepte}">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.fotoPortada}">
                     <label for="InputFotoPortada" class="mb-0">Foto portada</label><br>
                     <div class="d-flex img-infohelp">
                         <div class="maxwidth-348">
@@ -315,7 +315,7 @@
                             </div>
                             
 
-                            <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix una altre
+                            <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix un altre
                                 premi</a>
                             </div>
                         </div>
@@ -332,7 +332,7 @@
                             <div class="d-flex justify-content-between">
                                 <label class="mb-0 mr-3">Solució {{i+1}}</label>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('solucioArray').length > 1">
-                                    <a (click)="removeSolucioButtonClick(i)">- Elimina aquest membre</a>
+                                    <a (click)="removeSolucioButtonClick(i)">- Elimina aquesta solució</a>
                                 </div>
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">
@@ -377,14 +377,19 @@
                                 <span class="help-block">
                                 </span>
                             </div>
+                            
                             <span class="help-block" *ngIf="solucio.get('fotoSolucio').errors?.required && solucio.get('fotoSolucio').touched">
                                 És un camp obligatori
                             </span>
                         </div>
                     </div>
                 </div>
-                <div class="text-center afegeix-link"><a (click)="addSolucioButtonClick()">+ Afegeix una altra
-                        solució</a></div>
+
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addSolucioButtonClick()">+ Afegeix una altra
+                        solució</a>
+                </div>
+                
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
                 <p>Puja documents PDF relacionats amb el repte</p>

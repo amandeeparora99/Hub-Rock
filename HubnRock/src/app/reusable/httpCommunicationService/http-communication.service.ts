@@ -60,6 +60,10 @@ export class HttpCommunicationService {
     return localStorage.getItem('currentUser');
   }
 
+
+
+
+
   registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
@@ -74,25 +78,8 @@ export class HttpCommunicationService {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
-    ).pipe(map(data => {
-        // login successful if there's a jwt token in the response
-        // if (data.code == "1") {
-        //   if (data && data.token) {
+    );
 
-        //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-        //     localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
-        //     this.currentUserSubject.next(data);
-        //   }
-        // }
-        // console.log(data.token)
-        return data;
-      }));
-
-    // if (data && data.token) {
-    //   // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //   localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
-    //   this.currentUserSubject.next(data);
-    // }
   }
 
   registerRockstar(email, password, nom_rockstar): Observable<any> {
@@ -109,34 +96,7 @@ export class HttpCommunicationService {
       }
     );
   }
-
-  getAllValidReptes(page, elements): Observable<any> {
-    //console.log(email + " " + password);
-    return this.http.get<any>(environment.api + `/repte/getAllDetailedPageValid/${page}/${elements}`)
-      .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
-
-        return data;
-
-      }));
-  }
-
+  
   getRepte(repte_id): Observable<any> {
     return this.http.get<any>(environment.api + '/repte/get/' + repte_id)
       .pipe(map(data => {
@@ -177,9 +137,9 @@ export class HttpCommunicationService {
   }
 
   addRepteRevisio(form): Observable<any> {
-      for (var value of form.values()) {
-        console.log(value); 
-     }
+    for (var value of form.values()) {
+      console.log(value);
+    }
     return this.http.post<any>(environment.api + '/repte/addRevisio', form)
       .pipe(map(data => {
 
@@ -188,4 +148,32 @@ export class HttpCommunicationService {
 
   }
 
+
+  getAllValidReptes(page, elements): Observable<any> {
+    console.log("entrat a get all valid reptes")
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getAllDetailedPageValid/${page}/${elements}`)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
+
+        return data;
+
+      }));
+  }
 }
