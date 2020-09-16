@@ -1,6 +1,7 @@
 * {
     font-family: 'WorkSans-Regular';
     color: #020e7d;
+    font-size: 16px;
 }
 
 #hubrock-header {
@@ -23,6 +24,10 @@
 .nav-links li {
     display: inline-block;
     padding: 0px 20px;
+}
+
+.nav-links a {
+    cursor: pointer;
 }
 
 .nav-links li a:hover {

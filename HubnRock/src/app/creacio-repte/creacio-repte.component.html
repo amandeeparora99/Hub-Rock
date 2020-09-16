@@ -358,18 +358,7 @@
                                 </label>
                                 <input formControlName="fotoPremi" id="InputFotoPremi" type="file" />
                             </div>
-                            <span class="help-block"
-                                *ngIf="premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched">
-                                És un camp obligatori
-                            </span>
-                            <span class="help-block"
-                                *ngIf="premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched">
-                                Nom massa curt
-                            </span>
-                            <span class="help-block"
-                                *ngIf="premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched">
-                                Nom massa llarg
-                            </span>
+                            
 
                             <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix una altre
                                 premi</a>

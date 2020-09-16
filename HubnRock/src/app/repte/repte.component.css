@@ -22,7 +22,7 @@ img {
     font-size: 24px;
     letter-spacing: -0.33px;
     color: #020e7d;
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 #repte-infobox .reptetitle {
@@ -428,6 +428,6 @@ img {
     letter-spacing: -0.23px;
 }
 
-#faq {
+#faq, #propostes, #forum, #jurat {
     margin-bottom: 100px;
 }

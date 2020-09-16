@@ -60,39 +60,48 @@ export class HttpCommunicationService {
     return localStorage.getItem('currentUser');
   }
 
-  registerEmpresa(email, password, empresa_rockstar, nom_empresa, nom_responsable, nif_empresa, ubicacio, bio): Observable<any> {
+  registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
       .set('password', password)
-      .set('empresa_rockstar', empresa_rockstar)
       .set('nom_empresa', nom_empresa)
       .set('nom_responsable', nom_responsable)
       .set('nif_empresa', nif_empresa)
-      .set('ubicacio', ubicacio)
-      .set('bio', bio);
 
-    return this.http.post(environment.api + '/user/register',
+    return this.http.post(environment.api + '/user/shortRegisterEmpresa',
       body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
-    );
+    ).pipe(map(data => {
+        // login successful if there's a jwt token in the response
+        // if (data.code == "1") {
+        //   if (data && data.token) {
+
+        //     // store user details and jwt token in local storage to keep user logged in between page refreshes
+        //     localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
+        //     this.currentUserSubject.next(data);
+        //   }
+        // }
+        // console.log(data.token)
+        return data;
+      }));
+
+    // if (data && data.token) {
+    //   // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //   localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
+    //   this.currentUserSubject.next(data);
+    // }
   }
 
-  registerRockstar(email, password, empresa_rockstar, nom_rockstar, ocupacio, ubicacio, bio, experiencia, educacio): Observable<any> {
+  registerRockstar(email, password, nom_rockstar): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
       .set('password', password)
-      .set('empresa_rockstar', empresa_rockstar)
       .set('nom_rockstar', nom_rockstar)
-      .set('ocupacio', ocupacio)
-      .set('ubicacio', ubicacio)
-      .set('bio', bio)
-      .set('experiencia', experiencia)
-      .set('educacio', educacio);
 
-    return this.http.post(environment.api + '/user/register',
+    return this.http.post(environment.api + '/user/shortRegisterRockstar',
       body.toString(),
       {
         headers: new HttpHeaders()

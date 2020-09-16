@@ -64,7 +64,22 @@
     margin-top: 33px;
 }
 
+.socialmedia img {
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
+}
+
 .include-padding p,
 .include-padding a {
     margin-right: 25px;
+}
+
+.logoCambra {
+    width: 40px;
+}
+
+.sendicon {
+    width: 25px;
+    height: 22px;
 }

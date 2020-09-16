@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
     if (this.httpCommunication.loggedIn()) {
       this.router.navigate(["/homepage"]);
     }
-    
+
     this.registerForm = this.fb.group({
       nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
@@ -142,24 +142,22 @@ export class RegisterComponent implements OnInit {
     if (this.accountType == 'empresa') {
       this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-        '0',
         this.registerForm.controls.nomEmpresa.value,
         this.registerForm.controls.nomResponsable.value,
         this.registerForm.controls.nomNifEmpresa.value,
-        null,
-        null
+
       )
         .pipe(first())
         .subscribe(
           data => {
             console.log(data);
-            if (data.code == 302) {
+            if (data.code == "1") {
 
-
+              console.log(data)
               //mirar si el registre dona token
 
 
-              this.router.navigate(["/homepage"]);
+              // this.router.navigate(["/homepage"]);
 
             }
             else if (data.code == 534) {
@@ -181,19 +179,14 @@ export class RegisterComponent implements OnInit {
     else if (this.accountType == 'rockstar') {
       this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-        '1',
         this.registerForm.controls.nomResponsable.value,
-        null,
-        null,
-        null,
-        null,
-        null
+
       )
         .pipe(first())
         .subscribe(
           data => {
             console.log(data);
-            if (data.code == 302) {
+            if (data.code == "1") {
 
 
               //mirar si el registre dona token
