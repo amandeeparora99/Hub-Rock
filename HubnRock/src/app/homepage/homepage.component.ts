@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  allReptes = null;
+  allReptes = [];
 
   subscriptionHttp$: Subscription;
 
@@ -23,11 +23,11 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllReptesHomepage() {
-    this.subscriptionHttp$ = this.httpCommunication.getAllReptes()
+    this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(1,10)
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
+          console.log(data);
           if (data.code == "1") {
             this.allReptes = data.rows;
           }
