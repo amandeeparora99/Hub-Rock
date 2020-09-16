@@ -27,10 +27,10 @@
         <h1 class="text-center reptestitle">Reptes oberts</h1>
         <div class="row d-flex flex-column align-items-center">
 
-            <p *ngIf="allReptes == null" class="text-center what-text">No hi ha cap repte obert</p>
+            <p *ngIf="!allReptes.length" class="text-center what-text">No hi ha cap repte obert</p>
 
             <div class="row w-100">
-                <ng-container *ngIf="allReptes != null">
+                <ng-container *ngIf="allReptes.length">
                     <div *ngFor="let repte of allReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
                             <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
