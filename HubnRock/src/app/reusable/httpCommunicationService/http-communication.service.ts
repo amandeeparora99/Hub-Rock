@@ -72,13 +72,24 @@ export class HttpCommunicationService {
       .set('nom_responsable', nom_responsable)
       .set('nif_empresa', nif_empresa)
 
-    return this.http.post(environment.api + '/user/shortRegisterEmpresa',
+    return this.http.post<any>(environment.api + '/user/shortRegisterEmpresa',
       body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
-    );
+    ).pipe(map(data => {
+      if (data.code = "1") {
+        console.log(data)
+
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.lastid, "email": email }));
+        this.currentUserSubject.next(data);
+
+
+        return data;
+      }
+    }));
 
   }
 
@@ -88,15 +99,26 @@ export class HttpCommunicationService {
       .set('password', password)
       .set('nom_rockstar', nom_rockstar)
 
-    return this.http.post(environment.api + '/user/shortRegisterRockstar',
+    return this.http.post<any>(environment.api + '/user/shortRegisterRockstar',
       body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
-    );
+    ).pipe(map(data => {
+      if (data.code = "1") {
+        console.log(data)
+
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.lastid, "email": email }));
+        this.currentUserSubject.next(data);
+
+
+        return data;
+      }
+    }));
   }
-  
+
   getRepte(repte_id): Observable<any> {
     return this.http.get<any>(environment.api + '/repte/get/' + repte_id)
       .pipe(map(data => {
@@ -174,6 +196,15 @@ export class HttpCommunicationService {
 
         return data;
 
+      }));
+  }
+
+  addSolucioBorrador(form, idRepte): Observable<any> {
+
+    return this.http.post<any>(environment.api + '/solucio/addBorrador/' + idRepte, form)
+      .pipe(map(data => {
+
+        return data;
       }));
   }
 }
