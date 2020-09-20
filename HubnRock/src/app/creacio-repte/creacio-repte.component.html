@@ -65,11 +65,17 @@
                     </span>
                 </div>
                 <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.fotoPortada}">
-                    <label for="InputFotoPortada" class="mb-0">Foto portada</label><br>
+                    <div class="d-flex justify-content-between">
+                        <label for="InputFotoPortada" class="mb-0">Foto portada</label>
+                        <div class="text-center elimina-link" *ngIf="fotoPortada != null">
+                            <a>- Elimina aquest premi</a>
+                        </div>
+                    </div>
                     <div class="d-flex img-infohelp">
                         <div class="maxwidth-348">
                             <label class="additional-info" for="InputFotoPortada">Tamany mínim: 1750 x 540px</label>
                         </div>
+
                         <div class="d-flex flex-grow-1 justify-content-end align-self-center">
                             <img src="https://dummyimage.com/24/020e7d/ffffff" class="rounded-circle helpbutton">
                         </div>
@@ -83,7 +89,7 @@
                             </div>
                         </label>
                         <input accept="image/*" *ngIf="fotoPortada == null" formControlName="fotoPortada" id="InputFotoPortada" type="file" (change)="onFileSelected($event)" (blur)="logValidationErrors()" />
-                        <img *ngIf="fotoPortada != null" width="300" height="200" [src]="fotoPortada" alt="your image" />
+                        <img class="image-upload" *ngIf="fotoPortada != null" width="100%" height="100%" [src]="fotoPortada" alt="your image" />
                     </div>
                     <span class="help-block" *ngIf="formErrors.fotoPortada">
                         {{formErrors.fotoPortada}}
@@ -313,7 +319,7 @@
                                 </label>
                                 <input formControlName="fotoPremi" id="InputFotoPremi" type="file" />
                             </div>
-                            
+
 
                             <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix un altre
                                 premi</a>
@@ -377,7 +383,7 @@
                                 <span class="help-block">
                                 </span>
                             </div>
-                            
+
                             <span class="help-block" *ngIf="solucio.get('fotoSolucio').errors?.required && solucio.get('fotoSolucio').touched">
                                 És un camp obligatori
                             </span>
@@ -389,7 +395,7 @@
                     <a (click)="addSolucioButtonClick()">+ Afegeix una altra
                         solució</a>
                 </div>
-                
+
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
                 <p>Puja documents PDF relacionats amb el repte</p>

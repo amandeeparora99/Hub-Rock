@@ -241,6 +241,7 @@ export class CreacioRepteComponent implements OnInit {
 
     }
   }
+
   onPDFSelected(event) {
     console.log(event.target.files[0])
     this.pdfNom = event.target.files[0].name

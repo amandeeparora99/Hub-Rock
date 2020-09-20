@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class SolucioComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
   solucioForm: FormGroup;
   radioValue;
@@ -19,6 +21,7 @@ export class SolucioComponent implements OnInit {
   success = false;
 
   subscriptionForm$: Subscription;
+  subscriptionHttp1$: Subscription;
 
   validationMessages = {
     'nomSolucio': {
@@ -114,6 +117,33 @@ export class SolucioComponent implements OnInit {
     })
   }
 
+  logValidationErrorsUntouched(group: FormGroup = this.solucioForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid) {
+        const messages = this.validationMessages[key];
+
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+      // if (abstractControl instanceof FormArray) {
+      //   for (const control of abstractControl.controls) {
+      //     if (control instanceof FormGroup) {
+      //       this.logValidationErrors(control);
+      //     }
+      //   }
+      // }
+    })
+  }
   removeMemberButtonClick(membreGroupIndex: number): void {
     (<FormArray>this.solucioForm.get('membreArray')).removeAt(membreGroupIndex)
   }
@@ -138,8 +168,9 @@ export class SolucioComponent implements OnInit {
 
   onSubmit() {
 
-    // FER IF SHA ENVIAT CORRECTAMENT O ALGO QUE CANVII A AQUESTA VARIABLE
-    this.success = true;
+    if (!this.solucioForm.valid) {
+      this.logValidationErrorsUntouched()
+    }
 
 
     console.log(this.solucioForm.value)
@@ -166,8 +197,38 @@ export class SolucioComponent implements OnInit {
     // console.log(this.radioValue)
   }
 
+  desaBorrador() {
+
+    const formData = new FormData();
+    formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
+    formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
+    formData.append('individual_equip', this.solucioForm.get('0').value);
+    // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
+    formData.append('problema', this.solucioForm.get('problemaSolucio').value);
+    formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
+    formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
+    formData.append('url_video', this.solucioForm.get('videoSolucio').value);
+    formData.append('nom', this.solucioForm.get('nomSolucio').value);
+
+    //FALTA TOT LO DE ITERAR SOBRE MEMBRES I TAL
+
+
+    this.subscriptionHttp1$ = this.httpClient.addSolucioBorrador(formData, 2)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log("HOLAOL")
+          console.log(data);
+        },
+        error => {
+          console.log("Fail")
+        });
+  }
+
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()
+    this.subscriptionHttp1$?.unsubscribe()
+
   }
 
 }
