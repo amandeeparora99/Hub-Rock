@@ -9,8 +9,9 @@
 }
 
 #banner-background-image {
-    background-image: url('https://images3.alphacoders.com/823/82317.jpg');
+    background-image: url('../../assets/testpics/Banner.png');
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #banner-title-div {
@@ -276,7 +277,12 @@
     margin-bottom: 39px;
     font-size: 14px;
     letter-spacing: -0.95px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
+
 
 .fitxa-repte .titol-repte {
     font-family: 'WorkSans-Bold';

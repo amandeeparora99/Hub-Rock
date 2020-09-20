@@ -10,6 +10,9 @@ img {
 #hubrock-repte-banner {
     height: 542px;
     background-color: burlywood;
+    background-image: url('../../assets/testpics/Banner_PackEco.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #hubrock-repte-info {
@@ -99,7 +102,9 @@ img {
 #infobox .nav-link {
     background-color: #f3f3f3;
     color: black;
+    height: 100%;
 }
+
 
 #infobox .nav-link.active {
     background-color: #00e292;

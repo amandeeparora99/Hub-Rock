@@ -3,9 +3,14 @@
     font-size: 14px;
 }
 
+#bannerimg {
+    
+}
 #hubrock-reptes #banner {
     height: 453px;
-    background-color: #00e292;
+    background-image: url('../../assets/testpics/BannerReptesverd.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #hubrock-reptes #banner .container {
@@ -129,4 +134,14 @@
 
 .card {
     margin-bottom: 20px;
+}
+
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+
+input[type="checkbox"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
 }

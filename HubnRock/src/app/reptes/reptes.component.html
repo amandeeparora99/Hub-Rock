@@ -1,10 +1,12 @@
 <app-header></app-header>
 
 <section id="hubrock-reptes">
-    <div id="banner" class="w-100 d-flex align-items-center">
-        <div class="container d-flex flex-column">
-            <h1 class="title">Descobreix reptes</h1>
-            <p class="subtitle">I participa, sol o en equip, en els que més t’interessen</p>
+    <div id="bannerimg">
+        <div id="banner" class="w-100 d-flex align-items-center">
+            <div class="container d-flex flex-column">
+                <h1 class="title">Descobreix reptes</h1>
+                <p class="subtitle">I participa, sol o en equip, en els que més t’interessen</p>
+            </div>
         </div>
     </div>
 
@@ -14,35 +16,51 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="input-group mb-3 test">
                     <div class="input-group-prepend">
-                        <button id="icon" class="btn btn-outline-primary" type="button">B</button>
+                        <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px" src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
                     </div>
                     <input id="searchbar" type="text" class="form-control" placeholder="Some text" placeholder="Busca per paraules clau, nom d’empresa…">
                 </div>
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
-                <div id="category" class="d-flex justify-content-between align-items-start">
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Community.png" width="40px" height="40px">
-                        <p class="category-text">Tots els reptes</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
-                        <p class="category-text">Empreses</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
-                        <p class="category-text">Startups</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
-                        <p class="category-text">Estudiants</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
-                        <p class="category-text">Experts</p>
-                    </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
+                    <label class="form-check-label" for="SearchEmpreses">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Empreses</p>
+                        </div>
+                    </label>
                 </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
+                    <label class="form-check-label" for="SearchStartups">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Startups</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
+                    <label class="form-check-label" for="SearchEstudiants">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Estudiants</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
+                    <label class="form-check-label" for="SearchExperts">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Experts</p>
+                        </div>
+                    </label>
+                </div>
+                
+                
             </div>
 
         </div>
@@ -59,18 +77,18 @@
             <div class="row w-100">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
                             <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
                             <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -83,18 +101,18 @@
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
                             <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
                             <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -107,18 +125,18 @@
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
+                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
+                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -145,20 +163,20 @@
 
         <div class="d-flex">
             <div class="row w-100">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
                             <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
                             <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -169,20 +187,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
                             <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
                             <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -193,20 +211,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                             </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
+                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
+                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
@@ -235,23 +253,22 @@
 
         <div class="d-flex">
             <div class="row w-100">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/testpic3.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/testpics/marviklogofake.png" alt="25x25"> &nbsp;Marvik Test
                             </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
+                            <h5 class="card-title titol-repte">Tercer repte de prova</h5>
+                            <p class="card-text desc-repte">Descripció del tercer repte de prova realitzat. Hola món!</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat
                             </div>
                             <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
                                 <button type="button" class="tag btn btn-primary">Empreses</button>
                                 <button type="button" class="tag btn btn-warning">Estudiants</button>
                                 <button type="button" class="tag btn btn-success">Públic general</button>
@@ -259,50 +276,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/testpic2.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/testpics/marviklogofake.png" alt="25x25"> &nbsp;Marvik Test
                             </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
+                            <h5 class="card-title titol-repte">Segon repte de prova</h5>
+                            <p class="card-text desc-repte">Descripció del segon repte de prova realitzat. Hola món!</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
                                 <button type="button" class="tag btn btn-success">Públic general</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="../../assets/testpics/testpic1.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                <img class="rounded-circle" width="25px" src="../../assets/testpics/marviklogofake.png" alt="25x25"> &nbsp;Marvik Test
                             </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
+                            <h5 class="card-title titol-repte">Primer repte de prova</h5>
+                            <p class="card-text desc-repte">Descripció del primer repte de prova realitzat. Hola món!</p>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
+                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat
                             </div>
                             <div class="tags">
                                 <button type="button" class="tag btn btn-danger">Startups</button>
                                 <button type="button" class="tag btn btn-primary">Empreses</button>
                                 <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
                             </div>
                         </div>
                     </div>

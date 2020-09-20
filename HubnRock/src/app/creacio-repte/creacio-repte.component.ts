@@ -251,7 +251,7 @@ export class CreacioRepteComponent implements OnInit {
     return this.fb.group({
       nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]],
-      descripcioPremi: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioPremi: ['', [Validators.maxLength(900), Validators.minLength(3)]],
       fotoPremi: ['']
     })
   }
@@ -259,7 +259,7 @@ export class CreacioRepteComponent implements OnInit {
   addSolucioFormGroup(): FormGroup {
     return this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      descripcioSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      descripcioSolucio: ['', [Validators.required, Validators.maxLength(900), Validators.minLength(3)]],
       fotoSolucio: ['', [Validators.required]]
     })
   }
@@ -267,7 +267,7 @@ export class CreacioRepteComponent implements OnInit {
   addPartnerFormGroup(): FormGroup {
     return this.fb.group({
       nomPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      breuDescripcioPartner: ['', [Validators.maxLength(255), Validators.minLength(3)]],
+      breuDescripcioPartner: ['', [Validators.maxLength(900), Validators.minLength(3)]],
       logoPartner: [''],
     })
   }
@@ -275,7 +275,7 @@ export class CreacioRepteComponent implements OnInit {
   addJuratFormGroup(): FormGroup {
     return this.fb.group({
       nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
-      biografiaJurat: ['', [Validators.maxLength(500), Validators.minLength(3)]],
+      biografiaJurat: ['', [Validators.maxLength(900), Validators.minLength(3)]],
       inputJurat: [''],
     })
   }
