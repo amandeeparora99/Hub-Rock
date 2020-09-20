@@ -21,8 +21,6 @@ export class RepteComponent implements OnInit {
   ngOnInit(): void {
     this.idRepte = this.aRouter.snapshot.params.id;
     this.getRepteComponent(this.idRepte);
-
-
   }
 
   getRepteComponent(id) {

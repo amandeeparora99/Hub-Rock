@@ -11,9 +11,8 @@
 
         <div id="repte-infobox" class="row d-flex justify-content-between">
             <div class="col-md-8">
-                <h1 class="reptetitle">Creació d’un packaging ecològic</h1>
-                <p class="reptedesc">Creació d’una embalatge ecològic per una nova gamma de productes.
-                    Estem buscant la millor solució per cuidar del planeta.</p>
+                <h1 class="reptetitle">{{repte.nom}}</h1>
+                <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex justify-content-start tablet-left">
                 <!--EN MOVIL NO HA DESTAR AL FINAL-->
@@ -51,7 +50,7 @@
 
                     <div class="d-flex">
                         <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>2 - 4 <br> persones
+                        <h1>2 - {{repte.limit_participants}}<br> persones
                         </h1>
                     </div>
 
@@ -69,9 +68,6 @@
             </div>
         </div>
 
-        <div class="row">
-
-        </div>
     </div>
 </section>
 
@@ -114,12 +110,7 @@
 
                 <h1 class="tabtitle text-center">Sobre el repte</h1>
                 <div class="row d-flex justify-content-center">
-                    <!-- <p class="maxwidth-540 text-center">{{repte.descripcio_long}}
-                    </p> -->
-                    <p class="maxwidth-540 text-center">Lorem Ipsum es simplemente el texto de relleno de las imprentas
-                         archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, 
-                         cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos 
-                         y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años. 
+                    <p class="maxwidth-540 text-center">{{repte.descripcio_long}}
                     </p>
                 </div>
 
@@ -128,13 +119,10 @@
                     <img width="537px" height="287px" src="../../assets/testpics/Imatge2.png">
                 </div>
 
-                <div class="row d-flex justify-content-center">
-                    <p class="maxwidth-540 text-center margin-top">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar
-                    </p>
-                </div>
+                <div class="row d-flex justify-content-center mb-5"></div>
 
                 <div id="videorepte" class="row d-flex justify-content-center">
-                    <iframe width="660" height="370" src="https://www.youtube.com/embed/8iYE0hOAP4o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="660" height="370" src="https://www.youtube.com/watch?v=ytFzsNGCdes&list=RDytFzsNGCdes&start_radio=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 
 
