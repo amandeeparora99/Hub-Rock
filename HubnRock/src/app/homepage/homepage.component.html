@@ -28,37 +28,37 @@
         <h1 class="text-center reptestitle">Reptes oberts</h1>
         <div class="row d-flex flex-column align-items-center">
 
-            <!-- <p *ngIf="!allReptes.length" class="text-center what-text">No hi ha cap repte obert</p> -->
+            <p *ngIf="!allReptes.length" class="text-center what-text">No hi ha cap repte obert</p>
 
             <div class="row w-100">
-                <!-- <ng-container *ngIf="allReptes.length">
+                <ng-container *ngIf="allReptes.length">
                     <div *ngFor="let repte of allReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
+                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Universitat de Girona
+                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
                                 <div class="card-title d-flex">
-                                    <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;{{repte.data_inici}}{{repte.data_final}}
+                                    <img class="align-self-center" width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;{{repte.data_inici | date:'short'}}
                                 </div>
                                 <div class="tags">
-                                    <button type="button" class="tag btn btn-danger">Startups</button>
-                                    <button type="button" class="tag btn btn-primary">Empreses</button>
-                                    <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                    <button type="button" class="tag btn btn-success">Públic general</button>
+                                    <button type="button" class="tag btn tag-red">Startups</button>
+                                    <button type="button" class="tag btn tag-blue">Empreses</button>
+                                    <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                    <button type="button" class="tag btn tag-purple">Públic general</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </ng-container> -->
+                </ng-container>
 
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
                         <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
@@ -130,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <button id="btn-veure-tots-reptes" class="btn btn-primary button8" routerLink='/reptes'>VEURE TOTS ELS REPTES</button>
