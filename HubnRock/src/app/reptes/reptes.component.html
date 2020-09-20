@@ -1,10 +1,12 @@
 <app-header></app-header>
 
 <section id="hubrock-reptes">
-    <div id="banner" class="w-100 d-flex align-items-center">
-        <div class="container d-flex flex-column">
-            <h1 class="title">Descobreix reptes</h1>
-            <p class="subtitle">I participa, sol o en equip, en els que més t’interessen</p>
+    <div id="bannerimg">
+        <div id="banner" class="w-100 d-flex align-items-center">
+            <div class="container d-flex flex-column">
+                <h1 class="title">Descobreix reptes</h1>
+                <p class="subtitle">I participa, sol o en equip, en els que més t’interessen</p>
+            </div>
         </div>
     </div>
 
@@ -21,28 +23,54 @@
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
-                <div id="category" class="d-flex justify-content-between align-items-start">
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Community.png" width="40px" height="40px">
-                        <p class="category-text">Tots els reptes</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
-                        <p class="category-text">Empreses</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
-                        <p class="category-text">Startups</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
-                        <p class="category-text">Estudiants</p>
-                    </div>
-                    <div class="d-flex flex-column align-items-center category-item">
-                        <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
-                        <p class="category-text">Experts</p>
-                    </div>
+
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchTotElsReptes" checked>
+                    <label class="form-check-label" for="SearchTotElsReptes">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Community.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Tots els reptes</p>
+                        </div>
+                    </label>
                 </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
+                    <label class="form-check-label" for="SearchEmpreses">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Empreses</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
+                    <label class="form-check-label" for="SearchStartups">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Startups</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
+                    <label class="form-check-label" for="SearchEstudiants">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Estudiants</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
+                    <label class="form-check-label" for="SearchExperts">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Experts</p>
+                        </div>
+                    </label>
+                </div>
+                
+                
             </div>
 
         </div>
