@@ -202,7 +202,7 @@ export class SolucioComponent implements OnInit {
     const formData = new FormData();
     formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
     formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
-    formData.append('individual_equip', this.solucioForm.get('0').value);
+    formData.append('individual_equip', '0');
     // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
     formData.append('problema', this.solucioForm.get('problemaSolucio').value);
     formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
