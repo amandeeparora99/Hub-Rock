@@ -11,12 +11,13 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { RepteComponent } from './repte/repte.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
 import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
-import { SolucioComponent } from './solucio/solucio.component';
+import { CreacioSolucioComponent } from './creacio-solucio/creacio-solucio.component';
 import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 import { AuthGuard } from './auth.guard'
 import { HttpInterceptorService } from './http-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EditarSolucioComponent } from './editar-solucio/editar-solucio.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     RepteComponent,
     PerfilEmpresaComponent,
     PerfilUsuariComponent,
-    SolucioComponent,
+    CreacioSolucioComponent,
     CreacioRepteComponent,
     PageNotFoundComponent,
+    EditarSolucioComponent,
   ],
   imports: [
     BrowserModule,
