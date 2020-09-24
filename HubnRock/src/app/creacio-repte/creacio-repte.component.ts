@@ -29,87 +29,113 @@ export class CreacioRepteComponent implements OnInit {
 
   validationMessages = {
     'nomRepte': {
-      'required': 'És un camp obligatori.'
+      'required': 'És un camp obligatori',
+      'maxlength': 'Nom massa llarg',
+      'minlength': 'Nom massa curt'
     },
     'descripcioBreuRepte': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Descripció massa llarga',
+      'minlength': 'Descripció massa curta'
     },
     'descripcioDetalladaRepte': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Descripció massa llarga',
+      'minlength': 'Descripció massa curta'
     },
     'fotoPortada': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'fotoRepresentativa1': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'fotoRepresentativa2': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'fotoRepresentativa3': {
+      'required': 'És un camp obligatori',
     },
     'videoSolucio': {
-      'required': 'És un camp obligatori.',
+      
     },
     'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
     'limitParticipants': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',  //SI HA POSAT INDIVIDUAL NO CALDRIA
     },
     'dataInici': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'dataFinalitzacio': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'nomPremi': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Nom massa llarg',
+      'minlength': 'Nom massa curt'
     },
     'dotacioPremi': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'minlength': 'Premi invàlid'
     },
     'descripcioPremi': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Descripció massa llarga',
+      'minlength': 'Descripció massa curta'
     },
     'fotoPremi': {
-      'required': 'És un camp obligatori.',
+      
     },
     'nomSolucio': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Nom massa llarg',
+      'minlength': 'Nom massa curt'
     },
     'descripcioSolucio': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Descripció massa llarga',
+      'minlength': 'Descripció massa curta'
     },
     'fotoSolucio': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
     },
     'nomPartner': {
-      'required': 'És un camp obligatori.',
+      'maxlength': 'Nom massa llarg',  //Falta fer que sigui required if tal.
+      'minlength': 'Nom massa curt'
     },
     'breuDescripcioPartner': {
-      'required': 'És un camp obligatori.',
+      'maxlength': 'Descripció massa llarga',
+      'minlength': 'Descripció massa curta'
     },
     'logoPartner': {
-      'required': 'És un camp obligatori.',
+      
     },
     'nomCognomsJurat': {
-      'required': 'És un camp obligatori.',
+      'maxlength': 'Nom massa llarg',  //Falta fer que sigui required if tal.
+      'minlength': 'Nom massa curt'
     },
     'biografiaJurat': {
-      'required': 'És un camp obligatori.',
+      'maxlength': 'Biografia massa llarga',
+      'minlength': 'Biografia massa curta'
     },
     'inputJurat': {
-      'required': 'És un camp obligatori.',
+      
     },
     'pregunta': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp obligatori',
+      'maxlength': 'Pregunta massa llarga',
+      'minlength': 'Pregunta invàlida'
     },
     'resposta': {
       'required': 'És un camp obligatori.',
+      'maxlength': 'Resposta massa llarga',
+      'minlength': 'Resposta invàlida'
     },
-    'customTOS': {
-      'required': 'És un camp obligatori.',
+    'customTOS': {  //Sha de fer required si ha triat customTOS
+      'required': 'És un camp obligatori',
+      'maxlength': 'Les bases legals excedeixen el màxim de caràcters',
+      'minlength': 'Bases legals invàlides'
     },
 
   };

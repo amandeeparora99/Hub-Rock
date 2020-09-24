@@ -105,9 +105,18 @@ img {
     height: 100%;
 }
 
+#tabs .nav-link {
+    cursor: pointer;
+}
+
 
 #infobox .nav-link.active {
     background-color: #00e292;
+    color: black;
+    font-family: 'WorkSans-Bold';
+}
+
+#infobox .nav-link.active p{
     color: black;
     font-family: 'WorkSans-Bold';
 }
