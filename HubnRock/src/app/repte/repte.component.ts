@@ -15,6 +15,7 @@ export class RepteComponent implements OnInit {
 
   public idRepte = null;
   public repte = null;
+  videoUrl;
 
   subscriptionHttp$: Subscription
 
@@ -40,6 +41,21 @@ export class RepteComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscriptionHttp$?.unsubscribe()
+  }
+
+  getImage(idparticipants){
+    if(idparticipants == 1){
+      return '../../assets/illustrations/Company.png';
+    }
+    else if(idparticipants == 2){
+      return '../../assets/illustrations/Startup.png';
+    }
+    else if(idparticipants == 3){
+      return '../../assets/illustrations/Student.png';
+    }
+    else if(idparticipants == 4){
+      return '../../assets/illustrations/Experts.png';
+    }
   }
 
 }

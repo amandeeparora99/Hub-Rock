@@ -202,11 +202,17 @@ img {
     margin-bottom: 0;
 }
 
+#fotosSobreElRepte {
+    margin-bottom: 70px;
+}
+
 #premis-tab .nav-link {
     border-radius: 50%;
     height: 94px;
     width: 94px;
     padding-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #premis-tab {
@@ -242,6 +248,7 @@ img {
 
 #quebusquem .text-premis div p {
     margin-bottom: 35px;
+    word-wrap: break-word;
 }
 
 #quebusquem .tematicatitle {
@@ -444,4 +451,8 @@ img {
 
 #faq, #propostes, #forum, #jurat {
     margin-bottom: 100px;
+}
+
+.partnerimg {
+    margin-right: 69px;
 }

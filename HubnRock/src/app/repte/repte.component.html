@@ -61,7 +61,7 @@
 
                     <div class="d-flex align-items-center">
                         <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>15.000€</h1>
+                        <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}€</h1>
                     </div>
 
                 </div>
@@ -129,35 +129,33 @@
                     </p>
                 </div>
 
-                <div class="row d-flex justify-content-between">
+                <div id="fotosSobreElRepte" class="row d-flex justify-content-between">
                     <img width="537px" height="287px" src="../../assets/testpics/Imatge1.png">
                     <img width="537px" height="287px" src="../../assets/testpics/Imatge2.png">
                 </div>
 
-                <div class="row d-flex justify-content-center mb-5"></div>
-
-                <div id="videorepte" class="row d-flex justify-content-center">
+                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
                     <iframe width="660" height="370" src="https://www.youtube.com/watch?v=ytFzsNGCdes&list=RDytFzsNGCdes&start_radio=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 
 
                 <h1 class="tabtitle text-center">Solucions buscades</h1>
 
-                <div id="solucionsbuscades" class="row d-flex justify-content-end">
+                <div id="solucionsbuscades" class="row d-flex justify-content-center">
 
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-3 col-sm-6 col-xs-12" *ngFor="let soluciobuscada of repte.solucions; let i = index">
                         <div class="card">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
                                 <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
                             </div>
                             <div class="card-body solucio-info text-center">
-                                <h5 class="card-title">Temàtica 1</h5>
-                                <p class="card-text">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar</p>
+                                <h5 class="card-title">{{soluciobuscada.solucio_nom}}</h5>
+                                <p class="card-text">{{soluciobuscada.solucio_descripcio}}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <!-- <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
                                 <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
@@ -167,31 +165,7 @@
                                 <p class="card-text">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
-                            </div>
-                            <div class="card-body solucio-info text-center">
-                                <h5 class="card-title">Temàtica 3</h5>
-                                <p class="card-text">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
-                            </div>
-                            <div class="card-body solucio-info text-center">
-                                <h5 class="card-title">Temàtica 4</h5>
-                                <p class="card-text">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar</p>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -206,31 +180,18 @@
                 <div class="row d-flex justify-content-center">
                     <div id="comparticiparwho" class="d-flex justify-content-between">
 
-                        <div class="d-flex flex-column align-items-center">
-                            <img class="howtoparticipateimg" src="../../assets/illustrations/Company.png" alt="">
-                            <p class="typetext">Empreses</p>
-                        </div>
-
-                        <div class="d-flex flex-column align-items-center">
-                            <img class="howtoparticipateimg" src="../../assets/illustrations/Startup.png" alt="">
-                            <p class="typetext">Startup</p>
-                        </div>
-
-                        <div class="d-flex flex-column align-items-center">
-                            <img class="howtoparticipateimg" src="../../assets/illustrations/Student.png" alt="">
-                            <p class="typetext">Estudiants</p>
-                        </div>
-
-                        <div class="d-flex flex-column align-items-center">
-                            <img class="howtoparticipateimg" src="../../assets/illustrations/Experts.png" alt="">
-                            <p class="typetext">Experts</p>
+                        <div class="d-flex flex-column align-items-center" *ngFor="let quiparticipa of repte.participants; let i = index">
+                            <img class="howtoparticipateimg" [src]="getImage(quiparticipa.idparticipants)" alt="">       <!--ALT DINÀMIC PER SEO-->
+                            <p class="typetext">{{quiparticipa.participants_name}}</p>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-center margin-bottom-40">
-                    <p>Equips de 1 - 2 persones</p>
+                    <p *ngIf="repte.individual_equip == 0">Individual</p>
+                    <p *ngIf="repte.individual_equip == 1 && repte.limit_participants == '2'">Equips de 2 persones</p>
+                    <p *ngIf="repte.individual_equip == 1 && repte.limit_participants != '2'">Equips de 2 - {{repte.limit_participants}} persones</p>
                 </div>
 
                 <div class="text-readmore row d-flex justify-content-between">
@@ -248,11 +209,12 @@
 
                 <h1 class="tabtitle text-center">Premis</h1>
 
-                <ul class="nav nav-pills d-flex justify-content-between" id="premis-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active text-center" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">1r<br>Premi</a>
+                <ul class="nav nav-pills d-flex justify-content-center" id="premis-tab" role="tablist">
+                    <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
+                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" 
+                            role="tab" aria-controls="pills-home" aria-selected="true">{{i+1}}<br>Premi</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-center" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">2n<br>Premi</a>
                     </li>
                     <li class="nav-item">
@@ -260,78 +222,24 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-center" id="pills-conty-tab" data-toggle="pill" href="#pills-conty" role="tab" aria-controls="pills-contact" aria-selected="false" style="padding-top: 33px;">Menció</a>
-                    </li>
+                    </li> -->
                 </ul>
 
 
                 <div class="tab-content" id="premis-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-premis row d-flex justify-content-between">
                             <img src="../../assets/testpics/Premi_Mac.png">
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
-                                <p>1r premi</p>
-                                <h1 class="pricetitle">15.000€</h1>
-                                <p>
-                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                                    una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                                </p>
+                                <p>{{i + 1}} premi</p>
+                                <h1 class="pricetitle">{{premi.premi_dotacio}}</h1>
+                                <p>{{premi.premi_descripcio}}</p>
                             </div>
 
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-                        <div class="text-premis row d-flex justify-content-between">
-                            <img src="../../assets/testpics/Premi_iPad.png">
-
-                            <div class="d-flex flex-column align-items-start justify-content-center">
-                                <p>2n premi</p>
-                                <h1 class="pricetitle">12.000€</h1>
-                                <p>
-                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                                    una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-
-                        <div class="text-premis row d-flex justify-content-between">
-                            <img src="../../assets/testpics/Premi_iPhone.png">
-
-                            <div class="d-flex flex-column align-items-start justify-content-center">
-                                <p>3r premi</p>
-                                <h1 class="pricetitle">8.000€</h1>
-                                <p>
-                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                                    una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="pills-conty" role="tabpanel" aria-labelledby="pills-conty-tab">
-
-                        <div class="text-premis row d-flex justify-content-between">
-                            <img src="../../assets/testpics/Premi_Watch.png">
-
-                            <div class="d-flex flex-column align-items-start justify-content-center">
-                                <p>4t premi</p>
-                                <h1 class="pricetitle">1.000€</h1>
-                                <p>
-                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                                    una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
                 </div>
 
 
@@ -341,37 +249,27 @@
             <div id="quebusquem" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Què busquem?</h1>
 
-                <div class="text-premis row d-flex justify-content-between">
-                    <img src="../../assets/testpics/Temàtica1.png" class="align-self-start">
+                <div class="text-premis row d-flex justify-content-start" *ngFor="let soluciobuscada of repte.solucions; let i = index">
+                    <div class="col">
+                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 == 0"> <!--Si el numero es parell -> text esquerre-->
 
-                    <div class="d-flex flex-column align-items-start justify-content-center">
-                        <h1 class="tematicatitle">Temàtica 1</h1>
-                        <p>
-                            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                            una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                        </p>
-                        <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
+                        <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0"> <!--Si el numero es senar <- text dreta-->
+                            <h1 class="tematicatitle">{{soluciobuscada.solucio_nom}}</h1>
+                            <p>{{soluciobuscada.solucio_descripcio}}</p>
+                            <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
                                 src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button>
+                        </div>
                     </div>
+                    <div class="col">
+                        <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 == 0">
+                            <h1 class="tematicatitle">{{soluciobuscada.solucio_nom}}</h1>
+                            <p>{{soluciobuscada.solucio_descripcio}}</p>
+                            <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
+                                    src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button>
+                        </div>
 
-                </div>
-
-                <div class="text-premis row d-flex justify-content-between">
-
-                    <div class="d-flex flex-column align-items-start justify-content-center">
-                        <h1 class="tematicatitle">Temàtica 2</h1>
-                        <p>
-                            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                            una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años. <br> <br> Lorem Ipsum es simplemente el texto de relleno de las imprentas
-                            y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló
-                            de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                        </p>
-                        <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
-                            src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button>
-
+                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 != 0">
                     </div>
-
-                    <img src="../../assets/testpics/Temàtica1.png" class="align-self-start">
 
                 </div>
 
@@ -532,36 +430,14 @@
 
 
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" *ngFor="let pregunta of repte.faqs; let i = index">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <button class="btn btn-link accordionbutton" data-toggle="collapse" href="#collapse1">És això la creació d'un packaging ecològic?</button>
+                                <button class="btn btn-link accordionbutton" data-toggle="collapse" [attr.href]="'#resposta' + i">{{pregunta.faq_pregunta}}</button>
                             </h4>
                         </div>
-                        <div id="collapse1" class="accordionbody panel-collapse collapse in">
-                            <div class="panel-body">Correcte. Això és la creació de la primera resposta.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-link accordionbutton" data-toggle="collapse" href="#collapse2">Com s'anomena l'empresa que crea aquest repte?</button>
-                            </h4>
-                        </div>
-                        <div id="collapse2" class="accordionbody panel-collapse collapse">
-                            <div class="panel-body">L'empresa que crea aquest repte és AI Factory.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-link accordionbutton" data-toggle="collapse" href="#collapse3">Com es diu la plataforma en la que estem?</button>
-                            </h4>
-                        </div>
-                        <div id="collapse3" class="accordionbody panel-collapse collapse">
-                            <div class="panel-body">Hub&Rock.
+                        <div [id]="'resposta' + i" class="accordionbody panel-collapse collapse in">
+                            <div class="panel-body">{{pregunta.faq_resposta}}
                             </div>
                         </div>
                     </div>
@@ -577,49 +453,12 @@
                     <p class="maxwidth-540 text-center">En aquest apartat descobriràs els responsables a valorar les solucions proposades per aquest repte.</p>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container" *ngFor="let jurat of repte.jurats; let i = index">
                         <img src="../../assets/testpics/MariaGuardiola.jpg" class="rounded-circle align-self-center jurat-img">
-                        <h1>Maria Guardiola</h1>
-                        <p class="text-center">Product Manager @ AIF
-                            <br> Startup Mentor
-                        </p>
+                        <h1>{{jurat.jurat_nom}}</h1>
+                        <p class="text-center">{{jurat.jurat_bio}}</p>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
-                        <img src="../../assets/testpics/MartíGuinó.jpg" class="rounded-circle align-self-center jurat-img">
-                        <h1>Martí Guinó</h1>
-                        <p class="text-center">Product Manager @ AIF
-                            <br> Startup Mentor
-                        </p>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
-                        <img src="../../assets/testpics/PereCasamitjana.jpg" class="rounded-circle align-self-center jurat-img">
-                        <h1>Pere Casamitjana</h1>
-                        <p class="text-center">Product Manager @ AIF
-                            <br> Startup Mentor
-                        </p>
-                    </div>
-                    <!-- <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
-                        <img src="https://dummyimage.com/192/f3f3f3/000000" class="rounded-circle align-self-center jurat-img">
-                        <h1>David Coromina</h1>
-                        <p class="text-center">Product Manager @ IBM
-                            <br> Startup Mentor
-                        </p>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
-                        <img src="https://dummyimage.com/192/f3f3f3/000000" class="rounded-circle align-self-center jurat-img">
-                        <h1>Martí Guinó</h1>
-                        <p class="text-center">Product Manager @ IBM
-                            <br> Startup Mentor
-                        </p>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container">
-                        <img src="https://dummyimage.com/192/f3f3f3/000000" class="rounded-circle align-self-center jurat-img">
-                        <h1>Pere Casamitjana</h1>
-                        <p class="text-center">Product Manager @ IBM
-                            <br> Startup Mentor
-                        </p>
-                    </div> -->
                 </div>
 
             </div>
@@ -631,35 +470,11 @@
                     <p class="maxwidth-540 text-center">Col·laboradors del repte.</p>
                 </div>
 
-                <div class="row d-flex justify-content-between align-items-center partner-container">
-                    <img src="../../assets/testpics/NeonPic.jpg" alt="" class="rounded-circle">
+                <div class="row d-flex justify-content-start align-items-center partner-container" *ngFor="let partner of repte.partners; let i = index">
+                    <img src="../../assets/testpics/NeonPic.jpg" alt="" class="rounded-circle partnerimg">
                     <div class="partner-info">
-                        <h3 class="partner-name">Empresa 1</h3>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la
-                            imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                        </p>
-                        <button type="button" class="btn btn-primary">VEURE PERFIL</button>
-                    </div>
-                </div>
-
-                <div class="row d-flex justify-content-between align-items-center partner-container">
-                    <img src="../../assets/testpics/NeonPic.jpg" alt="" class="rounded-circle">
-                    <div class="partner-info">
-                        <h3 class="partner-name">Empresa 2</h3>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la
-                            imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                        </p>
-                        <button type="button" class="btn btn-primary">VEURE PERFIL</button>
-                    </div>
-                </div>
-
-                <div class="row d-flex justify-content-between align-items-center partner-container">
-                    <img src="../../assets/testpics/NeonPic.jpg"alt="" class="rounded-circle">
-                    <div class="partner-info">
-                        <h3 class="partner-name">Empresa 3</h3>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la
-                            imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
-                        </p>
+                        <h3 class="partner-name">{{partner.partner_nom}}</h3>
+                        <p>{{partner.partner_descripcio}}</p>
                         <button type="button" class="btn btn-primary">VEURE PERFIL</button>
                     </div>
                 </div>
