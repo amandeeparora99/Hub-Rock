@@ -111,14 +111,17 @@
                             <div class="form-group input-mb" [ngClass]="{'has-errors' : membre.get('nomICognomsMembre').invalid && membre.get('nomICognomsMembre').touched && radioValue=='equip'}">
                                 <label [attr.for]="'InputNomICognomsMembre'+i">Nom i cognoms</label>
                                 <input type="text" formControlName="nomICognomsMembre" class="form-control equip-text-input" [id]="'InputNomICognomsMembre'+i">
-                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.required && membre.get('nomICognomsMembre').touched && radioValue=='equip'">És
-                                    un camp obligatori</span>
+                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.required && membre.get('nomICognomsMembre').touched && radioValue=='equip'">És un camp requerit</span>
+                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.maxlength && membre.get('nomICognomsMembre').touched && radioValue=='equip'">Has sobrepassat el màxim de 255 caràcters.</span>
+                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.minlength && membre.get('nomICognomsMembre').touched && radioValue=='equip'">Ha de tenir mínim de 3 caràcters.</span>
                             </div>
                             <div class="form-group input-mb" [ngClass]="{'has-errors' : membre.get('posicioMembre').invalid && membre.get('posicioMembre').touched && radioValue=='equip'}">
                                 <label [attr.for]="'InputPosicioMembre'+i">Posició a l’equip</label>
                                 <input type="text" formControlName="posicioMembre" class="form-control equip-text-input" [id]="'InputPosicioMembre'+i">
-                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.required && membre.get('posicioMembre').touched && radioValue=='equip'">És
-                                    un camp obligatori</span>
+                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.required && membre.get('posicioMembre').touched && radioValue=='equip'">És un camp requerit</span>
+                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.maxlength && membre.get('posicioMembre').touched && radioValue=='equip'">Has sobrepassat el màxim de 255 caràcters.</span>
+                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.minlength && membre.get('posicioMembre').touched && radioValue=='equip'">Ha de tenir mínim de 3 caràcters.</span>
+
                             </div>
                             <div class="form-group input-mb">
                                 <label [attr.for]="'InputLinkMembre'+i" class="mr-3">Enllaç al perfil de Hub & Rock o de
@@ -128,7 +131,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center afegeix-link"><a (click)="addMemberButtonClick()">+ Afegeix un altre
+                    <div class="text-center afegeix-link"><a *ngIf="solucioForm.get('membreArray').length < maxMembres" (click)="addMemberButtonClick()">+ Afegeix un altre
                             membre</a></div>
                 </div>
             </div>

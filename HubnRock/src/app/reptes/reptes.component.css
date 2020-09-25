@@ -3,9 +3,6 @@
     font-size: 14px;
 }
 
-#bannerimg {
-    
-}
 #hubrock-reptes #banner {
     height: 453px;
     background-image: url('../../assets/testpics/BannerReptesverd.png');
@@ -37,10 +34,9 @@
     margin-top: 72px;
 }
 
-#hubrock-reptes #toolbar > div{
+#hubrock-reptes #toolbar>div {
     margin-bottom: 12px;
 }
-
 
 #hubrock-reptes #toolbar #searchbar {
     height: 50px;
@@ -85,7 +81,6 @@
     letter-spacing: -0.58px;
 }
 
-
 .reptestitle {
     margin-top: 60px;
     font-family: 'WorkSans-Bold';
@@ -95,7 +90,9 @@
     margin-bottom: 56px;
 }
 
-#hubrock-reptesoberts, #hubrock-reptesproces, #hubrock-reptestancats {
+#hubrock-reptesoberts,
+#hubrock-reptesproces,
+#hubrock-reptestancats {
     margin-bottom: 128px;
 }
 

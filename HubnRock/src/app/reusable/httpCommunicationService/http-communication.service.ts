@@ -207,4 +207,13 @@ export class HttpCommunicationService {
         return data;
       }));
   }
+
+  addSolucioRevisio(form, idRepte): Observable<any> {
+
+    return this.http.post<any>(environment.api + '/solucio/addRevisio/' + idRepte, form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
 }
