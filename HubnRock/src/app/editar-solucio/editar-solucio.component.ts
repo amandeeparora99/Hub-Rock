@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -11,8 +12,9 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class EditarSolucioComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
+  constructor(public router: Router, public aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
+  public idSolucio = [];
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
@@ -89,6 +91,10 @@ export class EditarSolucioComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.idSolucio = this.aRouter.snapshot.params.id;
+    console.log(this.idSolucio)
+
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuSolucio: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],  //max 280 chars en aquest
@@ -192,9 +198,6 @@ export class EditarSolucioComponent implements OnInit {
     this.radioValue = 'equip';
   }
 
-
-
-
   onItemChange(value) {
     this.radioValue = value;
     if (this.radioValue == 'individual') {
@@ -254,7 +257,6 @@ export class EditarSolucioComponent implements OnInit {
     if (!this.solucioForm.valid) {
 
       this.logValidationErrorsUntouched()
-      console.log("no es valid")
 
     } else {
 
@@ -287,63 +289,20 @@ export class EditarSolucioComponent implements OnInit {
       }
 
 
-      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, 40)
-        .pipe(first())
-        .subscribe(
-          data => {
-            console.log("HOLAOL")
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
-          });
+      // this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, 40)
+      //   .pipe(first())
+      //   .subscribe(
+      //     data => {
+      //       console.log("HOLAOL")
+      //       console.log(data);
+      //     },
+      //     error => {
+      //       console.log("Fail")
+      //     });
 
     }
 
 
-  }
-
-  desaBorrador() {
-
-    const formData = new FormData();
-    formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
-    formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
-    // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
-    formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
-    formData.append('problema', this.solucioForm.get('problemaSolucio').value);
-    formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
-    formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
-    formData.append('url_video', this.solucioForm.get('videoSolucio').value);
-    formData.append('nom', this.solucioForm.get('nomSolucio').value);
-
-    if (this.radioValue == "individual") {
-
-      formData.append('individual_equip', '0');
-
-    } else if (this.radioValue == "equip") {
-
-      formData.append('individual_equip', '1')
-
-      //APPENDING MEMBRES
-      for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
-        formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
-        formData.append(`membre_posicio[${i}]`, this.solucioForm.get('membreArray').value[i].posicioMembre);
-        formData.append(`membre_link[${i}]`, this.solucioForm.get('membreArray').value[i].linkMembre);
-      }
-
-    }
-
-
-    this.subscriptionHttp1$ = this.httpClient.addSolucioBorrador(formData, 40)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log("HOLAOL")
-          console.log(data);
-        },
-        error => {
-          console.log("Fail")
-        });
   }
 
   ngOnDestroy() {
