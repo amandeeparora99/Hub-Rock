@@ -16,9 +16,11 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="input-group mb-3 test">
                     <div class="input-group-prepend">
-                        <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px" src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
+                        <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px"
+                                src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
                     </div>
-                    <input id="searchbar" type="text" class="form-control" placeholder="Some text" placeholder="Busca per paraules clau, nom d’empresa…">
+                    <input id="searchbar" type="text" class="form-control" placeholder="Some text"
+                        placeholder="Busca per paraules clau, nom d’empresa…">
                 </div>
             </div>
 
@@ -59,8 +61,8 @@
                         </div>
                     </label>
                 </div>
-                
-                
+
+
             </div>
 
         </div>
@@ -72,10 +74,43 @@
 <section id="hubrock-reptesoberts">
     <div class="container">
         <h1 class="text-center reptestitle">Reptes oberts</h1>
+        <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte obert</p>
 
         <div class="d-flex">
+
             <div class="row w-100">
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <ng-container *ngIf="reptesOberts.length">
+                    <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                            <img class="card-img-top" width="350px" height="211px"
+                                src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <div class="card-body fitxa-repte">
+                                <div class="card-title d-flex">
+                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png"
+                                        alt="25x25"> &nbsp;Universitat de Girona
+                                </div>
+                                <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                                <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                                <div class="card-title d-flex">
+                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    &nbsp;5.000€ / 3.000€ / 1.500€
+                                </div>
+                                <div class="card-title d-flex">
+                                    <img class="align-self-center" width="25px"
+                                        src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia
+                                    {{repte.data_final | date:'shortDate'}}
+                                </div>
+                                <div class="tags">
+                                    <button type="button" class="tag btn tag-red">Startups</button>
+                                    <button type="button" class="tag btn tag-blue">Empreses</button>
+                                    <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                    <button type="button" class="tag btn tag-purple">Públic general</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
                         <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
@@ -146,7 +181,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -161,9 +196,42 @@
     <div class="container">
         <h1 class="text-center reptestitle">Reptes en procés</h1>
 
+        <p *ngIf="!reptesProces.length" class="text-center what-text">No hi ha cap repte en procés</p>
+
         <div class="d-flex">
             <div class="row w-100">
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <ng-container *ngIf="reptesProces.length">
+                    <div *ngFor="let repte of reptesProces; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                            <img class="card-img-top" width="350px" height="211px"
+                                src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <div class="card-body fitxa-repte">
+                                <div class="card-title d-flex">
+                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png"
+                                        alt="25x25"> &nbsp;Universitat de Girona
+                                </div>
+                                <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                                <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                                <div class="card-title d-flex">
+                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    &nbsp;5.000€ / 3.000€ / 1.500€
+                                </div>
+                                <div class="card-title d-flex">
+                                    <img class="align-self-center" width="25px"
+                                        src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia
+                                    {{repte.data_final | date:'shortDate'}}
+                                </div>
+                                <div class="tags">
+                                    <button type="button" class="tag btn tag-red">Startups</button>
+                                    <button type="button" class="tag btn tag-blue">Empreses</button>
+                                    <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                    <button type="button" class="tag btn tag-purple">Públic general</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
                         <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
                         <div class="card-body fitxa-repte">
@@ -234,7 +302,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -250,24 +318,32 @@
 <section id="hubrock-reptestancats">
     <div class="container">
         <h1 class="text-center reptestitle">Reptes tancats</h1>
+        
+        <p *ngIf="!reptesTancats.length" class="text-center what-text">No hi ha cap repte tancat</p>
 
         <div class="d-flex">
             <div class="row w-100">
                 <ng-container *ngIf="reptesTancats.length">
-                    <div *ngFor="let repte of reptesTancats; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div *ngFor="let repte of reptesTancats; let i = index"
+                        class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <img class="card-img-top" width="350px" height="211px"
+                                src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
+                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png"
+                                        alt="25x25"> &nbsp;Universitat de Girona
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
                                 <div class="card-title d-flex">
-                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    &nbsp;5.000€ / 3.000€ / 1.500€
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia {{repte.data_final | date:'shortDate'}}
+                                    <img class="align-self-center" width="25px"
+                                        src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia
+                                    {{repte.data_final | date:'shortDate'}}
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>

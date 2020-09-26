@@ -3,12 +3,14 @@
     font-size: 14px;
 }
 
+
 #container-fluid {
-    height: 599px;
+    height: 100%;
     background-color: rgba(0, 226, 146, 0.64);
 }
 
 #banner-background-image {
+    height: 599px;
     background-image: url('../../assets/testpics/Banner.png');
     background-repeat: no-repeat;
     background-size: cover;

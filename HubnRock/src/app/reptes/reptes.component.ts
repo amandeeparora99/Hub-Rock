@@ -11,22 +11,32 @@ import { Subscription } from 'rxjs';
 })
 export class ReptesComponent implements OnInit {
 
+  paginaActual = 1;
+  elements = 10;
+
   allReptes = [];
+
   reptesOberts = [];
+  reptesObertsAll = [];
+
   reptesProces = [];
+  reptesProcesAll = [];
+
   reptesTancats = [];
+  reptesTancatsAll = [];
+
 
   subscriptionHttp$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllReptesReptesPage();
+    this.getAllReptesReptesPage(this.paginaActual, this.elements);
     
   }
 
-  getAllReptesReptesPage() {
-    this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(1, 100)
+  getAllReptesReptesPage(pagina, elements) {
+    this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
