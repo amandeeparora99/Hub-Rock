@@ -241,4 +241,12 @@ export class HttpCommunicationService {
         return data;
       }));
   }
+
+  getSolucio(idSolucio): Observable<any>{
+    return this.http.get<any>(environment.api + '/solucio/get/' + idSolucio)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
 }

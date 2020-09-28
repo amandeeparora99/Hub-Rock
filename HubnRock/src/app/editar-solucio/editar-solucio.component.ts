@@ -14,7 +14,9 @@ export class EditarSolucioComponent implements OnInit {
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
-  public idSolucio = [];
+  public idSolucio;
+  public solucioExists = true;
+  public solucioObject: any;
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
@@ -93,7 +95,11 @@ export class EditarSolucioComponent implements OnInit {
   ngOnInit(): void {
 
     this.idSolucio = this.aRouter.snapshot.params.id;
-    console.log(this.idSolucio)
+
+    if (this.idSolucio) {
+      this.getSolucioFromComponent(this.idSolucio)
+    }
+
 
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
@@ -118,6 +124,50 @@ export class EditarSolucioComponent implements OnInit {
     });
   }
 
+  getSolucioFromComponent(idSolucio) {
+    this.httpClient.getSolucio(idSolucio).pipe(first())
+      .subscribe(data => {
+        if (data.code == '1') {
+          this.solucioObject = data.row;
+          this.solucioExists = true;
+
+          this.solucioForm.patchValue({
+            nomSolucio: this.solucioObject.solucio_proposada_nom,
+            descripcioBreuSolucio: this.solucioObject.solucio_proposada_descripcio_short,
+            descripcioSolucio: this.solucioObject.solucio_proposada_descripcio_long,
+            innovadoraSolucio: this.solucioObject.solucio_proposada_perque_innovacio,
+            faseSolucio: this.solucioObject.solucio_proposada_fase_desenvolupament,
+            nomEquip: this.solucioObject.solucio_proposada_nom_equip,
+            problemaSolucio: this.solucioObject.solucio_proposada_problema,
+          })
+
+          if (this.solucioObject.solucio_proposada_individual_equip == '0') {
+
+            // window.onload = function () {
+            //   this.radioValue = "individual"
+            //   let radioIndividual = document.getElementById("customRadio1") as HTMLInputElement
+            //   radioIndividual.checked = true;
+            //   console.log('fent aixo indi')
+            // };
+
+          } else if (this.solucioObject.solucio_proposada_individual_equip == '1') {
+
+            // window.onload = function () {
+            //   this.radioValue = "equip"
+            //   let radioEquip = document.getElementById("customRadio") as HTMLInputElement
+            //   radioEquip.checked = true;
+            //   console.log('fent aixo qeuip')
+            
+            // };
+            
+
+          }
+
+        } else if (data.code = '2') {
+          this.solucioExists = false;
+        }
+      });
+  }
 
   logValidationErrors(group: FormGroup = this.solucioForm): void {
     Object.keys(group.controls).forEach((key: string) => {

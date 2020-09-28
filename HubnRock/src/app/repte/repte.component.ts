@@ -21,16 +21,20 @@ export class RepteComponent implements OnInit {
 
   ngOnInit(): void {
     this.idRepte = this.aRouter.snapshot.params.id;
-    this.getRepteComponent(this.idRepte);
+    if(this.idRepte){
+    this.getRepteFromComponent(this.idRepte);
+    }
   }
 
-  getRepteComponent(id) {
+  getRepteFromComponent(id) {
     this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
       .pipe(first())
       .subscribe(
         data => {
-          if (data.code == "1") {
+          if (data.code == '1') {
             this.repte = data.row
+          } else if (data.code == '2'){
+            this.router.navigate(['/page-not-found'])
           }
         },
         error => {

@@ -293,7 +293,7 @@ export class CreacioSolucioComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log("HOLAOL")
+            this.success = true;
             console.log(data);
           },
           error => {

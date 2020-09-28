@@ -14,6 +14,7 @@ import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 import { AuthGuard } from './auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditarSolucioComponent } from './editar-solucio/editar-solucio.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard] },
   { path: 'perfil-empresa', component: PerfilEmpresaComponent },
   { path: 'perfil-usuari', component: PerfilUsuariComponent },
+  { path: 'perfil/:id', component: PerfilComponent },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];

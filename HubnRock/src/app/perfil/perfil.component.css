@@ -1,0 +1,255 @@
+.card-details {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+}
+
+#btn-editar {
+    font-size: 17px;
+    border: 1px solid #020e7d;
+    border-radius: 8px;
+    width: 173px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 900;
+    letter-spacing: -0.9px;
+    background-color: white;
+    color: #020e7d;
+}
+
+#btn-crear {
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+    width: 214px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 900;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: #020e7d;
+}
+
+#perfil-nom {
+    font-family: 'WorkSans-Regular';
+    font-size: 30px;
+    letter-spacing: -1.59px;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.perfil-info {
+    font-family: 'WorkSans-Regular';
+    font-size: 18px;
+    letter-spacing: -0.95px;
+}
+
+#perfil-empresa-tabs .nav-link {
+    background-color: white;
+    color: black;
+    letter-spacing: -0.85px;
+    font-size: 18px;
+    padding: 0px;
+    font-family: 'WorkSans-Regular';
+}
+
+#perfil-empresa-tabs .nav-link.active {
+    color: #020e7d;
+    font-size: 18px;
+    letter-spacing: -0.85px;
+    font-family: 'WorkSans-Bold';
+    padding: 0px;
+}
+
+#perfil-empresa-tabs {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+#empresa .card-title {
+    font-size: 20px;
+    letter-spacing: -1.06px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#empresa .card-text {
+    font-size: 16px;
+    letter-spacing: -0.22px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+hr {
+    background-color: #d9d9d9;
+}
+
+a {
+    outline: 0;
+}
+
+.li-mr {
+    margin-right: 9%;
+}
+
+.card-radius {
+    border-radius: 10px;
+    box-shadow: 2px 1px 11px 4px rgba(222, 222, 222, 0.48);
+    background-color: #ffffff;
+    border: none;
+}
+
+.btn-tags-perfil,
+.btn-tags-perfil:hover {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    letter-spacing: -0.66px;
+    font-family: 'WorkSans-Regular';
+    cursor: default;
+}
+
+.link-perfil-empresa {
+    color: #020e7d;
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.25px;
+    size: 18px;
+}
+
+.p-border {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    letter-spacing: -0.66px;
+    font-family: 'WorkSans-Regular';
+    display: inline-block;
+    padding: 10px;
+}
+
+.p-border-mb {
+    margin-bottom: 2rem;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.fitxa-repte .desc-repte {
+    margin-bottom: 39px;
+    font-size: 14px;
+    letter-spacing: -0.95px;
+}
+
+.fitxa-repte .titol-repte {
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.54px;
+}
+
+.reptestitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    color: #000000;
+}
+
+.tab-content-mb {
+    margin-bottom: 65px;
+}
+
+.esborranys-mb {
+    margin-bottom: 90px;
+}
+
+.tags {
+    margin-top: 30px;
+}
+
+.tags .tag {
+    margin: 2px;
+}
+
+.small-letter {
+    font-family: 'WorkSans-Regular';
+    font-size: 15px;
+    letter-spacing: -0.38px;
+    color: #000000;
+}
+
+
+/* SOLUCIONS CARD */
+
+#solucions .card {
+    border-radius: 14px;
+    height: 250px;
+    border: none;
+}
+
+#solucions .card-footer {
+    border: none;
+}
+
+#solucions .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#solucions .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#solucions .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#solucions .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#solucions .card-subtitle a {
+    color: #020e7d;
+}
+
+#solucions .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#solucions .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#solucions .esborrany-inici {
+    color: #000000;
+}
+
+#solucions .esborrany-final {
+    color: #9e0193;
+}
+
+@media (max-width: 766px) {
+    .col-mt {
+        margin-top: 1%;
+    }
+}
+
+@media (min-width: 990px) {
+    .col-mr {
+        margin-right: 4%;
+    }
+}
+
+@media (max-width: 450px) {
+    #btn-editar {
+        margin-bottom: 10px;
+    }
+}
