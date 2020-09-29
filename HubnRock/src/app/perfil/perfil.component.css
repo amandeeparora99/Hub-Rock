@@ -1,3 +1,7 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
 .card-details {
     font-family: 'WorkSans-Regular';
     font-size: 14px;
@@ -63,14 +67,14 @@
     padding-bottom: 70px;
 }
 
-#empresa .card-title {
+#empresa-aboutme .card-title {
     font-size: 20px;
     letter-spacing: -1.06px;
     font-family: 'WorkSans-Bold';
     color: #000000;
 }
 
-#empresa .card-text {
+#empresa-aboutme .card-text {
     font-size: 16px;
     letter-spacing: -0.22px;
     font-family: 'WorkSans-Regular';
@@ -180,59 +184,59 @@ a {
 
 /* SOLUCIONS CARD */
 
-#solucions .card {
+#empresa-solucions .card {
     border-radius: 14px;
     height: 250px;
     border: none;
 }
 
-#solucions .card-footer {
+#empresa-solucions .card-footer {
     border: none;
 }
 
-#solucions .solucio-esborrany {
+#empresa-solucions .solucio-esborrany {
     background-color: #f7f7f7;
 }
 
-#solucions .solucio-enviat {
+#empresa-solucions .solucio-enviat {
     background-color: #d2f5e8;
 }
 
-#solucions .card-title {
+#empresa-solucions .card-title {
     font-size: 24px;
     letter-spacing: -0.4px;
     font-family: 'WorkSans-Bold';
 }
 
-#solucions .card-subtitle {
+#empresa-solucions .card-subtitle {
     font-size: 18px;
     letter-spacing: -0.8px;
     font-family: 'WorkSans-Regular';
     color: #000000;
 }
 
-#solucions .card-subtitle a {
+#empresa-solucions .card-subtitle a {
     color: #020e7d;
 }
 
-#solucions .solucio-enviat .solucio-footer {
+#empresa-solucions .solucio-enviat .solucio-footer {
     font-size: 18px;
     letter-spacing: -0.45px;
     font-family: 'WorkSans-Bold';
     color: #000000;
 }
 
-#solucions .solucio-esborrany .solucio-footer {
+#empresa-solucions .solucio-esborrany .solucio-footer {
     font-size: 16px;
     letter-spacing: -0.22;
     font-family: 'WorkSans-Regular';
 }
 
-#solucions .esborrany-inici {
+#empresa-solucions .esborrany-inici {
     color: #000000;
 }
 
-#solucions .esborrany-final {
+#empresa-solucions .esborrany-final {
     color: #9e0193;
 }
 
@@ -252,4 +256,133 @@ a {
     #btn-editar {
         margin-bottom: 10px;
     }
+}
+
+
+/*PERFIL USER*/
+
+#usuari-solucions .card {
+    border-radius: 14px;
+    height: 250px;
+    border: none;
+}
+
+#usuari-solucions .card-footer {
+    border: none;
+}
+
+#usuari-solucions .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#usuari-solucions .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#usuari-solucions .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#usuari-solucions .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#usuari-solucions .card-subtitle a {
+    color: #020e7d;
+}
+
+#usuari-solucions .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#usuari-solucions .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#usuari-solucions .esborrany-inici {
+    color: #000000;
+}
+
+#usuari-solucions .esborrany-final {
+    color: #9e0193;
+}
+
+#perfil-usuari-tabs .nav-link {
+    background-color: white;
+    color: black;
+    letter-spacing: -0.85px;
+    font-size: 18px;
+    padding: 0px;
+    font-family: 'WorkSans-Regular';
+}
+
+#perfil-usuari-tabs .nav-link.active {
+    color: #020e7d;
+    font-size: 18px;
+    letter-spacing: -0.85px;
+    font-family: 'WorkSans-Bold';
+    padding: 0px;
+}
+
+#perfil-usuari-tabs {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+#usuari-aboutme .card-title {
+    font-size: 20px;
+    letter-spacing: -1.06px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#usuari-aboutme .card-text {
+    font-size: 16px;
+    letter-spacing: -0.22px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+.link-perfil-usuari {
+    color: #020e7d;
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.25px;
+    size: 18px;
+}
+
+.no-existeix {
+    height: 100vh;
+}
+
+.no-existeix h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+.no-existeix .btn-manage {
+    width: 255px;
+}
+
+.btn-manage {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #020e7d;
+    color: #020e7d;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
 }

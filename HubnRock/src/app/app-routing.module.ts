@@ -7,8 +7,6 @@ import { ReptesComponent } from './reptes/reptes.component';
 import { RestorePasswordComponent } from './authentication/restorePassword/restore-password.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RepteComponent } from './repte/repte.component';
-import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
-import { PerfilUsuariComponent } from './perfil-usuari/perfil-usuari.component';
 import { CreacioSolucioComponent } from './creacio-solucio/creacio-solucio.component';
 import { CreacioRepteComponent } from './creacio-repte/creacio-repte.component';
 import { AuthGuard } from './auth.guard';
@@ -26,8 +24,6 @@ const routes: Routes = [
   { path: 'repte/:id', component: RepteComponent },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard] },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard] },
-  { path: 'perfil-empresa', component: PerfilEmpresaComponent },
-  { path: 'perfil-usuari', component: PerfilUsuariComponent },
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }

@@ -1,6 +1,12 @@
 <app-header></app-header>
-
-<section id="perfil-empresa">
+<div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!usuariExists">
+    <h1>Usuari no disponible</h1>
+    Aquest usuari no existeix o ha estat eliminat <br>
+    <div class="text-center mt-4">
+        <button class="btn btn-primary btn-manage" type="button" routerLink='/homepage'>TORNA A L'INICI</button>
+    </div>
+</div>
+<section id="perfil-empresa" *ngIf="usuariExists && usuariObject && !usuariObject.empresa_rockstar">
     <!-- PERFIL EMPRESA HEADER -->
     <section id="hubrock-perfil-empresa-header">
 
@@ -14,7 +20,7 @@
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
                                 <div class="col-md-auto col-mr">
-                                    <h4 id="perfil-nom">AI Factory</h4>
+                                    <h4 id="perfil-nom">{{usuariObject.nom_empresa}}</h4>
                                 </div>
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary mr-4">EDITAR PERFIL</button>
@@ -23,7 +29,7 @@
                             </div>
                             <div class="row no-gutters">
                                 <div class="col">
-                                    <p class="mt-4 perfil-info">Responsable <br> <img class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">Barcelona</span></p>
+                                    <!-- <p class="mt-4 perfil-info">{{usuariObject.ocupacio}} <br> <img *ngIf="usuariObject.ubicacio" class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">{{usuariObject.ubicacio}}</span></p> -->
                                     <img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="">
                                     <img class="mr-2" src="../../assets/testicons/Twitter.png" alt="">
                                     <img class="mr-2" src="../../assets/testicons/Instagram.png" alt="">
@@ -43,15 +49,15 @@
         <div class="container infobox-container">
             <hr>
             <!-- Nav pills -->
-            <ul id="tabs" class="nav nav-pills justify-content-center" role="tablist">
+            <ul id="tabs-empresa" class="nav nav-pills justify-content-center" role="tablist">
                 <li class="nav-item li-mr">
-                    <a class="nav-link tab-label active" data-toggle="pill" href="#empresa">Sobre l'empresa</a>
+                    <a class="nav-link tab-label active" data-toggle="pill" href="#empresa-aboutme">Sobre l'empresa</a>
                 </li>
                 <li class="nav-item li-mr">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#reptes">Reptes creats</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-reptes">Reptes creats</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#solucions">Solucions</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-solucions">Solucions</a>
                 </li>
             </ul>
             <hr class="tab-content-mb">
@@ -60,12 +66,11 @@
             <div class="tab-content">
 
                 <!-- TABS INFO EMPRESA -->
-                <div id="empresa" class="container tab-pane card active card-radius">
+                <div id="empresa-aboutme" class="container tab-pane card active card-radius">
                     <div class="card-body">
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre nosaltres</h5>
-                            <p class="card-text">Hola Hub&Rock! Aquest és el perfil de AI Factory, esperem col·laborar amb tot el que sigui possible i obrir-nos al món de les oportunitats!
-                            </p>
+                            <p class="card-text">{{usuariObject.bio}}</p>
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Els nostres serveis</h5>
@@ -81,7 +86,7 @@
                 </div>
 
                 <!-- TABS REPTES CREATS -->
-                <div id="reptes" class="tab-pane fade">
+                <div id="empresa-reptes" class="tab-pane fade">
                     <!-- ESBORRANYS -->
                     <h1 class="reptestitle">Esborranys</h1>
                     <p class="small-letter">Fes clic sobre un repte per seguir creant-lo</p>
@@ -202,7 +207,7 @@
                 </div>
 
                 <!-- TABS SOLUCIONS -->
-                <div id="solucions" class="tab-pane fade">
+                <div id="empresa-solucions" class="tab-pane fade">
                     <h1 class="reptestitle">Esborranys</h1>
                     <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
@@ -295,8 +300,8 @@
         </div>
     </section>
 </section>
-<section id="perfil-usuari">
 
+<section id="perfil-usuari" *ngIf="usuariExists && usuariObject &&  usuariObject.empresa_rockstar">
     <!-- PERFIL usuari HEADER -->
     <section id="hubrock-perfil-usuari-header">
 
@@ -310,7 +315,7 @@
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
                                 <div class="col-md-auto col-mr">
-                                    <h4 id="perfil-nom">Laia Pedragosa</h4>
+                                    <h4 id="perfil-nom">{{usuariObject.nom_rockstar}}</h4>
                                 </div>
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary">EDITAR PERFIL</button>
@@ -318,7 +323,7 @@
                             </div>
                             <div class="row no-gutters">
                                 <div class="col">
-                                    <p class="mt-4 perfil-info">Programadora <br> <img class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">Girona</span> </p>
+                                    <p class="mt-4 perfil-info">{{usuariObject.ocupacio}} <br> <img *ngIf="usuariObject.ubicacio" class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">{{usuariObject.ubicacio}}</span> </p>
                                     <img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="">
                                     <img class="mr-2" src="../../assets/testicons/Twitter.png" alt="">
                                     <img class="mr-2" src="../../assets/testicons/Instagram.png" alt="">
@@ -338,12 +343,12 @@
         <div class="container infobox-container">
             <hr>
             <!-- Nav pills -->
-            <ul id="tabs" class="nav nav-pills justify-content-center" role="tablist">
+            <ul id="tabs-usuari" class="nav nav-pills justify-content-center" role="tablist">
                 <li class="nav-item li-mr">
-                    <a class="nav-link tab-label active" data-toggle="pill" href="#usuari">Sobre mi</a>
+                    <a class="nav-link tab-label active" data-toggle="pill" href="#usuari-aboutme">Sobre mi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#solucions">Solucions</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#usuari-solucions">Solucions</a>
                 </li>
             </ul>
             <hr class="tab-content-mb">
@@ -352,11 +357,11 @@
             <div class="tab-content">
 
                 <!-- TABS INFO usuari -->
-                <div id="usuari" class="container tab-pane card active card-radius">
+                <div id="usuari-aboutme" class="container tab-pane card active card-radius">
                     <div class="card-body">
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre mi</h5>
-                            <p class="card-text">Aquest es el meu perfil a la plataforma Hub&Rock! M'encanta programar, fer viatges i Breaking Bad!!</p>
+                            <p class="card-text">{{usuariObject.bio}}</p>
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>
@@ -365,11 +370,11 @@
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Experiència</h5>
-                            <p class="card-text">Programadora</p>
+                            <p class="card-text">{{usuariObject.experiencia}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Educació</h5>
-                            <p class="card-text">Màster en Enginyeria informàtica</p>
+                            <p class="card-text">{{usuariObject.educacio}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">CV</h5>
@@ -380,7 +385,7 @@
                 </div>
 
                 <!-- TABS SOLUCIONS -->
-                <div id="solucions" class="tab-pane fade">
+                <div id="usuari-solucions" class="tab-pane fade">
                     <h1 class="reptestitle">Esborranys</h1>
                     <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">

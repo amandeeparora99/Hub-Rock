@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
   selector: 'app-perfil',
@@ -7,9 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor() { }
+  public idUsuari;
+  public usuariExists = true;
+  public usuariObject: any;
+
+  constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
 
   ngOnInit(): void {
+
+    this.idUsuari = this.aRouter.snapshot.params.id;
+
+    if (this.idUsuari) {
+      this.getUserFromComponent(this.idUsuari)
+    }
+
   }
 
+  getUserFromComponent(idUsuari) {
+    this.httpClient.getUser(idUsuari).pipe(first())
+      .subscribe(data => {
+        if (data.code == '1') {
+
+          this.usuariObject = data.row;
+          this.usuariExists = true;
+         
+
+        } else if (data.code == '2') {
+
+          this.usuariExists = false;
+
+        }
+      });
+  }
 }
