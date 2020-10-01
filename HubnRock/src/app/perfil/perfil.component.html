@@ -23,8 +23,8 @@
                                     <h4 id="perfil-nom">{{usuariObject.nom_empresa}}</h4>
                                 </div>
                                 <div class="col-md-auto">
-                                    <button id="btn-editar" class="btn btn-primary mr-4">EDITAR PERFIL</button>
-                                    <button id="btn-crear" class="btn btn-primary">CREAR UN REPTE</button>
+                                    <button id="btn-editar" class="btn btn-primary mr-4" *ngIf="isOwnUser">EDITAR PERFIL</button>
+                                    <button id="btn-crear" class="btn btn-primary" *ngIf="isOwnUser">CREAR UN REPTE</button>
                                 </div>
                             </div>
                             <div class="row no-gutters">
@@ -318,7 +318,7 @@
                                     <h4 id="perfil-nom">{{usuariObject.nom_rockstar}}</h4>
                                 </div>
                                 <div class="col-md-auto">
-                                    <button id="btn-editar" class="btn btn-primary">EDITAR PERFIL</button>
+                                    <button id="btn-editar" class="btn btn-primary" *ngIf="isOwnUser">EDITAR PERFIL</button>
                                 </div>
                             </div>
                             <div class="row no-gutters">

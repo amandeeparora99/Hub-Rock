@@ -130,7 +130,7 @@ export class EditarSolucioComponent implements OnInit {
         if (data.code == '1') {
           this.solucioObject = data.row;
           this.solucioExists = true;
-
+          console.log(this.solucioObject)
           this.solucioForm.patchValue({
             nomSolucio: this.solucioObject.solucio_proposada_nom,
             descripcioBreuSolucio: this.solucioObject.solucio_proposada_descripcio_short,

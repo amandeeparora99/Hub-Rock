@@ -13,6 +13,7 @@ export class PerfilComponent implements OnInit {
   public idUsuari;
   public usuariExists = true;
   public usuariObject: any;
+  public isOwnUser = false;
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
 
@@ -33,7 +34,14 @@ export class PerfilComponent implements OnInit {
 
           this.usuariObject = data.row;
           this.usuariExists = true;
-         
+          
+          if (this.httpClient.loggedIn()) {
+            let currentUser = JSON.parse(this.httpClient.getCurrentUser());
+            if (currentUser.idUser == this.usuariObject.user_iduser) {
+              this.isOwnUser = true;
+            }
+          }
+
 
         } else if (data.code == '2') {
 

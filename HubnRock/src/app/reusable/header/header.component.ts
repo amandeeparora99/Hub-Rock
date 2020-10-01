@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpCommunicationService } from '../httpCommunicationService/http-communication.service';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -46,5 +47,9 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/reptes']);
     }
     
+  }
+
+  userProfile(){
+    this.router.navigate(['/perfil/', this.currentUser.idUser])
   }
 }
