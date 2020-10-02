@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
 
 @Injectable({
@@ -13,12 +14,13 @@ export class CompanyRoleGuard implements CanActivate {
   }
 
   canActivate(): boolean {
-    // if (this._httpService.userRole() == 1) {
-    //   return true
-    // } else {
-    //   return false
-    // }
-    return null;
+    let currentUserType = JSON.parse(localStorage.getItem('currentUser')).userType;
+    if(currentUserType == '1'){
+      this.router.navigate(['/homepage'])
+      return false;
+    } else{
+      return true;
+    }
   }
 
 }

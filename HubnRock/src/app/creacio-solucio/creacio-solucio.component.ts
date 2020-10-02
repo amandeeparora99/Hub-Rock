@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 
@@ -10,9 +11,13 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   templateUrl: './creacio-solucio.component.html',
   styleUrls: ['./creacio-solucio.component.css']
 })
-export class CreacioSolucioComponent implements OnInit {
+export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
+  
+  hasUnsavedData(): boolean {
+    return this.solucioForm.dirty;
+  }
 
   solucioForm: FormGroup;
   radioValue;
@@ -347,6 +352,16 @@ export class CreacioSolucioComponent implements OnInit {
           console.log("Fail")
         });
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public onPageUnload($event: BeforeUnloadEvent) {
+
+    if (this.solucioForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
+
+
 
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()

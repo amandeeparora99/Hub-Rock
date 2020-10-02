@@ -12,8 +12,10 @@ export class PerfilComponent implements OnInit {
 
   public idUsuari;
   public usuariExists = true;
-  public usuariObject: any;
+  public usuariObject;
   public isOwnUser = false;
+  public userSolucions;
+  public userReptes;
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
 
@@ -34,7 +36,28 @@ export class PerfilComponent implements OnInit {
 
           this.usuariObject = data.row;
           this.usuariExists = true;
-          
+
+          //GET SOLUCIONS FETES PER L'USUARI
+          // this.httpClient.getSolucionsByUser().pipe(first())
+          //   .subscribe(data => {
+          //     if (data.code == '1') {
+          //       this.userSolucions = data.rows;
+          //       console.log(this.userSolucions)
+          //     }
+          //   })
+
+          // //GET REPTES FETS PER L'USUARI SI ES DE TIPUS EMPRESA
+          // if (!this.usuariObject.empresa_rockstar) {
+          //   this.httpClient.getReptesByUser().pipe(first())
+          //     .subscribe(data => {
+          //       if (data.code == '1') {
+          //         this.userReptes = data.rows;
+          //         console.log(this.userReptes)
+          //       }
+          //     })
+          // }
+
+          //COMPROVAR SI EL PERFIL ÉS EL DEL USUARI IDENTIFICAT O NO
           if (this.httpClient.loggedIn()) {
             let currentUser = JSON.parse(this.httpClient.getCurrentUser());
             if (currentUser.idUser == this.usuariObject.user_iduser) {

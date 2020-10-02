@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReusableModule } from '../reusable.module';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Form } from '@angular/forms';
 
@@ -30,6 +30,24 @@ export class HttpCommunicationService {
     return this.currentUserSubject.value;
   }
 
+  saveCurrentUserLocalStorage(token, idUser, email) {
+
+
+
+    this.getUser(idUser).pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+            localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
+          }
+        },
+        error => {
+          console.log("Fail")
+        });
+
+
+  }
+
   login(email: string, password: string) {
     console.log(email + " " + password);
     return this.http.post<any>(environment.api + '/login', { email, password })
@@ -38,8 +56,9 @@ export class HttpCommunicationService {
         if (data.code == "302") {
           if (data && data.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.user.iduser, "email": data.user.email }));
+            this.saveCurrentUserLocalStorage(data.token, data.user.iduser, data.user.email);
             this.currentUserSubject.next(data);
+
           }
         }
         return data;
@@ -61,9 +80,6 @@ export class HttpCommunicationService {
   }
 
 
-
-
-
   registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
@@ -79,11 +95,11 @@ export class HttpCommunicationService {
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
     ).pipe(map(data => {
-      if (data.code == "1") {
+      if (data.code == '1') {
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.lastid, "email": email }));
+        this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
         this.currentUserSubject.next(data);
 
 
@@ -106,11 +122,11 @@ export class HttpCommunicationService {
           .set('Content-Type', 'application/x-www-form-urlencoded')
       }
     ).pipe(map(data => {
-      if (data.code == "1") {
+      if (data.code == '1') {
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify({ "token": data.token, "idUser": data.lastid, "email": email }));
+        this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
         this.currentUserSubject.next(data);
 
 
@@ -146,6 +162,7 @@ export class HttpCommunicationService {
   }
 
   getUser(user_id): Observable<any> {
+
     return this.http.get<any>(environment.api + '/user/get/' + user_id)
       .pipe(map(data => {
         if (data.code == "2") {
@@ -210,6 +227,14 @@ export class HttpCommunicationService {
       }));
   }
 
+  getReptesByUser() {
+    return this.http.get<any>(environment.api + '/repte/getAllDetailedByUser/')
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   addSolucioBorrador(form, idRepte): Observable<any> {
 
     return this.http.post<any>(environment.api + '/solucio/addBorrador/' + idRepte, form)
@@ -230,6 +255,14 @@ export class HttpCommunicationService {
 
   getSolucio(idSolucio): Observable<any> {
     return this.http.get<any>(environment.api + '/solucio/get/' + idSolucio)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getSolucionsByUser() {
+    return this.http.get<any>(environment.api + '/solucio/getAllDetailedByUser')
       .pipe(map(data => {
 
         return data;
