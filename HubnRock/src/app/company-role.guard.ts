@@ -16,7 +16,7 @@ export class CompanyRoleGuard implements CanActivate {
   canActivate(): boolean {
     let currentUserType = JSON.parse(localStorage.getItem('currentUser')).userType;
     if(currentUserType == '1'){
-      this.router.navigate(['/homepage'])
+      this.router.navigate(['/'])
       return false;
     } else{
       return true;

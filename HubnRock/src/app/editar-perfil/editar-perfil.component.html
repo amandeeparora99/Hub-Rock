@@ -1,70 +1,29 @@
 <app-header></app-header>
 
-<section id="hub-rock-choose" *ngIf="register == 0">
 
-    <div id="hub-container">
+<!-- EDIT USER FORM -->
 
-        <div class="container">
-
-            <h1 id="title" class="text-center">Dona't d'alta</h1>
-
-            <h2 id="subtitle">Sóc:</h2>
-
-            <hr>
-
-            <div class="row d-flex justify-content-around">
-
-                <div class="accountType-container">
-                    <input id="account-type1" type="radio" name="myradio" value="empresa" checked (change)="radioChangedHandler($event)">
-                    <label for="account-type1" class="clickable"></label>
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <img class="ilustration" src="../../../assets/illustrations/Company.png">
-                        <p>Empresa</p>
-                    </div>
-                </div>
-                <div class="accountType-container">
-                    <input id="account-type2" type="radio" name="myradio" value="rockstar" (change)="radioChangedHandler($event)">
-                    <label for="account-type2" class="clickable"></label>
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <img class="ilustration" src="../../../assets/illustrations/Startup.png">
-                        <p>Rockstar</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <p id="text" class="text-center">
-                <ng-container *ngIf="accountType == 'empresa'; else rockstarType">
-                    <i>Empresa:</i> inventore numerum rem eu lacus desiderabilis ea jormavit et affectus w ea effecerunt ea aut tempor ab Cum & Modo.
-                </ng-container>
-                <ng-template #rockstarType>
-                    <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de participar en els reptes de Hub & Rock.
-                </ng-template>
-
-            </p>
-
-            <div class="text-center">
-                <button (click)="registerNextStep()" id="btn-next" type="button" class="btn btn-primary">SEGÜENT PAS</button>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- REGISTER FORM 1 -->
-
-<section id="register-empresa-section" *ngIf="register == 1">
+<section id="register-empresa-section">
 
     <div id="register-container">
 
         <div class="container">
 
-            <h1 id="register-title" class="text-center">Dona't d'alta</h1>
+            <h1 id="register-title" class="text-center">Edita el teu perfil</h1>
 
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
+            <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+                <div class="row mb-2">
+                    <div class="col-md-auto">
+                        <img height="300px" width="300px" class="rounded-circle" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="row"><label for="profilePicture">Foto de perfil</label></div>
+                        <hr>
+                        <div class="row"><input type="file" id="profilePicture"></div>
+                    </div>
+
+                </div>
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
                     <label for="InputNom">Nom empresa</label>
                     <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomEmpresa">
@@ -103,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
                     <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomNifEmpresa">
@@ -111,10 +70,7 @@
                     </span>
                 </div>
                 <div class="text-center">
-                    <button type="submit" id="btn-login" [disabled]="registerForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
-                </div>
-                <div class="text-center elimina-link">
-                    <a (click)="stepBack()">Torna enrere</a>
+                    <button type="submit" id="btn-login" [disabled]="editUserForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
                 </div>
             </form>
 

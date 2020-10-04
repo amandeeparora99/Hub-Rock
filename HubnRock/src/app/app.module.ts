@@ -17,6 +17,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditarSolucioComponent } from './editar-solucio/editar-solucio.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     PageNotFoundComponent,
     EditarSolucioComponent,
     PerfilComponent,
+    EditarPerfilComponent,
   ],
   imports: [
     BrowserModule,

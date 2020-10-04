@@ -13,8 +13,10 @@ import { AuthGuard } from './auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditarSolucioComponent } from './editar-solucio/editar-solucio.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import {HasUnsavedDataGuard} from './has-unsaved-data.guard';
-import {CompanyRoleGuard} from './company-role.guard';
+import { HasUnsavedDataGuard } from './has-unsaved-data.guard';
+import { CompanyRoleGuard } from './company-role.guard';
+import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
+import { OwnUserGuard } from './own-user.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -27,6 +29,7 @@ const routes: Routes = [
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
+  { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
