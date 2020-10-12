@@ -17,6 +17,10 @@ import { HasUnsavedDataGuard } from './has-unsaved-data.guard';
 import { CompanyRoleGuard } from './company-role.guard';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { OwnUserGuard } from './own-user.guard';
+import { CrudUsersComponent } from './crud-users/crud-users.component';
+import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.component';
+import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
+import { OwnSolucioGuard } from './own-solucio.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -27,10 +31,13 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'repte/:id', component: RepteComponent },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
-  { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard] },
+  { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
-  { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard] },
+  { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard] },
+  { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard] },
+  { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard] },
+  { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -18,6 +18,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EditarSolucioComponent } from './editar-solucio/editar-solucio.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
+import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
+import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.component';
+import { CrudUsersComponent } from './crud-users/crud-users.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
     EditarSolucioComponent,
     PerfilComponent,
     EditarPerfilComponent,
+    CrudReptesComponent,
+    CrudSolucionsComponent,
+    CrudUsersComponent,
   ],
   imports: [
     BrowserModule,

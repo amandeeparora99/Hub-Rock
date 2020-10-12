@@ -227,6 +227,8 @@ export class HttpCommunicationService {
       }));
   }
 
+  
+
   getReptesByUser() {
     return this.http.get<any>(environment.api + '/repte/getAllDetailedByUser/')
       .pipe(map(data => {
