@@ -20,9 +20,11 @@ export class LoginComponent implements OnInit {
     'email': {
       'required': 'Introdueix un correu electrònic.',
       'email': 'Introdueix un correu electrònic vàlid.',
+      'incorrecte': 'Email incorrecte',
     },
     'password': {
-      'required': 'Introdueix una contrasenya.'
+      'required': 'Introdueix una contrasenya.',
+      'incorrecte': 'Contrasenya incorrecte',
     }
   };
 
@@ -84,12 +86,12 @@ export class LoginComponent implements OnInit {
 
           }
           else if (data.code == 534) {
-            this.loginForm.controls['password'].setErrors({ 'password': true });
-            console.log("Contrasenya incorrecte");
+            this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
+
           }
           else if (data.code == 533) {
-            this.loginForm.controls['email'].setErrors({ 'email': true });
-            console.log("Email incorrecte");
+            this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
+
 
           }
         },

@@ -138,23 +138,6 @@ export class HttpCommunicationService {
   getRepte(repte_id): Observable<any> {
     return this.http.get<any>(environment.api + '/repte/get/' + repte_id)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
 
         return data;
 
@@ -204,23 +187,6 @@ export class HttpCommunicationService {
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllDetailedPageValid/${page}/${elements}`)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
 
         return data;
 
@@ -232,23 +198,6 @@ export class HttpCommunicationService {
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllObertsPage/${page}/${elements}`)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
 
         return data;
 
@@ -260,23 +209,6 @@ export class HttpCommunicationService {
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllEnProcesPage/${page}/${elements}`)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
 
         return data;
 
@@ -288,23 +220,6 @@ export class HttpCommunicationService {
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllTancatsPage/${page}/${elements}`)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
 
         return data;
 
@@ -316,23 +231,7 @@ export class HttpCommunicationService {
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getByName/${string}/${page}/${elements}`)
       .pipe(map(data => {
-        if (data.code == "103") {
-          console.log('is null')
-        } else if (data.code == "104") {
-          console.log('is short')
-        } else if (data.code == "105") {
-          console.log('is long')
-        } else if (data.code == "106") {
-          console.log('is not num')
-        } else if (data.code == "107") {
-          console.log('is not dni/nie/cif')
-        } else if (data.code == "108") {
-          console.log('is not email')
-        } else if (data.code == "109") {
-          console.log('is not date')
-        } else if (data.code == "110") {
-          console.log('is not boolean')
-        }
+
 
         return data;
 
