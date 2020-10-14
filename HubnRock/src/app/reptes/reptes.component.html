@@ -91,14 +91,13 @@
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                                <div class="card-title d-flex">
-                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                    &nbsp;5.000€ / 3.000€ / 1.500€
+                                <div class="card-title d-flex align-items-center">
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    <div class="d-flex" style="margin-top: 10px;"><p *ngFor="let premi of repte.premis; let i = index">{{premi.premi_dotacio}}€ /&nbsp;</p></div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" width="25px"
-                                        src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia
-                                    {{repte.data_final | date:'shortDate'}}
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px"
+                                        src="../../assets/illustrations/Time.png" alt="25x25">Obre dia {{repte.data_inici | date:'shortDate'}} ({{diesRestants(repte.data_inici)}} dies restants)
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
@@ -212,14 +211,13 @@
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                                <div class="card-title d-flex">
-                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                    &nbsp;5.000€ / 3.000€ / 1.500€
+                                <div class="card-title d-flex align-items-center">
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    <div class="d-flex" style="margin-top: 10px;"><p *ngFor="let premi of repte.premis; let i = index">{{premi.premi_dotacio}}€ /&nbsp;</p></div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" width="25px"
-                                        src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia
-                                    {{repte.data_final | date:'shortDate'}}
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px"
+                                        src="../../assets/illustrations/Time.png" alt="25x25">Tenca dia {{repte.data_final | date:'shortDate'}} ({{diesRestants(repte.data_final)}} dies restants)
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
