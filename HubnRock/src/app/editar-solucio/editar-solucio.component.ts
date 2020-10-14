@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -10,9 +11,13 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   templateUrl: './editar-solucio.component.html',
   styleUrls: ['./editar-solucio.component.css']
 })
-export class EditarSolucioComponent implements OnInit {
+export class EditarSolucioComponent implements OnInit, HasUnsavedData {
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
+
+  hasUnsavedData(): boolean {
+    return this.solucioForm.dirty;
+  }
 
   public idSolucio;
   public solucioObject: any;
@@ -349,6 +354,14 @@ export class EditarSolucioComponent implements OnInit {
     }
 
 
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public onPageUnload($event: BeforeUnloadEvent) {
+
+    if (this.solucioForm.dirty) {
+      $event.returnValue = true;
+    }
   }
 
   ngOnDestroy() {
