@@ -162,7 +162,12 @@ export class ReptesComponent implements OnInit {
     });
   }
 
-  diesRestants(data_inici, data_final) {
-    return (((new Date(data_final)).valueOf() - (new Date(data_inici)).valueOf()) / (1000 * 60 * 60 * 24)).toFixed()
+  diesRestants(data_inici){
+    let date = new Date(data_inici);
+    let currentDate = new Date();
+
+    let days = Math.floor((date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+    return days;
   }
+  
 }
