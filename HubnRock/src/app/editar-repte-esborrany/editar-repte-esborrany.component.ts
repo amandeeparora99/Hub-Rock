@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
-  selector: 'app-creacio-repte',
-  templateUrl: './creacio-repte.component.html',
-  styleUrls: ['./creacio-repte.component.css']
+  selector: 'app-editar-repte-esborrany',
+  templateUrl: './editar-repte-esborrany.component.html',
+  styleUrls: ['./editar-repte-esborrany.component.css']
 })
-export class CreacioRepteComponent implements OnInit {
+export class EditarRepteEsborranyComponent implements OnInit {
+
+
 
   
 

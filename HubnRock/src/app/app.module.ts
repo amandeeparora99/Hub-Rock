@@ -21,6 +21,7 @@ import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
 import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.component';
 import { CrudUsersComponent } from './crud-users/crud-users.component';
+import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CrudUsersComponent } from './crud-users/crud-users.component';
     CrudReptesComponent,
     CrudSolucionsComponent,
     CrudUsersComponent,
+    EditarRepteEsborranyComponent,
   ],
   imports: [
     BrowserModule,

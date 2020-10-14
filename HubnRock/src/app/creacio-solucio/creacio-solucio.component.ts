@@ -294,7 +294,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
 
-      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, 40)
+      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, 51)
         .pipe(first())
         .subscribe(
           data => {

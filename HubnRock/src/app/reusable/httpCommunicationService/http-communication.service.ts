@@ -187,9 +187,9 @@ export class HttpCommunicationService {
   }
 
   addRepteRevisio(form): Observable<any> {
-    for (var value of form.values()) {
-      console.log(value);
-    }
+    // for (var value of form.values()) {
+    //   console.log(value);
+    // }
     return this.http.post<any>(environment.api + '/repte/addRevisio', form)
       .pipe(map(data => {
 
