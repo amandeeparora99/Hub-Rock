@@ -51,6 +51,7 @@
     background-color: white;
     border-color: #020e7d;
     border-right: 0;
+    pointer-events: none;
 }
 
 #icon:hover {
@@ -92,7 +93,8 @@
 
 #hubrock-reptesoberts,
 #hubrock-reptesproces,
-#hubrock-reptestancats {
+#hubrock-reptestancats,
+#hubrock-reptescerca {
     margin-bottom: 128px;
 }
 

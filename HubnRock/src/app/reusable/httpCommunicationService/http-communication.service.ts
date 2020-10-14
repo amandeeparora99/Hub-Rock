@@ -227,7 +227,117 @@ export class HttpCommunicationService {
       }));
   }
 
+  getReptesOberts(page, elements): Observable<any> {
+    console.log("entrat a get reptes Oberts")
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getAllObertsPage/${page}/${elements}`)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
 
+        return data;
+
+      }));
+  }
+
+  getReptesProces(page, elements): Observable<any> {
+    console.log("entrat a get reptes Proces")
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getAllEnProcesPage/${page}/${elements}`)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
+
+        return data;
+
+      }));
+  }
+
+  getReptesTancats(page, elements): Observable<any> {
+    console.log("entrat a get reptes Tancats")
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getAllTancatsPage/${page}/${elements}`)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
+
+        return data;
+
+      }));
+  }
+
+  getReptesSearch(string, page, elements): Observable<any> {
+    console.log("entrat a get reptes Buscats")
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getByName/${string}/${page}/${elements}`)
+      .pipe(map(data => {
+        if (data.code == "103") {
+          console.log('is null')
+        } else if (data.code == "104") {
+          console.log('is short')
+        } else if (data.code == "105") {
+          console.log('is long')
+        } else if (data.code == "106") {
+          console.log('is not num')
+        } else if (data.code == "107") {
+          console.log('is not dni/nie/cif')
+        } else if (data.code == "108") {
+          console.log('is not email')
+        } else if (data.code == "109") {
+          console.log('is not date')
+        } else if (data.code == "110") {
+          console.log('is not boolean')
+        }
+
+        return data;
+
+      }));
+  }
 
   getReptesByUser() {
     return this.http.get<any>(environment.api + '/repte/getAllDetailedByUser/')
