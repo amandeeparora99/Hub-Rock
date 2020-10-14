@@ -24,6 +24,7 @@ export class RepteComponent implements OnInit {
     if(this.idRepte){
     this.getRepteFromComponent(this.idRepte);
     }
+    console.log(this.repte.solucions)
   }
 
   getRepteFromComponent(id) {
@@ -60,6 +61,32 @@ export class RepteComponent implements OnInit {
     else if(idparticipants == 4){
       return '../../assets/illustrations/Experts.png';
     }
+  }
+
+  diesRestants(data_inici, data_final){
+    let dateInici = new Date(data_inici);
+    let dateFinal = new Date(data_final);
+    let currentDate = new Date();
+
+    if(dateInici>currentDate){
+      let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+      return  "Inicia en " + days + " dies";
+    }
+    else if (dateInici<currentDate && dateFinal>currentDate) {
+      let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+      return  "Tenca en " + days + " dies";
+    }
+    else{
+      let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+      if(days>30){
+        return  "Tencat fa mesos";
+      }
+      else{
+        return  "Tencat fa " + days + " dies";
+      }
+      
+    }
+    
   }
 
 }

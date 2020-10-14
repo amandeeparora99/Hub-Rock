@@ -456,3 +456,82 @@ img {
 .partnerimg {
     margin-right: 69px;
 }
+
+
+
+
+
+
+#propostes .card {
+    border-radius: 14px;
+    height: 250px;
+    border: none;
+}
+
+#propostes .card-footer {
+    border: none;
+}
+
+#propostes .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#propostes .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#propostes .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#propostes .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#propostes .card-subtitle a {
+    color: #020e7d;
+}
+
+#propostes .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#propostes .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#propostes .esborrany-inici {
+    color: #000000;
+}
+
+#propostes .esborrany-final {
+    color: #9e0193;
+}
+
+@media (max-width: 766px) {
+    .col-mt {
+        margin-top: 1%;
+    }
+}
+
+@media (min-width: 990px) {
+    .col-mr {
+        margin-right: 4%;
+    }
+}
+
+@media (max-width: 450px) {
+    #btn-editar {
+        margin-bottom: 10px;
+    }
+}

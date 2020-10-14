@@ -114,3 +114,14 @@
 .hubandrockbuttontext:hover {
     color: white;  
 }
+
+.btn-style{
+    box-shadow: 0 0 1px #ccc;
+    -webkit-transition: all 0.3s ease-in-out;
+    border: 0px;
+    color: #fff;
+}
+.btn-style:hover{
+    -webkit-transform: scale(1.1);
+    background: #020e7d;
+}
