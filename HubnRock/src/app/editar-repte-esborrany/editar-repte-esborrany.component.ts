@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -9,13 +11,14 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   templateUrl: './editar-repte-esborrany.component.html',
   styleUrls: ['./editar-repte-esborrany.component.css']
 })
-export class EditarRepteEsborranyComponent implements OnInit {
+export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute) { }
 
+  hasUnsavedData(): boolean {
+    return this.repteForm.dirty;
+  }
 
-  
-
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
   repteForm: FormGroup;
   radioValue = 'equip';
@@ -24,6 +27,8 @@ export class EditarRepteEsborranyComponent implements OnInit {
   numberOfTabs = 3; //0 + 1 = 2 tabs
   fotoPortada = null;
   pdfNom = null;
+  idEsborrany;
+  repteObject: any;
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -175,6 +180,13 @@ export class EditarRepteEsborranyComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
+    this.idEsborrany = this.aRouter.snapshot.params.id;
+
+    if (this.idEsborrany) {
+      this.getEsborrany(this.idEsborrany)
+    }
+
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -218,6 +230,48 @@ export class EditarRepteEsborranyComponent implements OnInit {
     });
   }
 
+  getEsborrany(idEsborrany) {
+
+    this.httpClient.getRepte(idEsborrany).pipe(first())
+      .subscribe(data => {
+        if (data.code == '1') {
+          this.repteObject = data.row;
+
+          this.repteForm.patchValue({
+            nomREpte: 'this.repteObject.nom',
+            // descripcioBreuSolucio: this.solucioObject.solucio_proposada_descripcio_short,
+            // descripcioSolucio: this.solucioObject.solucio_proposada_descripcio_long,
+            // innovadoraSolucio: this.solucioObject.solucio_proposada_perque_innovacio,
+            // faseSolucio: this.solucioObject.solucio_proposada_fase_desenvolupament,
+            // nomEquip: this.solucioObject.solucio_proposada_nom_equip,
+            // problemaSolucio: this.solucioObject.solucio_proposada_problema,
+          })
+
+          // if (this.solucioObject.solucio_proposada_individual_equip == '0') {
+
+          //   // window.onload = function () {
+          //   //   this.radioValue = "individual"
+          //   //   let radioIndividual = document.getElementById("customRadio1") as HTMLInputElement
+          //   //   radioIndividual.checked = true;
+          //   //   console.log('fent aixo individual')
+          //   // };
+
+          // } else if (this.solucioObject.solucio_proposada_individual_equip == '1') {
+
+          //   // window.onload = function () {
+          //   //   this.radioValue = "equip"
+          //   //   let radioEquip = document.getElementById("customRadio") as HTMLInputElement
+          //   //   radioEquip.checked = true;
+          //   //   console.log('fent aixo qeuip')
+
+          //   // };
+
+
+          // }
+
+        }
+      });
+  }
 
   logValidationErrors(group: FormGroup = this.repteForm): void {
     Object.keys(group.controls).forEach((key: string) => {
@@ -353,6 +407,14 @@ export class EditarRepteEsborranyComponent implements OnInit {
 
   removePreguntaButtonClick(partnerGroupIndex: number): void {
     (<FormArray>this.repteForm.get('preguntaArray')).removeAt(partnerGroupIndex)
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public onPageUnload($event: BeforeUnloadEvent) {
+
+    if (this.repteForm.dirty) {
+      $event.returnValue = true;
+    }
   }
 
   ngOnDestroy() {

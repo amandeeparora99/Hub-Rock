@@ -30,7 +30,7 @@
     <hr>
     <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
         <div class="row actionbtns">
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" type="button" (click)="desaBorrador()">DESA COM A ESBORRANY</button>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" type="button" (click)="desaBorrador()">ACTUALTIZA ESBORRANY</button>
             </div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
