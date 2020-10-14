@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
@@ -14,8 +15,15 @@ export class PerfilComponent implements OnInit {
   public usuariExists = true;
   public usuariObject;
   public isOwnUser = false;
-  public userSolucions;
-  public userReptes;
+
+  public userSolucions = null;
+  public userReptes = null;
+
+  subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
+  subscriptionHttp4$: Subscription;
+
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
 
@@ -30,7 +38,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getUserFromComponent(idUsuari) {
-    this.httpClient.getUser(idUsuari).pipe(first())
+    this.subscriptionHttp1$ = this.httpClient.getUser(idUsuari).pipe(first())
       .subscribe(data => {
         if (data.code == '1') {
 
@@ -72,5 +80,47 @@ export class PerfilComponent implements OnInit {
 
         }
       });
+  }
+
+  loadSolucions() {
+    if (this.userSolucions == null) {
+      this.subscriptionHttp2$ = this.httpClient.getSolucionsByUser().pipe(first())
+        .subscribe(data => {
+          if (data.code == '1') {
+
+            this.userSolucions = data.rows;
+            console.log(this.userSolucions)
+
+          }
+        });
+    }
+
+  }
+
+  loadReptes() {
+    if (this.userReptes == null) {
+      this.subscriptionHttp3$ = this.httpClient.getReptesByUser().pipe(first())
+        .subscribe(data => {
+          if (data.code == '1') {
+
+            this.userReptes = data.rows;
+          
+
+          }
+        });
+    }
+  }
+
+
+  routeEditProfile() {
+    console.log("redireccionant")
+    this.router.navigate(['/perfil/' + this.usuariObject.user_iduser + '/editar-perfil']);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionHttp1$?.unsubscribe()
+    this.subscriptionHttp2$?.unsubscribe()
+    this.subscriptionHttp3$?.unsubscribe()
+    this.subscriptionHttp4$?.unsubscribe()
   }
 }

@@ -15,7 +15,6 @@ export class EditarSolucioComponent implements OnInit {
   constructor(public router: Router, public aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
 
   public idSolucio;
-  public solucioExists = true;
   public solucioObject: any;
   solucioForm: FormGroup;
   radioValue;
@@ -129,8 +128,7 @@ export class EditarSolucioComponent implements OnInit {
       .subscribe(data => {
         if (data.code == '1') {
           this.solucioObject = data.row;
-          this.solucioExists = true;
-          console.log(this.solucioObject)
+
           this.solucioForm.patchValue({
             nomSolucio: this.solucioObject.solucio_proposada_nom,
             descripcioBreuSolucio: this.solucioObject.solucio_proposada_descripcio_short,
@@ -147,7 +145,7 @@ export class EditarSolucioComponent implements OnInit {
             //   this.radioValue = "individual"
             //   let radioIndividual = document.getElementById("customRadio1") as HTMLInputElement
             //   radioIndividual.checked = true;
-            //   console.log('fent aixo indi')
+            //   console.log('fent aixo individual')
             // };
 
           } else if (this.solucioObject.solucio_proposada_individual_equip == '1') {
@@ -157,14 +155,12 @@ export class EditarSolucioComponent implements OnInit {
             //   let radioEquip = document.getElementById("customRadio") as HTMLInputElement
             //   radioEquip.checked = true;
             //   console.log('fent aixo qeuip')
-            
+
             // };
-            
+
 
           }
 
-        } else if (data.code = '2') {
-          this.solucioExists = false;
         }
       });
   }

@@ -23,21 +23,28 @@
                     </div>
 
                 </div>
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
+                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
                     <label for="InputNom">Nom empresa</label>
                     <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomEmpresa">
                         {{formErrors.nomEmpresa}}
                     </span>
                 </div>
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
+                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomRockstar}">
+                    <label for="InputNomRockstar">Nom</label>
+                    <input formControlName="nomRockstar" type="text" class="form-control" id="InputNomRockstar" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nomRockstar">
+                        {{formErrors.nomRockstar}}
+                    </span>
+                </div>
+                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
                     <label for="InputRealName">Nom responsable</label>
                     <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomResponsable">
                         {{formErrors.nomResponsable}}
                     </span>
                 </div>
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomCorreu}">
+                <!-- <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomCorreu}">
                     <label for="InputMail">Correu electrònic</label>
                     <input formControlName="nomCorreu" type="email" class="form-control" id="InputMail" aria-describedby="emailHelp" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomCorreu">
@@ -60,17 +67,66 @@
                             {{formErrors.nomRepeteixContrasenya ? formErrors.nomRepeteixContrasenya : formErrors.contrasenyaGroup}}
                         </span>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
+                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
-                    <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
-                    <span class="help-block" *ngIf="formErrors.nomNifEmpresa">
-                        {{formErrors.nomNifEmpresa}}
+                    <input formControlName="nifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nifEmpresa">
+                        {{formErrors.nifEmpresa}}
                     </span>
                 </div>
+
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.ocupacio}">
+                    <label for="InputOcupacio">Ocupació</label>
+                    <input formControlName="ocupacio" type="text" class="form-control" id="InputOcupacio" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.ocupacio">
+                        {{formErrors.nifEmpresa}}
+                    </span>
+                </div>
+
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.ubicacio}">
+                    <label for="InputUbicacio">Ubicació</label>
+                    <input formControlName="ubicacio" type="text" class="form-control" id="InputUbicacio" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.ubicacio">
+                        {{formErrors.ubicacio}}
+                    </span>
+                </div>
+
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.bio}">
+                    <label for="InputBio">Bio</label>
+                    <input formControlName="bio" type="text" class="form-control" id="InputBio" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.bio">
+                        {{formErrors.bio}}
+                    </span>
+                </div>
+
+                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.experiencia}">
+                    <label for="InputExperiencia">Experiència</label>
+                    <input formControlName="experiencia" type="text" class="form-control" id="INuptExperiencia" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.experiencia">
+                        {{formErrors.experiencia}}
+                    </span>
+                </div>
+
+                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.educacio}">
+                    <label for="InputEducacio">Educació</label>
+                    <input formControlName="educacio" type="text" class="form-control" id="InputEducacio" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.educacio">
+                        {{formErrors.educacio}}
+                    </span>
+                </div>
+
+                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.pdfFile}">
+                    <label for="InputPdfFile">Fitxer</label><br>
+                    <input formControlName="pdfFile" type="file" id="InputPdfFile" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.pdfFile">
+                        {{formErrors.pdfFile}}
+                    </span>
+                </div>
+
                 <div class="text-center">
-                    <button type="submit" id="btn-login" [disabled]="editUserForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
+                    <button type="submit" id="btn-login" [disabled]="editUserForm.invalid" class="btn btn-primary">Actualitza les dades</button>
                 </div>
             </form>
 

@@ -1,12 +1,5 @@
 <app-header></app-header>
-<div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!solucioExists">
-    <h1>Solució no disponible</h1>
-    Aquesta solució no existeix o ha estat eliminada <br>
-    <div class="text-center mt-4">
-        <button class="btn btn-primary btn-manage" type="button" routerLink='/homepage'>TORNA A L'INICI</button>
-    </div>
-</div>
-<div class="container mt-5" *ngIf="!success && solucioExists">
+<div class="container mt-5" *ngIf="!success">
     <h1 id="pagetitle" class="text-center">La teva solució</h1>
     <div class="text-center dot-spacing">
         <span class="dot"></span>
@@ -144,7 +137,7 @@
         </div>
     </form>
 </div>
-<section id="solucioSuccess" *ngIf="success && solucioExists">
+<section id="solucioSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Enhorabona</h1>
         <div class="paragraph-container">

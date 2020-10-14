@@ -227,6 +227,8 @@ export class HttpCommunicationService {
       }));
   }
 
+
+
   getReptesByUser() {
     return this.http.get<any>(environment.api + '/repte/getAllDetailedByUser/')
       .pipe(map(data => {
@@ -263,6 +265,14 @@ export class HttpCommunicationService {
 
   getSolucionsByUser() {
     return this.http.get<any>(environment.api + '/solucio/getAllDetailedByUser')
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getSolucionsAdmin(page) {
+    return this.http.get<any>(environment.api + `/solucio/getAllDetailedPage/${page}/3`)
       .pipe(map(data => {
 
         return data;
