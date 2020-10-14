@@ -23,6 +23,7 @@ import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
 import { OwnSolucioGuard } from './own-solucio.guard';
 import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 import { OwnRepteEsborranyGuard } from './own-repte-esborrany.guard';
+import { SolucioComponent } from './solucio/solucio.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'reptes', component: ReptesComponent },
   { path: 'restore', component: RestorePasswordComponent },
   { path: 'homepage', component: HomepageComponent },
+  { path: 'soluciocomp', component: SolucioComponent },
   { path: 'repte/:id', component: RepteComponent },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard] },
@@ -41,7 +43,8 @@ const routes: Routes = [
   { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard] },
   { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard] },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
+  
 ];
 
 @NgModule({
