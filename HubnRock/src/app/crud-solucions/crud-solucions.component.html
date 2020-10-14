@@ -1,1 +1,99 @@
-<p>crud-solucions works!</p>
+<app-header></app-header>
+<section id="hubrock-solucions">
+    <div class="container">
+        <div id="toolbar" class="row d-flex justify-content-between">
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="input-group mb-3 test">
+                    <div class="input-group-prepend">
+                        <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px"
+                                src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
+                    </div>
+                    <input id="searchbar" type="text" class="form-control" placeholder="Some text" placeholder="Busca per paraules clau, nom d’empresa…">
+                </div>
+            </div>
+
+            <!-- <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
+                    <label class="form-check-label" for="SearchEmpreses">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Empreses</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
+                    <label class="form-check-label" for="SearchStartups">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Startups</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
+                    <label class="form-check-label" for="SearchEstudiants">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Estudiants</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-check form-check-inline checkboxes">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
+                    <label class="form-check-label" for="SearchExperts">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
+                            <p class="checkboxtitle">Experts</p>
+                        </div>
+                    </label>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+
+<section id="crud-solucions">
+    <div class="container">
+
+        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+            <div class="row w-100" *ngIf="allSolucions.length > 0">
+                <div *ngFor="let solucio of allSolucions" class="col-md-4 col-sm-6">
+                    <div class="card solucio-enviat p-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
+                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                                </div>
+                                <div class="col m-auto solucio-footer">
+                                    nom usuari
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-md-4 text-center bg-success">a</div>
+                                <div class="col-md-4 text-center bg-warning">b</div>
+                                <div class="col-md-4 text-center bg-danger">c</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="button" (click)="nextPageSolucions()" class="btn btn-primary btn-veure-mes">VEURE MÉS</button>
+        </div>
+    </div>
+
+
+</section>
+
+<app-footer></app-footer>

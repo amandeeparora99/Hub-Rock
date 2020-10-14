@@ -1,0 +1,159 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
+#hubrock-solucions #toolbar {
+    margin-top: 72px;
+}
+
+#hubrock-solucions #toolbar>div {
+    margin-bottom: 12px;
+}
+
+#hubrock-solucions #toolbar #searchbar {
+    height: 50px;
+    border-color: #020e7d;
+}
+
+#hubrock-solucions .container .test {
+    max-width: 451px;
+}
+
+#icon {
+    background-color: white;
+    border-color: #020e7d;
+    border-right: 0;
+}
+
+#icon:hover {
+    color: black
+}
+
+#hubrock-solucions #toolbar #category {
+    max-width: 445px;
+}
+
+@media (min-width: 1199.98px) {
+    .flex-end-desktop {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+#category .category-item {
+    flex-basis: 77px;
+    flex-grow: 1;
+    margin: 0px 10px;
+}
+
+#category .category-item .category-text {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: -0.58px;
+}
+
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+
+input[type="checkbox"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+
+
+/* SOLUCIONS CARD */
+
+#crud-solucions {
+    margin-bottom: 65px;
+}
+
+#crud-solucions .card {
+    border-radius: 14px;
+    height: 250px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+#crud-solucions .card-footer {
+    border: none;
+}
+
+#crud-solucions .solucio-esborrany {
+    background-color: #f7f7f7;
+}
+
+#crud-solucions .solucio-enviat {
+    background-color: #d2f5e8;
+}
+
+#crud-solucions .card-title {
+    font-size: 24px;
+    letter-spacing: -0.4px;
+    font-family: 'WorkSans-Bold';
+}
+
+#crud-solucions .card-subtitle {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+    color: #000000;
+}
+
+#crud-solucions .card-subtitle a {
+    color: #020e7d;
+}
+
+#crud-solucions .solucio-enviat .solucio-footer {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    font-family: 'WorkSans-Bold';
+    color: #000000;
+}
+
+#crud-solucions .solucio-esborrany .solucio-footer {
+    font-size: 16px;
+    letter-spacing: -0.22;
+    font-family: 'WorkSans-Regular';
+}
+
+#crud-solucions .esborrany-inici {
+    color: #000000;
+}
+
+#crud-solucions .esborrany-final {
+    color: #9e0193;
+}
+
+@media (max-width: 766px) {
+    .col-mt {
+        margin-top: 1%;
+    }
+}
+
+@media (min-width: 990px) {
+    .col-mr {
+        margin-right: 4%;
+    }
+}
+
+@media (max-width: 450px) {
+    #btn-editar {
+        margin-bottom: 10px;
+    }
+}
+
+.btn-veure-mes {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
