@@ -140,7 +140,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    
+
     if (this.accountType == 'empresa') {
       this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
         this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
@@ -155,11 +155,7 @@ export class RegisterComponent implements OnInit {
             console.log(data);
             if (data.code == "1") {
 
-              console.log(data)
-              //mirar si el registre dona token
-
-
-              this.router.navigate(["/login"]);
+              this.router.navigate(["/homepage"]);
 
             }
             else if (data.code == 534) {
@@ -190,11 +186,7 @@ export class RegisterComponent implements OnInit {
             console.log(data);
             if (data.code == "1") {
 
-
-              //mirar si el registre dona token
-
-
-              this.router.navigate(["/login"]);
+              this.router.navigate(["/homepage"]);
 
             }
             else if (data.code == 534) {

@@ -21,6 +21,7 @@ import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
 import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.component';
 import { CrudUsersComponent } from './crud-users/crud-users.component';
+import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 import { SolucioComponent } from './solucio/solucio.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { SolucioComponent } from './solucio/solucio.component';
     CrudReptesComponent,
     CrudSolucionsComponent,
     CrudUsersComponent,
+    EditarRepteEsborranyComponent,
     SolucioComponent,
   ],
   imports: [

@@ -21,6 +21,8 @@ import { CrudUsersComponent } from './crud-users/crud-users.component';
 import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.component';
 import { CrudReptesComponent } from './crud-reptes/crud-reptes.component';
 import { OwnSolucioGuard } from './own-solucio.guard';
+import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
+import { OwnRepteEsborranyGuard } from './own-repte-esborrany.guard';
 import { SolucioComponent } from './solucio/solucio.component';
 
 const routes: Routes = [
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'repte/:id', component: RepteComponent },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard] },
+  { path: 'repte/:id/editar-esborrany', component: EditarRepteEsborranyComponent, canActivate: [AuthGuard, OwnRepteEsborranyGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard] },
