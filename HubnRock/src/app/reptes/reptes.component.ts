@@ -14,27 +14,106 @@ export class ReptesComponent implements OnInit {
   paginaActual = 1;
   elements = 10;
 
+  searching = 0;
+
   allReptes = [];
 
   reptesOberts = [];
-  reptesObertsAll = [];
-
   reptesProces = [];
-  reptesProcesAll = [];
-
   reptesTancats = [];
-  reptesTancatsAll = [];
 
+  reptesCerca = [];
 
   subscriptionHttp$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllReptesReptesPage(this.paginaActual, this.elements);
-    
+    //this.getAllReptesReptesPage(this.paginaActual, this.elements);
+    this.getAllReptesOberts(this.paginaActual, this.elements);
+    this.getAllReptesProces(this.paginaActual, this.elements);
+    this.getAllReptesTancats(this.paginaActual, this.elements);
   }
 
+  getAllReptesOberts(pagina, elements) {
+    this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(pagina, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data.rows);
+          if (data.code == "1") {
+            this.reptesOberts = data.rows;
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  getAllReptesProces(pagina, elements) {
+    this.subscriptionHttp$ = this.httpCommunication.getReptesProces(pagina, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data.rows);
+          if (data.code == "1") {
+            this.reptesProces = data.rows;
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  getAllReptesTancats(pagina, elements) {
+    this.subscriptionHttp$ = this.httpCommunication.getReptesTancats(pagina, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data.rows);
+          if (data.code == "1") {
+            this.reptesTancats = data.rows;
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  getAllReptesSearch(string, pagina, elements) {
+    this.subscriptionHttp$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data.rows);
+          if (data.code == "1") {
+            this.reptesCerca = data.rows;
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  onSearchChange(searchValue: string): void {  
+    console.log(searchValue);
+    if(searchValue.length > 2){
+      this.searching = 1;
+      this.reptesCerca = [];
+      this.getAllReptesSearch(searchValue, 1, 10);
+    }
+    else{
+      this.searching = 0;
+    }
+  }
+
+
+
+  //AIXO JA NO HO NECESITEM I THINK
   getAllReptesReptesPage(pagina, elements) {
     this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(pagina, elements)
       .pipe(first())
@@ -52,6 +131,8 @@ export class ReptesComponent implements OnInit {
         });
   }
 
+
+  //AIXO TAMPOC HO NECESSITEM
   sortReptes(){
     console.log("hola")
     this.allReptes.forEach(repte => {
