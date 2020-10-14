@@ -238,13 +238,14 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
           this.repteObject = data.row;
 
           this.repteForm.patchValue({
-            nomREpte: 'this.repteObject.nom',
-            // descripcioBreuSolucio: this.solucioObject.solucio_proposada_descripcio_short,
-            // descripcioSolucio: this.solucioObject.solucio_proposada_descripcio_long,
-            // innovadoraSolucio: this.solucioObject.solucio_proposada_perque_innovacio,
-            // faseSolucio: this.solucioObject.solucio_proposada_fase_desenvolupament,
-            // nomEquip: this.solucioObject.solucio_proposada_nom_equip,
-            // problemaSolucio: this.solucioObject.solucio_proposada_problema,
+            nomRepte: this.repteObject.nom,
+            descripcioBreuRepte: this.repteObject.descripcio_short,
+            descripcioDetalladaRepte: this.repteObject.descripcio_long,
+            fotoPortada: this.repteObject.url_photo_main,
+            fotoRepresentativa1: this.repteObject.url_photo_1,
+            fotoRepresentativa2: this.repteObject.url_photo_2,
+            fotoRepresentativa3: this.repteObject.url_photo_3,
+            videoSolucio: this.repteObject.url_video,           
           })
 
           // if (this.solucioObject.solucio_proposada_individual_equip == '0') {
