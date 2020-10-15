@@ -63,7 +63,7 @@ export class ReptesComponent implements OnInit {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.row.forEach(repte => {
+            data.rows.forEach(repte => {
               this.reptesOberts.push(repte)
             });
           }
