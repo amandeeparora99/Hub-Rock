@@ -14,15 +14,13 @@ export class SolucioComponent implements OnInit {
   constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
   public idSolucio;
-  public solucionsObject = [];
+  public solucio;
 
   public subscriptionHttp1$: Subscription
 
   ngOnInit(): void {
 
     this.idSolucio = this.aRouter.snapshot.params.id;
-    console.log(this.idSolucio)
-
     this.getRepteFromComponent(this.idSolucio);
 
   }
@@ -34,8 +32,8 @@ export class SolucioComponent implements OnInit {
         data => {
           if (data.code == '1') {
 
-            this.solucionsObject = data.row
-            console.log(this.solucionsObject)
+            this.solucio = data.row
+            console.log(this.solucio)
 
           } else if (data.code == '2') {
 

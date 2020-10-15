@@ -17,5 +17,11 @@ export class AppComponent {
             window.clearInterval(scrollToTop);
         }
     }, 16);
-}
+  }
+
+  // onActivate(e) {
+  //   if (e.constructor.name)==="login"{ // for example
+  //           window.scroll(0,0);
+  //   }
+  // }
 }

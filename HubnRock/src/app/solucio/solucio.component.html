@@ -4,8 +4,8 @@
     <div id="bannerimg">
         <div id="banner" class="container d-flex align-items-center">
             <div class="container d-flex flex-column">
-                <h1 class="title text-center">Nom solucio</h1>
-                <p class="subtitle text-center">Nom equip</p>
+                <h1 class="title text-center">{{solucio.solucio_proposada_nom}}</h1>
+                <p class="subtitle text-center">{{solucio.solucio_proposada_nom_equip}}</p>
             </div>
         </div>
     </div>
@@ -30,9 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                        relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                        desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos </p>
+                        <p>{{solucio.solucio_proposada_descripcio_short}}</p>
                     </div>
                 </div>
             
@@ -45,13 +43,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                        relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                        desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos </p>
-                        <br>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos </p>
+                        <p>{{solucio.solucio_proposada_descripcio_long}}</p>
                     </div>
                 </div>
 
@@ -64,13 +56,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                        relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                        desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos </p>
-                        <br>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos </p>
+                        <p>{{solucio.solucio_proposada_perque_innovacio}}</p>
                     </div>
                 </div>
                 
@@ -91,7 +77,7 @@
                                 <div class="hrcustom-white"></div>
                             </div>
                             <div class="row">
-                                <p class="teamname"><b>The Startupers</b></p>
+                                <p class="teamname"><b>{{solucio.solucio_proposada_nom_equip}}</b></p>
                             </div>
                             <div class="row">
                                 <p class="mb-1">Membres</p>
@@ -99,28 +85,12 @@
                             <div class="row">
                                 <div class="hrcustom-white mb-4"></div>
                             </div>
-                            <div class="row mb-4">
+                            <div class="row mb-4" *ngFor="let membre of solucio.membres; let i = index">
                                 <img src="https://dummyimage.com/65x65/000/fff" alt="" class="rounded-circle align-self-center mr-3">
                                 <div class="d-flex flex-column membre">
-                                    <p><b>Sharon Stone</b></p>
-                                    <p><b>CEO</b></p>
-                                    <p>www.linkedin.com</p>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <img src="https://dummyimage.com/65x65/000/fff" alt="" class="rounded-circle align-self-center mr-3">
-                                <div class="d-flex flex-column membre">
-                                    <p><b>Sharon Stone</b></p>
-                                    <p><b>CEO</b></p>
-                                    <p>www.linkedin.com</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <img src="https://dummyimage.com/65x65/000/fff" alt="" class="rounded-circle align-self-center mr-3">
-                                <div class="d-flex flex-column membre">
-                                    <p><b>Sharon Stone</b></p>
-                                    <p><b>CEO</b></p>
-                                    <p>www.linkedin.com</p>
+                                    <p><b>{{membre.membre_nom}}</b></p>
+                                    <p><b>{{membre.membre_posicio}}</b></p>
+                                    <p>{{membre.membre_link}}</p>
                                 </div>
                             </div>
                         </div>
