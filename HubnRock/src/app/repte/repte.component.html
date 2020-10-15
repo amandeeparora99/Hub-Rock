@@ -31,7 +31,8 @@
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
                 <div class="d-flex w-100 justify-content-between category-div">
 
-                    <div class="d-flex flex-column align-items-center"> <!-- *ngIf="repte.participants['empresa'] -->
+                    <div class="d-flex flex-column align-items-center">
+                        <!-- *ngIf="repte.participants['empresa'] -->
                         <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
                         <p class="typetext">Empreses</p>
                     </div>
@@ -86,28 +87,44 @@
         <!-- Nav pills -->
         <ul id="tabs" class="nav nav-pills nav-justified" role="tablist">
             <li class="nav-item">
-                <div class="nav-link active d-flex align-items-center justify-content-center" data-toggle="pill" href="#resum"><p class="mb-0">Resum del repte</p></div>
+                <div class="nav-link active d-flex align-items-center justify-content-center" data-toggle="pill" href="#resum">
+                    <p class="mb-0">Resum del repte</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#quebusquem"><p class="mb-0">Què busquem?</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#quebusquem">
+                    <p class="mb-0">Què busquem?</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#baseslegals"><p class="mb-0">Bases legals</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#baseslegals">
+                    <p class="mb-0">Bases legals</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#forum"><p class="mb-0">Fòrum</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#forum">
+                    <p class="mb-0">Fòrum</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#propostes"><p class="mb-0">Propostes</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#propostes">
+                    <p class="mb-0">Propostes</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#faq"><p class="mb-0">FAQ</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#faq">
+                    <p class="mb-0">FAQ</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#jurat"><p class="mb-0">Jurat</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#jurat">
+                    <p class="mb-0">Jurat</p>
+                </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#partners"><p class="mb-0">Partners</p></div>
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#partners">
+                    <p class="mb-0">Partners</p>
+                </div>
             </li>
         </ul>
 
@@ -146,7 +163,7 @@
                 <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
                     <iframe width="660" height="370" src="https://www.youtube.com/watch?v=ytFzsNGCdes&list=RDytFzsNGCdes&start_radio=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                
+
 
                 <h1 class="tabtitle text-center">Solucions buscades</h1>
 
@@ -190,7 +207,8 @@
                     <div id="comparticiparwho" class="d-flex justify-content-between">
 
                         <div class="d-flex flex-column align-items-center" *ngFor="let quiparticipa of repte.participants; let i = index">
-                            <img class="howtoparticipateimg" [src]="getImage(quiparticipa.idparticipants)" alt="">       <!--ALT DINÀMIC PER SEO-->
+                            <img class="howtoparticipateimg" [src]="getImage(quiparticipa.idparticipants)" alt="">
+                            <!--ALT DINÀMIC PER SEO-->
                             <p class="typetext">{{quiparticipa.participants_name}}</p>
                         </div>
 
@@ -220,8 +238,7 @@
 
                 <ul class="nav nav-pills d-flex justify-content-center" id="premis-tab" role="tablist">
                     <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
-                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" 
-                            role="tab" aria-controls="pills-home" aria-selected="true">{{i+1}}<br>Premi</a>
+                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home" aria-selected="true">{{i+1}}<br>Premi</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link text-center" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">2n<br>Premi</a>
@@ -260,9 +277,11 @@
 
                 <div class="text-premis row d-flex justify-content-start" *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
-                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 == 0"> <!--Si el numero es parell -> text esquerre-->
+                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 == 0">
+                        <!--Si el numero es parell -> text esquerre-->
 
-                        <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0"> <!--Si el numero es senar <- text dreta-->
+                        <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0">
+                            <!--Si el numero es senar <- text dreta-->
                             <h1 class="tematicatitle">{{soluciobuscada.solucio_nom}}</h1>
                             <p>{{soluciobuscada.solucio_descripcio}}</p>
                             <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
@@ -292,13 +311,11 @@
 
                 <div id="altresrecursosfiles" class="row d-flex flex-column">
                     <div class="d-flex align-items-center">
-                        <img width="30"
-                                src="../../assets/simpleicons/fileicon.png" alt="">
+                        <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                         <a href="#">Llei de protecció de dades</a>
                     </div>
                     <div class="d-flex align-items-center">
-                        <img width="30"
-                                src="../../assets/simpleicons/fileicon.png" alt="">
+                        <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                         <a href="#">Manual màquina 1</a>
                     </div>
                 </div>
