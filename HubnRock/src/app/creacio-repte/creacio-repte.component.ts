@@ -23,6 +23,10 @@ export class CreacioRepteComponent implements OnInit {
   fotoPortada = null;
   pdfNom = null;
 
+  fotoRepte1Selected = "";
+  fotoRepte2Selected = "";
+  fotoRepte3Selected = "";
+
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
 
@@ -265,6 +269,20 @@ export class CreacioRepteComponent implements OnInit {
         this.fotoPortada = event.target.result
       }
 
+    }
+  }
+
+  fotosRepteSelected(event, numFoto){
+    if (event.target.files) {
+      if (numFoto == 1){
+        this.fotoRepte1Selected = "../../assets/simpleicons/tic.png";
+      }
+      else if (numFoto == 2) {
+        this.fotoRepte2Selected = "../../assets/simpleicons/tic.png";
+      }
+      else if (numFoto == 3){
+        this.fotoRepte3Selected = "../../assets/simpleicons/tic.png";
+      }
     }
   }
 
