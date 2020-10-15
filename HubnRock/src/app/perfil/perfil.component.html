@@ -70,7 +70,10 @@
                     <div class="card-body">
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre nosaltres</h5>
-                            <p class="card-text">{{usuariObject.bio}}</p>
+                            <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el nostre perfil de Hub & Rock! Aqui podràs veure informació sobre els nostres serveis, presentació amb un descarregable i molt més.
+                                Fins i tot podràs veure els nostres reptes i solucions enviades!
+                            </p>
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Els nostres serveis</h5>
@@ -278,7 +281,10 @@
                     <div class="card-body">
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre mi</h5>
-                            <p class="card-text">{{usuariObject.bio}}</p>
+                            <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el meu perfil de Hub & Rock! Aqui podràs veure la informació sobre les meves habilitats, presentació amb un descarregable i molt més.
+                                Fins i tot podràs veure les meves solucions enviades!</p>
+                            
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>
