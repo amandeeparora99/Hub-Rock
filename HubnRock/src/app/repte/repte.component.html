@@ -361,7 +361,7 @@
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">
                         <div *ngFor="let solucio of repte.solucions" class="col-md-4 col-sm-6">
-                            <div class="card solucio-enviat p-2">
+                            <div class="card solucio-enviat p-2" routerLink="/solucio/{{solucio.idsolucio}}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
                                     <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>

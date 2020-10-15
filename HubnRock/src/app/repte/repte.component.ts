@@ -16,6 +16,7 @@ export class RepteComponent implements OnInit {
   public idRepte = null;
   public repte = null;
   public repteExists = true;
+  public currentPill = 0;
   videoUrl;
 
   subscriptionHttp$: Subscription
@@ -91,5 +92,9 @@ export class RepteComponent implements OnInit {
     }
     
   }
+
+  // updatetab(id_tab){
+  //   this.currentPill = id_tab;
+  // }
 
 }
