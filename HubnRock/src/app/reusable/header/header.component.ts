@@ -12,7 +12,9 @@ export class HeaderComponent implements OnInit {
 
   public currentUser;
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) { }
+  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
 
@@ -33,23 +35,24 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
 
-  headerRedirect(page: number){
-    if (page == 1){
+  headerRedirect(page: number) {
+    if (page == 1) {
       this.router.navigate(['/']);
     }
-    else if (page == 2){
+    else if (page == 2) {
       this.router.navigate(['/register']);
     }
-    else if (page == 3){
+    else if (page == 3) {
       this.router.navigate(['/login']);
     }
-    else if (page == 4){
+    else if (page == 4) {
       this.router.navigate(['/reptes']);
     }
-    
+
   }
 
-  userProfile(){
+  userProfile() {
     this.router.navigate(['/perfil/', this.currentUser.idUser])
+
   }
 }

@@ -16,8 +16,17 @@ export class PerfilComponent implements OnInit {
   public usuariObject;
   public isOwnUser = false;
 
-  public userSolucions = null;
-  public userReptes = null;
+  public loadSolucionsCalled = false;
+  public loadReptesCalled = false;
+
+
+  public userSolucions = [];
+  public userSolucionsEsborrany = [];
+  public userSolucionsBons = [];
+
+  public userReptes = [];
+  public userReptesEsborrany = [];
+  public userReptesBons = [];
 
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
@@ -83,13 +92,23 @@ export class PerfilComponent implements OnInit {
   }
 
   loadSolucions() {
-    if (this.userSolucions == null) {
+    if (this.userSolucions.length < 1) {
       this.subscriptionHttp2$ = this.httpClient.getSolucionsByUser().pipe(first())
         .subscribe(data => {
           if (data.code == '1') {
 
             this.userSolucions = data.rows;
-            console.log(this.userSolucions)
+
+            data.rows.forEach(solucio => {
+              if (solucio.estat_idestat == 1) {
+                this.userSolucionsEsborrany.push(solucio)
+              } else if (solucio.etat_idestat == 3) {
+                this.userSolucionsBons.push(solucio)
+              }
+
+            });
+            console.log("tots solucions", this.userSolucions, "esborranys solucions", this.userSolucionsEsborrany, "bons solucions", this.userSolucionsBons)
+
 
           }
         });
@@ -98,14 +117,23 @@ export class PerfilComponent implements OnInit {
   }
 
   loadReptes() {
-    if (this.userReptes == null) {
+    if (this.userReptes.length < 1) {
       this.subscriptionHttp3$ = this.httpClient.getReptesByUser().pipe(first())
         .subscribe(data => {
           if (data.code == '1') {
 
             this.userReptes = data.rows;
-          
 
+            data.rows.forEach(repte => {
+              if (repte.estat_idestat == 1) {
+                this.userReptesEsborrany.push(repte)
+              } else if (repte.etat_idestat == 3) {
+                this.userReptesBons.push(repte)
+              }
+
+            });
+
+            console.log("tots reptes", this.userReptes, "esborranys reptes", this.userReptesEsborrany, "bons reptes", this.userReptesBons)
           }
         });
     }

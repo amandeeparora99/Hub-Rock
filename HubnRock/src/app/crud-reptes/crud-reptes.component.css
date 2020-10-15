@@ -102,9 +102,10 @@
     margin: 2px;
 }
 
-.card {
+
+/* .card {
     margin-bottom: 20px;
-}
+} */
 
 .checkboxes input[type="checkbox"] {
     appearance: none;
