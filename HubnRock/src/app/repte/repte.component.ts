@@ -15,6 +15,7 @@ export class RepteComponent implements OnInit {
 
   public idRepte = null;
   public repte = null;
+  public repteExists = true;
   videoUrl;
 
   subscriptionHttp$: Subscription
@@ -34,8 +35,10 @@ export class RepteComponent implements OnInit {
         data => {
           if (data.code == '1') {
             this.repte = data.row
+            this.repteExists = true;
           } else if (data.code == '2'){
-            this.router.navigate(['/page-not-found'])
+            this.repteExists = false;
+            // this.router.navigate(['/page-not-found'])
           }
         },
         error => {

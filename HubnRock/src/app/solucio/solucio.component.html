@@ -1,6 +1,14 @@
 <app-header></app-header>
 
-<section id="hubrock-solucio">
+<div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!solucioExists">
+    <h1>Solucio no disponible</h1>
+    Aquesta solucio no existeix o ha estat eliminada <br>
+    <div class="text-center mt-4">
+        <button class="btn btn-primary btn-manage" type="button" routerLink='/homepage'>TORNA A L'INICI</button>
+    </div>
+</div>
+
+<section id="hubrock-solucio" *ngIf="solucioExists">
     <div id="bannerimg">
         <div id="banner" class="container d-flex align-items-center">
             <div class="container d-flex flex-column">
@@ -9,9 +17,18 @@
             </div>
         </div>
     </div>
+
+    <div class="container mt-3">
+        <div class="row">
+            <button class="btn hubrock-btn">EDITAR SOLUCIÓ</button>
+        </div>
+        
+    </div>
+    
 </section>
 
-<section id="solucio-body">
+
+<section id="solucio-body" *ngIf="solucioExists">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">

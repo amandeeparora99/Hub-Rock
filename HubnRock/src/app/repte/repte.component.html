@@ -1,8 +1,16 @@
 <app-header></app-header>
-<section id="hubrock-repte-banner">
+<section id="hubrock-repte-banner" *ngIf="repteExists">
 </section>
 
-<section id="hubrock-repte-info">
+<div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
+    <h1>Repte no disponible</h1>
+    Aquest repte no existeix o ha estat eliminat <br>
+    <div class="text-center mt-4">
+        <button class="btn btn-primary btn-manage" type="button" routerLink='/homepage'>TORNA A L'INICI</button>
+    </div>
+</div>
+
+<section id="hubrock-repte-info" *ngIf="repteExists">
     <div class="container">
         <div class="d-flex align-items-center owner mb-3">
             <img class="rounded-circle" width="34px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25">
@@ -14,9 +22,10 @@
                 <h1 class="reptetitle">{{repte.nom}}</h1>
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
-            <div class="col-md-4 d-flex justify-content-start tablet-left">
+            <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
                 <!--EN MOVIL NO HA DESTAR AL FINAL-->
                 <button class="btn hubrock-btn">PARTICIPA AL REPTE</button>
+                <button class="btn hubrock-btn mt-2">EDITA EL REPTE</button>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
@@ -71,7 +80,7 @@
     </div>
 </section>
 
-<section id="infobox">
+<section id="infobox" *ngIf="repteExists">
     <div class="container infobox-container">
 
         <!-- Nav pills -->

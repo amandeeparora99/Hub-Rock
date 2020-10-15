@@ -15,6 +15,7 @@ export class SolucioComponent implements OnInit {
 
   public idSolucio;
   public solucio;
+  public solucioExists = true;
 
   public subscriptionHttp1$: Subscription
 
@@ -33,11 +34,13 @@ export class SolucioComponent implements OnInit {
           if (data.code == '1') {
 
             this.solucio = data.row
+            this.solucioExists = true;
             console.log(this.solucio)
 
           } else if (data.code == '2') {
 
-            this.router.navigate(['/page-not-found'])
+            this.solucioExists = false;
+            // this.router.navigate(['/page-not-found'])
 
           }
         },

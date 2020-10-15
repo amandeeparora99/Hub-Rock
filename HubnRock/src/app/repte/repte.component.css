@@ -535,3 +535,30 @@ img {
         margin-bottom: 10px;
     }
 }
+
+.no-existeix {
+    height: 80vh;
+}
+
+.no-existeix h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+.no-existeix .btn-manage {
+    width: 255px;
+}
+
+.btn-manage {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #020e7d;
+    color: #020e7d;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
