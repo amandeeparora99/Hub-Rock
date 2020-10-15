@@ -22,7 +22,7 @@
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
                 <div class="d-flex w-100 justify-content-between category-div">
 
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center"> <!-- *ngIf="repte.participants['empresa'] -->
                         <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
                         <p class="typetext">Empreses</p>
                     </div>
@@ -56,7 +56,7 @@
 
                     <div class="d-flex">
                         <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>20 de Setembre<br> Queden 3 dies</h1>
+                        <h1>{{repte.data_inici | date:'shortDate'}}<br>{{diesRestants(repte.data_inici, repte.data_final)}}</h1>
                     </div>
 
                     <div class="d-flex align-items-center">
@@ -170,7 +170,7 @@
                 </div>
 
                 <div id="sabermes" class="row d-flex justify-content-center">
-                    <a href="#">SABER MÉS</a>
+                    <a data-toggle="pill" href="#quebusquem">SABER MÉS</a>
                 </div>
 
                 <div class="row d-flex justify-content-center">
@@ -314,7 +314,7 @@
                 <h1 class="tabtitle text-center">Bases legals</h1>
 
                 <div class="container">
-                    <div class="legaltext">
+                    <div class="legaltext" *ngIf="repte.bases_legals == 0">
                         Participation in the Challenge implies acknowledgement and acceptance of the characteristics, limits and risks of the internet and related technologies, particularly with regards to performance, response time, security of software and computer equipment
                         against various potential attacks, such as viruses, logic bombs or Trojans, and loss or misuse of data. As a result, the Sponsor will not be held liable in any way for any damage incurred by Participants arising from these characteristics,
                         limits and risks, which Participants accept by registering and taking part in the Challenge. The Sponsor will not in any case be held liable for damages resulting from faults with or delays in the submission of deliverables by
@@ -334,6 +334,7 @@
 
                         <br>
                     </div>
+                    <div class="legaltext" *ngIf="repte.bases_legals == 1">{{repte.bases_legals_personals}}</div>
                 </div>
 
             </div>
@@ -347,7 +348,32 @@
             <div id="propostes" class="tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Solucions proposades</h1>
 
-                <div class="d-flex justify-content-center">
+
+                <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
+                    <div class="row w-100">
+                        <div *ngFor="let solucio of repte.solucions" class="col-md-4 col-sm-6">
+                            <div class="card solucio-enviat p-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
+                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
+                                            <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                                        </div>
+                                        <div class="col m-auto solucio-footer">
+                                            {{repte.user.nom_empresa || repte.user.nom_rockstar}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center" *ngIf="!repte.solucions">
                     <p class="maxwidth-540 text-center">Aquest repte encara no té solucions proposades.</p>
                 </div>
 

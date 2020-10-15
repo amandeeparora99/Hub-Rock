@@ -115,6 +115,11 @@
     margin-bottom: 39px;
     font-size: 14px;
     letter-spacing: -0.95px;
+        
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .fitxa-repte .titol-repte {
