@@ -63,7 +63,7 @@ export class ReptesComponent implements OnInit {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.row.array.forEach(repte => {
+            data.row.forEach(repte => {
               this.reptesOberts.push(repte)
             });
           }
@@ -82,7 +82,7 @@ export class ReptesComponent implements OnInit {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.array.forEach(repte => {
+            data.rows.forEach(repte => {
               this.reptesProces.push(repte)
             });
           }
@@ -101,7 +101,7 @@ export class ReptesComponent implements OnInit {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.array.forEach(repte => {
+            data.rows.forEach(repte => {
               this.reptesTancats.push(repte)
             });
           }
