@@ -22,7 +22,7 @@ export class RepteComponent implements OnInit {
   ngOnInit(): void {
     this.idRepte = this.aRouter.snapshot.params.id;
     if(this.idRepte){
-    this.getRepteFromComponent(this.idRepte);
+      this.getRepteFromComponent(this.idRepte);
     }
     console.log(this.repte.solucions)
   }
