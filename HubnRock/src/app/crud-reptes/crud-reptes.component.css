@@ -107,6 +107,11 @@
     margin-bottom: 20px;
 } */
 
+.eliminat {
+    background-color: black;
+    color: white;
+}
+
 .checkboxes input[type="checkbox"] {
     appearance: none;
 }
