@@ -91,37 +91,41 @@
                 <!-- TABS REPTES CREATS -->
                 <div id="empresa-reptes" class="tab-pane fade">
                     <!-- ESBORRANYS -->
-                    <h1 class="reptestitle">Esborranys</h1>
-                    <p class="small-letter">Fes clic sobre un repte per seguir creant-lo</p>
+                    <div *ngIf="isOwnUser">
+                        <div *ngIf="userReptesEsborrany && userReptesEsborrany.length < 1">No hi ha creat cap esborrany</div>
+                        <h1 class="reptestitle">Esborranys</h1>
+                        <p class="small-letter">Fes clic sobre un repte per seguir creant-lo</p>
 
-                    <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
-                        <div class="row w-100">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="card">
-                                    <img class="card-img-top" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
-                                    <div class="card-body fitxa-repte">
-                                        <div class="card-title d-flex">
-                                            <img class="rounded-circle" width="25px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25"> &nbsp;AI Factory
-                                        </div>
-                                        <h5 class="card-title titol-repte">Repte programació amb AI</h5>
-                                        <p class="card-text desc-repte">Programació utilitzant la intel·ligència artificial. Ideal per aprenents i fins i tot per usuaris avançats.</p>
-                                        <div class="card-title d-flex">
-                                            <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;10.000€ / 5.000€ / 3.500€
-                                        </div>
-                                        <div class="card-title d-flex">
-                                            <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;A definir
-                                        </div>
-                                        <div class="tags">
-                                            <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                            <button type="button" class="tag btn btn-success">Públic general</button>
+                        <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
+                            <div class="row w-100">
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card">
+                                        <img class="card-img-top" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
+                                        <div class="card-body fitxa-repte">
+                                            <div class="card-title d-flex">
+                                                <img class="rounded-circle" width="25px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25"> &nbsp;AI Factory
+                                            </div>
+                                            <h5 class="card-title titol-repte">Repte programació amb AI</h5>
+                                            <p class="card-text desc-repte">Programació utilitzant la intel·ligència artificial. Ideal per aprenents i fins i tot per usuaris avançats.</p>
+                                            <div class="card-title d-flex">
+                                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;10.000€ / 5.000€ / 3.500€
+                                            </div>
+                                            <div class="card-title d-flex">
+                                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;A definir
+                                            </div>
+                                            <div class="tags">
+                                                <button type="button" class="tag btn btn-warning">Estudiants</button>
+                                                <button type="button" class="tag btn btn-success">Públic general</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
-
                     </div>
+
 
                     <!-- RETPES PUBLICATS -->
                     <h1 class="reptestitle">Reptes publicats</h1>
@@ -165,23 +169,26 @@
 
                 <!-- TABS SOLUCIONS -->
                 <div id="empresa-solucions" class="tab-pane fade">
-                    <h1 class="reptestitle">Esborranys</h1>
-                    <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
-                        <div class="row w-100">
-                            <div class="col-md-4 col-sm-6">
-                                <div class="card solucio-esborrany p-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Incrementar personal de neteja</h5>
-                                        <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte del medi ambient UdG</a></h6>
+                    <div *ngIf="isOwnUser">
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1">No hi ha creat cap esborrany</div>
+                        <h1 class="reptestitle">Esborranys</h1>
+                        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+                            <div class="row w-100">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="card solucio-esborrany p-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Incrementar personal de neteja</h5>
+                                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte del medi ambient UdG</a></h6>
 
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="row">
-                                            <div class="col-auto pr-0">
-                                                <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
-                                            </div>
-                                            <div class="col solucio-footer m-auto">
-                                                <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                            <div class="row">
+                                                <div class="col-auto pr-0">
+                                                    <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
+                                                </div>
+                                                <div class="col solucio-footer m-auto">
+                                                    <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -189,6 +196,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <h1 class="reptestitle">Solucions enviades</h1>
                     <div *ngIf="userSolucions && userSolucions.length < 1">No hi ha creada cap solució</div>
@@ -309,23 +317,27 @@
 
                 <!-- TABS SOLUCIONS -->
                 <div id="usuari-solucions" class="tab-pane fade">
-                    <h1 class="reptestitle">Esborranys</h1>
-                    <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
-                        <div class="row w-100">
-                            <div class="col-md-4 col-sm-6">
-                                <div class="card solucio-esborrany p-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Implementar nous mètodes d'ensenyament</h5>
-                                        <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte Digital Campus UdG</a></h6>
+                    <div *ngIf="isOwnUser">
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1">No hi ha creat cap esborrany</div>
+                        <h1 class="reptestitle">Esborranys</h1>
 
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="row">
-                                            <div class="col-auto pr-0">
-                                                <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
-                                            </div>
-                                            <div class="col solucio-footer m-auto">
-                                                <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
+                        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+                            <div class="row w-100">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="card solucio-esborrany p-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Implementar nous mètodes d'ensenyament</h5>
+                                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte Digital Campus UdG</a></h6>
+
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                            <div class="row">
+                                                <div class="col-auto pr-0">
+                                                    <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
+                                                </div>
+                                                <div class="col solucio-footer m-auto">
+                                                    <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -333,6 +345,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <h1 class="reptestitle">Solucions enviades</h1>
                     <div *ngIf="userSolucions && userSolucions.length < 1">No hi ha creada cap solució</div>

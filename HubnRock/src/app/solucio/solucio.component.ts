@@ -13,29 +13,34 @@ export class SolucioComponent implements OnInit {
 
   constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
-  public idSolucio = null;
-  public solucio = null;
-  videoUrl;
+  public idSolucio;
+  public solucionsObject = [];
 
-  subscriptionHttp$: Subscription
+  public subscriptionHttp1$: Subscription
 
   ngOnInit(): void {
+
     this.idSolucio = this.aRouter.snapshot.params.id;
-    if(this.solucio){
-      this.getRepteFromComponent(this.idSolucio);
-      console.log(this.solucio)
-    }
+    console.log(this.idSolucio)
+
+    this.getRepteFromComponent(this.idSolucio);
+
   }
 
-  getRepteFromComponent(id) {
-    this.subscriptionHttp$ = this.httpCommunication.getSolucio(id)
+  getRepteFromComponent(idSolucio) {
+    this.subscriptionHttp1$ = this.httpCommunication.getSolucio(idSolucio)
       .pipe(first())
       .subscribe(
         data => {
           if (data.code == '1') {
-            this.solucio = data.row
-          } else if (data.code == '2'){
+
+            this.solucionsObject = data.row
+            console.log(this.solucionsObject)
+
+          } else if (data.code == '2') {
+
             this.router.navigate(['/page-not-found'])
+
           }
         },
         error => {
@@ -44,4 +49,10 @@ export class SolucioComponent implements OnInit {
         });
   }
 
+  ngOnDestroy() {
+    this.subscriptionHttp1$?.unsubscribe()
+    // this.subscriptionHttp2$?.unsubscribe()
+    // this.subscriptionHttp3$?.unsubscribe()
+    // this.subscriptionHttp4$?.unsubscribe()
+  }
 }
