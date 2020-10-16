@@ -287,4 +287,12 @@ export class HttpCommunicationService {
         return data;
       }));
   }
+
+  changeStateRepte(idRepte, estat) {
+    return this.http.get<any>(environment.api + `/repte/editStateRepte/${idRepte}/${estat}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
 }

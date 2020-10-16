@@ -22,7 +22,11 @@
     <form id="regForm" [formGroup]="solucioForm" (ngSubmit)="onSubmit()">
         <div class="row mb-110">
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" (click)="desaBorrador()">DESA COM A
-                    ESBORRANY</button></div>
+                    ESBORRANY</button>
+                <!-- <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div> -->
+            </div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="prevBtn" *ngIf="currentTab != 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
             <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
