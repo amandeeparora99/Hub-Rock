@@ -69,7 +69,7 @@
                     <div class="d-flex justify-content-between">
                         <label for="InputFotoPortada" class="mb-0">Foto portada</label>
                         <div class="text-center elimina-link" *ngIf="fotoPortada != null">
-                            <a>- Elimina aquest premi</a>
+                            <a>- Elimina aquesta foto</a>
                         </div>
                     </div>
                     <div class="d-flex img-infohelp">
@@ -115,36 +115,42 @@
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label for="InputFotoRepresentativa1" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                        <img *ngIf="fotoRepte1Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte1Selected != ''" [src]="fotoRepte1Selected"
                                             class="rounded-circle align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" />
+                                <input formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" (change)="fotosRepteSelected($event, 1)"/>
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label for="InputFotoRepresentativa2" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                        <img *ngIf="fotoRepte2Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte2Selected != ''" [src]="fotoRepte2Selected"
                                             class="rounded-circle align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" />
+                                <input formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" (change)="fotosRepteSelected($event, 2)"/>
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label for="InputFotoRepresentativa3" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                        <img *ngIf="fotoRepte3Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte3Selected != ''" [src]="fotoRepte3Selected"
                                             class="rounded-circle align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" />
+                                <input formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" (change)="fotosRepteSelected($event, 3)"/>
                             </div>
                         </div>
                     </div>
