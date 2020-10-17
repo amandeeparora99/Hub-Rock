@@ -1,6 +1,6 @@
   import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
@@ -14,12 +14,12 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
 
   hasUnsavedData(): boolean {
     return this.solucioForm.dirty;
   }
-
+  pdf;
   idRepte;
   solucioForm: FormGroup;
   radioValue;
@@ -264,45 +264,26 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  onPdfSelected(event) {
+    if (event.target.files) {
+
+      this.pdf = event.target.files
+      console.log(this.pdf[0])
+
+    }
+  }
+
   onSubmit() {
 
     if (!this.solucioForm.valid) {
 
       this.logValidationErrorsUntouched()
-      console.log("no es valid")
 
     } else {
 
-      const formData = new FormData();
-      formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
-      formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
-      // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
-      formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
-      formData.append('problema', this.solucioForm.get('problemaSolucio').value);
-      formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
-      formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
-      formData.append('url_video', this.solucioForm.get('videoSolucio').value);
-      formData.append('nom', this.solucioForm.get('nomSolucio').value);
+      let formData = this.appendRepte();
 
-      if (this.radioValue == "individual") {
-
-        formData.append('individual_equip', '0');
-
-      } else if (this.radioValue == "equip") {
-
-        formData.append('individual_equip', '1')
-
-        //APPENDING MEMBRES
-        for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
-          formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
-          formData.append(`membre_posicio[${i}]`, this.solucioForm.get('membreArray').value[i].posicioMembre);
-          formData.append(`membre_link[${i}]`, this.solucioForm.get('membreArray').value[i].linkMembre);
-        }
-
-      }
-
-
-      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, this.idRepte)
+      this.subscriptionHttp1$ = this.httpClient.addSolucioValid(formData, this.idRepte)
         .pipe(first())
         .subscribe(
           data => {
@@ -319,7 +300,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   desaBorrador() {
-    this.loading = true;
     if (!this.solucioForm.get('nomSolucio').value) {
 
       if (!this.formErrors.nomSolucio) {
@@ -349,13 +329,18 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            if (data.code == '1') {
+
+              this.success = true;
+              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              this.router.navigate([`/perfil/${currentUserId}`])
+
+            }
           },
           error => {
             console.log("Fail")
           });
     }
-
   }
 
   appendRepte(): FormData {
@@ -376,7 +361,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
 
     if (this.solucioForm.get('descripcioSolucio').value) {
-      // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
+      formData.append('limit_participants', '');
     }
 
 
@@ -472,8 +457,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     this.subscriptionForm$?.unsubscribe()
     this.subscriptionHttp1$?.unsubscribe()
     this.subscriptionHttp2$?.unsubscribe()
-
-
   }
 
 }

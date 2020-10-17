@@ -23,6 +23,7 @@ import { CrudSolucionsComponent } from './crud-solucions/crud-solucions.componen
 import { CrudUsersComponent } from './crud-users/crud-users.component';
 import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 import { SolucioComponent } from './solucio/solucio.component';
+import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.interceptor';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 
 @NgModule({
@@ -56,6 +57,11 @@ import { EditarRepteComponent } from './editar-repte/editar-repte.component';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttperrorinterceptorInterceptor,
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]

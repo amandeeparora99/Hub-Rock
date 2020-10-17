@@ -23,7 +23,7 @@
         <div class="row mb-110">
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" (click)="desaBorrador()">DESA COM A
                     ESBORRANY</button>
-                <!-- <div class="spinner-border text-primary" role="status">
+                <!-- <div class="spinner-border text-primary">
                     <span class="sr-only">Loading...</span>
                 </div> -->
             </div>
@@ -84,7 +84,14 @@
                         Els documents han d’estar en format PDF. </label>
                 </div>
                 <hr class="mt-2 mb-5">
-                <div class="text-center afegeix-link"><a href="#">+ Afegeix PDFs</a></div>
+
+                <div class="text-center">
+                    <label class="afegeix-link">
+                    <input (change)="onPdfSelected($event)" type="file" style="display: none;">
+                    <a>+ Afegeix PDFs</a>
+                  </label>
+                </div>
+
             </div>
             <div class="tab equip" *ngIf="currentTab==1">
                 <h1 class="title-form">Informació sobre l'equip</h1>
