@@ -12,7 +12,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor(private _httpService: HttpCommunicationService, private spinnerService: SpinnerService) { }
 
   intercept(req, next) {
-    this.spinnerService.requestStarted();
+    // this.spinnerService.requestStarted();
 
     var currentUser = JSON.parse(this._httpService.getCurrentUser());
     if (currentUser && currentUser.token) {
@@ -26,7 +26,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           if (event instanceof HttpResponse) {
             
             console.log('event--->>>', event);
-            this.spinnerService.requestEnded();
+            // this.spinnerService.requestEnded();
 
           }
           return event;
