@@ -15,7 +15,7 @@
                 <div class="row max-width-button d-flex justify-content-between no-gutters">
                     <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS</button>
                     <!-- <li *ngFor="let employee of employees$ | async">{{employee.name}}</li> -->
-                    <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte'>CREA EL TEU REPTE</button>
+                    <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte' *ngIf="userIsEmpresa">CREA EL TEU REPTE</button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <p *ngIf="!allReptes.length" class="text-center what-text">No hi ha cap repte obert</p>
 
             <div class="row w-100">
-                
+
                 <ng-container *ngIf="allReptes.length">
                     <div *ngFor="let repte of allReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
@@ -49,8 +49,8 @@
                                     </div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">Obre dia {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici)}} dies
-                                    restants)
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">Obre dia {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici)}}
+                                    dies restants)
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </ng-container>
-                
+
             </div>
             <div class="row">
                 <button id="btn-veure-tots-reptes" class="btn btn-primary button8 btn-style" routerLink='/reptes'>VEURE TOTS ELS REPTES</button>
