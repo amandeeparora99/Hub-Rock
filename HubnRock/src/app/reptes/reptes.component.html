@@ -78,6 +78,7 @@
         <div class="d-flex">
 
             <div class="row w-100">
+                
                 <ng-container *ngIf="reptesOberts.length">
                     <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
@@ -108,82 +109,11 @@
                         </div>
                     </div>
                 </ng-container>
-                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
-                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                
             </div>
 
         </div>
-        <div class="text-center">
+        <div *ngIf="!reptesOberts.length" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
         </div>
 
@@ -230,83 +160,11 @@
                         </div>
                     </div>
                 </ng-container>
-                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
-                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!reptesProces.length">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreProces()">VEURE MÉS</button>
         </div>
 
@@ -352,7 +210,7 @@
 
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!reptesTancats.length">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreTancats()">VEURE MÉS</button>
         </div>
 

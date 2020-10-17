@@ -122,8 +122,9 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" (change)="fotosRepteSelected($event, 1)"/>
+                                <input formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" (change)="fotosRepteSelected($event, 1)" #inputFile/>
                             </div>
+                            <p class="text-center" (click)="reset()">Elimina foto</p>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="image-upload d-flex justify-content-center align-items-center">

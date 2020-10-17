@@ -16,7 +16,6 @@ export class RepteComponent implements OnInit {
   public idRepte = null;
   public repte = null;
   public repteExists = true;
-  public currentPill = 0;
   videoUrl;
 
   subscriptionHttp$: Subscription
@@ -68,33 +67,33 @@ export class RepteComponent implements OnInit {
   }
 
   diesRestants(data_inici, data_final){
-    let dateInici = new Date(data_inici);
-    let dateFinal = new Date(data_final);
-    let currentDate = new Date();
-
-    if(dateInici>currentDate){
-      let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-      return  "Inicia en " + days + " dies";
-    }
-    else if (dateInici<currentDate && dateFinal>currentDate) {
-      let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-      return  "Tenca en " + days + " dies";
-    }
-    else{
-      let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
-      if(days>30){
-        return  "Tencat fa mesos";
+    if(data_inici && data_final) {
+      let dateInici = new Date(data_inici);
+      let dateFinal = new Date(data_final);
+      let currentDate = new Date();
+  
+      if(dateInici>currentDate){
+        let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+        return  "Inicia en " + days + " dies";
+      }
+      else if (dateInici<currentDate && dateFinal>currentDate) {
+        let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+        return  "Tenca en " + days + " dies";
       }
       else{
-        return  "Tencat fa " + days + " dies";
+        let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+        if(days>30){
+          return  "Tencat fa mesos";
+        }
+        else{
+          return  "Tencat fa " + days + " dies";
+        }
+        
       }
-      
     }
+    
     
   }
 
-  // updatetab(id_tab){
-  //   this.currentPill = id_tab;
-  // }
 
 }

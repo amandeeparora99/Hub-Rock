@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -29,6 +29,8 @@ export class CreacioRepteComponent implements OnInit {
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
+
+  @ViewChild('inputFile') myInputVariable: ElementRef;
 
 
   validationMessages = {
@@ -284,6 +286,11 @@ export class CreacioRepteComponent implements OnInit {
         this.fotoRepte3Selected = "../../assets/simpleicons/tic.png";
       }
     }
+  }
+
+  reset() {
+    this.myInputVariable.nativeElement.value = '';
+    this.fotoRepte1Selected = '';
   }
 
   onPDFSelected(event) {
