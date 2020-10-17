@@ -13,13 +13,26 @@ import { DatePipe, formatDate } from '@angular/common';
 export class HomepageComponent implements OnInit {
   allReptes = [];
 
+  userIsEmpresa;
+
   subscriptionHttp$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
+    
+    if (localStorage.getItem('currentUser')) {
+      if (JSON.parse(localStorage.getItem('currentUser')).userType == 1) {
+        this.userIsEmpresa = false;
+      } else {
+        this.userIsEmpresa = true;
+      }
+    } else {
+      this.userIsEmpresa = false;
+    }
+    
 
-    this.getAllReptesHomepage();
+      this.getAllReptesHomepage();
 
   }
 
@@ -53,7 +66,7 @@ export class HomepageComponent implements OnInit {
     return days;
   }
 
-  returnDaydddMMMyyy(day){
+  returnDaydddMMMyyy(day) {
     var d = day.toString();
     var array;
     var nd;
