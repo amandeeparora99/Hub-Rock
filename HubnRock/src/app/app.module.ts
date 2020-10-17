@@ -25,6 +25,7 @@ import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-r
 import { SolucioComponent } from './solucio/solucio.component';
 import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.interceptor';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { EditarRepteComponent } from './editar-repte/editar-repte.component';
     EditarRepteEsborranyComponent,
     SolucioComponent,
     EditarRepteComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

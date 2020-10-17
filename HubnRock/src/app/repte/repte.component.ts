@@ -25,7 +25,7 @@ export class RepteComponent implements OnInit {
     if(this.idRepte){
       this.getRepteFromComponent(this.idRepte);
     }
-    console.log(this.repte.solucions)
+    
   }
 
   getRepteFromComponent(id) {
@@ -94,6 +94,16 @@ export class RepteComponent implements OnInit {
     
     
   }
+
+  getYoutubeUrl(url){
+    if(url){
+      var string = url;
+      var split = string.split('watch?v=');
+      return "https://www.youtube.com/embed/" + split[1]
+    }
+    
+  }
+
 
 
 }
