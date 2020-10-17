@@ -1,4 +1,4 @@
-  import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   hasUnsavedData(): boolean {
     return this.solucioForm.dirty;
   }
-  pdf;
+  pdfArray;
   idRepte;
   solucioForm: FormGroup;
   radioValue;
@@ -267,8 +267,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   onPdfSelected(event) {
     if (event.target.files) {
 
-      this.pdf = event.target.files
-      console.log(this.pdf[0])
+      this.pdfArray = event.target.files
+
+      Array.from(event.target.files).forEach(file => { console.log(file) });
 
     }
   }
@@ -323,7 +324,12 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     } else {
 
 
-      let formData = this.appendRepte();
+      let formData: any = this.appendRepte();
+      console.log("imprimint append my firned")
+
+      for (var value of formData.values()) {
+        console.log(value);
+      }
 
       this.subscriptionHttp2$ = this.httpClient.addSolucioBorrador(formData, this.idRepte)
         .pipe(first())
@@ -349,63 +355,44 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     if (this.solucioForm.get('descripcioBreuSolucio').value) {
       formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
     } else {
-      formData.append('descripcio_short', '');
+      formData.append('descripcio_short', ' ');
     }
 
 
     if (this.solucioForm.get('descripcioSolucio').value) {
       formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
     } else {
-      formData.append('descripcio_long', '');
+      formData.append('descripcio_long', ' ');
     }
 
 
-    if (this.solucioForm.get('descripcioSolucio').value) {
-      formData.append('limit_participants', '');
-    }
-
+    // if (this.solucioForm.get('descripcioSolucio').value) {
+    //   formData.append('limit_participants', '10');
+    // }
 
     if (this.solucioForm.get('nomEquip').value) {
       formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
-    } else {
-      formData.append('nom_equip', '');
     }
-
-
+    
     if (this.solucioForm.get('problemaSolucio').value) {
       formData.append('problema', this.solucioForm.get('problemaSolucio').value);
-    } else {
-      formData.append('problema', '');
-
     }
-
 
     if (this.solucioForm.get('innovadoraSolucio').value) {
       formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
-    } else {
-      formData.append('perque_innovacio', '');
     }
-
 
     if (this.solucioForm.get('faseSolucio').value) {
       formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
-    } else {
-      formData.append('fase_desenvolupament', '');
     }
-
 
     if (this.solucioForm.get('videoSolucio').value) {
       formData.append('url_video', this.solucioForm.get('videoSolucio').value);
-    } else {
-      formData.append('url_video', '');
-    }
+    } 
 
     if (this.solucioForm.get('nomSolucio').value) {
       formData.append('nom', this.solucioForm.get('nomSolucio').value);
-    } else {
-      formData.append('nom', '');
-    }
-
+    } 
 
     if (this.radioValue == "individual") {
 
@@ -418,26 +405,32 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       //APPENDING MEMBRES
       for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
 
-        if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre) {
+        if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre && this.radioValue == 'equip') {
+          console.log("estic appending membres my friend")
           formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
-        } else {
-          formData.append(`membre_nom[${i}]`, '');
         }
 
-
-        if (this.solucioForm.get('membreArray').value[i].posicioMembre) {
+        if (this.solucioForm.get('membreArray').value[i].posicioMembre && this.radioValue == 'equip') {
           formData.append(`membre_posicio[${i}]`, this.solucioForm.get('membreArray').value[i].posicioMembre);
-        } else {
-          formData.append(`membre_posicio[${i}]`, '');
         }
 
-        if (this.solucioForm.get('membreArray').value[i].linkMembre) {
+        if (this.solucioForm.get('membreArray').value[i].linkMembre && this.radioValue == 'equip') {
           formData.append(`membre_link[${i}]`, this.solucioForm.get('membreArray').value[i].linkMembre);
-        } else {
-          formData.append(`membre_link[${i}]`, '');
         }
       }
 
+    }
+
+    if (this.pdfArray) {
+      console.log("una volta no")
+      for (let index = 0; index < this.pdfArray.length; index++) {
+        console.log("una volta")
+        const file = this.pdfArray[index];
+
+        formData.append(`recurs_solucio_nom[${index}]`, '');
+        formData.append(`recurs_solucio_url_file[${index}]`, '');
+
+      }
     }
 
     return formData;
