@@ -1,4 +1,4 @@
-  import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   hasUnsavedData(): boolean {
     return this.solucioForm.dirty;
   }
-  pdf;
+  pdfArray;
   idRepte;
   solucioForm: FormGroup;
   radioValue;
@@ -267,8 +267,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   onPdfSelected(event) {
     if (event.target.files) {
 
-      this.pdf = event.target.files
-      console.log(this.pdf[0])
+      this.pdfArray = event.target.files
+
+      Array.from(event.target.files).forEach(file => { console.log(file) });
 
     }
   }
@@ -438,6 +439,16 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         }
       }
 
+    }
+
+    if (this.pdfArray) {
+      for (let index = 0; index < this.pdfArray.length; index++) {
+        const file = this.pdfArray[index];
+
+        formData.append(`recurs_solucio_nom[${index}]`, `Recurs ${index}`);
+        formData.append(`recurs_solucio_url_file[${index}]`, file);
+
+      }
     }
 
     return formData;
