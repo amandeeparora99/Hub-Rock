@@ -1,20 +1,21 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
-  selector: 'app-creacio-repte',
-  templateUrl: './creacio-repte.component.html',
-  styleUrls: ['./creacio-repte.component.css']
+  selector: 'app-editar-repte',
+  templateUrl: './editar-repte.component.html',
+  styleUrls: ['./editar-repte.component.css']
 })
-export class CreacioRepteComponent implements OnInit {
+export class EditarRepteComponent implements OnInit {
 
-  
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, public aRouter: ActivatedRoute) { }
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
-
+  public idRepte;
+  public repteObject: any;
   repteForm: FormGroup;
   radioValue = 'equip';
   radioToSValue = 'hubandrock'
@@ -179,6 +180,14 @@ export class CreacioRepteComponent implements OnInit {
   };
 
   ngOnInit(): void {
+
+    this.idRepte = this.aRouter.snapshot.params.id;
+
+    if (this.idRepte) {
+      this.getRepteFromComponent(this.idRepte)
+    }
+
+
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -220,6 +229,28 @@ export class CreacioRepteComponent implements OnInit {
     this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.repteForm)
     });
+  }
+
+  getRepteFromComponent(idRepte) {
+    this.httpClient.getRepte(idRepte).pipe(first())
+      .subscribe(data => {
+        if (data.code == '1') {
+          this.repteObject = data.row;
+
+          this.repteForm.patchValue({
+            nomRepte: this.repteObject.nom,
+            descripcioBreuRepte: this.repteObject.descripcio_short,
+            descripcioDetalladaRepte: this.repteObject.descripcio_long,
+            fotoPortada: this.repteObject.url_photo_main,
+            fotoRepresentativa1: this.repteObject.url_photo_1,
+            fotoRepresentativa2: this.repteObject.url_photo_2,
+            fotoRepresentativa3: this.repteObject.url_photo_3,
+            videoSolucio: this.repteObject.url_video,
+            // WIP
+          })
+
+        }
+      });
   }
 
 

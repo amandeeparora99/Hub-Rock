@@ -78,112 +78,42 @@
         <div class="d-flex">
 
             <div class="row w-100">
-                <ng-container *ngIf="reptesOberts.length">
-                    <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
-                            <div class="card-body fitxa-repte">
-                                <div class="card-title d-flex">
-                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;{{repte.user.nom_empresa}}
-                                </div>
-                                <h5 class="card-title titol-repte">{{repte.nom}}</h5>
-                                <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                                <div class="card-title d-flex align-items-center">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                    <div class="d-flex" style="margin-top: 10px;">
-                                        <p *ngFor="let premi of repte.premis; let i = index">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                
+                <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                        <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                        <div class="card-body fitxa-repte">
+                            <div class="card-title d-flex">
+                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;{{repte.user.nom_empresa}}
+                            </div>
+                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                            <div class="card-title d-flex align-items-center">
+                                <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                <div class="d-flex" style="margin-top: 10px;">
+                                    <div *ngFor="let premi of repte.premis; let i = index">
+                                        <p *ngIf="i != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                        <p *ngIf="i == repte.premis.length">{{premi.premi_dotacio}}€</p>
                                     </div>
                                 </div>
-                                <div class="card-title d-flex">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">Obre dia {{repte.data_inici | date:'shortDate'}} ({{diesRestants(repte.data_inici)}} dies
-                                    restants)
-                                </div>
-                                <div class="tags">
-                                    <button type="button" class="tag btn tag-red">Startups</button>
-                                    <button type="button" class="tag btn tag-blue">Empreses</button>
-                                    <button type="button" class="tag btn tag-orange">Estudiants</button>
-                                    <button type="button" class="tag btn tag-purple">Públic general</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
                             </div>
                             <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
+                                <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})
                             </div>
                             <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
+                                <button type="button" class="tag btn tag-red">Startups</button>
+                                <button type="button" class="tag btn tag-blue">Empreses</button>
+                                <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                <button type="button" class="tag btn tag-purple">Públic general</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
-                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+            
+        </div>
 
         </div>
-        <div class="text-center">
+        <div *ngIf="reptesOberts.length && reptesOberts.length >= 5" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
         </div>
 
@@ -206,19 +136,21 @@
                             <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> {{repte.user.nom_empresa}}
+                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;{{repte.user.nom_empresa}}
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
                                 <div class="card-title d-flex align-items-center">
                                     <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
                                     <div class="d-flex" style="margin-top: 10px;">
-                                        <p *ngFor="let premi of repte.premis; let i = index">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                        <div *ngFor="let premi of repte.premis; let i = index">
+                                            <p *ngIf="i != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                            <p *ngIf="i == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">Tenca dia {{repte.data_final | date:'shortDate'}} ({{diesRestants(repte.data_final)}} dies
-                                    restants)
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
@@ -230,83 +162,11 @@
                         </div>
                     </div>
                 </ng-container>
-                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
-                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
         </div>
 
-        <div class="text-center">
+        <div *ngIf="reptesProces.length && reptesProces.length >= 5" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreProces()">VEURE MÉS</button>
         </div>
 
@@ -332,11 +192,17 @@
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                                <div class="card-title d-flex">
-                                    <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
+                                <div class="card-title d-flex align-items-center">
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    <div class="d-flex" style="margin-top: 10px;">
+                                        <div *ngFor="let premi of repte.premis; let i = index">
+                                            <p *ngIf="i != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                            <p *ngIf="i == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Finalitzat el dia {{repte.data_final | date:'shortDate'}}
+                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
@@ -352,7 +218,7 @@
 
         </div>
 
-        <div class="text-center">
+        <div *ngIf="reptesTancats.length && reptesTancats.length >= 5" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreTancats()">VEURE MÉS</button>
         </div>
 

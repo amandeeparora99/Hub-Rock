@@ -151,4 +151,48 @@ export class PerfilComponent implements OnInit {
     this.subscriptionHttp3$?.unsubscribe()
     this.subscriptionHttp4$?.unsubscribe()
   }
+
+  returnDaydddMMMyyy(day){
+    if (day) {
+      var d = day.toString();
+    var array;
+    var nd;
+    array = d.split('/');
+
+    nd = array[1] + "/" + array[0] + "/" + array[2]
+
+    return nd;
+    }
+    
+  }
+
+  diesRestants(data_inici, data_final){
+    if(data_final && data_inici) {
+      let dateInici = new Date(data_inici);
+    let dateFinal = new Date(data_final);
+    let currentDate = new Date();
+
+    if(dateInici>currentDate){
+      let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+      return  "Inicia en " + days + " dies";
+    }
+    else if (dateInici<currentDate && dateFinal>currentDate) {
+      let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+      return  "Tenca en " + days + " dies";
+    }
+    else{
+      let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+      if(days>30){
+        return  "Tencat fa mesos";
+      }
+      else{
+        return  "Tencat fa " + days + " dies";
+      }
+      
+    }
+    }
+    
+    
+  }
+
 }

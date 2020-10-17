@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllReptesHomepage() {
-    this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(1, 10)
+    this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(1, 10)
       .pipe(first())
       .subscribe(
         data => {
@@ -45,8 +45,24 @@ export class HomepageComponent implements OnInit {
     this.router.navigate([url, idrepte]);
   }
 
-  diesRestants(data_inici, data_final) {
-    return (((new Date(data_final)).valueOf() - (new Date(data_inici)).valueOf()) / (1000 * 60 * 60 * 24)).toFixed()
+  diesRestants(data_inici) {
+    let date = new Date(data_inici);
+    let currentDate = new Date();
+
+    let days = Math.floor((date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+    return days;
+  }
+
+  returnDaydddMMMyyy(day){
+    var d = day.toString();
+    var array;
+    var nd;
+    array = d.split('/');
+    console.log(d);
+
+    nd = array[1] + "/" + array[0] + "/" + array[2]
+
+    return nd;
   }
 
   ngOnDestroy() {

@@ -24,6 +24,7 @@ import { OwnSolucioGuard } from './own-solucio.guard';
 import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 import { OwnRepteEsborranyGuard } from './own-repte-esborrany.guard';
 import { SolucioComponent } from './solucio/solucio.component';
+import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id', component: SolucioComponent },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard], canDeactivate: [HasUnsavedDataGuard] },
+  { path: 'repte/:id/editar-repte', component: EditarRepteComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },  //FALTA OWNREPTEGUARD
   { path: 'repte/:id/editar-esborrany', component: EditarRepteEsborranyComponent, canActivate: [AuthGuard, OwnRepteEsborranyGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },

@@ -24,6 +24,7 @@ import { CrudUsersComponent } from './crud-users/crud-users.component';
 import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-repte-esborrany.component';
 import { SolucioComponent } from './solucio/solucio.component';
 import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.interceptor';
+import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.intercep
     CrudUsersComponent,
     EditarRepteEsborranyComponent,
     SolucioComponent,
+    EditarRepteComponent,
   ],
   imports: [
     BrowserModule,

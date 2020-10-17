@@ -133,32 +133,40 @@
                     <div *ngIf="userReptes && userReptes.length < 1">No hi ha creat cap repte</div>
                     <div *ngIf="userReptes && userReptes.length > 0" class="row d-flex flex-column align-items-center mt-5">
                         <div class="row w-100">
-
-                            <div *ngFor="let repte of userReptes" class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                                    <img class="card-img-top" src="https://dummyimage.com/350x211/e0e0e0/f0f0f0.jpg" alt="Card image cap">
-                                    <div class="card-body fitxa-repte">
-                                        <div class="card-title d-flex">
-                                            <img class="rounded-circle" src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;{{usuariObject.nom_empresa}}
-                                        </div>
-                                        <h5 class="card-title titol-repte">{{repte.nom}}</h5>
-                                        <p class="card-text desc-repte card-details">{{repte.descripcio_short}}</p>
-                                        <div class="card-title d-flex">
-                                            <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                                        </div>
-                                        <div class="card-title d-flex card-details">
-                                            <img src="https://dummyimage.com/25/9e9e9e/fff" alt="25x25"> &nbsp;Queden 15 dies
-                                        </div>
-                                        <div class="tags">
-                                            <button type="button" class="tag btn btn-danger">Startups</button>
-                                            <button type="button" class="tag btn btn-primary">Empreses</button>
-                                            <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                            <button type="button" class="tag btn btn-success">Públic general</button>
+                
+                                <div *ngFor="let repte of userReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                                        <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                                        <div class="card-body fitxa-repte">
+                                            <div class="card-title d-flex">
+                                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;{{repte.user.nom_empresa}}
+                                            </div>
+                                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                                            <div class="card-title d-flex align-items-center">
+                                                <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                                <div class="d-flex" style="margin-top: 10px;">
+                                                    <div *ngFor="let premi of repte.premis; let i = index">
+                                                        <p *ngIf="i != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                                        <p *ngIf="i == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-title d-flex">
+                                                <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})
+                                            </div>
+                                            <div class="tags">
+                                                <button type="button" class="tag btn tag-red">Startups</button>
+                                                <button type="button" class="tag btn tag-blue">Empreses</button>
+                                                <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                                <button type="button" class="tag btn tag-purple">Públic general</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            
                         </div>
+
 
                     </div>
 
