@@ -354,15 +354,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
     if (this.solucioForm.get('descripcioBreuSolucio').value) {
       formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
-    } else {
-      formData.append('descripcio_short', ' ');
     }
-
 
     if (this.solucioForm.get('descripcioSolucio').value) {
       formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
-    } else {
-      formData.append('descripcio_long', ' ');
     }
 
 
@@ -406,7 +401,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
 
         if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre && this.radioValue == 'equip') {
-          console.log("estic appending membres my friend")
           formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
         }
 

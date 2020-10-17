@@ -455,6 +455,76 @@ export class CreacioRepteComponent implements OnInit {
     formData.append('participants["estudiants"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
     formData.append('participants["experts"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
+    // APPENDING PREMI
+    for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
+      if (this.repteForm.get('premiArray').value[i].nomPremi) {
+        formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
+      }
+      if (this.repteForm.get('premiArray').value[i].dotacioPremi.value) {
+        formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
+      }
+      if (this.repteForm.get('premiArray').value[i].descripcioPremi.value) {
+        formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
+      }
+      if (this.repteForm.get('premiArray').value[i].fotoPremi.value) {
+        formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
+      }
+    }
+
+    //APPENDING SOLUCIO
+    for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
+      if (this.repteForm.get('solucioArray').value[i].nomSolucio) {
+        formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
+      }
+      if (this.repteForm.get('solucioArray').value[i].descripcioSolucio) {
+        formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
+      }
+      if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
+        formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
+      }
+    }
+
+    //APPENDING PARTNER
+    for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
+      if (this.repteForm.get('partnerArray').value[i].nomPartner) {
+        formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
+      }
+      if (this.repteForm.get('partnerArray').value[i].breuDescripcioPartner) {
+        formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
+      }
+      if (this.repteForm.get('partnerArray').value[i].logoPartner) {
+        formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
+      }
+    }
+
+    //APPENDING JURAT
+    for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
+      if (this.repteForm.get('juratArray').value[i].nomCognomsJurat) {
+        formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
+      }
+      if (this.repteForm.get('juratArray').value[i].biografiaJurat) {
+        formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
+      }
+      if (this.repteForm.get('juratArray').value[i].inputJurat) {
+        formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
+      }
+    }
+
+    //APPENDING FAQ
+    for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+      if (this.repteForm.get('preguntaArray').value[i].pregunta) {
+        formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
+      }
+      if (this.repteForm.get('preguntaArray').value[i].resposta) {
+        formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
+      }
+    }
+
+    // APENDING RECURSOS
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+    //   formData.append(`recurs_nom[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
+    //   formData.append(`recurs_url_fitxer[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
+    // }
     return formData;
   }
 
@@ -490,84 +560,6 @@ export class CreacioRepteComponent implements OnInit {
       //   console.log(value);
       // }
 
-      // formData.append('url_photo_3', this.repteForm.get('fotoRepresentativa3').value);
-      // formData.append('url_photo_2', this.repteForm.get('fotoRepresentativa2').value);
-      // formData.append('url_photo_main', this.repteForm.get('fotoPortada').value);
-      // formData.append('url_photo_1', this.repteForm.get('fotoRepresentativa1').value);
-
-      // APPENDING PREMI
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
-      //   if (this.repteForm.get('premiArray').value[i].nomPremi) {
-      //     formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
-      //   }
-      //   if (this.repteForm.get('premiArray').value[i].dotacioPremi) {
-      //     formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
-      //   }
-      //   if (this.repteForm.get('premiArray').value[i].descripcioPremi) {
-      //     formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
-      //   }
-      //   if (this.repteForm.get('premiArray').value[i].fotoPremi) {
-      //     formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
-      //   }
-      // }
-
-      // //APPENDING SOLUCIO
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
-      //   if (this.repteForm.get('solucioArray').value[i].nomSolucio) {
-      //     formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
-      //   }
-      //   if (this.repteForm.get('solucioArray').value[i].descripcioSolucio) {
-      //     formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
-      //   }
-      //   if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
-      //     formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
-      //   }
-      // }
-
-      // //APPENDING PARTNER
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
-      //   if (this.repteForm.get('partnerArray').value[i].nomPartner) {
-      //     formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
-      //   }
-      //   if (this.repteForm.get('partnerArray').value[i].breuDescripcioPartner) {
-      //     formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
-      //   }
-      //   if (this.repteForm.get('partnerArray').value[i].logoPartner) {
-      //     formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
-      //   }
-      // }
-
-      // //APPENDING JURAT
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
-      //   if (this.repteForm.get('juratArray').value[i].nomCognomsJurat) {
-      //     formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
-      //   }
-      //   if (this.repteForm.get('juratArray').value[i].biografiaJurat) {
-      //     formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
-      //   }
-      //   if (this.repteForm.get('juratArray').value[i].inputJurat) {
-      //     formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
-      //   }
-      // }
-
-      // //APPENDING FAQ
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-      //   if (this.repteForm.get('preguntaArray').value[i].pregunta) {
-      //     formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-      //   }
-      //   if (this.repteForm.get('preguntaArray').value[i].resposta) {
-      //     formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-      //   }
-      // }
-
-      //APENDING RECURSOS
-      // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-      //   formData.append(`recurs_nom[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-      //   formData.append(`recurs_url_fitxer[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-      // }
-
-
-
       this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
         .pipe(first())
         .subscribe(
@@ -590,6 +582,7 @@ export class CreacioRepteComponent implements OnInit {
       this.logValidationErrorsUntouched()
     } else {
       let formData = this.appendRepte();
+
       this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
         .pipe(first())
         .subscribe(
@@ -649,7 +642,7 @@ export class CreacioRepteComponent implements OnInit {
 
 
   }
-  
+
   logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
