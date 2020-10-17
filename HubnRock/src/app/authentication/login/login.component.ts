@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   subscriptionForm$: Subscription;
   subscriptionHttp$: Subscription;
-  
+
   validationMessages = {
     'email': {
       'required': 'Introdueix un correu electrònic.',
@@ -86,12 +86,17 @@ export class LoginComponent implements OnInit {
 
           }
           else if (data.code == 534) {
-            this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
+
+            if (!this.formErrors.password) {
+              this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
+            }
 
           }
           else if (data.code == 533) {
-            this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
 
+            if (!this.formErrors.email) {
+              this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
+            }
 
           }
         },
@@ -105,7 +110,7 @@ export class LoginComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()
     this.subscriptionHttp$?.unsubscribe()
-}
-  
+  }
+
 }
 

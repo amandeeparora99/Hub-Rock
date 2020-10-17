@@ -27,7 +27,11 @@ export class CrudReptesComponent implements OnInit {
 
   reptesCerca = [];
 
-  subscriptionHttp$: Subscription;
+  subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
+  subscriptionHttp4$: Subscription;
+  subscriptionHttp5$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
@@ -52,12 +56,12 @@ export class CrudReptesComponent implements OnInit {
   seeMoreTancats() {
     this.currentTancatPage = this.currentTancatPage + 1;
     this.getReptesTancats(this.currentTancatPage, this.elements)
-    
+
 
   }
 
   getReptesOberts(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(pagina, elements)
+    this.subscriptionHttp1$ = this.httpCommunication.getReptesOberts(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -76,7 +80,7 @@ export class CrudReptesComponent implements OnInit {
   }
 
   getReptesProces(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesProces(pagina, elements)
+    this.subscriptionHttp2$ = this.httpCommunication.getReptesProces(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -95,7 +99,7 @@ export class CrudReptesComponent implements OnInit {
   }
 
   getReptesTancats(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesTancats(pagina, elements)
+    this.subscriptionHttp3$ = this.httpCommunication.getReptesTancats(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -114,7 +118,7 @@ export class CrudReptesComponent implements OnInit {
   }
 
   getReptesSearch(string, pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
+    this.subscriptionHttp4$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -139,6 +143,21 @@ export class CrudReptesComponent implements OnInit {
     else {
       this.searching = 0;
     }
+  }
+
+  changeState(idRepte, estat) {
+    this.subscriptionHttp5$ = this.httpCommunication.changeStateRepte(idRepte, estat)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+            window.location.reload();
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
   }
 
 
@@ -200,5 +219,14 @@ export class CrudReptesComponent implements OnInit {
     return days;
   }
 
+  ngOnDestroy() {
+    this.subscriptionHttp1$?.unsubscribe()
+    this.subscriptionHttp2$?.unsubscribe()
+    this.subscriptionHttp3$?.unsubscribe()
+    this.subscriptionHttp4$?.unsubscribe()
+    this.subscriptionHttp5$?.unsubscribe()
+
+
+  }
 }
 

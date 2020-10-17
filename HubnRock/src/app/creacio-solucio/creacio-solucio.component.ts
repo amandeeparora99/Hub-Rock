@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
@@ -13,18 +14,21 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService) { }
-  
+  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute) { }
+
   hasUnsavedData(): boolean {
     return this.solucioForm.dirty;
   }
 
+  idRepte;
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
   numberOfTabs = 1; //0 + 1 = 2 tabs
   success = false;
   maxMembres = 10;
+  loading = false;
+
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -91,11 +95,15 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
 
   formErrors = {
-
+    'nomSolucio': '',
   };
 
 
   ngOnInit(): void {
+
+    this.idRepte = this.aRouter.snapshot.params.id;
+
+
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuSolucio: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],  //max 280 chars en aquest
@@ -294,7 +302,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
 
-      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, 51)
+      this.subscriptionHttp1$ = this.httpClient.addSolucioRevisio(formData, this.idRepte)
         .pipe(first())
         .subscribe(
           data => {
@@ -311,17 +319,108 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   desaBorrador() {
+    this.loading = true;
+    if (!this.solucioForm.get('nomSolucio').value) {
 
+      if (!this.formErrors.nomSolucio) {
+        this.formErrors.nomSolucio += this.validationMessages.nomSolucio.required + ' ';
+      }
+
+    } else if (this.solucioForm.get('nomSolucio').value.length < 3) {
+
+      if (!this.formErrors.nomSolucio) {
+        this.formErrors.nomSolucio += this.validationMessages.nomSolucio.minlength + ' ';
+
+      }
+
+    } else if (this.solucioForm.get('nomSolucio').value.length > 255) {
+
+      if (!this.formErrors.nomSolucio) {
+        this.formErrors.nomSolucio += this.validationMessages.nomSolucio.maxlength + ' ';
+
+      }
+
+    } else {
+
+
+      let formData = this.appendRepte();
+
+      this.subscriptionHttp2$ = this.httpClient.addSolucioBorrador(formData, this.idRepte)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log("Fail")
+          });
+    }
+
+  }
+
+  appendRepte(): FormData {
     const formData = new FormData();
-    formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
-    formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
-    // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
-    formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
-    formData.append('problema', this.solucioForm.get('problemaSolucio').value);
-    formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
-    formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
-    formData.append('url_video', this.solucioForm.get('videoSolucio').value);
-    formData.append('nom', this.solucioForm.get('nomSolucio').value);
+
+    if (this.solucioForm.get('descripcioBreuSolucio').value) {
+      formData.append('descripcio_short', this.solucioForm.get('descripcioBreuSolucio').value);
+    } else {
+      formData.append('descripcio_short', '');
+    }
+
+
+    if (this.solucioForm.get('descripcioSolucio').value) {
+      formData.append('descripcio_long', this.solucioForm.get('descripcioSolucio').value);
+    } else {
+      formData.append('descripcio_long', '');
+    }
+
+
+    if (this.solucioForm.get('descripcioSolucio').value) {
+      // formData.append('limit_participants', this.solucioForm.get('descripcioBreuSolucio').value);
+    }
+
+
+    if (this.solucioForm.get('nomEquip').value) {
+      formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
+    } else {
+      formData.append('nom_equip', '');
+    }
+
+
+    if (this.solucioForm.get('problemaSolucio').value) {
+      formData.append('problema', this.solucioForm.get('problemaSolucio').value);
+    } else {
+      formData.append('problema', '');
+
+    }
+
+
+    if (this.solucioForm.get('innovadoraSolucio').value) {
+      formData.append('perque_innovacio', this.solucioForm.get('innovadoraSolucio').value);
+    } else {
+      formData.append('perque_innovacio', '');
+    }
+
+
+    if (this.solucioForm.get('faseSolucio').value) {
+      formData.append('fase_desenvolupament', this.solucioForm.get('faseSolucio').value);
+    } else {
+      formData.append('fase_desenvolupament', '');
+    }
+
+
+    if (this.solucioForm.get('videoSolucio').value) {
+      formData.append('url_video', this.solucioForm.get('videoSolucio').value);
+    } else {
+      formData.append('url_video', '');
+    }
+
+    if (this.solucioForm.get('nomSolucio').value) {
+      formData.append('nom', this.solucioForm.get('nomSolucio').value);
+    } else {
+      formData.append('nom', '');
+    }
+
 
     if (this.radioValue == "individual") {
 
@@ -333,24 +432,30 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
       //APPENDING MEMBRES
       for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
-        formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
-        formData.append(`membre_posicio[${i}]`, this.solucioForm.get('membreArray').value[i].posicioMembre);
-        formData.append(`membre_link[${i}]`, this.solucioForm.get('membreArray').value[i].linkMembre);
+
+        if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre) {
+          formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
+        } else {
+          formData.append(`membre_nom[${i}]`, '');
+        }
+
+
+        if (this.solucioForm.get('membreArray').value[i].posicioMembre) {
+          formData.append(`membre_posicio[${i}]`, this.solucioForm.get('membreArray').value[i].posicioMembre);
+        } else {
+          formData.append(`membre_posicio[${i}]`, '');
+        }
+
+        if (this.solucioForm.get('membreArray').value[i].linkMembre) {
+          formData.append(`membre_link[${i}]`, this.solucioForm.get('membreArray').value[i].linkMembre);
+        } else {
+          formData.append(`membre_link[${i}]`, '');
+        }
       }
 
     }
 
-
-    this.subscriptionHttp2$ = this.httpClient.addSolucioBorrador(formData, 40)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log("HOLAOL")
-          console.log(data);
-        },
-        error => {
-          console.log("Fail")
-        });
+    return formData;
   }
 
   @HostListener('window:beforeunload', ['$event'])
