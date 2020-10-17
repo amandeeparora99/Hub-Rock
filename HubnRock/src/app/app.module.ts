@@ -26,6 +26,7 @@ import { SolucioComponent } from './solucio/solucio.component';
 import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.interceptor';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ReusableModule,
     FormsModule
   ],
-  providers: [HttpCommunicationService, AuthGuard,
+  providers: [HttpCommunicationService, DatePipe, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
