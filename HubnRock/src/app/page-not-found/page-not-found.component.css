@@ -1,0 +1,17 @@
+.container-jumbo {
+    height: 80vh;
+}
+
+.btn {
+    background-color: #00e292;
+    color: black;
+    text-align: center;
+    transition: 0.3s;
+    margin-top: 10px;
+    padding: 10px;
+}
+  
+.btn:hover {
+background-color: #020e7d;
+color: white;
+}

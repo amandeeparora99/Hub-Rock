@@ -1,0 +1,632 @@
+<app-header></app-header>
+
+<div class="container">
+    <h1 id="pagetitle" class="text-center">Editar el repte</h1>
+    <div class="text-center steps-mt max-width-1110">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-3 col-sm-3 col-3">
+                <span class="step" [ngClass]="{'active' : currentTab == 0}">1</span>
+                <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 0}">Informació
+                    general</span>
+            </div>
+            <div class="col-md-3 col-sm-3 col-3">
+                <span class="step" [ngClass]="{'active' : currentTab == 1}">2</span>
+                <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 1}">Solucions
+                    buscades</span>
+            </div>
+            <div class="col-md-3 col-sm-3 col-3">
+                <span class="step" [ngClass]="{'active' : currentTab == 2}">3</span>
+                <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 2}">Partners i
+                    jurat</span>
+            </div>
+            <div class="col-md-3 col-sm-3 col-3">
+                <span class="step" [ngClass]="{'active' : currentTab == 3}">4</span>
+                <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 3}">Preguntes
+                    freqüents</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
+        <div class="row actionbtns">
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" type="button" (click)="desaBorrador()">DESA COM A ESBORRANY</button>
+            </div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
+            <!-- <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="repteForm.invalid" type="submit">ENVIA LA SOLUCIÓ</button></div> -->
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA LA SOLUCIÓ</button></div>
+        </div>
+        <div class="container" style="max-width: 730px">
+            <div class="tab" *ngIf="currentTab == 0">
+                <h1 class="formpagetitle">Informació general</h1>
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.nomRepte}">
+                    <label for="InputNomRepte">Nom del repte</label>
+                    <input formControlName="nomRepte" type="text" class="form-control" id="InputNomRepte" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.nomRepte">
+                        {{formErrors.nomRepte}}
+                    </span>
+                </div>
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioBreuRepte}">
+                    <label for="InputDescripcioBreuRepte" class="mb-0">Breu descripció del repte</label><br>
+                    <div class="d-flex justify-content-between">
+                        <label class="additional-info" for="descripcioBreuRepte">Descriu la solució en 1 o 2 frases
+                        </label><span>{{this.repteForm.get('descripcioBreuRepte').value.length}} / 280</span>
+                    </div>
+                    <textarea type="text" formControlName="descripcioBreuRepte" class="form-control" id="InputDescripcioBreuRepte" maxlength="280" (blur)="logValidationErrors()"></textarea>
+                    <span class="help-block" *ngIf="formErrors.descripcioBreuRepte">
+                        {{formErrors.descripcioBreuRepte}}
+                    </span>
+                </div>
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.descripcioDetalladaRepte}">
+                    <label for="InputDescripcioDetallada">Descripció detallada</label>
+                    <textarea formControlName="descripcioDetalladaRepte" type="text" class="form-control" id="InputDescripcioDetallada" (blur)="logValidationErrors()"></textarea>
+                    <span class="help-block" *ngIf="formErrors.descripcioDetalladaRepte">
+                        {{formErrors.descripcioDetalladaRepte}}
+                    </span>
+                </div>
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.fotoPortada}">
+                    <div class="d-flex justify-content-between">
+                        <label for="InputFotoPortada" class="mb-0">Foto portada</label>
+                        <div class="text-center elimina-link" *ngIf="fotoPortada != null">
+                            <a>- Elimina aquesta foto</a>
+                        </div>
+                    </div>
+                    <div class="d-flex img-infohelp">
+                        <div class="maxwidth-348">
+                            <label class="additional-info" for="InputFotoPortada">Tamany mínim: 1750 x 540px</label>
+                        </div>
+
+                        <div class="d-flex flex-grow-1 justify-content-end align-self-center">
+                            <img src="https://dummyimage.com/24/020e7d/ffffff" class="rounded-circle helpbutton">
+                        </div>
+                    </div>
+                    <div class="image-upload d-flex justify-content-center align-items-center">
+                        <label *ngIf="fotoPortada == null" for="InputFotoPortada" class="pointer mb-0">
+                            <div class="row d-flex flex-column justify-content-center">
+                                <img src="https://dummyimage.com/61x61/00e293/000000"
+                                    class="rounded-circle align-self-center" />
+                                <p class="mb-0">Afegeix foto</p>
+                            </div>
+                        </label>
+                        <input accept="image/*" *ngIf="fotoPortada == null" formControlName="fotoPortada" id="InputFotoPortada" type="file" (change)="onFileSelected($event)" (blur)="logValidationErrors()" />
+                        <img class="image-upload" *ngIf="fotoPortada != null" width="100%" height="100%" [src]="fotoPortada" alt="your image" />
+                    </div>
+                    <span class="help-block" *ngIf="formErrors.fotoPortada">
+                        {{formErrors.fotoPortada}}
+                    </span>
+                </div>
+                <div class="form-group hubrockformgrup">
+                    <div class="d-flex align-items-center">
+                        <label for="InputFotoRepresentativa1" class="mb-0">Fotos del repte</label><br><span class="opcional-text">(Opcional)</span><br>
+                    </div>
+                    <div class="d-flex img-infohelp">
+                        <!--COM A MOLT = MIN 1 MAX 3? PREGUNTAR VALIDACIO -->
+                        <div class="maxwidth-348">
+                            <label class="additional-info" for="InputFotoRepresentativa1">Puja com a molt 3 fotos
+                                representatives del repte</label>
+                        </div>
+                        <div class="d-flex flex-grow-1 justify-content-end align-self-center">
+                            <img src="https://dummyimage.com/24/020e7d/ffffff" class="rounded-circle helpbutton">
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-md-4 mb-2">
+                            <div class="image-upload d-flex justify-content-center align-items-center">
+                                <label for="InputFotoRepresentativa1" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img *ngIf="fotoRepte1Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte1Selected != ''" [src]="fotoRepte1Selected"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" (change)="fotosRepteSelected($event, 1)" #inputFile/>
+                            </div>
+                            <p class="text-center" (click)="reset()">Elimina foto</p>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="image-upload d-flex justify-content-center align-items-center">
+                                <label for="InputFotoRepresentativa2" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img *ngIf="fotoRepte2Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte2Selected != ''" [src]="fotoRepte2Selected"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" (change)="fotosRepteSelected($event, 2)"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="image-upload d-flex justify-content-center align-items-center">
+                                <label for="InputFotoRepresentativa3" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img *ngIf="fotoRepte3Selected == ''" src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <img *ngIf="fotoRepte3Selected != ''" [src]="fotoRepte3Selected"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" (change)="fotosRepteSelected($event, 3)"/>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group hubrockformgrup">
+                    <label for="InputVideoSolucio" class="mb-0">Vídeo de la solució</label><span class="opcional-text">(Opcional)</span><br>
+                    <label class="additional-info" for="InputVideoSolucio">Tens un video explicant la solució? Enganxa’l
+                        aquí.
+                        Només funcionen links de Youtube.</label>
+                    <input type="text" formControlName="videoSolucio" class="form-control input-for-text" id="InputVideoSolucio" placeholder="https://www.youtube.com/video">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="mb-0 mr-3">Qui pot participar?</label> <br>
+                    <label class="additional-info">Podeu seleccionar més d'una opció</label>
+                    <hr style="margin-top: 0; margin-bottom: 30px;">
+                </div>
+
+                <div class="hubrockformgrup">
+
+                    <div class="d-flex justify-content-between" formGroupName="checkboxGroup">
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputEmpreses" formControlName="empresesCheckbox" checked>
+                            <label class="form-check-label" for="InputEmpreses">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Company.png">
+                                    <p class="checkboxtitle">Empreses</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputStartups" formControlName="startupsCheckbox">
+                            <label class="form-check-label" for="InputStartups">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../assets/illustrations/Startup.png">
+                                    <p class="checkboxtitle">Startups</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputEstudiants" formControlName="estudiantsCheckbox">
+                            <label class="form-check-label" for="InputEstudiants">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Student.png">
+                                    <p class="checkboxtitle">Estudiants</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline checkboxes">
+                            <input class="form-check-input inputhidden" type="checkbox" id="InputExperts" formControlName="expertsCheckbox">
+                            <label class="form-check-label" for="InputExperts">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img class="ilustration" src="../../../assets/illustrations/Experts.png">
+                                    <p class="checkboxtitle">Experts</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <span class="help-block checkboxfail" *ngIf="repteForm.get('checkboxGroup').errors && repteForm.get('checkboxGroup').errors.requireCheckboxesToBeChecked">
+                        {{formErrors.checkboxGroup}}
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-0 mr-3">Individual o en equip?</label>
+                    <hr class="mt-1" style="margin-bottom: 30px;">
+                </div>
+                <div class="regularFont hubrockformgrup">
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadio($event.target.value)" value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Individual</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="customRadio2">En equip</label>
+                    </div>
+                    <div *ngIf="radioValue=='equip'">
+                        <div class="form-group nom-equip ml-4 mt-4 mb-5">
+                            <label class="fontsize15" for="InputLimitParticipants">Quin és el límit de participants?<br>
+                                Deixeu el camp en blanc si no hi ha limit</label>
+                            <input type="text" formControlName="limitParticipants" class="form-control input-for-text" id="InputLimitParticipants">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="mb-0 mr-3">Data límit del repte</label>
+                    <hr class="mt-1" style="margin-bottom: 30px;">
+                </div>
+                <div class="container row d-flex justify-content-between regularFont hubrockformgrup">
+                    <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataInici}">
+                        <label for="dataInici">Data inici</label>
+                        <input formControlName="dataInici" type="date" id="dataInici" name="dataInici" style="width: 322px;" (blur)="logValidationErrors()">
+                        <span class="help-block" *ngIf="formErrors.dataInici">
+                            {{formErrors.dataInici}}
+                        </span>
+                    </div>
+                    <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataFinalitzacio}">
+                        <label for="dataFinalitzacio">Data finalització</label>
+                        <input formControlName="dataFinalitzacio" type="date" id="dataFinalitzacio" name="dataFinalitzacio" style="width: 322px;" (blur)="logValidationErrors()">
+                        <span class="help-block" *ngIf="formErrors.dataFinalitzacio">
+                            {{formErrors.dataFinalitzacio}}
+                        </span>
+                    </div>
+                </div>
+                <div class="separator hubrockformgrup"></div>
+                <h1 class="formpagetitle">Els premis</h1>
+
+                <div formArrayName="premiArray" *ngFor="let premi of repteForm.get('premiArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label class="mb-0 mr-3">Premi {{i+1}}</label>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('premiArray').length > 1">
+                                    <a (click)="removePremiButtonClick(i)">- Elimina aquest premi</a>
+                                </div>
+                            </div>
+                            <hr class="mt-1" style="margin-bottom: 30px;">
+                        </div>
+
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : premi.get('nomPremi').invalid && premi.get('nomPremi').touched}">
+                            <label [attr.for]="'InputNomPremi'+i">Nom del premi</label>
+                            <input formControlName="nomPremi" type="text" class="form-control" [id]="'InputNomPremi' + i" (blur)="logValidationErrors()">
+                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.required && premi.get('nomPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.minlength && premi.get('nomPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.maxlength && premi.get('nomPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : premi.get('dotacioPremi').invalid && premi.get('dotacioPremi').touched}">
+                            <label [attr.for]="'InputDotacioPremi'+i">Dotació del premi</label>
+                            <input formControlName="dotacioPremi" type="text" class="form-control" [id]="'InputDotacioPremi' + i" (blur)="logValidationErrors()">
+                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.required && premi.get('dotacioPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.minlength && premi.get('dotacioPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.maxlength && premi.get('dotacioPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+
+                        <div class="form-group regularFont">
+                            <label for="InputDescripcioPremi">Descripció del premi</label><span class="opcional-text">(Opcional)</span><br>
+                            <input formControlName="descripcioPremi" type="text" class="form-control" id="InputDescripcioPremi">
+                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group hubrockformgrup regularFont">
+                            <label for="InputFotoPremi">Foto premi</label><span class="opcional-text">(Opcional)</span><br>
+                            <div class="image-upload d-flex justify-content-center align-items-center mb-4">
+                                <label for="InputFotoPremi" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoPremi" id="InputFotoPremi" type="file" />
+                            </div>
+
+
+                            <div class="text-center afegeix-link"><a (click)="addPremiButtonClick()">+ Afegeix un altre
+                                premi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Tab-->
+            <div class="tab" *ngIf="currentTab == 1" style="margin-bottom: 110px;">
+                <!--POSAR EL MB 110PX AL CSS MES TARD!-->
+                <h1 class="formpagetitle">Solucions buscades</h1>
+                <div formArrayName="solucioArray" *ngFor="let solucio of repteForm.get('solucioArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label class="mb-0 mr-3">Solució {{i+1}}</label>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('solucioArray').length > 1">
+                                    <a (click)="removeSolucioButtonClick(i)">- Elimina aquesta solució</a>
+                                </div>
+                            </div>
+                            <hr class="mt-1" style="margin-bottom: 30px;">
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : solucio.get('nomSolucio').invalid && solucio.get('nomSolucio').touched}">
+                            <label [attr.for]="'InputNomSolucio'+i">Nom de la solucio buscada</label>
+                            <input formControlName="nomSolucio" type="text" class="form-control" [id]="'InputNomSolucio' + i" (blur)="logValidationErrors()">
+                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.required && solucio.get('nomSolucio').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.minlength && solucio.get('nomSolucio').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.maxlength && solucio.get('nomSolucio').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : solucio.get('descripcioSolucio').invalid && solucio.get('descripcioSolucio').touched}">
+                            <label [attr.for]="'InputDescripcioSolucio' + i">Descripció de la solució</label>
+                            <input formControlName="descripcioSolucio" type="text" class="form-control" [id]="'InputDescripcioSolucio' + i" (blur)="logValidationErrors()">
+                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.required && solucio.get('descripcioSolucio').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.minlength && solucio.get('descripcioSolucio').touched">
+                                Descripció massa curta
+                            </span>
+                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.maxlength && solucio.get('descripcioSolucio').touched">
+                                Descripció massa llarga
+                            </span>
+                        </div>
+                        <div class="form-group hubrockformgrup regularFont" [ngClass]="{'is-invalid' : solucio.get('fotoSolucio').invalid && solucio.get('fotoSolucio').touched}">
+                            <label [attr.for]="'InputFotoSolucio' + i">Foto solució</label>
+                            <div class="image-upload d-flex justify-content-center align-items-center mb-4">
+                                <label [attr.for]="'InputFotoSolucio'+i" class="pointer mb-0">
+                                    <div class="row d-flex flex-column justify-content-center">
+                                        <img src="https://dummyimage.com/61x61/00e293/000000"
+                                            class="rounded-circle align-self-center" />
+                                        <p class="mb-0">Afegeix foto</p>
+                                    </div>
+                                </label>
+                                <input formControlName="fotoSolucio" [id]="'InputFotoSolucio'+i" type="file" />
+                                <span class="help-block">
+                                </span>
+                            </div>
+
+                            <span class="help-block" *ngIf="solucio.get('fotoSolucio').errors?.required && solucio.get('fotoSolucio').touched">
+                                És un camp obligatori
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addSolucioButtonClick()">+ Afegeix una altra
+                        solució</a>
+                </div>
+
+                <div class="separator hubrockformgrup"></div>
+                <h1 class="formpagetitle mb-1">Altres recursos</h1>
+                <p>Puja documents PDF relacionats amb el repte</p>
+                <div class="text-center afegeix-link mt-5"><a href="#">+ Afegeix PDFs</a></div>
+            </div>
+            <div class="tab" *ngIf="currentTab == 2" style="margin-bottom: 110px;">
+                <!--POSAR EL MB 110PX AL CSS MES TARD!-->
+                <h1 class="formpagetitle">Partners</h1>
+
+                <div formArrayName="partnerArray" *ngFor="let partner of repteForm.get('partnerArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between mt-5">
+                                <div>
+                                    <label for="InputNomPartner" class="mb-0">Partner {{i+1}}</label>
+                                    <span class="opcional-text">(Opcional)</span><br>
+                                </div>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('partnerArray').length > 1">
+                                    <a (click)="removePartnerButtonClick(i)">- Elimina aquest partner</a>
+                                </div>
+                            </div>
+                            <label class="additional-info" for="InputNomPartner">Si el repte es fa en col·laboració amb
+                                uns
+                                partners, esmenteu-los aquí</label>
+                            <hr class="mt-1" style="margin-bottom: 30px;">
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : partner.get('nomPartner').invalid && partner.get('nomPartner').touched}">
+                            <label [attr.for]="'InputNomSolucio'+i">Nom del partner</label>
+                            <input formControlName="nomPartner" type="text" class="form-control" [id]="'InputNomPartner' + i">
+                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.required && partner.get('nomPartner').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.minlength && partner.get('nomPartner').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.maxlength && partner.get('nomPartner').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : partner.get('breuDescripcioPartner').invalid && partner.get('breuDescripcioPartner').touched}">
+                            <label [attr.for]="'InputBreuDescripcioPartner'+i">Breu descripció del partner</label>
+                            <textarea formControlName="breuDescripcioPartner" type="text" class="form-control" [id]="'InputBreuDescripcioPartner' + i"></textarea>
+                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.required && partner.get('breuDescripcioPartner').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.minlength && partner.get('breuDescripcioPartner').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.maxlength && partner.get('breuDescripcioPartner').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : partner.get('logoPartner').invalid && partner.get('logoPartner').touched}">
+                            <div class="col-md-4 mb-2">
+                                <label [attr.for]="'InputLogoPartner' + i">Logo partner</label>
+                                <div class="image-upload d-flex justify-content-center align-items-center">
+                                    <label [attr.for]="'InputLogoPartner' + i" class="pointer mb-0">
+                                        <div class="row d-flex flex-column justify-content-center">
+                                            <img src="https://dummyimage.com/61x61/00e293/000000"
+                                                class="rounded-circle align-self-center" />
+                                            <p class="mb-0">Afegeix foto</p>
+                                        </div>
+                                    </label>
+                                    <input formControlName="logoPartner" [id]="'InputLogoPartner'+i" type="file" />
+                                </div>
+                                <span class="help-block" *ngIf="partner.get('logoPartner').errors?.required && partner.get('logoPartner').touched">
+                                    És un camp obligatori
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addPartnerButtonClick()">+ Afegeix un altre partner</a>
+                </div>
+
+                <div class="separator hubrockformgrup"></div>
+                <!--====================[JURAT]======================-->
+
+
+                <h1 class="formpagetitle">Jurat</h1>
+
+                <div formArrayName="juratArray" *ngFor="let jurat of repteForm.get('juratArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group mb-0">
+                            <div class="d-flex justify-content-between mt-5">
+                                <div>
+                                    <label for="InputNomCognomsJurat" class="mb-0">Jurat {{i+1}}</label>
+                                    <span class="opcional-text">(Opcional)</span><br>
+                                </div>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('juratArray').length > 1">
+                                    <a (click)="removeJuratButtonClick(i)">- Elimina aquest jurat</a>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="additional-info" for="InputNomCognomsJurat">Qui serà el jurat del
+                            repte?</label>
+                        <hr class="mt-1" style="margin-bottom: 30px;">
+
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : jurat.get('nomCognomsJurat').invalid && jurat.get('nomCognomsJurat').touched}">
+                            <label [attr.for]="'InputNomCognomsJurat'+i">Nom i cognoms del jurat</label>
+                            <input formControlName="nomCognomsJurat" type="text" class="form-control" [id]="'InputNomCognomsJurat' + i">
+                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.required && jurat.get('nomCognomsJurat').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.minlength && jurat.get('nomCognomsJurat').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.maxlength && jurat.get('nomCognomsJurat').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : jurat.get('biografiaJurat').invalid && jurat.get('biografiaJurat').touched}">
+                            <label [attr.for]="'InputBiografiaJurat'+i">Breu biografia</label>
+                            <textarea formControlName="biografiaJurat" type="text" class="form-control" [id]="'InputBiografiaJurat' + i"></textarea>
+                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.required && jurat.get('biografiaJurat').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.minlength && jurat.get('biografiaJurat').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.maxlength && jurat.get('biografiaJurat').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : jurat.get('inputJurat').invalid && jurat.get('inputJurat').touched}">
+
+                            <div class="col-md-4 mb-2">
+                                <label [attr.for]="'InputLogoPartner' + i">Foto</label>
+                                <div class="image-upload d-flex justify-content-center align-items-center">
+                                    <label [attr.for]="'InputLogoPartner' + i" class="pointer mb-0">
+                                        <div class="row d-flex flex-column justify-content-center">
+                                            <img src="https://dummyimage.com/61x61/00e293/000000"
+                                                class="rounded-circle align-self-center" />
+                                            <p class="mb-0">Afegeix foto</p>
+                                        </div>
+                                    </label>
+                                    <input formControlName="inputJurat" [id]="'InputFotoJurat' + i" type="file" />
+                                </div>
+                                <span class="help-block" *ngIf="jurat.get('inputJurat').errors?.required && jurat.get('inputJurat').touched">
+                                    És un camp obligatori
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addJuratButtonClick()">+ Afegeix unaltre
+                        jurat</a>
+                </div>
+            </div>
+
+
+            <div class="tab" *ngIf="currentTab == 3" style="margin-bottom: 110px;">
+
+
+                <h1 class="formpagetitle">Preguntes freqüents</h1>
+
+                <div formArrayName="preguntaArray" *ngFor="let pregunta of repteForm.get('preguntaArray').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="form-group mb-0">
+                            <div class="d-flex justify-content-between mt-5">
+                                <div>
+                                    <label for="InputNomCognomsJurat" class="mb-0">Pregunta {{i+1}}</label>
+                                </div>
+                                <div class="text-center elimina-link" *ngIf="repteForm.get('preguntaArray').length > 1">
+                                    <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched}">
+                            <label [attr.for]="'InputPregunta' + i">Pregunta</label>
+                            <input formControlName="pregunta" type="text" class="form-control" [id]="'InputPregunta' + i" (blur)="logValidationErrors()">
+                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.required && pregunta.get('pregunta').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.minlength && pregunta.get('pregunta').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.maxlength && pregunta.get('pregunta').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('resposta').invalid && pregunta.get('resposta').touched}">
+                            <label for="InputResposta">Resposta</label>
+                            <textarea formControlName="resposta" type="text" class="form-control" [id]="'InputResposta' + i" (blur)="logValidationErrors()"></textarea>
+                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.required && pregunta.get('resposta').touched">
+                                És un camp obligatori
+                            </span>
+                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.minlength && pregunta.get('resposta').touched">
+                                Nom massa curt
+                            </span>
+                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.maxlength && pregunta.get('resposta').touched">
+                                Nom massa llarg
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center afegeix-link mt-4 mb-4"><a (click)="addPreguntaButtonClick()">+ Afegeix unaltre
+                        pregunta</a>
+                </div>
+
+                <div class="separator hubrockformgrup"></div>
+                <h1 class="formpagetitle">Bases legals del repte</h1>
+                <div class="regularFont hubrockformgrup">
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="radioTOS1" name="customRadio" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
+                            & Rock</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="radioTOS2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="radioTOS2">Escriure bases legals
+                            personalitzades</label>
+                    </div>
+                    <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text" class="form-control mt-3 inputToS" id="InputResposta"></textarea>
+                    <span class="help-block"></span>
+                </div>
+            </div>
+        </div>
+        <!--Container principal-->
+    </form>
+</div>
+<app-footer></app-footer>
