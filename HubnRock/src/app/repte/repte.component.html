@@ -2,6 +2,8 @@
 <section id="hubrock-repte-banner" *ngIf="repteExists">
 </section>
 
+<app-spinner></app-spinner>
+
 <div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
     <h1>Repte no disponible</h1>
     Aquest repte no existeix o ha estat eliminat <br>
@@ -17,7 +19,7 @@
             <h3 class="repteowner mb-0">AI Factory</h3>
         </div>
 
-        <div id="repte-infobox" class="row d-flex justify-content-between">
+        <div id="repte-infobox" class="row d-flex justify-content-between" *ngIf="repte">
             <div class="col-md-8">
                 <h1 class="reptetitle">{{repte.nom}}</h1>
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
@@ -144,7 +146,7 @@
         </li> -->
 
         <!-- Tab panes -->
-        <div class="tab-content">
+        <div class="tab-content" *ngIf="repte">
             <div id="resum" class="container tab-pane active">
 
                 <br>
@@ -161,7 +163,8 @@
                 </div>
 
                 <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
-                    <iframe width="660" height="370" src="https://www.youtube.com/watch?v=ytFzsNGCdes&list=RDytFzsNGCdes&start_radio=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    
+                    <iframe width="660" height="370" [src]="+getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
 
 
