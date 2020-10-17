@@ -432,17 +432,22 @@ export class CreacioRepteComponent implements OnInit {
     let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
     let dataInici = new Date(this.repteForm.get('dataInici').value);
 
+    if (this.repteForm.get('dataInici').value) {
+      let iniciDate = this.datepipe.transform(this.repteForm.get('dataInici').value, 'dd/MM/yyyy')
+      formData.append('data_inici', iniciDate)
+    }
+
+    if (this.repteForm.get('dataFinalitzacio').value) {
+      let finalDate = this.datepipe.transform(this.repteForm.get('dataFinalitzacio').value, 'dd/MM/yyyy')
+      formData.append('data_final', finalDate)
+    }
+
     if (this.repteForm.get('dataInici').value && this.repteForm.get('dataFinalitzacio').value) {
-      if (dataInici < dataFinal) {
-        let iniciDate = this.datepipe.transform(this.repteForm.get('dataInici').value, 'dd/MM/yyyy')
-        formData.append('data_inici', iniciDate)
-
-        let finalDate = this.datepipe.transform(this.repteForm.get('dataFinalitzacio').value, 'dd/MM/yyyy')
-        formData.append('data_final', finalDate)
-      } else {
-        this.formErrors.dataInici += this.validationMessages.dataInici.menorquefinal + ' ';
+      if (dataInici > dataFinal) {
+        if (!this.formErrors.dataInici) {
+          this.formErrors.dataInici += this.validationMessages.dataInici.menorquefinal + ' ';
+        }
       }
-
     }
 
     formData.append('participants["empreses"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
@@ -478,11 +483,6 @@ export class CreacioRepteComponent implements OnInit {
 
       }
 
-    } else if (this.repteForm.get('dataInici').value && this.repteForm.get('dataFinalitzacio').value) {
-      if (dataInici > dataFinal) {
-
-        this.formErrors.dataInici += this.validationMessages.dataInici.menorquefinal + ' ';
-      }
     } else {
       let formData: any = this.appendRepte();
 
@@ -572,7 +572,6 @@ export class CreacioRepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log("HOLAOL")
             console.log(data);
           },
           error => {
@@ -587,75 +586,96 @@ export class CreacioRepteComponent implements OnInit {
 
 
   onRepteSubmit() {
-
-    const formData = new FormData();
-    formData.append('descripcio_short', this.repteForm.get('descripcioBreuRepte').value);
-    formData.append('descripcio_long', this.repteForm.get('descripcioDetalladaRepte').value);
-    formData.append('individual_equip', '1');
-    formData.append('limit_participants', this.repteForm.get('limitParticipants').value);
-    formData.append('data_inici', '20/10/2020');
-    formData.append('data_final', '21/10/2020');
-    formData.append('bases_legals', '0');
-    formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
-    formData.append('url_photo_3', this.repteForm.get('fotoRepresentativa3').value);
-    formData.append('url_photo_2', this.repteForm.get('fotoRepresentativa2').value);
-    formData.append('url_photo_main', this.repteForm.get('fotoPortada').value);
-    formData.append('url_photo_1', this.repteForm.get('fotoRepresentativa1').value);
-    formData.append('nom', this.repteForm.get('nomRepte').value);
-
-    //APPENDING PREMI
-    for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
-      formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
-      formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
-      formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
-      formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
+    if (!this.repteForm.valid) {
+      this.logValidationErrorsUntouched()
+    } else {
+      let formData = this.appendRepte();
+      this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log("Fail")
+          });
     }
 
-    //APPENDING SOLUCIO
-    for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
-      formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
-      formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
-      formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
-    }
 
-    //APPENDING PARTNER
-    for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
-      formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
-      formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
-      formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
-    }
 
-    //APPENDING JURAT
-    for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
-      formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
-      formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
-      formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
-    }
-
-    //APPENDING FAQ
-    for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-      formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-      formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-    }
-
-    //APENDING RECURSOS
-    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-    //   formData.append(`faq_pregunta[${i}]`, 'idskfjwoeoiwjfiowefoiwejfijfoiwjfiowjfioewjfoiwjfiowjefiojf');
-    //   formData.append(`faq_resposta[${i}]`, 'slkdowiejfoiwejfoiwjeofjwoiejfoiwjeifojweijfowiejfoiwjefjf');
+    // //APPENDING PREMI
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
+    //   formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
+    //   formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
+    //   formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
+    //   formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
     // }
 
+    // //APPENDING SOLUCIO
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
+    //   formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
+    //   formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
+    //   formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
+    // }
+
+    // //APPENDING PARTNER
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
+    //   formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
+    //   formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
+    //   formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
+    // }
+
+    // //APPENDING JURAT
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
+    //   formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
+    //   formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
+    //   formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
+    // }
+
+    // //APPENDING FAQ
+    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+    //   formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
+    //   formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
+    // }
+
+    // //APENDING RECURSOS
+    // // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
+    // //   formData.append(`faq_pregunta[${i}]`, 'idskfjwoeoiwjfiowefoiwejfijfoiwjfiowjfioewjfoiwjfiowjefiojf');
+    // //   formData.append(`faq_resposta[${i}]`, 'slkdowiejfoiwejfoiwjeofjwoiejfoiwjeifojweijfowiejfoiwjefjf');
+    // // }
 
 
-    this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log("Fail")
-        });
 
+
+
+  }
+  
+  logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid) {
+        const messages = this.validationMessages[key];
+
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+      // if (abstractControl instanceof FormArray) {
+      //   for (const control of abstractControl.controls) {
+      //     if (control instanceof FormGroup) {
+      //       this.logValidationErrors(control);
+      //     }
+      //   }
+      // }
+    })
   }
 }
 
