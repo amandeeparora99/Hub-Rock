@@ -255,9 +255,9 @@ export class HttpCommunicationService {
       }));
   }
 
-  addSolucioRevisio(form, idRepte): Observable<any> {
+  addSolucioValid(form, idRepte): Observable<any> {
 
-    return this.http.post<any>(environment.api + '/solucio/addRevisio/' + idRepte, form)
+    return this.http.post<any>(environment.api + '/solucio/addValidat/' + idRepte, form)
       .pipe(map(data => {
 
         return data;

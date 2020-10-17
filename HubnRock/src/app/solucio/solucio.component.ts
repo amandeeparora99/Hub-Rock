@@ -15,7 +15,7 @@ export class SolucioComponent implements OnInit {
 
   public idSolucio;
   public solucio;
-  public solucioExists = true;
+  public solucioExists = false;
 
   public subscriptionHttp1$: Subscription
 
