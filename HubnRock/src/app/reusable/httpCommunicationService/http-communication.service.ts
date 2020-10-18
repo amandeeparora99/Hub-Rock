@@ -246,6 +246,14 @@ export class HttpCommunicationService {
       }));
   }
 
+  getReptesByUserId(userId) {
+    return this.http.get<any>(environment.api + '/repte/getAllDetailedByIdUser/' + userId)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   addSolucioBorrador(form, idRepte): Observable<any> {
 
     return this.http.post<any>(environment.api + '/solucio/addBorrador/' + idRepte, form)
@@ -274,6 +282,14 @@ export class HttpCommunicationService {
 
   getSolucionsByUser() {
     return this.http.get<any>(environment.api + '/solucio/getAllDetailedByUser')
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getSolucionsByUserId(userId) {
+    return this.http.get<any>(environment.api + '/solucio/getAllByUser/' + userId)
       .pipe(map(data => {
 
         return data;
