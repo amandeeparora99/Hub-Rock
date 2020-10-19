@@ -38,7 +38,7 @@
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="container" style="max-width: 730px">
-            <div class="tab" *ngIf="currentTab == 0">
+            <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="formpagetitle">Informació general</h1>
                 <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.nomRepte}">
                     <label for="InputNomRepte">Nom del repte</label>
@@ -137,7 +137,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" (change)="fotosRepteSelected($event, 2)"/>
+                                <input formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" (change)="fotosRepteSelected($event, 2)" />
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
@@ -151,7 +151,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <input formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" (change)="fotosRepteSelected($event, 3)"/>
+                                <input formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" (change)="fotosRepteSelected($event, 3)" />
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle">Els premis</h1>
 
-                <div formArrayName="premiArray" *ngFor="let premi of repteForm.get('premiArray').controls; let i = index">
+                <div formArrayName="premiArray" *ngFor="let premi of repteForm.get('premiArray')?.controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group">
                             <div class="d-flex justify-content-between">
@@ -337,10 +337,10 @@
                 </div>
             </div>
             <!--Tab-->
-            <div class="tab" *ngIf="currentTab == 1" style="margin-bottom: 110px;">
+            <div class="tab" [hidden]="currentTab != 1" style="margin-bottom: 110px;">
                 <!--POSAR EL MB 110PX AL CSS MES TARD!-->
                 <h1 class="formpagetitle">Solucions buscades</h1>
-                <div formArrayName="solucioArray" *ngFor="let solucio of repteForm.get('solucioArray').controls; let i = index">
+                <div formArrayName="solucioArray" *ngFor="let solucio of repteForm.get('solucioArray')?.controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group">
                             <div class="d-flex justify-content-between">
@@ -409,11 +409,11 @@
                 <p>Puja documents PDF relacionats amb el repte</p>
                 <div class="text-center afegeix-link mt-5"><a href="#">+ Afegeix PDFs</a></div>
             </div>
-            <div class="tab" *ngIf="currentTab == 2" style="margin-bottom: 110px;">
+            <div class="tab" [hidden]="currentTab != 2" style="margin-bottom: 110px;">
                 <!--POSAR EL MB 110PX AL CSS MES TARD!-->
                 <h1 class="formpagetitle">Partners</h1>
 
-                <div formArrayName="partnerArray" *ngFor="let partner of repteForm.get('partnerArray').controls; let i = index">
+                <div formArrayName="partnerArray" *ngFor="let partner of repteForm.get('partnerArray')?.controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group">
                             <div class="d-flex justify-content-between mt-5">
@@ -487,7 +487,7 @@
 
                 <h1 class="formpagetitle">Jurat</h1>
 
-                <div formArrayName="juratArray" *ngFor="let jurat of repteForm.get('juratArray').controls; let i = index">
+                <div formArrayName="juratArray" *ngFor="let jurat of repteForm.get('juratArray')?.controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group mb-0">
                             <div class="d-flex justify-content-between mt-5">
@@ -558,12 +558,12 @@
             </div>
 
 
-            <div class="tab" *ngIf="currentTab == 3" style="margin-bottom: 110px;">
+            <div class="tab" [hidden]="currentTab != 3" style="margin-bottom: 110px;">
 
 
                 <h1 class="formpagetitle">Preguntes freqüents</h1>
 
-                <div formArrayName="preguntaArray" *ngFor="let pregunta of repteForm.get('preguntaArray').controls; let i = index">
+                <div formArrayName="preguntaArray" *ngFor="let pregunta of repteForm.get('preguntaArray')?.controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group mb-0">
                             <div class="d-flex justify-content-between mt-5">

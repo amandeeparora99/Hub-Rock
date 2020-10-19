@@ -24,6 +24,7 @@ export class CreacioRepteComponent implements OnInit {
   fotoPortada = null;
   pdfNom = null;
 
+  fotoFileProva:File;
   fotoRepte1Selected = "";
   fotoRepte2Selected = "";
   fotoRepte3Selected = "";
@@ -188,7 +189,7 @@ export class CreacioRepteComponent implements OnInit {
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
       descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       fotoPortada: ['', [Validators.required]],
-      fotoRepresentativa1: ['', [Validators.required]],
+      fotoRepresentativa1: [this.fotoRepte1Selected, [Validators.required]],
       fotoRepresentativa2: ['', [Validators.required]],
       fotoRepresentativa3: ['', [Validators.required]],
       videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
