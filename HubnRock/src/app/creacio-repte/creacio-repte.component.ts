@@ -294,6 +294,13 @@ export class CreacioRepteComponent implements OnInit {
     }
   }
 
+  onFileChange($event) {
+
+    this.repteForm.patchValue({
+      fotoRepresentativa1: $event.target.files[0]
+    })
+  }
+
   fotosRepteSelected(event, numFoto) {
     if (event.target.files) {
       if (numFoto == 1) {
@@ -308,6 +315,13 @@ export class CreacioRepteComponent implements OnInit {
     }
   }
 
+  eliminarFoto(idRepteForm) {
+    this.fotoPortada = null;
+    this.repteForm.get(idRepteForm).setValue('');
+
+    console.log(this.repteForm.get('fotoPortada').value);
+  }
+  
   reset() {
     this.myInputVariable.nativeElement.value = '';
     this.fotoRepte1Selected = '';
