@@ -250,6 +250,21 @@ export class CreacioRepteComponent implements OnInit {
 
   }
 
+  todayDate() {
+    let today = new Date();
+    let todayFormat = this.datepipe.transform(today, 'yyyy-MM-dd');
+
+    return todayFormat;
+  }
+
+  tomorrowDate() {
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    let tomorrowFormat = this.datepipe.transform(tomorrow, 'yyyy-MM-dd');
+
+    return tomorrowFormat;
+  }
+
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
     this.radioValue = 'equip';
@@ -450,10 +465,10 @@ export class CreacioRepteComponent implements OnInit {
       }
     }
 
-    formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
-    formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
-    formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
-    formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+    formData.append("participants[\'empreses\']", this.repteForm.get('checkboxGroup').value.empresesCheckbox)
+    formData.append("participants[\'startups\']", this.repteForm.get('checkboxGroup').value.startupsCheckbox)
+    formData.append("participants[\'estudiants\']", this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
+    formData.append("participants[\'experts\']", this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {

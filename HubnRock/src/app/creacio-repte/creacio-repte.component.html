@@ -246,14 +246,14 @@
                 <div class="container row d-flex justify-content-between regularFont hubrockformgrup">
                     <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataInici}">
                         <label for="dataInici">Data inici</label>
-                        <input formControlName="dataInici" type="date" id="dataInici" name="dataInici" style="width: 322px;" (blur)="logValidationErrors()">
+                        <input formControlName="dataInici" type="date" id="dataInici" name="dataInici" style="width: 322px;" [min]="todayDate()" (blur)="logValidationErrors()">
                         <span class="help-block" *ngIf="formErrors.dataInici">
                             {{formErrors.dataInici}}
                         </span>
                     </div>
                     <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataFinalitzacio}">
                         <label for="dataFinalitzacio">Data finalització</label>
-                        <input formControlName="dataFinalitzacio" type="date" id="dataFinalitzacio" name="dataFinalitzacio" style="width: 322px;" (blur)="logValidationErrors()">
+                        <input formControlName="dataFinalitzacio" type="date" id="dataFinalitzacio" name="dataFinalitzacio" style="width: 322px;" [min]="tomorrowDate()" (blur)="logValidationErrors()">
                         <span class="help-block" *ngIf="formErrors.dataFinalitzacio">
                             {{formErrors.dataFinalitzacio}}
                         </span>

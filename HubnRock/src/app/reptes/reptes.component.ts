@@ -213,7 +213,14 @@ export class ReptesComponent implements OnInit {
 
     if(dateInici>currentDate){
       let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-      return  "Inicia en " + days + " dies";
+
+      if(days > 0) {
+        return  "Inicia en " + days + " dies";
+      }
+      else{
+        return "Comença demà!"
+      }
+      
     }
     else if (dateInici<currentDate && dateFinal>currentDate) {
       let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);

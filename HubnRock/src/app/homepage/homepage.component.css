@@ -302,8 +302,21 @@
 
 .card {
     margin-bottom: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.username {
+    color: #2a2a2a;
+}
+.username:hover {
+    color: #00e292;
+    cursor: pointer;
+}
 
 /*
 

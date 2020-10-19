@@ -161,6 +161,15 @@ img {
 #sabermes {
     margin-bottom: 70px;
 }
+#sabermes a{
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+#sabermes a:hover{
+    text-decoration: underline;
+}
 
 #solucionsbuscades {
     background-color: #f7faff;

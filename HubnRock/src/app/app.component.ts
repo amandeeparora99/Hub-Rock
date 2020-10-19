@@ -16,7 +16,7 @@ export class AppComponent {
         } else {
             window.clearInterval(scrollToTop);
         }
-    }, 16);
+    }, 5);  //de moment hi posem 5 ms
   }
 
   // onActivate(e) {

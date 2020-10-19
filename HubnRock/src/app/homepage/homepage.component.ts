@@ -63,7 +63,14 @@ export class HomepageComponent implements OnInit {
     let currentDate = new Date();
 
     let days = Math.floor((date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-    return days;
+
+    if(days>0){
+      return days + " dies restants";
+    }
+    else {
+      return "Comença demà!"
+    }
+    
   }
 
   returnDaydddMMMyyy(day) {
@@ -71,7 +78,6 @@ export class HomepageComponent implements OnInit {
     var array;
     var nd;
     array = d.split('/');
-    console.log(d);
 
     nd = array[1] + "/" + array[0] + "/" + array[2]
 

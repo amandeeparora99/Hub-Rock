@@ -38,19 +38,22 @@
                             <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;{{repte.user.nom_empresa}}
+                                    <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage"><p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
                                 <div class="card-title d-flex align-items-center">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                    <div class="d-flex" style="margin-top: 10px;">
-                                        <p *ngFor="let premi of repte.premis; let i = index">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                    <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                    <div class="d-flex align-items-center">
+                                        <div *ngFor="let premi of repte.premis; let i = index">
+                                            <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-title d-flex">
-                                    <img class="align-self-center" style="margin-right: 5px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">Obre dia {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici)}}
-                                    dies restants)
+                                    <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
+                                    <p class="m-0"><!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
