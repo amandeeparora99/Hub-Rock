@@ -127,12 +127,12 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-warning">
+                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
                             <div (click)="changeState(repte.idrepte,5)" class="col-md-4">
-                                <div class="btn btn-danger">
+                                <div class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
             </div>
 
         </div>
-        <div class="text-center">
+        <div class="text-center" *ngIf="!obertsNoMore">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
         </div>
 
@@ -265,13 +265,13 @@
                                     Acceptar
                                 </div>
                             </div>
-                            <div (click)="changeState(repte.idrepte,4)" class="col-md-4">
-                                <div class="btn btn-warning">
+                            <div class="col-md-4">
+                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
-                            <div (click)="changeState(repte.idrepte,5)" class="col-md-4">
-                                <div class="btn btn-danger">
+                            <div class="col-md-4">
+                                <div (click)="changeState(repte.idrepte,5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>
@@ -354,7 +354,7 @@
 
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!procesNoMore">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreProces()">VEURE MÉS</button>
         </div>
 
@@ -405,8 +405,8 @@
                                     Rebutjar
                                 </div>
                             </div>
-                            <div (click)="changeState(repte.idrepte,5)" class="col-md-4">
-                                <div class="btn btn-danger">
+                            <div class="col-md-4">
+                                <div (click)="changeState(repte.idrepte,5)" class="btn btn-danger">
                                     Eliminar
                                 </div>
                             </div>
@@ -417,7 +417,7 @@
 
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!tancatsNoMore">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreTancats()">VEURE MÉS</button>
         </div>
 
@@ -463,12 +463,12 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-warning">
+                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
-                            <div (click)="changeState(repte.idrepte,5)" class="col-md-4">
-                                <div class="btn btn-danger">
+                            <div class="col-md-4">
+                                <div (click)="changeState(repte.idrepte,5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>

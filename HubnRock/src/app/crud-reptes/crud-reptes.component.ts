@@ -25,6 +25,10 @@ export class CrudReptesComponent implements OnInit {
   reptesProces = [];
   reptesTancats = [];
 
+  tancatsNoMore = false;
+  obertsNoMore = false;
+  procesNoMore = false;
+
   reptesCerca = [];
 
   subscriptionHttp1$: Subscription;
@@ -57,20 +61,27 @@ export class CrudReptesComponent implements OnInit {
     this.currentTancatPage = this.currentTancatPage + 1;
     this.getReptesTancats(this.currentTancatPage, this.elements)
 
-
   }
 
   getReptesOberts(pagina, elements) {
-    this.subscriptionHttp1$ = this.httpCommunication.getReptesOberts(pagina, elements)
+    this.subscriptionHttp1$ = this.httpCommunication.getReptesObertsAdmin(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.forEach(repte => {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
               this.reptesOberts.push(repte)
-            });
+
+              if (index < 5) {
+                this.obertsNoMore = true;
+              } else {
+                this.obertsNoMore = false;
+              }
+            }
           }
         },
         error => {
@@ -80,16 +91,24 @@ export class CrudReptesComponent implements OnInit {
   }
 
   getReptesProces(pagina, elements) {
-    this.subscriptionHttp2$ = this.httpCommunication.getReptesProces(pagina, elements)
+    this.subscriptionHttp2$ = this.httpCommunication.getReptesProcesAdmin(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.forEach(repte => {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
               this.reptesProces.push(repte)
-            });
+
+              if (index < 5) {
+                this.procesNoMore = true;
+              } else {
+                this.procesNoMore = false;
+              }
+            }
           }
         },
         error => {
@@ -99,16 +118,24 @@ export class CrudReptesComponent implements OnInit {
   }
 
   getReptesTancats(pagina, elements) {
-    this.subscriptionHttp3$ = this.httpCommunication.getReptesTancats(pagina, elements)
+    this.subscriptionHttp3$ = this.httpCommunication.getReptesTancatsAdmin(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.forEach(repte => {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
               this.reptesTancats.push(repte)
-            });
+
+              if (index < 5) {
+                this.tancatsNoMore = true;
+              } else {
+                this.tancatsNoMore = false;
+              }
+            }
           }
         },
         error => {

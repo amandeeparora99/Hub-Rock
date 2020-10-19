@@ -79,7 +79,7 @@
         <div class="d-flex">
 
             <div class="row w-100">
-                
+
                 <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="card" routerLink="/repte/{{repte.idrepte}}">
                         <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
@@ -111,11 +111,10 @@
                         </div>
                     </div>
                 </div>
-            
-        </div>
 
+            </div>
         </div>
-        <div *ngIf="reptesOberts.length && reptesOberts.length >= 5" class="text-center">
+        <div *ngIf="!obertsNoMore" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
         </div>
 
@@ -171,7 +170,7 @@
 
         </div>
 
-        <div *ngIf="reptesProces.length && reptesProces.length >= 5" class="text-center">
+        <div *ngIf="!procesNoMore" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreProces()">VEURE MÉS</button>
         </div>
 
@@ -226,7 +225,7 @@
 
         </div>
 
-        <div *ngIf="reptesTancats.length && reptesTancats.length >= 5" class="text-center">
+        <div *ngIf="!tancatsNoMore" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreTancats()">VEURE MÉS</button>
         </div>
 

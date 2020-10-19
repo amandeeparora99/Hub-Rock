@@ -7,24 +7,20 @@ import { HttpCommunicationService } from './reusable/httpCommunicationService/ht
 @Injectable({
   providedIn: 'root'
 })
-export class OwnRepteGuard implements CanActivate {
+export class IsAdminGuard implements CanActivate {
 
   constructor(private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    let idRepte;
-    let idCurrentUser;
+  canActivate(): Observable<boolean> {
+    let idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
 
-    idRepte = route.paramMap.get('id');
-    idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
-
-    return this._httpService.getRepte(idRepte).pipe(
+    return this._httpService.getUser(idCurrentUser).pipe(
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.user_iduser == idCurrentUser && data.row.estat_idestat != 1) {
+          if (data.row.role_idrole == 1) {
             return true;
           } else {
             this.router.navigate(['/homepage'])
@@ -32,9 +28,12 @@ export class OwnRepteGuard implements CanActivate {
           }
 
         } else {
+          this.router.navigate(['/homepage'])
+
           return false;
         }
       }));
+
   }
 
 }

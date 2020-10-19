@@ -273,6 +273,7 @@ export class CreacioRepteComponent implements OnInit {
 
   changeRadio(value) {
     this.radioValue = value;
+
   }
 
   changeRadioToS(value) {
@@ -430,15 +431,25 @@ export class CreacioRepteComponent implements OnInit {
     }
 
     if (this.radioValue == "equip" && this.repteForm.get('limitParticipants').value) {
+
       formData.append('individual_equip', '1')
-      formData.append('limit_participants', this.repteForm.get('limitParticipants').value)
+
+      if (this.repteForm.get('limitParticipants').value) {
+
+        formData.append('limit_participants', this.repteForm.get('limitParticipants').value)
+
+      } else {
+        
+        formData.append('limit_participants', ' ')
+
+      }
 
     } else {
       formData.append('individual_equip', '0');
 
     }
 
-    if (this.radioToSValue == "custom" && this.repteForm.get('customTOS').value) {
+    if (this.radioToSValue == "custom") {
       formData.append('bases_legals', '1')
       formData.append('bases_legals_personals', this.repteForm.get('customTOS').value)
     } else {
@@ -455,23 +466,23 @@ export class CreacioRepteComponent implements OnInit {
       formData.append('data_final', finalDate)
     }
 
-    formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
-    formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
-    formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
-    formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+    // formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
+    // formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
+    // formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
+    // formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
       if (this.repteForm.get('premiArray').value[i].nomPremi) {
         formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
       }
-      if (this.repteForm.get('premiArray').value[i].dotacioPremi.value) {
+      if (this.repteForm.get('premiArray').value[i].dotacioPremi) {
         formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
       }
-      if (this.repteForm.get('premiArray').value[i].descripcioPremi.value) {
+      if (this.repteForm.get('premiArray').value[i].descripcioPremi) {
         formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
       }
-      if (this.repteForm.get('premiArray').value[i].fotoPremi.value) {
+      if (this.repteForm.get('premiArray').value[i].fotoPremi) {
         formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
       }
     }
@@ -558,9 +569,9 @@ export class CreacioRepteComponent implements OnInit {
     } else {
       let formData: any = this.appendRepte();
 
-      // for (var value of formData.values()) {
-      //   console.log(value);
-      // }
+      for (var value of formData.values()) {
+        console.log(value);
+      }
 
       this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
         .pipe(first())
@@ -584,7 +595,11 @@ export class CreacioRepteComponent implements OnInit {
 
       this.logValidationErrorsUntouched()
     } else {
-      let formData = this.appendRepte();
+      let formData: any = this.appendRepte();
+
+      for (var value of formData.values()) {
+        console.log(value);
+      }
 
       this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
         .pipe(first())

@@ -183,8 +183,6 @@ export class HttpCommunicationService {
 
 
   getAllValidReptes(page, elements): Observable<any> {
-    console.log("entrat a get all valid reptes")
-    //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllDetailedPageValid/${page}/${elements}`)
       .pipe(map(data => {
 
@@ -194,8 +192,6 @@ export class HttpCommunicationService {
   }
 
   getReptesOberts(page, elements): Observable<any> {
-    console.log("entrat a get reptes Oberts")
-    //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllObertsPage/${page}/${elements}`)
       .pipe(map(data => {
 
@@ -204,9 +200,16 @@ export class HttpCommunicationService {
       }));
   }
 
+  getReptesObertsAdmin(page, elements): Observable<any> {
+    return this.http.get<any>(environment.api + `/repte/getAllObertsPageAdmin/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+
+      }));
+  }
+
   getReptesProces(page, elements): Observable<any> {
-    console.log("entrat a get reptes Proces")
-    //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllEnProcesPage/${page}/${elements}`)
       .pipe(map(data => {
 
@@ -215,10 +218,27 @@ export class HttpCommunicationService {
       }));
   }
 
+  getReptesProcesAdmin(page, elements): Observable<any> {
+    return this.http.get<any>(environment.api + `/repte/getAllEnProcesPageAdmin/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+
+      }));
+  }
+
   getReptesTancats(page, elements): Observable<any> {
-    console.log("entrat a get reptes Tancats")
-    //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getAllTancatsPage/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+
+      }));
+  }
+
+  getReptesTancatsAdmin(page, elements): Observable<any> {
+    //console.log(email + " " + password);
+    return this.http.get<any>(environment.api + `/repte/getAllTancatsPageAdmin/${page}/${elements}`)
       .pipe(map(data => {
 
         return data;

@@ -17,6 +17,11 @@ export class ReptesComponent implements OnInit {
 
   elements = 6;
 
+  tancatsNoMore = false;
+  obertsNoMore = false;
+  procesNoMore = false;
+
+
   searching = 0;
 
   allReptes = [];
@@ -27,7 +32,11 @@ export class ReptesComponent implements OnInit {
 
   reptesCerca = [];
 
-  subscriptionHttp$: Subscription;
+  subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
+  subscriptionHttp4$: Subscription;
+  // subscriptionHttp5$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
@@ -56,16 +65,24 @@ export class ReptesComponent implements OnInit {
   }
 
   getReptesOberts(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(pagina, elements)
+    this.subscriptionHttp1$ = this.httpCommunication.getReptesOberts(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.forEach(repte => {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
               this.reptesOberts.push(repte)
-            });
+
+              if (index < 5) {
+                this.obertsNoMore = true;
+              } else {
+                this.obertsNoMore = false;
+              }
+            }
           }
         },
         error => {
@@ -75,16 +92,23 @@ export class ReptesComponent implements OnInit {
   }
 
   getReptesProces(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesProces(pagina, elements)
+    this.subscriptionHttp2$ = this.httpCommunication.getReptesProces(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
 
-            data.rows.forEach(repte => {
               this.reptesProces.push(repte)
-            });
+
+              if (index < 5) {
+                this.procesNoMore = true;
+              } else {
+                this.procesNoMore = false;
+              }
+            }
           }
         },
         error => {
@@ -94,16 +118,24 @@ export class ReptesComponent implements OnInit {
   }
 
   getReptesTancats(pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesTancats(pagina, elements)
+    this.subscriptionHttp3$ = this.httpCommunication.getReptesTancats(pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
           console.log(data.rows);
           if (data.code == "1") {
 
-            data.rows.forEach(repte => {
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
               this.reptesTancats.push(repte)
-            });
+
+              if (index < 5) {
+                this.tancatsNoMore = true;
+              } else {
+                this.tancatsNoMore = false;
+              }
+            }
           }
         },
         error => {
@@ -113,7 +145,7 @@ export class ReptesComponent implements OnInit {
   }
 
   getReptesSearch(string, pagina, elements) {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
+    this.subscriptionHttp4$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -190,27 +222,36 @@ export class ReptesComponent implements OnInit {
   //     console.log("Tancat, comença dia: " + element.data_inici);
   //   });
   // }
+  ngOnDestroy() {
+    this.subscriptionHttp1$?.unsubscribe()
+    this.subscriptionHttp2$?.unsubscribe()
+    this.subscriptionHttp3$?.unsubscribe()
+    this.subscriptionHttp4$?.unsubscribe()
+    // this.subscriptionHttp5$?.unsubscribe()
 
-  returnDaydddMMMyyy(day){
-    if (day) {
-      var d = day.toString();
-    var array;
-    var nd;
-    array = d.split('/');
-
-    nd = array[1] + "/" + array[0] + "/" + array[2]
-
-    return nd;
-    }
-    
   }
 
-  diesRestants(data_inici, data_final){
-    if(data_final && data_inici) {
-      let dateInici = new Date(data_inici);
-    let dateFinal = new Date(data_final);
-    let currentDate = new Date();
+  returnDaydddMMMyyy(day) {
+    if (day) {
+      var d = day.toString();
+      var array;
+      var nd;
+      array = d.split('/');
 
+      nd = array[1] + "/" + array[0] + "/" + array[2]
+
+      return nd;
+    }
+
+  }
+
+  diesRestants(data_inici, data_final) {
+    if (data_final && data_inici) {
+      let dateInici = new Date(data_inici);
+      let dateFinal = new Date(data_final);
+      let currentDate = new Date();
+
+<<<<<<< Updated upstream
     if(dateInici>currentDate){
       let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
 
@@ -230,15 +271,29 @@ export class ReptesComponent implements OnInit {
       let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
       if(days>30){
         return  "Tencat fa mesos";
+=======
+      if (dateInici > currentDate) {
+        let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+        return "Inicia en " + days + " dies";
+>>>>>>> Stashed changes
       }
-      else{
-        return  "Tencat fa " + days + " dies";
+      else if (dateInici < currentDate && dateFinal > currentDate) {
+        let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+        return "Tenca en " + days + " dies";
       }
-      
+      else {
+        let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+        if (days > 30) {
+          return "Tencat fa mesos";
+        }
+        else {
+          return "Tencat fa " + days + " dies";
+        }
+
+      }
     }
-    }
-    
-    
+
+
   }
 
 }

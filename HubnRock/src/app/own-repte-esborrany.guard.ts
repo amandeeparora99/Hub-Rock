@@ -32,6 +32,7 @@ export class OwnRepteEsborranyGuard implements CanActivate {
           }
 
         } else {
+          this.router.navigate(['/homepage'])
           return false;
         }
       }));

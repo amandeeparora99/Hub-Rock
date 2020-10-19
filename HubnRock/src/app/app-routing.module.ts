@@ -25,6 +25,7 @@ import { EditarRepteEsborranyComponent } from './editar-repte-esborrany/editar-r
 import { OwnRepteEsborranyGuard } from './own-repte-esborrany.guard';
 import { SolucioComponent } from './solucio/solucio.component';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
+import { IsAdminGuard } from './is-admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -42,11 +43,11 @@ const routes: Routes = [
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard] },
-  { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard] },
-  { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard] },
-  { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard] },
+  { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard, IsAdminGuard] },
+  { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
+  { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },
-  
+
 ];
 
 @NgModule({
