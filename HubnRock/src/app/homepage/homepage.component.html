@@ -13,7 +13,7 @@
                     </h2>
                 </div>
                 <div class="row max-width-button d-flex justify-content-between no-gutters">
-                    <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS</button>
+                    <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS {{userIsEmpresa}}</button>
                     <!-- <li *ngFor="let employee of employees$ | async">{{employee.name}}</li> -->
                     <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte' *ngIf="userIsEmpresa">CREA EL TEU REPTE</button>
                 </div>

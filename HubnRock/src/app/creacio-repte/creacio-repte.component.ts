@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -74,7 +74,8 @@ export class CreacioRepteComponent implements OnInit {
     },
     'dataInici': {
       'required': 'És un camp obligatori',
-      'menorquefinal': 'La data d\'inici no pot ser major que la final'
+      'menorquefinal': 'La data d\'inici no pot ser major que la final',
+      'dateGreaterThan': 'La data d\'inici no pot ser posterior a la final'
     },
     'dataFinalitzacio': {
       'required': 'És un camp obligatori',
@@ -199,7 +200,7 @@ export class CreacioRepteComponent implements OnInit {
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
       //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
       limitParticipants: ['', [Validators.pattern('[0-9]+')]],
-      dataInici: ['', Validators.required],  //Data inici no pot ser anterior a la data actual
+      dataInici: ['', Validators.required, dateGreaterThan],  //Data inici no pot ser anterior a la data actual
       dataFinalitzacio: ['', Validators.required],
       premiArray: this.fb.array([
         this.addPremiFormGroup(),
@@ -444,9 +445,6 @@ export class CreacioRepteComponent implements OnInit {
       formData.append('bases_legals', '0');
     }
 
-    let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
-    let dataInici = new Date(this.repteForm.get('dataInici').value);
-
     if (this.repteForm.get('dataInici').value) {
       let iniciDate = this.datepipe.transform(this.repteForm.get('dataInici').value, 'dd/MM/yyyy')
       formData.append('data_inici', iniciDate)
@@ -457,18 +455,10 @@ export class CreacioRepteComponent implements OnInit {
       formData.append('data_final', finalDate)
     }
 
-    if (this.repteForm.get('dataInici').value && this.repteForm.get('dataFinalitzacio').value) {
-      if (dataInici > dataFinal) {
-        if (!this.formErrors.dataInici) {
-          this.formErrors.dataInici += this.validationMessages.dataInici.menorquefinal + ' ';
-        }
-      }
-    }
-
-    formData.append("participants[\'empreses\']", this.repteForm.get('checkboxGroup').value.empresesCheckbox)
-    formData.append("participants[\'startups\']", this.repteForm.get('checkboxGroup').value.startupsCheckbox)
-    formData.append("participants[\'estudiants\']", this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
-    formData.append("participants[\'experts\']", this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+    formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
+    formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
+    formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
+    formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
@@ -544,9 +534,6 @@ export class CreacioRepteComponent implements OnInit {
   }
 
   desaBorrador() {
-    let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
-    let dataInici = new Date(this.repteForm.get('dataInici').value);
-
 
     if (!this.repteForm.get('nomRepte').value) {
 
@@ -594,6 +581,7 @@ export class CreacioRepteComponent implements OnInit {
 
   onRepteSubmit() {
     if (!this.repteForm.valid) {
+
       this.logValidationErrorsUntouched()
     } else {
       let formData = this.appendRepte();
@@ -687,6 +675,22 @@ export class CreacioRepteComponent implements OnInit {
   }
 }
 
+
+function dateGreaterThan(control: AbstractControl): { [key: string]: boolean } | null {
+
+  if (this.repteForm.get('dataFinalitzacio').value && this.repteForm.get('dataFinalitzacio').value) {
+
+    let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
+    let dataInici = new Date(this.repteForm.get('dataInici').value);
+
+    if (dataInici > dataFinal) {
+      return { 'dateGreaterThan': true }
+    }
+  }
+
+  return null;
+
+};
 
 
 function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {

@@ -20,9 +20,11 @@ export class HomepageComponent implements OnInit {
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
     if (localStorage.getItem('currentUser')) {
+      console.log('hi ha el current user')
       if (JSON.parse(localStorage.getItem('currentUser')).userType == 1) {
+        console.log('soc user type 1')
         this.userIsEmpresa = false;
       } else {
         this.userIsEmpresa = true;
