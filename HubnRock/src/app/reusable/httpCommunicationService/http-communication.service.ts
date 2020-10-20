@@ -5,11 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Form } from '@angular/forms';
-
-interface User {
-  email: String,
-  password: String
-}
+import { User } from '../../user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +14,7 @@ interface User {
 
 export class HttpCommunicationService {
 
-  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
@@ -39,6 +35,12 @@ export class HttpCommunicationService {
         data => {
           if (data.code == '1') {
             localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
+            this.currentUserSubject.next({
+              token: token,
+              idUser: idUser,
+              email: email,
+              userType: data.row.empresa_rockstar
+            });
           }
         },
         error => {
@@ -57,7 +59,6 @@ export class HttpCommunicationService {
           if (data && data.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             this.saveCurrentUserLocalStorage(data.token, data.user.iduser, data.user.email);
-            this.currentUserSubject.next(data);
 
           }
         }
@@ -65,6 +66,7 @@ export class HttpCommunicationService {
       }));
   }
 
+  
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
@@ -100,7 +102,6 @@ export class HttpCommunicationService {
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
-        this.currentUserSubject.next(data);
 
 
         return data;
@@ -127,7 +128,6 @@ export class HttpCommunicationService {
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
-        this.currentUserSubject.next(data);
 
 
         return data;

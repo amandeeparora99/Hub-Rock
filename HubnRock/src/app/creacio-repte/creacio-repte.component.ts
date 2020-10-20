@@ -21,10 +21,10 @@ export class CreacioRepteComponent implements OnInit {
   radioToSValue = 'hubandrock'
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
+
+  
   fotoPortada = null;
   pdfNom = null;
-
-  fotoFileProva:File;
   fotoRepte1Selected = "";
   fotoRepte2Selected = "";
   fotoRepte3Selected = "";
@@ -289,11 +289,14 @@ export class CreacioRepteComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
 
       reader.onload = (event: any) => {
-        this.fotoPortada = event.target.result
+        console.log(event.target.result)
+        this.repteForm.get('fotoPortada').setValue(event.target.result)
+        console.log(this.repteForm.get('fotoPortada'))
       }
 
     }
   }
+
 
   fotosRepteSelected(event, numFoto) {
     if (event.target.files) {

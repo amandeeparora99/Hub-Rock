@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatePipe, formatDate } from '@angular/common';
+import { User } from '../user';
 
 @Component({
   selector: 'app-homepage',
@@ -12,8 +13,7 @@ import { DatePipe, formatDate } from '@angular/common';
 })
 export class HomepageComponent implements OnInit {
   allReptes = [];
-
-  userIsEmpresa;
+  currentUser: User;
 
   subscriptionHttp$: Subscription;
 
@@ -21,20 +21,13 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (localStorage.getItem('currentUser')) {
-      console.log('hi ha el current user')
-      if (JSON.parse(localStorage.getItem('currentUser')).userType == 1) {
-        console.log('soc user type 1')
-        this.userIsEmpresa = false;
-      } else {
-        this.userIsEmpresa = true;
+    this.httpCommunication.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
       }
-    } else {
-      this.userIsEmpresa = false;
-    }
-    
+    );
 
-      this.getAllReptesHomepage();
+    this.getAllReptesHomepage();
 
   }
 
@@ -66,13 +59,13 @@ export class HomepageComponent implements OnInit {
 
     let days = Math.floor((date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
 
-    if(days>0){
+    if (days > 0) {
       return days + " dies restants";
     }
     else {
       return "Comença demà!"
     }
-    
+
   }
 
   returnDaydddMMMyyy(day) {

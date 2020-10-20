@@ -68,7 +68,7 @@
                 <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.fotoPortada}">
                     <div class="d-flex justify-content-between">
                         <label for="InputFotoPortada" class="mb-0">Foto portada</label>
-                        <div class="text-center elimina-link" *ngIf="fotoPortada != null">
+                        <div class="text-center elimina-link" *ngIf="repteForm.get('fotoPortada').value">
                             <a>- Elimina aquesta foto</a>
                         </div>
                     </div>
@@ -82,15 +82,15 @@
                         </div>
                     </div>
                     <div class="image-upload d-flex justify-content-center align-items-center">
-                        <label *ngIf="fotoPortada == null" for="InputFotoPortada" class="pointer mb-0">
+                        <label *ngIf="!repteForm.get('fotoPortada').value" for="InputFotoPortada" class="pointer mb-0">
                             <div class="row d-flex flex-column justify-content-center">
                                 <img src="https://dummyimage.com/61x61/00e293/000000"
                                     class="rounded-circle align-self-center" />
-                                <p class="mb-0">Afegeix foto</p>
+                                <p class="mb-0">Afegeix foto {{repteForm.get('fotoPortada').value}}</p>
                             </div>
                         </label>
-                        <input accept="image/*" *ngIf="fotoPortada == null" formControlName="fotoPortada" id="InputFotoPortada" type="file" (change)="onFileSelected($event)" (blur)="logValidationErrors()" />
-                        <img class="image-upload" *ngIf="fotoPortada != null" width="100%" height="100%" [src]="fotoPortada" alt="your image" />
+                        <input accept="image/*" formControlName="fotoPortada" id="InputFotoPortada" (change)="onFileSelected($event)" type="file" (blur)="logValidationErrors()" />
+                        <img class="image-upload" *ngIf="repteForm.get('fotoPortada').value" width="100%" height="100%" [src]="repteForm.get('fotoPortada').value" alt="your image" />
                     </div>
                     <span class="help-block" *ngIf="formErrors.fotoPortada">
                         {{formErrors.fotoPortada}}
