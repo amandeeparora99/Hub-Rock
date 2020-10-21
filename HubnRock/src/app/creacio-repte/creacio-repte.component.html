@@ -28,6 +28,13 @@
     </div>
     <hr>
     <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
+        <div *ngIf="formErrors.campsErronis" class="row is-invalid">
+            <div class="col">
+                <span class="help-block">
+                    {{formErrors.campsErronis}}
+                </span>
+            </div>
+        </div>
         <div class="row actionbtns">
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" type="button" (click)="desaBorrador()">DESA COM A ESBORRANY</button>
             </div>
@@ -37,6 +44,7 @@
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="container" style="max-width: 730px">
+
             <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="formpagetitle">Informació general</h1>
                 <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.nomRepte}">
@@ -234,7 +242,7 @@
                         <div class="form-group nom-equip ml-4 mt-4 mb-5">
                             <label class="fontsize15" for="InputLimitParticipants">Quin és el límit de participants?<br>
                                 Deixeu el camp en blanc si no hi ha limit</label>
-                            <input type="text" formControlName="limitParticipants" class="form-control input-for-text" id="InputLimitParticipants">
+                            <input type="number" formControlName="limitParticipants" class="form-control input-for-text" id="InputLimitParticipants">
                         </div>
                     </div>
                 </div>
@@ -532,7 +540,7 @@
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : jurat.get('inputJurat').invalid && jurat.get('inputJurat').touched}">
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').touched}">
 
                             <div class="col-md-4 mb-2">
                                 <label [attr.for]="'InputLogoPartner' + i">Foto</label>
@@ -544,9 +552,9 @@
                                             <p class="mb-0">Afegeix foto</p>
                                         </div>
                                     </label>
-                                    <input formControlName="inputJurat" [id]="'InputFotoJurat' + i" type="file" />
+                                    <input formControlName="fotoJurat" [id]="'InputFotoJurat' + i" type="file" />
                                 </div>
-                                <span class="help-block" *ngIf="jurat.get('inputJurat').errors?.required && jurat.get('inputJurat').touched">
+                                <span class="help-block" *ngIf="jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched">
                                     És un camp obligatori
                                 </span>
                             </div>
@@ -615,7 +623,7 @@
                 <h1 class="formpagetitle">Bases legals del repte</h1>
                 <div class="regularFont hubrockformgrup">
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="radioTOS1" name="customRadio" class="custom-control-input" checked>
+                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="radioTOS1" name="customRadio" class="custom-control-input" [checked]="radioToSValue == 'hubandrock'">
                         <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
                             & Rock</label>
                     </div>

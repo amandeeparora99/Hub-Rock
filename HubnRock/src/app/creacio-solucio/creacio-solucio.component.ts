@@ -90,12 +90,16 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       'minlength': 'Ha de tenir mínim de 3 caràcters.',
       'maxlength': 'Has sobrepassat el màxim de 255 caràcters'
 
+    },
+    'campsErronis': {
+      'errors': 'Hi ha camps erronis, comprova que el formulari estigui omplert correctament',
     }
   };
 
 
   formErrors = {
     'nomSolucio': '',
+    'campsErronis': '',
   };
 
 
@@ -277,10 +281,17 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   onSubmit() {
 
     if (!this.solucioForm.valid) {
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
 
       this.logValidationErrorsUntouched()
 
     } else {
+
+      if (this.formErrors.campsErronis) {
+        this.formErrors.campsErronis = '';
+      }
 
       let formData = this.appendRepte();
 
@@ -368,7 +379,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     if (this.solucioForm.get('nomEquip').value) {
       formData.append('nom_equip', this.solucioForm.get('nomEquip').value);
     }
-    
+
     if (this.solucioForm.get('problemaSolucio').value) {
       formData.append('problema', this.solucioForm.get('problemaSolucio').value);
     }
@@ -383,11 +394,11 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
     if (this.solucioForm.get('videoSolucio').value) {
       formData.append('url_video', this.solucioForm.get('videoSolucio').value);
-    } 
+    }
 
     if (this.solucioForm.get('nomSolucio').value) {
       formData.append('nom', this.solucioForm.get('nomSolucio').value);
-    } 
+    }
 
     if (this.radioValue == "individual") {
 
