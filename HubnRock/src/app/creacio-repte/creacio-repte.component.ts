@@ -23,6 +23,8 @@ export class CreacioRepteComponent implements OnInit {
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
 
+  objectFotosPreview: any = {};
+
   fotoPortada = null;
   pdfNom = null;
   fotoRepte1Selected = "";
@@ -65,7 +67,7 @@ export class CreacioRepteComponent implements OnInit {
       'dataIniciBiggerThanFinal': 'El repte no pot acabar abans de començar!'
     },
     'limitParticipants': {
-      'pattern': 'Entra un nombre de participants vàlid', 
+      'pattern': 'Entra un nombre de participants vàlid',
     },
     'dataInici': {
       'required': 'És un camp obligatori',
@@ -370,20 +372,26 @@ export class CreacioRepteComponent implements OnInit {
 
   onFileSelected(event) {
     if (event.target.files) {
+      let inputName = event.target.name;
 
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0])
 
       reader.onload = (event: any) => {
-        console.log(event.target.result)
-        this.repteForm.get('fotoPortada').setValue(event.target.result)
-        console.log(this.repteForm.get('fotoPortada'))
+
+        this.objectFotosPreview[inputName] = event.target.result
+
       }
 
     }
-  }
+    console.log(this.objectFotosPreview)
 
+
+  }
+  ensenyarObjecte() {
+    console.log(this.objectFotosPreview)
+  }
 
   fotosRepteSelected(event, numFoto) {
     if (event.target.files) {
@@ -399,11 +407,9 @@ export class CreacioRepteComponent implements OnInit {
     }
   }
 
-  eliminarFoto(idRepteForm) {
-    this.fotoPortada = null;
-    this.repteForm.get(idRepteForm).setValue('');
-
-    console.log(this.repteForm.get('fotoPortada').value);
+  eliminarFoto(fotoName) {
+    delete this.objectFotosPreview[fotoName]
+    console.log(this.objectFotosPreview)
   }
 
   reset() {
