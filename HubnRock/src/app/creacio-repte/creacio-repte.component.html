@@ -1,6 +1,5 @@
-<app-header>
+<app-header></app-header>
 
-</app-header>
 <div class="container">
     <h1 id="pagetitle" class="text-center">El teu repte</h1>
     <div class="text-center steps-mt max-width-1110">
@@ -228,7 +227,7 @@
                         <label class="custom-control-label" for="customRadio1">Individual</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked>
+                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" id="customRadio2" name="customRadio" class="custom-control-input" [checked]="radioValue == 'equip'">
                         <label class="custom-control-label" for="customRadio2">En equip</label>
                     </div>
                     <div *ngIf="radioValue=='equip'">
