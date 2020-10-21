@@ -312,6 +312,13 @@ export class CreacioRepteComponent implements OnInit {
     }
   }
 
+  eliminarFoto(idRepteForm) {
+    this.fotoPortada = null;
+    this.repteForm.get(idRepteForm).setValue('');
+
+    console.log(this.repteForm.get('fotoPortada').value);
+  }
+  
   reset() {
     this.myInputVariable.nativeElement.value = '';
     this.fotoRepte1Selected = '';
