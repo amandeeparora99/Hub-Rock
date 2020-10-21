@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatePipe, formatDate } from '@angular/common';
 import { User } from '../user';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-homepage',
@@ -12,12 +13,16 @@ import { User } from '../user';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+
+  userForm: FormGroup;
   allReptes = [];
   currentUser: User;
+  inputValue;
 
+  tags = [];
   subscriptionHttp$: Subscription;
 
-  constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
+  constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -26,6 +31,15 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
       }
     );
+
+    this.userForm = this.fb.group({
+      // xarxes i ubicacio
+      inputFoto: ['',],
+      inputSobreTu: ['',],
+      inputTags: ['',],
+      inputExperiencia: [''],
+      inputEducacio: ['']
+    })
 
     this.getAllReptesHomepage();
 
@@ -46,6 +60,10 @@ export class HomepageComponent implements OnInit {
           //this.error = error;
           //this.loading = false;
         });
+  }
+
+  editUserForm() {
+
   }
 
   redirectRepte(idrepte) {
@@ -77,6 +95,36 @@ export class HomepageComponent implements OnInit {
     nd = array[1] + "/" + array[0] + "/" + array[2]
 
     return nd;
+  }
+
+  onSearchChange(searchValue: string): void {
+    if (searchValue.slice(-1) == ',') {
+      this.addTag(searchValue.slice(0, -1))
+      console.log(searchValue.slice(0, -1) + ": added to string")
+      this.inputValue = ''
+    }
+  }
+
+  addTag(string) {
+    this.tags.push(string);
+  }
+
+  getTags() {
+    console.log(this.tags)
+  }
+
+  addTagSubmit(string) {
+    this.tags.push(string);
+    this.inputValue = ''
+  }
+
+  deleteTag(tagName) {
+    for (var i = 0; i < this.tags.length; i++) {
+      if (this.tags[i] === tagName) {
+        this.tags.splice(i, 1);
+      }
+    }
+    console.log(this.tags)
   }
 
   ngOnDestroy() {

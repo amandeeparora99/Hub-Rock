@@ -5,31 +5,59 @@
 
 <!-- Codi a fer: [hidden]="true" document.getElementById("openModalButton").click(); -->
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="modalFirstLogin" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Completa el registre</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="form-control" id="message-text"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
-          </div>
+                <h5 class="modal-title title" id="exampleModalLabel">Benvingut a Hub&Rock!</h5>
+        </div>
+        <div class="modal-body">
+            
+        <p>Completa aquest formulari per acabar de configurar el teu perfil i començar a donar-te a conèixer! (Si ho prefereixes, pots saltar aquest procés i editar el teu perfil posteriorment)</p>
+
+        <form [formGroup]="userForm">
+            <div class="form-group" >
+
+                <div class="form-group">
+                    <label for="sobreTu" class="col-form-label">Sobre tu:</label>  <!-- si es empresa ha de dir unaltre cosa -->
+                    <textarea formArrayName="inputSobreTu" style="min-height: 150px;" class="form-control" id="sobreTu"></textarea>
+                </div>
+
+
+                <label for="inputTags" class="col-form-label">Habilitats:</label>
+                
+                <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..."  (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
+
+                <div class="form-group d-flex mt-2">
+                    <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
+                        <p class="m-0 pl-2">{{tag}}</p>
+                        <div class="input-group-append">
+                            <button (click)="deleteTag(tag)" class="btn" type="button">X</button>
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="form-group">    <!-- si es un rockstar -->
+                    <label for="experiencia" class="col-form-label">Experiència:</label>
+                    <input formArrayName="inputExperiencia" type="text" class="form-control" id="experiencia">
+                </div>
+
+                <div class="form-group">    <!-- si es un rockstar -->
+                    <label for="educacio" class="col-form-label">Educació:</label>
+                    <input formArrayName="inputEducacio" type="text" class="form-control" id="educacio">
+                </div>
+
+                <div class="form-group text-center">
+                    <a href="#" class="text-center">+ Afegir CV</a>
+                </div>
+            </div>
+            
+        </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#">Saltar aquest procés</a>
+            <button type="button" class="btn btn-primary desar">Desar</button>
+        </div>
     </div>
   </div>
 </div>

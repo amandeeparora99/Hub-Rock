@@ -331,4 +331,12 @@ export class HttpCommunicationService {
         return data;
       }));
   }
+
+  // changeUserDetails(form): Observable<any> {
+  //   return this.http.post<any>(environment.api + '/solucio/addValidat/' + form)
+  //   .pipe(map(data => {
+
+  //     return data;
+  //   }));
+  // }
 }
