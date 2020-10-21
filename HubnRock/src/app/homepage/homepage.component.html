@@ -47,9 +47,9 @@
                     </h2>
                 </div>
                 <div class="row max-width-button d-flex justify-content-between no-gutters">
-                    <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS {{userIsEmpresa}}</button>
+                    <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS</button>
                     <!-- <li *ngFor="let employee of employees$ | async">{{employee.name}}</li> -->
-                    <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte' *ngIf="userIsEmpresa">CREA EL TEU REPTE</button>
+                    <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte' *ngIf="currentUser && !currentUser.userType">CREA EL TEU REPTE</button>
                 </div>
             </div>
         </div>
@@ -72,7 +72,8 @@
                             <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage"><p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
+                                    <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
+                                    <p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
@@ -87,7 +88,8 @@
                                 </div>
                                 <div class="card-title d-flex">
                                     <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
-                                    <p class="m-0"><!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
+                                    <p class="m-0">
+                                        <!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
                                 </div>
                                 <div class="tags">
                                     <button type="button" class="tag btn tag-red">Startups</button>
