@@ -231,11 +231,20 @@ export class CreacioRepteComponent implements OnInit {
   }
 
 
-  getInterpolationExpression(name, i) {
-    let buscar: string = name + i
+  getInterpolationCondition(name, i) {
+    let stringInterpolation: string = name + i
 
-    console.log(buscar)
-    return buscar;
+    if (this.objectFotosPreview[stringInterpolation]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getObjectProperty(name, i){
+    let stringInterpolation: string = name + i
+
+    return this.objectFotosPreview[stringInterpolation];
   }
 
 
@@ -794,7 +803,7 @@ function dateShorterThanToday(control: AbstractControl): { [key: string]: any } 
   let date = new Date(control.value);
   let currentDate = new Date();
 
-  if(date.getDate() > currentDate.getDate() || dateString(date) == dateString(currentDate)){
+  if (date.getDate() > currentDate.getDate() || dateString(date) == dateString(currentDate)) {
     return null;
   }
   else {
@@ -806,7 +815,7 @@ function dateShorterThanToday(control: AbstractControl): { [key: string]: any } 
 
 function dateString(date) {
   var any = date.getFullYear();
-  var mes = date.getMonth()+1;
+  var mes = date.getMonth() + 1;
   var dia = date.getDate();
 
   return dia + "/" + mes + "/" + any
@@ -840,13 +849,13 @@ function dataIniciBiggerThanFinal(): ValidatorFn {
   return function validate(form: FormGroup) {
     let startDate = new Date(form.value.dataInici);
     let endDate = new Date(form.value.dataFinalitzacio);
-  
+
     if (startDate >= endDate) {
       return {
         dataIniciBiggerThanFinal: true
       };
     }
-  
+
     return null;
   };
 }
