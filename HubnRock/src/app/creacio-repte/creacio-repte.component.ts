@@ -54,15 +54,6 @@ export class CreacioRepteComponent implements OnInit {
     'fotoPortada': {
       'required': 'És un camp obligatori',
     },
-    'fotoRepresentativa1': {
-      'required': 'És un camp obligatori',
-    },
-    'fotoRepresentativa2': {
-      'required': 'És un camp obligatori',
-    },
-    'fotoRepresentativa3': {
-      'required': 'És un camp obligatori',
-    },
     'videoSolucio': {
       'maxlength': 'Enllaç massa llarg',
       'minlength': 'Enllaç massa curt'
@@ -71,7 +62,7 @@ export class CreacioRepteComponent implements OnInit {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
     'limitParticipants': {
-      'required': 'És un camp obligatori',  //SI HA POSAT INDIVIDUAL NO CALDRIA
+      'pattern': 'Entra un nombre de participants vàlid', 
     },
     'dataInici': {
       'required': 'És un camp obligatori',
@@ -161,9 +152,6 @@ export class CreacioRepteComponent implements OnInit {
     'descripcioBreuRepte': '',
     'descripcioDetalladaRepte': '',
     'fotoPortada': '',
-    'fotoRepresentativa1': '',
-    'fotoRepresentativa2': '',
-    'fotoRepresentativa3': '',
     'videoSolucio': '',
     'checkboxGroup': '',
     'limitParticipants': '',
@@ -196,9 +184,9 @@ export class CreacioRepteComponent implements OnInit {
       fotoPortada: ['',
         // [Validators.required]
       ],
-      fotoRepresentativa1: [this.fotoRepte1Selected, [Validators.required]],
-      fotoRepresentativa2: ['', [Validators.required]],
-      fotoRepresentativa3: ['', [Validators.required]],
+      fotoRepresentativa1: ['', []],
+      fotoRepresentativa2: ['', []],
+      fotoRepresentativa3: ['', []],
       videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
       checkboxGroup: this.fb.group({
         empresesCheckbox: [true],
@@ -207,7 +195,7 @@ export class CreacioRepteComponent implements OnInit {
         expertsCheckbox: [false]
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
       //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
-      limitParticipants: ['', [Validators.pattern('[0-9]+')]],
+      limitParticipants: ['', [Validators.pattern('^[0-9]*$')]],
       dataInici: ['', Validators.required
         // , dateGreaterThan
       ],  //Data inici no pot ser anterior a la data actual
@@ -701,6 +689,11 @@ export class CreacioRepteComponent implements OnInit {
   onRepteSubmit() {
 
     if (!this.repteForm.valid) {
+      console.log(this.repteForm.valid)
+      for (const field in this.repteForm.controls) { // 'field' is a string
+        const control = this.repteForm.get(field).errors; // 'control' is a FormControl  
+        console.log(field, control)
+      }
       if (!this.formErrors.campsErronis) {
         this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
       }
