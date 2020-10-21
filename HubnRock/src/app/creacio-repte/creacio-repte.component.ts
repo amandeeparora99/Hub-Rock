@@ -199,7 +199,7 @@ export class CreacioRepteComponent implements OnInit {
         expertsCheckbox: [false]
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
       //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
-      limitParticipants: ['', [Validators.pattern('[0-9]+')]],
+      limitParticipants: ['', Validators.pattern('[0-9]+')],
       datesGroup: this.fb.group({
         dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
         dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
