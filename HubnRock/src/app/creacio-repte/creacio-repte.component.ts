@@ -17,6 +17,7 @@ export class CreacioRepteComponent implements OnInit {
   constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
 
   repteForm: FormGroup;
+  usuariForm: FormGroup;
   radioValue = 'equip';
   radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
@@ -62,16 +63,19 @@ export class CreacioRepteComponent implements OnInit {
     'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
+    'datesGroup': {
+      'dataIniciBiggerThanFinal': 'El repte no pot acabar abans de començar!'
+    },
     'limitParticipants': {
       'pattern': 'Entra un nombre de participants vàlid',
     },
     'dataInici': {
       'required': 'És un camp obligatori',
-      'menorquefinal': 'La data d\'inici no pot ser major que la final',
-      'dateGreaterThan': 'La data d\'inici no pot ser posterior a la final'
+      'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'dataFinalitzacio': {
       'required': 'És un camp obligatori',
+      'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'nomPremi': {
       'required': 'És un camp obligatori',
@@ -156,6 +160,7 @@ export class CreacioRepteComponent implements OnInit {
     'videoSolucio': '',
     'checkboxGroup': '',
     'limitParticipants': '',
+    'datesGroup': '',
     'dataInici': '',
     'dataFinalitzacio': '',
     'nomPremi': '',
@@ -197,10 +202,10 @@ export class CreacioRepteComponent implements OnInit {
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
       //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
       limitParticipants: ['', [Validators.pattern('[0-9]+')]],
-      dataInici: ['', Validators.required
-        // , dateGreaterThan
-      ],  //Data inici no pot ser anterior a la data actual
-      dataFinalitzacio: ['', Validators.required],
+      datesGroup: this.fb.group({
+        dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
+        dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
+      }, { validator: dataIniciBiggerThanFinal() }),
       premiArray: this.fb.array([
         this.addPremiFormGroup(),
       ]),
@@ -755,24 +760,49 @@ export class CreacioRepteComponent implements OnInit {
       // }
     })
   }
+
 }
 
 
-function dateGreaterThan(control: AbstractControl): { [key: string]: boolean } | null {
+// function dateGreaterThan(control: AbstractControl): { [key: string]: boolean } | null {
 
-  if (this.repteForm.get('dataFinalitzacio').value && this.repteForm.get('dataFinalitzacio').value) {
+//   if (this.repteForm.get('dataFinalitzacio').value && this.repteForm.get('dataFinalitzacio').value) {
 
-    let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
-    let dataInici = new Date(this.repteForm.get('dataInici').value);
+//     let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
+//     let dataInici = new Date(this.repteForm.get('dataInici').value);
 
-    if (dataInici > dataFinal) {
-      return { 'dateGreaterThan': true }
-    }
+//     if (dataInici > dataFinal) {
+//       return { 'dateGreaterThan': true }
+//     }
+//   }
+
+//   return null;
+
+// };
+
+
+function dateShorterThanToday(control: AbstractControl): { [key: string]: any } | null {
+  let date = new Date(control.value);
+  let currentDate = new Date();
+
+  if(date.getDate() > currentDate.getDate() || dateString(date) == dateString(currentDate)){
+    return null;
   }
+  else {
+    return { dataInici: true }
+  }
+}
 
-  return null;
 
-};
+
+function dateString(date) {
+  var any = date.getFullYear();
+  var mes = date.getMonth()+1;
+  var dia = date.getDate();
+
+  return dia + "/" + mes + "/" + any
+}
+
 
 
 function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
@@ -793,6 +823,21 @@ function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
       };
     }
 
+    return null;
+  };
+}
+
+function dataIniciBiggerThanFinal(): ValidatorFn {
+  return function validate(form: FormGroup) {
+    let startDate = new Date(form.value.dataInici);
+    let endDate = new Date(form.value.dataFinalitzacio);
+  
+    if (startDate >= endDate) {
+      return {
+        dataIniciBiggerThanFinal: true
+      };
+    }
+  
     return null;
   };
 }

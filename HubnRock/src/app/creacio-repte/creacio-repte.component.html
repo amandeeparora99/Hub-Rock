@@ -258,7 +258,7 @@
                     <label class="mb-0 mr-3">Data límit del repte</label>
                     <hr class="mt-1" style="margin-bottom: 30px;">
                 </div>
-                <div class="container row d-flex justify-content-between regularFont hubrockformgrup">
+                <div class="container row d-flex justify-content-between regularFont hubrockformgrup" formGroupName="datesGroup">
                     <div class="d-flex flex-column" [ngClass]="{'is-invalid' : formErrors.dataInici}">
                         <label for="dataInici">Data inici</label>
                         <input formControlName="dataInici" type="date" id="dataInici" name="dataInici" style="width: 322px;" [min]="todayDate()" (blur)="logValidationErrors()">
@@ -273,6 +273,9 @@
                             {{formErrors.dataFinalitzacio}}
                         </span>
                     </div>
+                    <span class="help-block checkboxfail" *ngIf="repteForm.get('datesGroup').errors && repteForm.get('datesGroup').errors.dataIniciBiggerThanFinal">
+                        {{formErrors.datesGroup}}
+                    </span>
                 </div>
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle">Els premis</h1>
