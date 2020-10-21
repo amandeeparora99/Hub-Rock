@@ -231,6 +231,14 @@ export class CreacioRepteComponent implements OnInit {
   }
 
 
+  getInterpolationExpression(name, i) {
+    let buscar: string = name + i
+
+    console.log(buscar)
+    return buscar;
+  }
+
+
   logValidationErrors(group: FormGroup = this.repteForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -760,6 +768,7 @@ export class CreacioRepteComponent implements OnInit {
       // }
     })
   }
+
 
 }
 

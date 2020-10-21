@@ -337,12 +337,12 @@
                         <div class="form-group hubrockformgrup regularFont">
                             <label for="InputFotoPremi">Foto premi</label><span class="opcional-text">(Opcional)</span><br>
 
-                            <div class="text-center elimina-link" [ngIf]="'objectFotosPreview.fotoPremi'+i">
+                            <div class="text-center elimina-link" *ngIf="getInterpolationExpression('fotoPremi', i)">
                                 <a (click)="eliminarFoto('fotoPremi' + i)">- Elimina aquesta foto</a>
                             </div>
 
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
-                                <label *ngIf="[!'objectFotosPreview.fotoPremi' + i]" for="InputFotoPremi" class="pointer mb-0">
+                                <label *ngIf="!getInterpolationExpression('fotoPremi', i)" for="InputFotoPremi" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
                                         <img src="https://dummyimage.com/61x61/00e293/000000"
                                             class="rounded-circle align-self-center" />
