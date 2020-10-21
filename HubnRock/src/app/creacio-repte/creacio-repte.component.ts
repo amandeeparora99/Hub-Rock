@@ -22,7 +22,7 @@ export class CreacioRepteComponent implements OnInit {
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
 
-  
+
   fotoPortada = null;
   pdfNom = null;
   fotoRepte1Selected = "";
@@ -434,7 +434,7 @@ export class CreacioRepteComponent implements OnInit {
 
     }
 
-    if (this.radioValue == "equip" && this.repteForm.get('limitParticipants').value) {
+    if (this.radioValue == "equip") {
 
       formData.append('individual_equip', '1')
 
@@ -443,7 +443,7 @@ export class CreacioRepteComponent implements OnInit {
         formData.append('limit_participants', this.repteForm.get('limitParticipants').value)
 
       } else {
-        
+
         formData.append('limit_participants', ' ')
 
       }
@@ -455,7 +455,9 @@ export class CreacioRepteComponent implements OnInit {
 
     if (this.radioToSValue == "custom") {
       formData.append('bases_legals', '1')
-      formData.append('bases_legals_personals', this.repteForm.get('customTOS').value)
+      if (this.repteForm.get('customTOS').value) {
+        formData.append('bases_legals_personals', this.repteForm.get('customTOS').value)
+      }
     } else {
       formData.append('bases_legals', '0');
     }
@@ -470,10 +472,10 @@ export class CreacioRepteComponent implements OnInit {
       formData.append('data_final', finalDate)
     }
 
-    // formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
-    // formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
-    // formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
-    // formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+    formData.append('participants[\"empreses\"]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
+    formData.append('participants[\"startups\"]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
+    formData.append('participants[\"estudiants\"]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
+    formData.append('participants[\"experts\"]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
