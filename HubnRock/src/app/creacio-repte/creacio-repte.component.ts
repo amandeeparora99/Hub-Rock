@@ -430,6 +430,11 @@ export class CreacioRepteComponent implements OnInit {
 
   eliminarFoto(fotoName) {
     console.log("INSIDEEEEEEEEEEEEEEEEEE TOOOOOOOOOOOOOO DEEEEEEEEEEEPPPPPPPPPP", fotoName)
+    delete this.objectFotosPreview[fotoName]
+  }
+
+  eliminarFotoArray(fotoName) {
+    console.log("Tot el premi eliminat: ", fotoName)
 
     let str = fotoName;
 
@@ -443,7 +448,7 @@ export class CreacioRepteComponent implements OnInit {
     str = number.toString()
     let stringFinal = arraySplit[0] + str;
 
-    console.log('string final', stringFinal)
+    console.log('string final: ', stringFinal)
 
     delete this.objectFotosPreview[fotoName]
   }
