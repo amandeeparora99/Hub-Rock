@@ -388,6 +388,7 @@ export class CreacioRepteComponent implements OnInit {
   }
 
   onFileSelected(event, index?) {
+    //FER UN OBJECTE DE PREVIEWS I UN DE FILES
 
     if (event.target.files) {
       console.log(event.target.files)
@@ -400,7 +401,7 @@ export class CreacioRepteComponent implements OnInit {
 
       reader.onload = (event: any) => {
 
-        this.objectFotosPreview[inputName] = event.target.result
+        this.objectFotosPreview[inputName] = reader.result
 
       }
 
@@ -428,8 +429,23 @@ export class CreacioRepteComponent implements OnInit {
   }
 
   eliminarFoto(fotoName) {
+    console.log("INSIDEEEEEEEEEEEEEEEEEE TOOOOOOOOOOOOOO DEEEEEEEEEEEPPPPPPPPPP", fotoName)
+
+    let str = fotoName;
+
+    let arraySplit = str.split(/([0-9]+)/)
+    let number = Number(arraySplit[1]);
+
+    if (number != 0 && this.objectFotosPreview.length != 1) {
+      number = number - 1;
+    }
+
+    str = number.toString()
+    let stringFinal = arraySplit[0] + str;
+
+    console.log('string final', stringFinal)
+
     delete this.objectFotosPreview[fotoName]
-    console.log(this.objectFotosPreview)
   }
 
   reset() {
@@ -599,8 +615,8 @@ export class CreacioRepteComponent implements OnInit {
 
     // APPENDING FOTOS REPTE
     if (this.objectFotosPreview.fotoPortada) {
-      console.log('appending url photo main amb ', this.repteForm.get('fotoPortada').value)
-      formData.append('url_photo_main', (this.repteForm.get('fotoPortada').value))
+      console.log('appending url photo main amb ', this.objectFotosPreview.fotoPortada)
+      formData.append('url_photo_main', this.objectFotosPreview.fotoPortada)
     }
 
     // APPENDING PREMI

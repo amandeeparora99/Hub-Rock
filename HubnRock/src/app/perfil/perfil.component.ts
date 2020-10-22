@@ -16,9 +16,19 @@ export class PerfilComponent implements OnInit {
   public usuariObject;
   public isOwnUser = false;
 
-  public loadSolucionsCalled = false;
-  public loadReptesCalled = false;
+  solucionsNoMore = false;
+  solucionsEsborranyNoMore = false;
 
+  reptesNoMore = false;
+  reptesEsborranyNoMore = false;
+
+  currentReptesPage = 1;
+  currentReptesEsborranyPage = 1;
+
+  currentSolucionsPage = 1;
+  currentSolucionsEsborranyPage = 1;
+
+  elements = 6;
 
   public userSolucions = [];
   public userSolucionsEsborrany = [];
@@ -31,6 +41,9 @@ export class PerfilComponent implements OnInit {
   subscriptionHttp3$: Subscription;
   subscriptionHttp4$: Subscription;
   subscriptionHttp5$: Subscription;
+  subscriptionHttp6$: Subscription;
+  subscriptionHttp7$: Subscription;
+  subscriptionCurrentUser$: Subscription;
 
 
   constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
@@ -43,6 +56,7 @@ export class PerfilComponent implements OnInit {
       this.getUserFromComponent(this.idUsuari)
     }
 
+
   }
 
   getUserFromComponent(idUsuari) {
@@ -53,12 +67,27 @@ export class PerfilComponent implements OnInit {
           this.usuariObject = data.row;
           this.usuariExists = true;
 
-          //COMPROVAR SI EL PERFIL ÉS EL DEL USUARI IDENTIFICAT O NO
           if (this.httpClient.loggedIn()) {
-            let currentUser = JSON.parse(this.httpClient.getCurrentUser());
-            if (currentUser.idUser == this.usuariObject.user_iduser) {
-              this.isOwnUser = true;
-            }
+
+            this.subscriptionCurrentUser$ = this.httpClient.currentUser.subscribe(
+              data => {
+
+                let currentUser = data;
+
+                if (currentUser && currentUser.idUser == this.usuariObject.user_iduser) {
+                  this.isOwnUser = true;
+                }
+
+                this.loadReptes(this.currentReptesPage, this.elements)
+                this.loadReptesEsborrany(this.currentReptesEsborranyPage, this.elements)
+                this.loadSolucions(this.currentSolucionsPage, this.elements)
+                this.loadSolucionsEsborrany(this.currentSolucionsEsborranyPage, this.elements)
+
+
+              }
+            );
+
+
           }
 
 
@@ -70,54 +99,214 @@ export class PerfilComponent implements OnInit {
       });
   }
 
-  loadSolucions() {
-    if (this.userSolucions.length < 1) {
-      this.subscriptionHttp2$ = this.httpClient.getSolucionsByUserId(this.idUsuari).pipe(first())
+  seeMoreReptes() {
+    this.currentReptesPage = this.currentReptesPage + 1;
+    this.loadReptes(this.currentReptesPage, this.elements)
+
+  }
+
+  seeMoreReptesEsborrany() {
+    this.currentReptesEsborranyPage = this.currentReptesEsborranyPage + 1;
+    this.loadReptesEsborrany(this.currentReptesEsborranyPage, this.elements)
+
+  }
+
+  seeMoreSolucions() {
+    this.currentSolucionsPage = this.currentSolucionsPage + 1;
+    this.loadSolucions(this.currentSolucionsPage, this.elements)
+
+  }
+
+  seeMoreSolucionsEsborrany() {
+    this.currentSolucionsEsborranyPage = this.currentSolucionsEsborranyPage + 1;
+    this.loadSolucionsEsborrany(this.currentSolucionsEsborranyPage, this.elements)
+
+  }
+
+  // loadSolucionsTab() {
+  //   if (this.isOwnUser) {
+
+  //     this.subscriptionHttp4$ = this.httpClient.getSolucionsByUser(this.currentSolucionsPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userSolucions = data.rows;
+  //       })
+
+  //     this.subscriptionHttp4$ = this.httpClient.getSolucionsEsborranyByUser(this.currentSolucionsEsborranyPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userSolucionsEsborrany = data.rows;
+  //       })
+
+  //   } else {
+
+  //     this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, this.currentSolucionsPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userSolucions = data.rows;
+  //       })
+
+  //   }
+  // }
+
+  // loadReptesTab() {
+  //   if (this.isOwnUser) {
+
+  //     this.subscriptionHttp4$ = this.httpClient.getReptesByUser(this.currentReptesPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userReptes = data.rows;
+  //       })
+
+  //     this.subscriptionHttp4$ = this.httpClient.getReptesEsborranyByUser(this.currentReptesEsborranyPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userSolucionsEsborrany = data.rows;
+  //       })
+
+  //   } else {
+
+  //     this.subscriptionHttp4$ = this.httpClient.getReptesByUserId(this.idUsuari, this.currentReptesPage, this.elements).pipe(first())
+  //       .subscribe(data => {
+
+  //         this.userReptes = data.rows;
+  //       })
+
+  //   }
+  // }
+
+  loadSolucionsEsborrany(pagina, elements) {
+    if (this.isOwnUser) {
+
+      this.subscriptionHttp2$ = this.httpClient.getSolucionsEsborranyByUser(this.currentSolucionsEsborranyPage, this.elements).pipe(first())
         .subscribe(data => {
-          if (data.code == '1') {
+          if (data.code == "1") {
 
-            this.userSolucions = data.rows;
+            for (let index = 0; index < data.rows.length; index++) {
+              const solucioEsborrany = data.rows[index];
 
-            if (this.isOwnUser) {
-              this.subscriptionHttp4$ = this.httpClient.getSolucionsByUser().pipe(first())
-                .subscribe(data => {
+              this.userSolucionsEsborrany.push(solucioEsborrany)
 
-                  data.rows.forEach(solucioEsborrany => {
-                    if (solucioEsborrany.estat_idestat == 1) {
-                      this.userSolucionsEsborrany.push(solucioEsborrany);
-                    }
-                  });
-                })
+              if (index < 5) {
+                this.solucionsEsborranyNoMore = true;
+              } else {
+                this.solucionsEsborranyNoMore = false;
+              }
             }
+          }
+        })
+    }
+  }
 
+  loadSolucions(pagina, elements) {
+    if (this.isOwnUser) {
+
+      this.subscriptionHttp3$ = this.httpClient.getSolucionsByUser(this.currentSolucionsPage, this.elements).pipe(first())
+        .subscribe(data => {
+          if (data.code == "1") {
+
+            for (let index = 0; index < data.rows.length; index++) {
+              const solucio = data.rows[index];
+
+              this.userSolucions.push(solucio)
+
+              if (index < 5) {
+                this.solucionsNoMore = true;
+              } else {
+                this.solucionsNoMore = false;
+              }
+            }
+          }
+        })
+    } else {
+
+      this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, this.currentSolucionsPage, this.elements).pipe(first())
+        .subscribe(data => {
+          if (data.code == "1") {
+
+            for (let index = 0; index < data.rows.length; index++) {
+              const solucio = data.rows[index];
+
+              this.userSolucions.push(solucio)
+
+              if (index < 5) {
+                this.solucionsNoMore = true;
+              } else {
+                this.solucionsNoMore = false;
+              }
+            }
           }
         });
     }
 
   }
 
-  loadReptes() {
-    if (this.userReptes.length < 1) {
-      this.subscriptionHttp3$ = this.httpClient.getReptesByUserId(this.idUsuari).pipe(first())
+
+  loadReptesEsborrany(pagina, elements) {
+    if (this.isOwnUser) {
+
+      this.subscriptionHttp5$ = this.httpClient.getReptesEsborranyByUser(this.currentReptesEsborranyPage, this.elements).pipe(first())
         .subscribe(data => {
-          if (data.code == '1') {
+          if (data.code == "1") {
 
-            this.userReptes = data.rows;
+            for (let index = 0; index < data.rows.length; index++) {
+              const repteEsborrany = data.rows[index];
 
-            if (this.isOwnUser) {
-              this.subscriptionHttp5$ = this.httpClient.getReptesByUser().pipe(first())
-                .subscribe(data => {
+              this.userReptesEsborrany.push(repteEsborrany)
 
-                  data.rows.forEach(repteEsborrany => {
-                    if (repteEsborrany.estat_idestat == 1) {
-                      this.userReptesEsborrany.push(repteEsborrany);
-                    }
-                  });
-                })
+              if (index < 5) {
+                this.reptesEsborranyNoMore = true;
+              } else {
+                this.reptesEsborranyNoMore = false;
+              }
+            }
+          }
+        })
+    }
+  }
+
+  loadReptes(pagina, elements) {
+
+    if (this.isOwnUser) {
+
+      this.subscriptionHttp6$ = this.httpClient.getReptesByUser(this.currentReptesPage, this.elements).pipe(first())
+        .subscribe(data => {
+          if (data.code == "1") {
+
+            for (let index = 0; index < data.rows.length; index++) {
+              const repte = data.rows[index];
+
+              this.userReptes.push(repte)
+
+              if (index < 5) {
+                this.reptesNoMore = true;
+              } else {
+                this.reptesNoMore = false;
+              }
+            }
+          }
+        })
+    } else {
+
+      this.subscriptionHttp7$ = this.httpClient.getReptesByUserId(this.idUsuari, this.currentReptesPage, this.elements).pipe(first())
+        .subscribe(data => {
+          if (data.code == "1") {
+
+            for (let index = 0; index < data.rows.length; index++) {
+              const solucio = data.rows[index];
+
+              this.userReptes.push(solucio)
+
+              if (index < 5) {
+                this.reptesNoMore = true;
+              } else {
+                this.reptesNoMore = false;
+              }
             }
           }
         });
     }
+
   }
 
 
@@ -132,6 +321,9 @@ export class PerfilComponent implements OnInit {
     this.subscriptionHttp3$?.unsubscribe()
     this.subscriptionHttp4$?.unsubscribe()
     this.subscriptionHttp5$?.unsubscribe()
+    this.subscriptionHttp6$?.unsubscribe()
+    this.subscriptionHttp7$?.unsubscribe()
+    this.subscriptionCurrentUser$?.unsubscribe()
   }
 
   returnDaydddMMMyyy(day) {

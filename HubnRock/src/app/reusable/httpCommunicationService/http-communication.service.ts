@@ -66,7 +66,7 @@ export class HttpCommunicationService {
       }));
   }
 
-  
+
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
@@ -258,16 +258,24 @@ export class HttpCommunicationService {
       }));
   }
 
-  getReptesByUser() {
-    return this.http.get<any>(environment.api + '/repte/getAllDetailedByUser/')
+  getReptesByUser(page, elements) {
+    return this.http.get<any>(environment.api + `/repte/getAllDetailedPaginationByUser/${page}/${elements}`)
       .pipe(map(data => {
 
         return data;
       }));
   }
 
-  getReptesByUserId(userId) {
-    return this.http.get<any>(environment.api + '/repte/getAllDetailedByIdUser/' + userId)
+  getReptesEsborranyByUser(page, elements) {
+    return this.http.get<any>(environment.api + `/repte/getAllDetailedEsborranysPaginationByUser/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getReptesByUserId(userId, page, elements) {
+    return this.http.get<any>(environment.api + `/repte/getAllDetailedPaginationByIdUser/${userId}/${page}/${elements}`)
       .pipe(map(data => {
 
         return data;
@@ -300,16 +308,33 @@ export class HttpCommunicationService {
       }));
   }
 
-  getSolucionsByUser() {
-    return this.http.get<any>(environment.api + '/solucio/getAllDetailedByUser')
+  getSolucionsByRepte(idRepte, page, elements): Observable<any> {
+    console.log(idRepte, page, elements)
+    return this.http.get<any>(environment.api + `/solucio/getAllDetailedPaginationByRepte/${idRepte}/${page}/${elements}`)
       .pipe(map(data => {
 
         return data;
       }));
   }
 
-  getSolucionsByUserId(userId) {
-    return this.http.get<any>(environment.api + '/solucio/getAllByUser/' + userId)
+  getSolucionsByUser(page, elements): Observable<any> {
+    return this.http.get<any>(environment.api + `/solucio/getAllDetailedPaginationByUser/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getSolucionsEsborranyByUser(page, elements): Observable<any> {
+    return this.http.get<any>(environment.api + `/solucio/getAllDetailedEsborranysPaginationByUser/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  getSolucionsByUserId(userId, page, elements) {
+    return this.http.get<any>(environment.api + `/solucio/getAllDetailedPaginationByIdUser/${userId}/${page}/${elements}`)
       .pipe(map(data => {
 
         return data;

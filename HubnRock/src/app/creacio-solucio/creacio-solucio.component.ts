@@ -17,8 +17,13 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
 
   hasUnsavedData(): boolean {
-    return this.solucioForm.dirty;
+    if (this.formDone) {
+      return false;
+    } else {
+      return this.solucioForm.dirty;
+    }
   }
+
   pdfArray;
   idRepte;
   solucioForm: FormGroup;
@@ -28,6 +33,8 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   success = false;
   maxMembres = 10;
   loading = false;
+
+  formDone = false;
 
 
   subscriptionForm$: Subscription;
@@ -288,6 +295,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       this.logValidationErrorsUntouched()
 
     } else {
+      this.formDone = true;
 
       if (this.formErrors.campsErronis) {
         this.formErrors.campsErronis = '';
@@ -343,6 +351,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
     } else {
+      this.formDone = true;
 
       if (this.formErrors.campsErronis) {
         this.formErrors.campsErronis = '';
@@ -457,7 +466,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   @HostListener('window:beforeunload', ['$event'])
   public onPageUnload($event: BeforeUnloadEvent) {
 
-    if (this.solucioForm.dirty) {
+    if (this.solucioForm.dirty && !this.formDone) {
       $event.returnValue = true;
     }
   }

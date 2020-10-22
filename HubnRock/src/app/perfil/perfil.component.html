@@ -54,10 +54,10 @@
                     <a class="nav-link tab-label active" data-toggle="pill" href="#empresa-aboutme">Sobre l'empresa</a>
                 </li>
                 <li class="nav-item li-mr">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-reptes" (click)="loadReptes()">Reptes creats</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-reptes">Reptes creats</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-solucions" (click)="loadSolucions()">Solucions</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#empresa-solucions">Solucions</a>
                 </li>
             </ul>
             <hr class="tab-content-mb">
@@ -71,8 +71,7 @@
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre nosaltres</h5>
                             <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
-                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el nostre perfil de Hub & Rock! Aqui podràs veure informació sobre els nostres serveis, presentació amb un descarregable i molt més.
-                                Fins i tot podràs veure els nostres reptes i solucions enviades!
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el nostre perfil de Hub & Rock! Aqui podràs veure informació sobre els nostres serveis, presentació amb un descarregable i molt més. Fins i tot podràs veure els nostres reptes i solucions enviades!
                             </p>
                         </div>
                         <div class="p-border-mb">
@@ -124,6 +123,9 @@
                             </div>
 
                         </div>
+                        <div *ngIf="!reptesEsborranyNoMore" class="text-center">
+                            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreReptesEsborrany()">VEURE MÉS</button>
+                        </div>
                     </div>
 
 
@@ -133,13 +135,14 @@
                     <div *ngIf="userReptes && userReptes.length < 1">No hi ha creat cap repte</div>
                     <div *ngIf="userReptes && userReptes.length > 0" class="row d-flex flex-column align-items-center mt-5">
                         <div class="row w-100">
-                
+
                             <div *ngFor="let repte of userReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="card" routerLink="/repte/{{repte.idrepte}}">
                                     <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
-                                            <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage"><p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
+                                            <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
+                                            <p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
                                         </div>
                                         <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                         <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
@@ -165,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
 
 
@@ -285,7 +288,7 @@
                     <a class="nav-link tab-label active" data-toggle="pill" href="#usuari-aboutme">Sobre mi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link tab-label" data-toggle="pill" href="#usuari-solucions" (click)="loadSolucions()">Solucions</a>
+                    <a class="nav-link tab-label" data-toggle="pill" href="#usuari-solucions">Solucions</a>
                 </li>
             </ul>
             <hr class="tab-content-mb">
@@ -299,9 +302,8 @@
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre mi</h5>
                             <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
-                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el meu perfil de Hub & Rock! Aqui podràs veure la informació sobre les meves habilitats, presentació amb un descarregable i molt més.
-                                Fins i tot podràs veure les meves solucions enviades!</p>
-                            
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el meu perfil de Hub & Rock! Aqui podràs veure la informació sobre les meves habilitats, presentació amb un descarregable i molt més. Fins i tot podràs veure les meves solucions enviades!</p>
+
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>

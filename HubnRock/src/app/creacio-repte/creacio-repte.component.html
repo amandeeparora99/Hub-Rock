@@ -109,7 +109,7 @@
                 </div>
 
 
-
+                <button type="button" (click)="ensenyarObjecte()">asdfasdf</button>
 
                 <div class="form-group hubrockformgrup">
                     <div class="d-flex align-items-center">
@@ -243,7 +243,7 @@
                         <label class="custom-control-label" for="customRadio1">Individual</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" id="customRadio2" name="customRadio" class="custom-control-input" [checked]="true">
+                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" checked id="customRadio2" name="customRadio" class="custom-control-input">
                         <label class="custom-control-label" for="customRadio2">En equip</label>
                     </div>
                     <div *ngIf="radioValue=='equip'">
@@ -286,7 +286,7 @@
                             <div class="d-flex justify-content-between">
                                 <label class="mb-0 mr-3">Premi {{i+1}}</label>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('premiArray').length > 1">
-                                    <a (click)="removePremiButtonClick(i)">- Elimina aquest premi</a>
+                                    <a (click)="removePremiButtonClick(i); eliminarFoto('fotoPremi' + i)">- Elimina aquest premi</a>
                                 </div>
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">
@@ -642,7 +642,7 @@
                 <h1 class="formpagetitle">Bases legals del repte</h1>
                 <div class="regularFont hubrockformgrup">
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="radioTOS1" name="customRadio" class="custom-control-input" [checked]="radioToSValue == 'hubandrock'">
+                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" checked id="radioTOS1" name="customRadio" class="custom-control-input">
                         <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
                             & Rock</label>
                     </div>

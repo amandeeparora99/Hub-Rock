@@ -135,6 +135,19 @@ a {
     margin-bottom: 2rem;
 }
 
+.btn-veure-mes {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
+
 .card {
     margin-bottom: 20px;
 }
@@ -398,7 +411,7 @@ a {
 }
 
 .card:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .username:hover {

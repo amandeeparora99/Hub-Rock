@@ -164,7 +164,7 @@
             <p class="text-center">El creador del repte es posarà en contacte amb tu per qualsevol dubte, i us mantindrem informat sobre l’evolució del repte.</p>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary btn-manage">TORNA AL PERFIL</button>
+            <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">TORNA AL REPTE</button>
         </div>
     </div>
 </section>

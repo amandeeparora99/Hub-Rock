@@ -109,14 +109,13 @@ img {
     cursor: pointer;
 }
 
-
 #infobox .nav-link.active {
     background-color: #00e292;
     color: black;
     font-family: 'WorkSans-Bold';
 }
 
-#infobox .nav-link.active p{
+#infobox .nav-link.active p {
     color: black;
     font-family: 'WorkSans-Bold';
 }
@@ -161,13 +160,15 @@ img {
 #sabermes {
     margin-bottom: 70px;
 }
-#sabermes a{
+
+#sabermes a {
     color: #007bff;
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
 }
-#sabermes a:hover{
+
+#sabermes a:hover {
     text-decoration: underline;
 }
 
@@ -297,6 +298,23 @@ img {
     border: solid 2px #020e7d;
     color: #020e7d;
     background-color: white;
+}
+
+.btn-veure-mes {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
+
+.card {
+    margin-bottom: 20px;
 }
 
 .videos,
@@ -458,18 +476,16 @@ img {
     letter-spacing: -0.23px;
 }
 
-#faq, #propostes, #forum, #jurat {
+#faq,
+#propostes,
+#forum,
+#jurat {
     margin-bottom: 100px;
 }
 
 .partnerimg {
     margin-right: 69px;
 }
-
-
-
-
-
 
 #propostes .card {
     border-radius: 14px;
