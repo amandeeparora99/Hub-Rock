@@ -318,22 +318,35 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         this.formErrors.nomSolucio += this.validationMessages.nomSolucio.required + ' ';
       }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
     } else if (this.solucioForm.get('nomSolucio').value.length < 3) {
 
       if (!this.formErrors.nomSolucio) {
         this.formErrors.nomSolucio += this.validationMessages.nomSolucio.minlength + ' ';
+      }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
       }
 
     } else if (this.solucioForm.get('nomSolucio').value.length > 255) {
 
       if (!this.formErrors.nomSolucio) {
         this.formErrors.nomSolucio += this.validationMessages.nomSolucio.maxlength + ' ';
+      }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
       }
 
     } else {
 
+      if (this.formErrors.campsErronis) {
+        this.formErrors.campsErronis = '';
+      }
 
       let formData: any = this.appendRepte();
       console.log("imprimint append my firned")

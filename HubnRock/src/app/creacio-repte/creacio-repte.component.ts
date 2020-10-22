@@ -241,7 +241,7 @@ export class CreacioRepteComponent implements OnInit {
     }
   }
 
-  getObjectProperty(name, i){
+  getObjectProperty(name, i) {
     let stringInterpolation: string = name + i
 
     return this.objectFotosPreview[stringInterpolation];
@@ -387,9 +387,12 @@ export class CreacioRepteComponent implements OnInit {
     this.radioToSValue = value;
   }
 
-  onFileSelected(event) {
+  onFileSelected(event, index?) {
+
     if (event.target.files) {
+      console.log(event.target.files)
       let inputName = event.target.name;
+      console.log(inputName, index)
 
       var reader = new FileReader();
 
@@ -579,13 +582,13 @@ export class CreacioRepteComponent implements OnInit {
       formData.append('bases_legals', '0');
     }
 
-    if (this.repteForm.get('dataInici').value) {
-      let iniciDate = this.datepipe.transform(this.repteForm.get('dataInici').value, 'dd/MM/yyyy')
+    if (this.repteForm.get('datesGroup').get('dataInici').value) {
+      let iniciDate = this.datepipe.transform(this.repteForm.get('datesGroup').get('dataInici').value, 'dd/MM/yyyy')
       formData.append('data_inici', iniciDate)
     }
 
-    if (this.repteForm.get('dataFinalitzacio').value) {
-      let finalDate = this.datepipe.transform(this.repteForm.get('dataFinalitzacio').value, 'dd/MM/yyyy')
+    if (this.repteForm.get('datesGroup').get('dataFinalitzacio').value) {
+      let finalDate = this.datepipe.transform(this.repteForm.get('datesGroup').get('dataFinalitzacio').value, 'dd/MM/yyyy')
       formData.append('data_final', finalDate)
     }
 
@@ -593,6 +596,12 @@ export class CreacioRepteComponent implements OnInit {
     formData.append('participants[startups]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
     formData.append('participants[estudiants]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
     formData.append('participants[experts]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+
+    // APPENDING FOTOS REPTE
+    if (this.objectFotosPreview.fotoPortada) {
+      console.log('appending url photo main amb ', this.repteForm.get('fotoPortada').value)
+      formData.append('url_photo_main', (this.repteForm.get('fotoPortada').value))
+    }
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
@@ -675,21 +684,36 @@ export class CreacioRepteComponent implements OnInit {
         this.formErrors.nomRepte += this.validationMessages.nomRepte.required + ' ';
       }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
     } else if (this.repteForm.get('nomRepte').value.length < 3) {
 
       if (!this.formErrors.nomRepte) {
         this.formErrors.nomRepte += this.validationMessages.nomRepte.minlength + ' ';
+      }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
       }
 
     } else if (this.repteForm.get('nomRepte').value.length > 255) {
 
       if (!this.formErrors.nomRepte) {
         this.formErrors.nomRepte += this.validationMessages.nomRepte.maxlength + ' ';
+      }
 
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
       }
 
     } else {
+
+      if (this.formErrors.campsErronis) {
+        this.formErrors.campsErronis = '';
+      }
+
       let formData: any = this.appendRepte();
 
       for (var value of formData.values()) {
