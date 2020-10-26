@@ -26,6 +26,9 @@ import { OwnRepteEsborranyGuard } from './own-repte-esborrany.guard';
 import { SolucioComponent } from './solucio/solucio.component';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 import { IsAdminGuard } from './is-admin.guard';
+import { OwnRepteGuard } from './own-repte.guard';
+import { CanEditRepteGuard } from './can-edit-repte.guard';
+import { CanParticipateRepteGuard } from './can-participate-repte.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -35,17 +38,17 @@ const routes: Routes = [
   { path: 'restore', component: RestorePasswordComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'repte/:id', component: RepteComponent },
-  { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },
+  { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard, CanParticipateRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id', component: SolucioComponent },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard], canDeactivate: [HasUnsavedDataGuard] },
-  { path: 'repte/:id/editar-repte', component: EditarRepteComponent, canActivate: [AuthGuard], canDeactivate: [HasUnsavedDataGuard] },  //FALTA OWNREPTEGUARD
+  { path: 'repte/:id/editar-repte', component: EditarRepteComponent, canActivate: [AuthGuard, OwnRepteGuard, CanEditRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'repte/:id/editar-esborrany', component: EditarRepteEsborranyComponent, canActivate: [AuthGuard, OwnRepteEsborranyGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard] },
   { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard, IsAdminGuard] },
-  { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
-  { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
+  // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
+  // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },
 
 ];

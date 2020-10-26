@@ -24,8 +24,9 @@
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
                 <!--EN MOVIL NO HA DESTAR AL FINAL-->
-                <button class="btn hubrock-btn">PARTICIPA AL REPTE</button>
-                <!-- <button class="btn hubrock-btn mt-2">EDITA EL REPTE</button> -->
+                <button class="btn hubrock-btn" *ngIf="canParticipate()">PARTICIPA AL REPTE</button>
+                <button class="btn hubrock-btn mt-2" *ngIf="canEdit()">EDITA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" *ngIf="canDelete()">ELIMINA EL REPTE</button>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>

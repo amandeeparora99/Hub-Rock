@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
+import { User } from '../user';
 
 @Component({
   selector: 'app-repte',
@@ -17,6 +18,7 @@ export class RepteComponent implements OnInit {
   public repte = null;
   public repteExists = true;
   videoUrl;
+  public currentUser: User;
 
   public solucionsProposades = [];
 
@@ -28,6 +30,13 @@ export class RepteComponent implements OnInit {
   subscriptionHttp$: Subscription
 
   ngOnInit(): void {
+
+    this.httpCommunication.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
+
     this.idRepte = this.aRouter.snapshot.params.id;
     if (this.idRepte) {
       this.getRepteFromComponent(this.idRepte);
@@ -35,6 +44,114 @@ export class RepteComponent implements OnInit {
 
   }
 
+  canParticipate(): Boolean {
+    // només si està en procès i és vàlid
+    if (this.currentUser && this.repte) {
+      if (!this.isValid()) {
+        return false;
+      } else {
+        if (this.repteEnProces()) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+  }
+
+  canEdit(): Boolean {
+    // només abans de la data d'inici, que sigui el creador, tot depenent de l'estat
+    if (this.currentUser && this.repte) {
+      if (!this.isValid()) {
+        if (this.currentUser.idUser && this.currentUser.idUser == this.repte.user_iduser) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (this.currentUser.idUser && this.currentUser.idUser == this.repte.user_iduser && this.beforeDateInici()) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+  }
+
+  canDelete(): Boolean {
+    // depenent de l'estat, que sigui creador, només abans de la data d'inici
+    if (this.currentUser && this.repte) {
+      if (!this.isValid()) {
+        if (this.currentUser.idUser && this.currentUser.idUser == this.repte.user_iduser) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+
+  }
+
+  repteEnProces(): Boolean {
+    // comprovar que el repte està en procès
+    let dateIniciRepte = new Date(this.repte.data_inici);
+    let dateFinalRepte = new Date(this.repte.data_final);
+    let currentDate = new Date();
+
+    if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  beforeDateInici(): Boolean {
+    // comprovar que el repte encara no esta en proces
+    let dateIniciRepte = new Date(this.repte.data_inici);
+    let currentDate = new Date();
+
+    if (dateIniciRepte > currentDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isEsborrany(): Boolean {
+    if (this.repte.estat_idestat == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isValid(): Boolean {
+    if (this.repte.estat_idestat == 3) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isRebutjat(): Boolean {
+    if (this.repte.estat_idestat == 4) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isPendent(): Boolean {
+    if (this.repte.estat_idestat == 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   getRepteFromComponent(id) {
     this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
       .pipe(first())
@@ -43,6 +160,8 @@ export class RepteComponent implements OnInit {
           if (data.code == '1') {
             this.repte = data.row
             this.repteExists = true;
+
+
 
             this.getSolucionsProposades(this.currentSolucionsProposadesPage, this.elements)
           } else if (data.code == '2') {

@@ -71,7 +71,9 @@ export class ReptesComponent implements OnInit {
         data => {
           console.log(data.rows);
           if (data.code == "1") {
-
+            if (data.rows.length < 1) {
+              this.obertsNoMore = true;
+            }
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 
@@ -98,6 +100,10 @@ export class ReptesComponent implements OnInit {
         data => {
           console.log(data.rows);
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.procesNoMore = true;
+            }
+
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 
@@ -124,7 +130,9 @@ export class ReptesComponent implements OnInit {
         data => {
           console.log(data.rows);
           if (data.code == "1") {
-
+            if (data.rows.length < 1) {
+              this.tancatsNoMore = true;
+            }
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 

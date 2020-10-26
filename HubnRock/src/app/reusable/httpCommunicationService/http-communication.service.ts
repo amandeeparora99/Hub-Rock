@@ -14,7 +14,7 @@ import { User } from '../../user';
 
 export class HttpCommunicationService {
 
-  public currentUserSubject: BehaviorSubject<User>;
+  private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
@@ -39,7 +39,8 @@ export class HttpCommunicationService {
               token: token,
               idUser: idUser,
               email: email,
-              userType: data.row.empresa_rockstar
+              userType: data.row.empresa_rockstar,
+              firstLogin: data.row.first_login
             });
           }
         },

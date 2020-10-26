@@ -7,7 +7,7 @@ import { HttpCommunicationService } from './reusable/httpCommunicationService/ht
 @Injectable({
   providedIn: 'root'
 })
-export class OwnRepteGuard implements CanActivate {
+export class CanParticipateRepteGuard implements CanActivate {
 
   constructor(private _httpService: HttpCommunicationService, private router: Router) {
 
@@ -15,23 +15,36 @@ export class OwnRepteGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     let idRepte;
-    let idCurrentUser;
 
     idRepte = route.paramMap.get('id');
-    idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
 
     return this._httpService.getRepte(idRepte).pipe(
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.user_iduser == idCurrentUser && data.row.estat_idestat != 1 && data.row.estat_idestat != 3 ) {
-            return true;
-          } else {
+          // només si està en procès i és vàlid
+          if (data.row.estat_idestat != 3) {
+
             this.router.navigate(['/homepage'])
             return false;
+
+          } else {
+
+            let dateIniciRepte = new Date(data.row.data_inici);
+            let dateFinalRepte = new Date(data.row.data_final);
+            let currentDate = new Date();
+
+            if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
+              return true;
+            } else {
+              this.router.navigate(['/homepage'])
+              return false;
+            }
           }
 
+
         } else {
+          this.router.navigate(['/homepage'])
           return false;
         }
       }));
