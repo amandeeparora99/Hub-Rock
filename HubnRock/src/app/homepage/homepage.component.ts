@@ -89,17 +89,22 @@ export class HomepageComponent implements OnInit {
   }
 
   confirmQuit(){
-    let omplert: boolean = false;
+    console.log("confirmQuit() -- open")
+    let omplert: Boolean = false;
     
-    for(const field in this.userForm.controls){
-      if(field != '') {
-        omplert = true;
-      }
+    // Object.keys(this.userForm.controls).forEach((control: string) => {
+    //   console.log(this.userForm.controls[control].value == null || this.userForm.controls[control].value == undefined)
+    // });
+    for (const field in this.userForm.controls) {
+      const control = this.userForm.get(field).value;
+      console.log(control)
     }
 
     if(omplert) {
       confirm("Tens camps omplerts, segur que vols sortir?")
     }
+
+    console.log("confirmQuit() -- close")
   }
 
   appendUserInfo(): FormData {
