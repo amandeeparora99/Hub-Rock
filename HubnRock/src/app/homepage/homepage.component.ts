@@ -17,6 +17,7 @@ export class HomepageComponent implements OnInit {
   userForm: FormGroup;
   allReptes = [];
   currentUser: User;
+  userIsRockstar: Boolean;
   inputValue;
   success = false;
 
@@ -31,6 +32,7 @@ export class HomepageComponent implements OnInit {
     this.httpCommunication.currentUser.subscribe(
       data => {
         this.currentUser = data;
+        this.userIsRockstar = this.currentUser.userType;
       }
     );
 
@@ -103,52 +105,98 @@ export class HomepageComponent implements OnInit {
   appendUserInfo(): FormData {
     const formData = new FormData();
 
-    if (this.userForm.get('InputfotoPerfilLogin').value) {
-      formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+    if(!this.userIsRockstar){  //LOGGED AS EMPRESA
+      if (this.userForm.get('InputfotoPerfilLogin').value) {
+        formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+      }
+
+      if (this.userForm.get('inputSobreTu').value) {
+        formData.append('bio', this.userForm.get('inputSobreTu').value);
+      }
+
+      if (this.userForm.get('inputUbicacio').value) {
+        formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
+      }
+
+      if (this.tags.length) {
+        for (var i = 0; i < this.tags.length; i++) {
+          formData.append(`servei_nom[${i}]`, this.tags[i]);
+        }
+      }
+
+      if (this.userForm.get('inputCV').value) {
+        formData.append('cv_path', this.userForm.get('inputCV').value);
+      }
+
+      if (this.userForm.get('inputLinkedIn').value) {
+        formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
+      }
+  
+      if (this.userForm.get('inputTwitter').value) {
+        formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
+      }
+  
+      if (this.userForm.get('inputInstagram').value) {
+        formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
+      }
+  
+      if (this.userForm.get('inputFacebook').value) {
+        formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+      }
+
+      return formData;
     }
-
-    if (this.userForm.get('inputSobreTu').value) {
-      formData.append('bio', this.userForm.get('inputSobreTu').value);
-    }
-
-    if (this.userForm.get('inputUbicacio').value) {
-      formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
-    }
-
-    // if (this.userForm.get('inputUbicacio').value) {  TAGS?
-    //   formData.append('ubicacio', this.userForm.get('ubicacio').value);
-    // }
-
-    if (this.userForm.get('inputExperiencia').value) {
-      formData.append('experiencia', this.userForm.get('inputExperiencia').value);
-    }
-
-    if (this.userForm.get('inputEducacio').value) {
-      formData.append('educacio', this.userForm.get('inputEducacio').value);
-    }
-
-    if (this.userForm.get('inputCV').value) {
-      formData.append('cv_path', this.userForm.get('inputCV').value);
-    }
-
-    if (this.userForm.get('inputLinkedIn').value) {
-      formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
-    }
-
-    if (this.userForm.get('inputTwitter').value) {
-      formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
-    }
-
-    if (this.userForm.get('inputInstagram').value) {
-      formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
-    }
-
-    if (this.userForm.get('inputFacebook').value) {
-      formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
-    }
-
-    return formData;
     
+    else if(this.userIsRockstar) {  //LOGGED AS ROCKSTAR
+      if (this.userForm.get('InputfotoPerfilLogin').value) {
+        formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+      }
+
+      if (this.userForm.get('inputSobreTu').value) {
+        formData.append('bio', this.userForm.get('inputSobreTu').value);
+      }
+
+      if (this.userForm.get('inputUbicacio').value) {
+        formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
+      }
+
+      if (this.tags.length) {
+        for (var i = 0; i < this.tags.length; i++) {
+          formData.append(`habilitat_nom[${i}]`, this.tags[i]);
+        }
+      }
+
+      if (this.userForm.get('inputExperiencia').value) {
+        formData.append('experiencia', this.userForm.get('inputExperiencia').value);
+      }
+  
+      if (this.userForm.get('inputEducacio').value) {
+        formData.append('educacio', this.userForm.get('inputEducacio').value);
+      }
+
+      if (this.userForm.get('inputCV').value) {
+        formData.append('cv_path', this.userForm.get('inputCV').value);
+      }
+      
+      if (this.userForm.get('inputLinkedIn').value) {
+        formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
+      }
+  
+      if (this.userForm.get('inputTwitter').value) {
+        formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
+      }
+  
+      if (this.userForm.get('inputInstagram').value) {
+        formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
+      }
+  
+      if (this.userForm.get('inputFacebook').value) {
+        formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+      }
+
+      return formData;
+    }
+
   }
 
   redirectRepte(idrepte) {
