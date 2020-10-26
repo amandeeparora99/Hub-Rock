@@ -286,7 +286,7 @@
                             <div class="d-flex justify-content-between">
                                 <label class="mb-0 mr-3">Premi {{i+1}}</label>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('premiArray').length > 1">
-                                    <a (click)="removePremiButtonClick(i); eliminarFoto('fotoPremi' + i)">- Elimina aquest premi</a>
+                                    <a (click)="removePremiButtonClick(i); eliminarFotoArray('fotoPremi' + i)">- Elimina aquest premi</a>
                                 </div>
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">

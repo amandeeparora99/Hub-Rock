@@ -157,6 +157,15 @@ export class HttpCommunicationService {
       }));
   }
 
+  editShortUser(form): Observable<any> {
+
+    return this.http.post<any>(environment.api + '/user/shortEdit', form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   addRepteBorrador(form: FormData): Observable<any> {
     //   for (var value of form.values()) {
     //     console.log(value); 

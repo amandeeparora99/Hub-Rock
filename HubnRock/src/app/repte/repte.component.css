@@ -587,3 +587,73 @@ img {
     height: 55px;
     margin: 2px;
 }
+
+.inputForum {
+    max-width: 793px;
+    margin-bottom: 35px;
+}
+
+.postForum {
+    margin-bottom: 96px;
+}
+
+.forumbutton {
+    letter-spacing: -0.25px;
+    color: #020e7d;
+    padding-left: 30px;
+    max-width: 793px;
+    font-weight: bold;
+    width: 100%;
+    height: 58px;
+    border-radius: 5px;
+    border: solid 2px #020e7d;
+    transition: 0.3s;
+}
+
+.forumbutton:hover {
+    background-color: #020e7d;
+    color: white;
+}
+
+#textareaForum {
+    min-height: 120px;
+    border-radius: 5px;
+}
+
+.forumBody {
+    width: 920px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px 3px rgba(222, 222, 222, 0.48);
+    border: solid 1px #d3d3d3;
+    margin-bottom: 51px;
+}
+
+.forumContent {
+    padding: 60px;
+    word-wrap: break-word;
+}
+
+.comentariText {
+  line-height: 1.25;
+  letter-spacing: -0.22px;
+  color: #000000;
+}
+
+.forumButton {
+    border: 0;
+    margin-right: 40px;
+    padding-left: 0px;
+}
+
+.commentRank {
+  border-radius: 4px;
+  background-color: #bfecdc;
+  color: #020e7d;
+  font-size: 14px;
+  border: 0;
+  pointer-events: none;
+}
+
+.answer {
+    margin-left: 40px;
+}

@@ -1,6 +1,7 @@
 <app-header></app-header>
 
-<!-- Large modal -->
+<!-- FORMULARI DEL FIRST LOGIN -->
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
 
 <!-- Codi a fer: [hidden]="true" document.getElementById("openModalButton").click(); -->
@@ -18,12 +19,31 @@
         <form [formGroup]="userForm">
             <div class="form-group" >
 
-                <div class="form-group">
-                    <label for="sobreTu" class="col-form-label">Sobre tu:</label>  <!-- si es empresa ha de dir unaltre cosa -->
-                    <textarea formArrayName="inputSobreTu" style="min-height: 150px;" class="form-control" id="sobreTu"></textarea>
+                <div class="row">
+                    <div class="col-md-4 mb-2 ml-0">
+                        <div class="image-upload d-flex justify-content-center align-items-center">
+                            <label for="fotoPerfilLogin" class="pointer mb-0">
+                                <div class="row d-flex flex-column justify-content-center">
+                                    <img src="https://dummyimage.com/61x61/00e293/000000"
+                                        class="rounded-circle align-self-center" />
+                                    <p class="mb-0">Afegeix foto</p>
+                                </div>
+                            </label>
+                            <input formControlName="InputfotoPerfilLogin" id="fotoPerfilLogin" type="file"/>
+                        </div>
+                    </div>
+                    <div class="col-md-8 mb-2 ml-0">
+                        <div class="form-group">
+                            <label for="sobreTu" class="col-form-label mt-0 pt-0">Sobre tu:</label>  <!-- si es empresa ha de dir unaltre cosa -->
+                            <textarea formArrayName="inputSobreTu" style="min-height: 70px;" class="form-control" id="sobreTu"></textarea>
+                        </div>
+                        <div class="form-group">    <!-- si es un rockstar -->
+                            <label for="ubicacio" class="col-form-label mt-0 pt-0">Ubicació:</label>
+                            <input formArrayName="inputUbicacio" type="text" class="form-control" id="ubicacio">
+                        </div>
+                    </div>
                 </div>
-
-
+                
                 <label for="inputTags" class="col-form-label">Habilitats:</label>
                 
                 <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..."  (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
@@ -47,20 +67,43 @@
                     <input formArrayName="inputEducacio" type="text" class="form-control" id="educacio">
                 </div>
 
-                <div class="form-group text-center">
+                <div class="form-group text-center mb-5">
                     <a href="#" class="text-center">+ Afegir CV</a>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputLinkedin">LinkedIn</label>
+                        <input formArrayName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputTwitter">Twitter</label>
+                        <input formArrayName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputInstagram">Instagram</label>
+                        <input formArrayName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputFacebook">Facebook</label>
+                        <input formArrayName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
+                    </div>
                 </div>
             </div>
             
         </form>
         </div>
         <div class="modal-footer">
-            <a href="#">Saltar aquest procés</a>
-            <button type="button" class="btn btn-primary desar">Desar</button>
+            <a type="button" data-dismiss="modal" (click)="confirmQuit()">Saltar aquest procés</a>
+            <button type="button" class="btn btn-primary desar" (click)="onSubmit()">Desar</button>
         </div>
     </div>
   </div>
 </div>
+
+<!-- //FORMULARI DEL FIRST LOGIN -->
 
 <!-- BANNER -->
 <section id="banner-section">

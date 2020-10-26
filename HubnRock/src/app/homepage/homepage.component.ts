@@ -18,9 +18,11 @@ export class HomepageComponent implements OnInit {
   allReptes = [];
   currentUser: User;
   inputValue;
+  success = false;
 
   tags = [];
   subscriptionHttp$: Subscription;
+  subscriptionHttp1$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder) { }
 
@@ -33,12 +35,17 @@ export class HomepageComponent implements OnInit {
     );
 
     this.userForm = this.fb.group({
-      // xarxes i ubicacio
-      inputFoto: ['',],
+      InputfotoPerfilLogin: ['',],
       inputSobreTu: ['',],
+      inputUbicacio: ['',],
       inputTags: ['',],
-      inputExperiencia: [''],
-      inputEducacio: ['']
+      inputExperiencia: ['',],
+      inputEducacio: ['',],
+      inputCV: ['',],
+      inputLinkedIn: ['',],
+      inputTwitter: ['',],
+      inputInstagram: ['',],
+      inputFacebook: ['',],
     })
 
     this.getAllReptesHomepage();
@@ -62,8 +69,86 @@ export class HomepageComponent implements OnInit {
         });
   }
 
-  editUserForm() {
+  onSubmit() {
 
+    let formData = this.appendUserInfo();
+
+    this.subscriptionHttp1$ = this.httpCommunication.editShortUser(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.success = true;
+            console.log(data);
+          },
+          error => {
+            console.log("Fail")
+          });
+
+  }
+
+  confirmQuit(){
+    let omplert: boolean = false;
+    
+    for(const field in this.userForm.controls){
+      if(field != '') {
+        omplert = true;
+      }
+    }
+
+    if(omplert) {
+      confirm("Tens camps omplerts, segur que vols sortir?")
+    }
+  }
+
+  appendUserInfo(): FormData {
+    const formData = new FormData();
+
+    if (this.userForm.get('InputfotoPerfilLogin').value) {
+      formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+    }
+
+    if (this.userForm.get('inputSobreTu').value) {
+      formData.append('bio', this.userForm.get('inputSobreTu').value);
+    }
+
+    if (this.userForm.get('inputUbicacio').value) {
+      formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
+    }
+
+    // if (this.userForm.get('inputUbicacio').value) {  TAGS?
+    //   formData.append('ubicacio', this.userForm.get('ubicacio').value);
+    // }
+
+    if (this.userForm.get('inputExperiencia').value) {
+      formData.append('experiencia', this.userForm.get('inputExperiencia').value);
+    }
+
+    if (this.userForm.get('inputEducacio').value) {
+      formData.append('educacio', this.userForm.get('inputEducacio').value);
+    }
+
+    if (this.userForm.get('inputCV').value) {
+      formData.append('cv_path', this.userForm.get('inputCV').value);
+    }
+
+    if (this.userForm.get('inputLinkedIn').value) {
+      formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
+    }
+
+    if (this.userForm.get('inputTwitter').value) {
+      formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
+    }
+
+    if (this.userForm.get('inputInstagram').value) {
+      formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
+    }
+
+    if (this.userForm.get('inputFacebook').value) {
+      formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+    }
+
+    return formData;
+    
   }
 
   redirectRepte(idrepte) {

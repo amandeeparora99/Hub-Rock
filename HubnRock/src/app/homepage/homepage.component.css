@@ -385,3 +385,18 @@
 .modal-body, .modal-footer, .modal-header {
     padding: 30px;
 }
+
+.image-upload {
+    height: 211px;
+    border-radius: 10px;
+    border: solid 1px #b6b6b6;
+}
+
+.image-upload p {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+}
+
+.image-upload>input {
+    display: none;
+}
