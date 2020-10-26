@@ -7,8 +7,7 @@ import { HttpCommunicationService } from './reusable/httpCommunicationService/ht
 @Injectable({
   providedIn: 'root'
 })
-export class OwnRepteGuard implements CanActivate {
-
+export class CanEditRepteGuard implements CanActivate {
   constructor(private _httpService: HttpCommunicationService, private router: Router) {
 
   }
@@ -24,17 +23,28 @@ export class OwnRepteGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.user_iduser == idCurrentUser && data.row.estat_idestat != 1 && data.row.estat_idestat != 3 ) {
-            return true;
+          if (data.row.estat_idestat == 3) {
+
+            let dateIniciRepte = new Date(data.row.data_inici);
+            let currentDate = new Date();
+
+            if (idCurrentUser == data.row.user_iduser && dateIniciRepte > currentDate) {
+              return true;
+            } else {
+              this.router.navigate(['/homepage'])
+              return false;
+            }
           } else {
             this.router.navigate(['/homepage'])
             return false;
           }
 
         } else {
+          this.router.navigate(['/homepage'])
           return false;
         }
       }));
   }
 
 }
+

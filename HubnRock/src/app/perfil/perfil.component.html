@@ -97,14 +97,14 @@
 
                         <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
                             <div class="row w-100">
-                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="card">
+                                <div *ngFor="let repteEsborrany of userReptesEsborrany" class="col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card repte-esborrany">
                                         <img class="card-img-top" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
                                                 <img class="rounded-circle" width="25px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25"> &nbsp;AI Factory
                                             </div>
-                                            <h5 class="card-title titol-repte">Repte programació amb AI</h5>
+                                            <h5 class="card-title titol-repte">{{repteEsborrany.nom}}</h5>
                                             <p class="card-text desc-repte">Programació utilitzant la intel·ligència artificial. Ideal per aprenents i fins i tot per usuaris avançats.</p>
                                             <div class="card-title d-flex">
                                                 <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;10.000€ / 5.000€ / 3.500€
@@ -121,11 +121,11 @@
                                 </div>
 
                             </div>
+                            <div *ngIf="!reptesEsborranyNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreReptesEsborrany()">VEURE MÉS</button>
+                            </div>
+                        </div>
 
-                        </div>
-                        <div *ngIf="!reptesEsborranyNoMore" class="text-center">
-                            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreReptesEsborrany()">VEURE MÉS</button>
-                        </div>
                     </div>
 
 
@@ -137,7 +137,7 @@
                         <div class="row w-100">
 
                             <div *ngFor="let repte of userReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                                <div class="card" routerLink="/repte/{{repte.idrepte}}" [ngClass]="{'repte-pendent-revisio' : repte.estat_idestat == 2, 'repte-rebutjat' : repte.estat_idestat == 4}">
                                     <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
@@ -166,9 +166,15 @@
                                             <button type="button" class="tag btn tag-purple">Públic general</button>
                                         </div>
                                     </div>
+                                    <div *ngIf="repte.estat_idestat != 3" class="card-footer">
+                                        <span *ngIf="repte.estat_idestat == 2" class="card-footer-text">Pendent de revisió: El seu repte ha de ser revisat per un administrador abans de ser publicat</span>
+                                        <span *ngIf="repte.estat_idestat == 4" class="card-footer-text">Rebutjat: L'administrador ha decidit que el repte no és apte per ser publicat (editi el repte perquè el torni a revisar l'administrador)</span>
+                                    </div>
                                 </div>
                             </div>
-
+                            <div *ngIf="!reptesNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreReptes()">VEURE MÉS</button>
+                            </div>
                         </div>
 
 
@@ -186,10 +192,10 @@
                         <h1 class="reptestitle">Esborranys</h1>
                         <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
-                                <div class="col-md-4 col-sm-6">
+                                <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
                                     <div class="card solucio-esborrany p-2">
                                         <div class="card-body">
-                                            <h5 class="card-title">Incrementar personal de neteja</h5>
+                                            <h5 class="card-title">{{solucioEsborrany.solucio_proposada_nom}}</h5>
                                             <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte del medi ambient UdG</a></h6>
 
                                         </div>
@@ -205,6 +211,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="!solucionsEsborranyNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucionsEsborrany()">VEURE MÉS</button>
                             </div>
                         </div>
                     </div>
@@ -232,6 +241,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="!solucionsNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
                             </div>
                         </div>
                     </div>
@@ -334,10 +346,10 @@
 
                         <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
-                                <div class="col-md-4 col-sm-6">
+                                <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
                                     <div class="card solucio-esborrany p-2">
                                         <div class="card-body">
-                                            <h5 class="card-title">Implementar nous mètodes d'ensenyament</h5>
+                                            <h5 class="card-title">{{solucioEsborrany.solucio_proposada_nom}}</h5>
                                             <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte Digital Campus UdG</a></h6>
 
                                         </div>
@@ -353,6 +365,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="!solucionsEsborranyNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucionsEsborrany()">VEURE MÉS</button>
                             </div>
                         </div>
                     </div>
@@ -380,6 +395,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="!solucionsNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
                             </div>
                         </div>
                     </div>

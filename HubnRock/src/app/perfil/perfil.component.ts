@@ -181,6 +181,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp2$ = this.httpClient.getSolucionsEsborranyByUser(this.currentSolucionsEsborranyPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.solucionsEsborranyNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const solucioEsborrany = data.rows[index];
@@ -204,6 +207,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp3$ = this.httpClient.getSolucionsByUser(this.currentSolucionsPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.solucionsNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const solucio = data.rows[index];
@@ -223,6 +229,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, this.currentSolucionsPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.solucionsNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const solucio = data.rows[index];
@@ -248,6 +257,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp5$ = this.httpClient.getReptesEsborranyByUser(this.currentReptesEsborranyPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.reptesEsborranyNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const repteEsborrany = data.rows[index];
@@ -272,6 +284,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp6$ = this.httpClient.getReptesByUser(this.currentReptesPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.reptesNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
@@ -291,6 +306,9 @@ export class PerfilComponent implements OnInit {
       this.subscriptionHttp7$ = this.httpClient.getReptesByUserId(this.idUsuari, this.currentReptesPage, this.elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            if (data.rows.length < 1) {
+              this.reptesNoMore = true;
+            }
 
             for (let index = 0; index < data.rows.length; index++) {
               const solucio = data.rows[index];
