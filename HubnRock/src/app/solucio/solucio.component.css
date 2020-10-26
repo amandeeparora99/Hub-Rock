@@ -6,12 +6,14 @@
 .maxwidth-630 {
     max-width: 630px;
 }
+
 .hrcustom {
     width: 100%;
     height: 1px;
     border: solid 1px #979797;
     margin-bottom: 15px;
 }
+
 .hrcustom-white {
     width: 100%;
     height: 1px;
@@ -52,12 +54,12 @@
     color: black;
 }
 
-#solucio-body h1{
+#solucio-body h1 {
     font-family: 'WorkSans-Bold';
     font-size: 34px;
 }
 
-#solucio-body h2{
+#solucio-body h2 {
     font-family: 'WorkSans-Bold';
     font-size: 24px;
     font-stretch: normal;
@@ -70,12 +72,13 @@
 #solucio-body {
     margin-bottom: 100px;
 }
+
 #solucio-body p {
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
-  letter-spacing: -0.22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -0.22px;
 }
 
 .bigtitle {
@@ -103,7 +106,7 @@
     margin-bottom: 25px;
 }
 
-.membre p{
+.membre p {
     margin-bottom: 0px;
 }
 
@@ -124,8 +127,7 @@
 }
 
 .hubrock-btn {
-    background-color: #020e7d;
-    color: white;
+    background-color: #00e292;
 }
 
 .no-existeix {

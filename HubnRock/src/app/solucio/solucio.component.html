@@ -15,6 +15,10 @@
             </div>
         </div>
     </div>
+    <div class="container d-flex flex-column align-items-end mt-5">
+        <button class="btn hubrock-btn mt-2" *ngIf="canEdit()">EDITA LA SOLUCIÓ</button>
+        <button class="btn hubrock-btn mt-2" *ngIf="canDelete()">ELIMINA LA SOLUCIÓ</button>
+    </div>
 </section>
 
 <section *ngIf="solucio" id="solucio-body">
