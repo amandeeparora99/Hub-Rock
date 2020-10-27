@@ -92,12 +92,11 @@ export class HomepageComponent implements OnInit {
     console.log("confirmQuit() -- open")
     let omplert: Boolean = false;
     
-    // Object.keys(this.userForm.controls).forEach((control: string) => {
-    //   console.log(this.userForm.controls[control].value == null || this.userForm.controls[control].value == undefined)
-    // });
     for (const field in this.userForm.controls) {
       const control = this.userForm.get(field).value;
-      console.log(control)
+      if(control) {
+        omplert = true;
+      }
     }
 
     if(omplert) {
