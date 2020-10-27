@@ -24,6 +24,7 @@ export class CreacioRepteComponent implements OnInit {
   numberOfTabs = 3; //0 + 1 = 2 tabs
 
   objectFotosPreview: any = {};
+  objectFotos: any = {};
 
   fotoPortada = null;
   pdfArray;
@@ -408,8 +409,13 @@ export class CreacioRepteComponent implements OnInit {
     //FER UN OBJECTE DE PREVIEWS I UN DE FILES
 
     if (event.target.files) {
-      console.log(event.target.files)
+
+      console.log('fiel pujat', event.target.files[0])
+
       let inputName = event.target.name;
+
+      this.objectFotos[inputName] = event.target.files[0]
+
       console.log(inputName, index)
 
       var reader = new FileReader();
@@ -429,6 +435,7 @@ export class CreacioRepteComponent implements OnInit {
   }
   ensenyarObjecte() {
     console.log(this.objectFotosPreview)
+    console.log(this.objectFotos)
   }
 
   fotosRepteSelected(event, numFoto) {
@@ -448,6 +455,8 @@ export class CreacioRepteComponent implements OnInit {
   eliminarFoto(fotoName) {
     console.log("INSIDEEEEEEEEEEEEEEEEEE TOOOOOOOOOOOOOO DEEEEEEEEEEEPPPPPPPPPP", fotoName)
     delete this.objectFotosPreview[fotoName]
+    delete this.objectFotos[fotoName]
+
   }
 
   eliminarFotoArray(fotoName) {
@@ -456,11 +465,9 @@ export class CreacioRepteComponent implements OnInit {
     //Separem el nom de foto
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
-  
-    this.loopObjectFotosPreview(number, arraySplit[0]);
 
-    str = number.toString()
-    let stringFinal = arraySplit[0] + str;
+    this.loopObjectFotosPreview(number, arraySplit[0]);
+    // this.loopObjectFotos(number, arraySplit[0]);
 
   }
 
@@ -495,6 +502,39 @@ export class CreacioRepteComponent implements OnInit {
     console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectFotosPreview[valueName + arrayLength];
     console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
+
+  }
+
+  loopObjectFotos(number, valueName) {
+
+    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    let arrayLength = Object.keys(this.objectFotos).length - 1
+
+    for (const [key, value] of Object.entries(this.objectFotos)) {
+      let index = key.split(/([0-9]+)/)[1];
+      console.log("LOOP NÚMERO: " + index)
+      if (index < number) {
+        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+      }
+      if (index == number) {
+        console.log("PREMI QUE VOLEM ELIMINAR")
+      }
+      if (index > number) {
+        console.log("PREMI QUE VOLEM RESTAR")
+        let resta = Number(index) - 1;
+        let stringPassada = valueName + Number(index)
+        let stringRestada = valueName + resta
+
+        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+
+        this.objectFotos[stringRestada] = this.objectFotos[stringPassada]
+
+      }
+    }
+    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    console.log("ELIMINANT ULTIM OBJECTE...")
+    delete this.objectFotos[valueName + arrayLength];
+    console.log("ArrayObject despres de manipular: ", this.objectFotos)
 
   }
 
