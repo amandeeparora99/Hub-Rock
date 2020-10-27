@@ -16,6 +16,7 @@ export class RepteComponent implements OnInit {
 
   public idRepte = null;
   public repte = null;
+  public forum = null;
   public repteExists = true;
   videoUrl;
   public currentUser: User;
@@ -28,6 +29,7 @@ export class RepteComponent implements OnInit {
   solucionsProposadesNoMore = false;
 
   subscriptionHttp$: Subscription
+  subscriptionHttp2$: Subscription
 
   ngOnInit(): void {
 
@@ -40,6 +42,7 @@ export class RepteComponent implements OnInit {
     this.idRepte = this.aRouter.snapshot.params.id;
     if (this.idRepte) {
       this.getRepteFromComponent(this.idRepte);
+      this.getRepteForum(this.idRepte, 1, 10);
     }
 
   }
@@ -152,7 +155,9 @@ export class RepteComponent implements OnInit {
       return false;
     }
   }
+  
   getRepteFromComponent(id) {
+    console.log("getRepteFromComponent")
     this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
       .pipe(first())
       .subscribe(
@@ -173,6 +178,26 @@ export class RepteComponent implements OnInit {
           //this.error = error;
           //this.loading = false;
         });
+  }
+
+  getRepteForum(idRepte, page, elements) {
+    console.log("getRepteForum")
+    this.subscriptionHttp2$ = this.httpCommunication.getForum(idRepte, page, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+            this.forum = data.rows
+
+          } else {
+            console.log("Forum ERROR")
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+    
   }
 
   seeMoreSolucionsProposades() {

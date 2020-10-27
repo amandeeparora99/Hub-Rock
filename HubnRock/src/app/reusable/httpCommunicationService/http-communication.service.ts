@@ -158,6 +158,17 @@ export class HttpCommunicationService {
       }));
   }
 
+  getForum(repte_id, page, elements): Observable<any> {
+
+    return this.http.get<any>(environment.api + `/forumData/topics/${repte_id}/${page}/${elements}`)
+      .pipe(map(data => {
+
+        return data;
+
+      }));
+
+  }
+
   editShortUser(form): Observable<any> {
 
     return this.http.post<any>(environment.api + '/user/shortEdit', form)

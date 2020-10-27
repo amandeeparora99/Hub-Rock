@@ -440,10 +440,7 @@ export class CreacioRepteComponent implements OnInit {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
   
-    if (number != 0 && this.objectFotosPreview.length != 1) {
-      
-      this.loopObjectFotosPreview(number, arraySplit[0]);
-    }
+    this.loopObjectFotosPreview(number, arraySplit[0]);
 
     str = number.toString()
     let stringFinal = arraySplit[0] + str;

@@ -377,7 +377,8 @@
                 </div>
 
                 <div class="row d-flex justify-content-center">
-                    <div class="forumBody">
+                    <div class="forumBody" *ngFor="let forumPost of forum; let i = index">
+                        
                         <div class="forumContent">
                             <div class="row d-flex align-items-center mb-4">
                                 <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
@@ -399,7 +400,7 @@
                         </div>
 
                         <hr>
-                        <div class="forumContent answer">
+                        <div class="forumContent answer" *ngIf="forumPost.comments != 0">
                             <div class="row d-flex align-items-center mb-4">
                                 <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
                                 <div class="col">
