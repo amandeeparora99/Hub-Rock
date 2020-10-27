@@ -27,6 +27,13 @@
                 </span>
             </div>
         </div>
+        <div *ngIf="formErrors.repteChecks" class="row has-errors">
+            <div class="col">
+                <span class="help-block">
+                    {{formErrors.repteChecks}}
+                </span>
+            </div>
+        </div>
         <div class="row mb-110">
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" (click)="desaBorrador()">DESA COM A
                     ESBORRANY</button>
@@ -91,12 +98,20 @@
                         Els documents han d’estar en format PDF. </label>
                 </div>
                 <hr class="mt-2 mb-5">
-
                 <div class="text-center">
                     <label class="afegeix-link">
-                    <input accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
+                    <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
                     <a>+ Afegeix PDFs</a>
                   </label>
+                </div>
+
+                <div *ngFor="let pdf of pdfArray" class="mb-3">
+                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                    <span class="ml-3">{{pdf.name}}</span>
+                </div>
+
+                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
 
             </div>

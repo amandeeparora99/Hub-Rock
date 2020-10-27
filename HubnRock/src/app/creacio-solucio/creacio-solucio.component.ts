@@ -37,6 +37,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   formDone = false;
 
+  dateIniciRepte;
+  dateFinalRepte;
+  currentDate;
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -101,6 +104,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     },
     'campsErronis': {
       'errors': 'Hi ha camps erronis, comprova que el formulari estigui omplert correctament',
+    },
+    'repteChecks': {
+      'noValid': 'No es pot participar al repte, el repte no és vàlid',
+      'noEnProces': 'No es pot participar al repte, el repte no està en procés'
     }
   };
 
@@ -108,6 +115,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   formErrors = {
     'nomSolucio': '',
     'campsErronis': '',
+    'repteChecks': '',
   };
 
 
@@ -122,6 +130,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
           if (data.code == '1') {
 
             this.repte = data.row;
+            this.dateIniciRepte = new Date(this.repte.data_inici);
+            this.dateFinalRepte = new Date(this.repte.data_final);
+            this.currentDate = new Date();
 
           }
         });
@@ -135,6 +146,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       innovadoraSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       faseSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       videoSolucio: [''],
+      pdf: [''],
       nomEquip: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       membreArray: this.fb.array([
         this.addMemberFormGroup(),  //
@@ -289,12 +301,19 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
-
+      console.log(event.target, event.target.files)
       this.pdfArray = event.target.files
-
-      Array.from(event.target.files).forEach(file => { console.log(file) });
+      // console.log(this.solucioForm.get('pdf').value)
+      // Array.from(this.pdfArray).forEach(file => {
+      //   console.log(file)
+      // });
 
     }
+  }
+
+
+  resetPdfArray() {
+    this.pdfArray = null;
   }
 
   onSubmit() {
@@ -305,6 +324,18 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
       this.logValidationErrorsUntouched()
+
+    } else if (this.repte.estat_idestat != 3) {
+
+      if (!this.formErrors.repteChecks) {
+        this.formErrors.repteChecks += this.validationMessages.repteChecks.noValid + ' ';
+      }
+
+    } else if (this.dateIniciRepte > this.currentDate || this.dateFinalRepte < this.currentDate) {
+
+      if (!this.formErrors.repteChecks) {
+        this.formErrors.repteChecks += this.validationMessages.repteChecks.noEnProces + ' ';
+      }
 
     } else {
       this.formDone = true;
@@ -360,6 +391,18 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
       if (!this.formErrors.campsErronis) {
         this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+    } else if (this.repte.estat_idestat != 3) {
+
+      if (!this.formErrors.repteChecks) {
+        this.formErrors.repteChecks += this.validationMessages.repteChecks.noValid + ' ';
+      }
+
+    } else if (this.dateIniciRepte > this.currentDate || this.dateFinalRepte < this.currentDate) {
+
+      if (!this.formErrors.repteChecks) {
+        this.formErrors.repteChecks += this.validationMessages.repteChecks.noEnProces + ' ';
       }
 
     } else {
@@ -461,13 +504,11 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
 
     if (this.pdfArray) {
-      console.log("una volta no")
       for (let index = 0; index < this.pdfArray.length; index++) {
-        console.log("una volta")
         const file = this.pdfArray[index];
 
-        formData.append(`recurs_solucio_nom[${index}]`, '');
-        formData.append(`recurs_solucio_url_file[${index}]`, '');
+        formData.append(`recurs_solucio_nom[${index}]`, file.name);
+        formData.append(`recurs_solucio_url_file[${index}]`, file);
 
       }
     }

@@ -32,7 +32,10 @@ export class HomepageComponent implements OnInit {
     this.httpCommunication.currentUser.subscribe(
       data => {
         this.currentUser = data;
-        this.userIsRockstar = this.currentUser.userType;
+        if (this.currentUser) {
+          this.userIsRockstar = this.currentUser.userType;
+
+        }
       }
     );
 
@@ -76,19 +79,19 @@ export class HomepageComponent implements OnInit {
     let formData = this.appendUserInfo();
 
     this.subscriptionHttp1$ = this.httpCommunication.editShortUser(formData)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.success = true;
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
-          });
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+          console.log(data);
+        },
+        error => {
+          console.log("Fail")
+        });
 
   }
 
-  confirmQuit(){
+  confirmQuit() {
     console.log("confirmQuit() -- open")
     let omplert: Boolean = false;
     
@@ -99,7 +102,7 @@ export class HomepageComponent implements OnInit {
       }
     }
 
-    if(omplert) {
+    if (omplert) {
       confirm("Tens camps omplerts, segur que vols sortir?")
     }
 
@@ -109,7 +112,7 @@ export class HomepageComponent implements OnInit {
   appendUserInfo(): FormData {
     const formData = new FormData();
 
-    if(!this.userIsRockstar){  //LOGGED AS EMPRESA
+    if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
       }
@@ -135,23 +138,23 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
-  
+
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
       }
-  
+
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
-  
+
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
       }
 
       return formData;
     }
-    
-    else if(this.userIsRockstar) {  //LOGGED AS ROCKSTAR
+
+    else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
       }
@@ -173,7 +176,7 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('inputExperiencia').value) {
         formData.append('experiencia', this.userForm.get('inputExperiencia').value);
       }
-  
+
       if (this.userForm.get('inputEducacio').value) {
         formData.append('educacio', this.userForm.get('inputEducacio').value);
       }
@@ -181,19 +184,19 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('inputCV').value) {
         formData.append('cv_path', this.userForm.get('inputCV').value);
       }
-      
+
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
-  
+
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
       }
-  
+
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
-  
+
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
       }
@@ -267,6 +270,8 @@ export class HomepageComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptionHttp$?.unsubscribe()
   }
+
+
 
 }
 
