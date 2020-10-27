@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, RequiredValidator, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -24,8 +24,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  private idRepte;
+  private repte;
   pdfArray;
-  idRepte;
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
@@ -113,6 +114,17 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   ngOnInit(): void {
 
     this.idRepte = this.aRouter.snapshot.params.id;
+
+    this.httpClient.getRepte(this.idRepte)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+
+            this.repte = data.row;
+
+          }
+        });
 
 
     this.solucioForm = this.fb.group({
@@ -481,3 +493,17 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
 }
 
+
+// function limitParticipantsRepte(): ValidatorFn {
+//   return function validate(form: FormGroup) {
+//     if (this.repte.individual_equip == 0) {
+//       //nomes deixar fer individual
+//     } else if (this.repte.individual_equip == 1) {
+//       //comprovar el limit de membres
+//       if (this.solucioform.numero members > repte . limit_membres){
+//         no deixar
+//       }
+//     }
+//     return null;
+//   };
+// }
