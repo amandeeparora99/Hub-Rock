@@ -16,7 +16,7 @@ export class RepteComponent implements OnInit {
 
   public idRepte = null;
   public repte = null;
-  public repteExists = true;
+  public repteExists = false;
   videoUrl;
   public currentUser: User;
 

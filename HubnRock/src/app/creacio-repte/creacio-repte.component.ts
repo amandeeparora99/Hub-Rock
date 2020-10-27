@@ -26,7 +26,7 @@ export class CreacioRepteComponent implements OnInit {
   objectFotosPreview: any = {};
 
   fotoPortada = null;
-  pdfNom = null;
+  pdfArray;
   fotoRepte1Selected = "";
   fotoRepte2Selected = "";
   fotoRepte3Selected = "";
@@ -193,6 +193,7 @@ export class CreacioRepteComponent implements OnInit {
       fotoRepresentativa1: ['', []],
       fotoRepresentativa2: ['', []],
       fotoRepresentativa3: ['', []],
+      pdf: [''],
       videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
       checkboxGroup: this.fb.group({
         empresesCheckbox: [true],
@@ -387,6 +388,22 @@ export class CreacioRepteComponent implements OnInit {
     this.radioToSValue = value;
   }
 
+  onPdfSelected(event) {
+    if (event.target.files) {
+      console.log(event.target, event.target.files)
+      this.pdfArray = event.target.files
+      // console.log(this.solucioForm.get('pdf').value)
+      // Array.from(this.pdfArray).forEach(file => {
+      //   console.log(file)
+      // });
+
+    }
+  }
+
+  resetPdfArray() {
+    this.pdfArray = null;
+  }
+
   onFileSelected(event, index?) {
     //FER UN OBJECTE DE PREVIEWS I UN DE FILES
 
@@ -439,9 +456,9 @@ export class CreacioRepteComponent implements OnInit {
     //Separem el nom de foto
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
-  
+
     if (number != 0 && this.objectFotosPreview.length != 1) {
-      
+
       this.loopObjectFotosPreview(number, arraySplit[0]);
     }
 
@@ -453,45 +470,40 @@ export class CreacioRepteComponent implements OnInit {
 
   loopObjectFotosPreview(number, valueName) {
 
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName+number);
-    let arrayLength = Object.keys(this.objectFotosPreview).length-1
-    
+    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    let arrayLength = Object.keys(this.objectFotosPreview).length - 1
+
     for (const [key, value] of Object.entries(this.objectFotosPreview)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: "+index)
-      if(index < number) {
+      console.log("LOOP NÚMERO: " + index)
+      if (index < number) {
         console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
-      if(index == number) {
+      if (index == number) {
         console.log("PREMI QUE VOLEM ELIMINAR")
       }
-      if(index > number) {
+      if (index > number) {
         console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
-  
-        console.log("NUMERO ES MODIFICA DE: "+ stringPassada + " A: "+ stringRestada)
+
+        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectFotosPreview[stringRestada] = this.objectFotosPreview[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: "+valueName+arrayLength)
+    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
     console.log("ELIMINANT ULTIM OBJECTE...")
-    delete this.objectFotosPreview[valueName+arrayLength];
+    delete this.objectFotosPreview[valueName + arrayLength];
     console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
-    
+
   }
 
   reset() {
     this.myInputVariable.nativeElement.value = '';
     this.fotoRepte1Selected = '';
-  }
-
-  onPDFSelected(event) {
-    console.log(event.target.files[0])
-    this.pdfNom = event.target.files[0].name
   }
 
   addPremiFormGroup(): FormGroup {
@@ -720,11 +732,16 @@ export class CreacioRepteComponent implements OnInit {
       }
     }
 
-    // APENDING RECURSOS
-    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-    //   formData.append(`recurs_nom[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-    //   formData.append(`recurs_url_fitxer[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-    // }
+    //APPENDING RECURSOS
+    if (this.pdfArray) {
+      for (let index = 0; index < this.pdfArray.length; index++) {
+        const file = this.pdfArray[index];
+
+        formData.append(`recurs_nom[${index}]`, file.name);
+        formData.append(`recurs_url_fitxer[${index}]`, file);
+      }
+    }
+
     return formData;
   }
 
