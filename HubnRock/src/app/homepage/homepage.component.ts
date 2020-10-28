@@ -113,16 +113,26 @@ export class HomepageComponent implements OnInit {
     const formData = new FormData();
 
     if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
+      formData.append('empresa_rockstar', '0');
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+      }
+      else {
+        formData.append('url_photo_profile', '');
       }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
       }
+      else {
+        formData.append('bio', '');
+      }
 
       if (this.userForm.get('inputUbicacio').value) {
         formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
+      }
+      else {
+        formData.append('ubicacio', '');
       }
 
       if (this.tags.length) {
@@ -130,41 +140,69 @@ export class HomepageComponent implements OnInit {
           formData.append(`servei_nom[${i}]`, this.tags[i]);
         }
       }
+      else {
+        formData.append('serveis', '');
+      }
 
       if (this.userForm.get('inputCV').value) {
         formData.append('cv_path', this.userForm.get('inputCV').value);
+      }
+      else {
+        formData.append('cv_path', '');
       }
 
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
+      else {
+        formData.append('xarxes_linkedin', '');
+      }
 
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
+      }
+      else {
+        formData.append('xarxes_twitter', '');
       }
 
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
+      else {
+        formData.append('xarxes_instagram', '');
+      }
 
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+      }
+      else {
+        formData.append('xarxes_facebook', '');
       }
 
       return formData;
     }
 
     else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
+      formData.append('empresa_rockstar', '1');
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
+      }
+      else {
+        formData.append('url_photo_profile', '');
       }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
       }
+      else {
+        formData.append('bio', '');
+      }
 
       if (this.userForm.get('inputUbicacio').value) {
         formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
+      }
+      else {
+        formData.append('ubicacio', '');
       }
 
       if (this.tags.length) {
@@ -172,33 +210,57 @@ export class HomepageComponent implements OnInit {
           formData.append(`habilitat_nom[${i}]`, this.tags[i]);
         }
       }
+      else {
+        formData.append('habilitats', '');
+      }
 
       if (this.userForm.get('inputExperiencia').value) {
         formData.append('experiencia', this.userForm.get('inputExperiencia').value);
+      }
+      else {
+        formData.append('experiencia', '');
       }
 
       if (this.userForm.get('inputEducacio').value) {
         formData.append('educacio', this.userForm.get('inputEducacio').value);
       }
+      else {
+        formData.append('educacio', '');
+      }
 
       if (this.userForm.get('inputCV').value) {
         formData.append('cv_path', this.userForm.get('inputCV').value);
+      }
+      else {
+        formData.append('cv_path', '');
       }
 
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
+      else {
+        formData.append('xarxes_linkedin', '');
+      }
 
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
+      }
+      else {
+        formData.append('xarxes_twitter', '');
       }
 
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
+      else {
+        formData.append('xarxes_instagram', '');
+      }
 
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+      }
+      else {
+        formData.append('xarxes_facebook', '');
       }
 
       return formData;
