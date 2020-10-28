@@ -22,48 +22,6 @@
                     <input id="searchbar" type="text" class="form-control" placeholder="Busca per paraules clau, nom d’empresa…" (input)="onSearchChange($event.target.value)">
                 </div>
             </div>
-
-            <!-- <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
-                    <label class="form-check-label" for="SearchEmpreses">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Empreses</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
-                    <label class="form-check-label" for="SearchStartups">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Startups</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
-                    <label class="form-check-label" for="SearchEstudiants">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Estudiants</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
-                    <label class="form-check-label" for="SearchExperts">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Experts</p>
-                        </div>
-                    </label>
-                </div>
-
-
-            </div> -->
-
         </div>
     </div>
 
@@ -139,78 +97,6 @@
                         </div>
                     </div>
                 </ng-container>
-                <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte Digital Campus UdG</h5>
-                            <p class="card-text desc-repte">Idees per accelerar la transformació digital de la universitat i millorar la connexió amb els alumnes.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;5.000€ / 3.000€ / 1.500€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 15 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <img class="card-img-top" src="../../assets/testpics/udg2.jpg" alt="Card image cap">
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img class="rounded-circle" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25"> &nbsp;Universitat de Girona
-                            </div>
-                            <h5 class="card-title titol-repte">Repte del medi ambient UdG</h5>
-                            <p class="card-text desc-repte">Idees per millorar l'exterior de la universitat per aixi reduir la contaminació.</p>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;6.000€ / 3.000€ / 2.200€
-                            </div>
-                            <div class="card-title d-flex">
-                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;Queden 23 dies
-                            </div>
-                            <div class="tags">
-                                <button type="button" class="tag btn btn-danger">Startups</button>
-                                <button type="button" class="tag btn btn-primary">Empreses</button>
-                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                <button type="button" class="tag btn btn-success">Públic general</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
         </div>
@@ -261,11 +147,6 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,3)" class="btn btn-success">
-                                    Acceptar
-                                </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div (click)="changeState(repte.idrepte,4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
@@ -275,6 +156,7 @@
                                     Eliminar
                                 </div>
                             </div>
+                            Ja no es pot validar el repte per que la data d'inici ja ha passat
                         </div>
                     </div>
                 </ng-container>
@@ -396,20 +278,16 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,3)" class="btn btn-success">
-                                    Acceptar
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-warning">
+                                <div (click)="changeState(repte.idrepte,4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,5)" class="btn btn-danger">
+                                <div (click)="changeState(repte.idrepte,5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>
+                            Ja no es pot validar el repte per que la data d'inici ja ha passat
                         </div>
                     </div>
                 </ng-container>
@@ -458,7 +336,7 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte,3)" class="btn btn-success">
+                                <div (click)="changeState(repte.idrepte,3)" *ngIf="!repteTancatOrProces(repte.data_inici, repte.data_final)" class="btn btn-success">
                                     Acceptar
                                 </div>
                             </div>
@@ -472,6 +350,7 @@
                                     Eliminar
                                 </div>
                             </div>
+                            <span *ngIf="repteTancatOrProces(repte.data_inici, repte.data_final)">Ja no es pot validar el repte per que la data d'inici ja ha passat</span>
                         </div>
                     </div>
                 </ng-container>
