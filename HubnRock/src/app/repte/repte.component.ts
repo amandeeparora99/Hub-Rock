@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
 import { User } from '../user';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-repte',
@@ -14,6 +15,7 @@ export class RepteComponent implements OnInit {
 
   constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
+  public fileStorageUrl = environment.api + '/image/';
   public idRepte = null;
   public repte = null;
   public forum = null;
@@ -155,7 +157,7 @@ export class RepteComponent implements OnInit {
       return false;
     }
   }
-  
+
   getRepteFromComponent(id) {
     console.log("getRepteFromComponent")
     this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
@@ -197,7 +199,7 @@ export class RepteComponent implements OnInit {
           //this.error = error;
           //this.loading = false;
         });
-    
+
   }
 
   seeMoreSolucionsProposades() {
@@ -224,6 +226,26 @@ export class RepteComponent implements OnInit {
           }
         }
       })
+  }
+
+  deleteRepte() {
+    let confirmWindow = confirm('Esta segur que vol eliminar aquest repte?')
+
+    if (confirmWindow == true) {
+      if (this.idRepte && this.canDelete()) {
+
+        this.httpCommunication.deleteRepte(this.idRepte).pipe(first())
+          .subscribe(data => {
+            if (data.code == 1) {
+              if (this.currentUser) {
+                this.router.navigate([`/perfil/${this.currentUser.idUser}`])
+              }
+            }
+          })
+
+      }
+    }
+
   }
 
   ngOnDestroy() {

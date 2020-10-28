@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -14,7 +15,7 @@ export class CreacioRepteComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+  constructor(private router: Router, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
 
   repteForm: FormGroup;
   usuariForm: FormGroup;
@@ -25,6 +26,9 @@ export class CreacioRepteComponent implements OnInit {
 
   objectFotosPreview: any = {};
   objectFotos: any = {};
+
+  idRepte;
+  success = false;
 
   fotoPortada = null;
   pdfArray;
@@ -391,12 +395,20 @@ export class CreacioRepteComponent implements OnInit {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      console.log(event.target, event.target.files)
-      this.pdfArray = event.target.files
-      // console.log(this.solucioForm.get('pdf').value)
-      // Array.from(this.pdfArray).forEach(file => {
-      //   console.log(file)
-      // });
+      let totalSize = 0;
+
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
+        totalSize += element.size
+      }
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+
+      } else {
+        this.pdfArray = null;
+        confirm('Supera el límit de 15MB')
+      }
 
     }
   }
@@ -556,7 +568,7 @@ export class CreacioRepteComponent implements OnInit {
     return this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioSolucio: ['', [Validators.required, Validators.maxLength(900), Validators.minLength(3)]],
-      fotoSolucio: ['', [Validators.required]]
+      fotoSolucio: ['']
     })
   }
 
@@ -830,10 +842,11 @@ export class CreacioRepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
+            if (data.code == 1) {
+              this.success = true;
+              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              this.router.navigate([`/perfil/${currentUserId}`])
+            }
           });
     }
 
@@ -872,10 +885,11 @@ export class CreacioRepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
+            if (data.code == 1) {
+              this.success = true;
+              this.idRepte = data.lastId;
+            }
+
           });
     }
   }

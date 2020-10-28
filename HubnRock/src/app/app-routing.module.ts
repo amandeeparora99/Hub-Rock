@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'restore', component: RestorePasswordComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'repte/:id', component: RepteComponent, canActivate: [RepteCanViewGuard] },
-  { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard, CanParticipateRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
+  { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard/**, CanParticipateRepteGuard*/], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id', component: SolucioComponent, canActivate: [SolucioCanViewGuard] },
   { path: 'solucio/:id/editar-solucio', component: EditarSolucioComponent, canActivate: [AuthGuard, OwnSolucioGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'repte/:id/editar-repte', component: EditarRepteComponent, canActivate: [AuthGuard, OwnRepteGuard, CanEditRepteGuard], canDeactivate: [HasUnsavedDataGuard] },

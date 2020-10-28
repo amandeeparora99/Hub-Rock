@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="container">
+<div class="container" *ngIf="!success">
     <h1 id="pagetitle" class="text-center">El teu repte</h1>
     <div class="text-center steps-mt max-width-1110">
         <div class="row d-flex justify-content-between">
@@ -239,12 +239,12 @@
                 </div>
                 <div class="regularFont hubrockformgrup">
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadio($event.target.value)" value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio1">Individual</label>
+                        <input (change)="changeRadio($event.target.value)" value="individual" type="radio" id="customRadioIndividual" name="radioEquipIndividual" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadioIndividual">Individual</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" checked id="customRadio2" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio2">En equip</label>
+                        <input (change)="changeRadio($event.target.value)" value="equip" type="radio" checked id="customRadioEquip" name="radioEquipIndividual" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadioEquip">En equip</label>
                     </div>
                     <div *ngIf="radioValue=='equip'">
                         <div class="form-group nom-equip ml-4 mt-4 mb-5">
@@ -656,13 +656,13 @@
                 <h1 class="formpagetitle">Bases legals del repte</h1>
                 <div class="regularFont hubrockformgrup">
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" checked id="radioTOS1" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="radioTOS1">Utilitzar les bases legals genèriques de Hub
+                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" checked id="customRadioDefaultBases" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadioDefaultBases">Utilitzar les bases legals genèriques de Hub
                             & Rock</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="radioTOS2" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="radioTOS2">Escriure bases legals
+                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadioCustomBases" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadioCustomBases">Escriure bases legals
                             personalitzades</label>
                     </div>
                     <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text" class="form-control mt-3 inputToS" id="InputResposta"></textarea>
@@ -673,4 +673,16 @@
         <!--Container principal-->
     </form>
 </div>
+<section id="repteSuccess" *ngIf="success">
+    <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+        <h1 class="text-center">Enhorabona</h1>
+        <div class="paragraph-container">
+            <p class="text-center">El repte s'ha enviat correctamnet.</p>
+            <p class="text-center">Un administrador revisarà el repte i decidirà si és apte per publicar.</p>
+        </div>
+        <div class="text-center">
+            <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">VEURE EL REPTE</button>
+        </div>
+    </div>
+</section>
 <app-footer></app-footer>

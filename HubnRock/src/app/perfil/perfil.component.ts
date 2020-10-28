@@ -178,7 +178,7 @@ export class PerfilComponent implements OnInit {
   loadSolucionsEsborrany(pagina, elements) {
     if (this.isOwnUser) {
 
-      this.subscriptionHttp2$ = this.httpClient.getSolucionsEsborranyByUser(this.currentSolucionsEsborranyPage, this.elements).pipe(first())
+      this.subscriptionHttp2$ = this.httpClient.getSolucionsEsborranyByUser(pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -204,7 +204,7 @@ export class PerfilComponent implements OnInit {
   loadSolucions(pagina, elements) {
     if (this.isOwnUser) {
 
-      this.subscriptionHttp3$ = this.httpClient.getSolucionsByUser(this.currentSolucionsPage, this.elements).pipe(first())
+      this.subscriptionHttp3$ = this.httpClient.getSolucionsByUser(pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -226,7 +226,7 @@ export class PerfilComponent implements OnInit {
         })
     } else {
 
-      this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, this.currentSolucionsPage, this.elements).pipe(first())
+      this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -254,7 +254,7 @@ export class PerfilComponent implements OnInit {
   loadReptesEsborrany(pagina, elements) {
     if (this.isOwnUser) {
 
-      this.subscriptionHttp5$ = this.httpClient.getReptesEsborranyByUser(this.currentReptesEsborranyPage, this.elements).pipe(first())
+      this.subscriptionHttp5$ = this.httpClient.getReptesEsborranyByUser(pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -281,7 +281,7 @@ export class PerfilComponent implements OnInit {
 
     if (this.isOwnUser) {
 
-      this.subscriptionHttp6$ = this.httpClient.getReptesByUser(this.currentReptesPage, this.elements).pipe(first())
+      this.subscriptionHttp6$ = this.httpClient.getReptesByUser(pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -303,7 +303,7 @@ export class PerfilComponent implements OnInit {
         })
     } else {
 
-      this.subscriptionHttp7$ = this.httpClient.getReptesByUserId(this.idUsuari, this.currentReptesPage, this.elements).pipe(first())
+      this.subscriptionHttp7$ = this.httpClient.getReptesByUserId(this.idUsuari, pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
             if (data.rows.length < 1) {
@@ -326,7 +326,6 @@ export class PerfilComponent implements OnInit {
     }
 
   }
-
 
   routeEditProfile() {
     console.log("redireccionant")

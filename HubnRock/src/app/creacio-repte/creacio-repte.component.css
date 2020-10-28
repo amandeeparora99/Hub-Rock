@@ -294,3 +294,23 @@ input[type="checkbox"]:checked+label {
 .checkboxfail {
     color: red;
 }
+
+#repteSuccess .btn-manage {
+    width: 255px;
+}
+
+#repteSuccess h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+#repteSuccess p {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+}
+
+#repteSuccess .paragraph-container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}

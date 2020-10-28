@@ -16,8 +16,9 @@
         </div>
     </div>
     <div class="container d-flex flex-column align-items-end mt-5">
-        <button class="btn hubrock-btn mt-2" *ngIf="canEdit()">EDITA LA SOLUCIÓ</button>
-        <button class="btn hubrock-btn mt-2" *ngIf="canDelete()">ELIMINA LA SOLUCIÓ</button>
+        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit()">EDITA LA SOLUCIÓ</button>
+        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button>
+
     </div>
 </section>
 
@@ -105,13 +106,9 @@
                     </div>
 
                     <div id="altresrecursosfiles" class="d-flex flex-column">
-                        <div class="d-flex align-items-center">
+                        <div *ngFor="let recurs of solucio.recursos" class="d-flex align-items-center">
                             <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a href="#">Llei de protecció de dades</a>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a href="#">Manual màquina 1</a>
+                            <a target="_blank" [href]="fileStorageUrl + recurs.recurs_solucio_url_file" download>{{recurs.recurs_solucio_nom}}</a>
                         </div>
                     </div>
                 </div>

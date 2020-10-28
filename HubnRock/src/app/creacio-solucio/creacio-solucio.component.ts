@@ -301,8 +301,20 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      console.log(event.target, event.target.files)
-      this.pdfArray = event.target.files
+      let totalSize = 0;
+
+      console.log(event.target.files[0].size, event.target.files)
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
+        totalSize += element.size
+      }
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+      } else {
+        this.pdfArray = null;
+        confirm('Supera el límit de 15MB')
+      }
       // console.log(this.solucioForm.get('pdf').value)
       // Array.from(this.pdfArray).forEach(file => {
       //   console.log(file)
