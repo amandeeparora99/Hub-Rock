@@ -2,15 +2,13 @@
 
 <!-- FORMULARI DEL FIRST LOGIN -->
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-
-<!-- Codi a fer: [hidden]="true" document.getElementById("openModalButton").click(); -->
+<button id="openModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" [hidden]="true">Large modal</button>
 
 <div id="modalFirstLogin" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-                <h5 class="modal-title title" id="exampleModalLabel">Benvingut a Hub&Rock!</h5>
+            <h5 class="modal-title title" id="exampleModalLabel">Benvingut a Hub&Rock!</h5>
         </div>
         <div class="modal-body">
             
@@ -34,19 +32,21 @@
                     </div>
                     <div class="col-md-8 mb-2 ml-0">
                         <div class="form-group">
-                            <label for="sobreTu" class="col-form-label mt-0 pt-0">Sobre tu:</label>  <!-- si es empresa ha de dir unaltre cosa -->
-                            <textarea formArrayName="inputSobreTu" style="min-height: 70px;" class="form-control" id="sobreTu"></textarea>
+                            <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="userIsRockstar">Sobre tu:</label>
+                            <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="!userIsRockstar">Sobre l'empresa:</label>
+                            <textarea formControlName="inputSobreTu" style="min-height: 70px;" class="form-control" id="sobreTu"></textarea>
                         </div>
-                        <div class="form-group">    <!-- si es un rockstar -->
+                        <div class="form-group">
                             <label for="ubicacio" class="col-form-label mt-0 pt-0">Ubicació:</label>
-                            <input formArrayName="inputUbicacio" type="text" class="form-control" id="ubicacio">
+                            <input formControlName="inputUbicacio" type="text" class="form-control" id="ubicacio">
                         </div>
                     </div>
                 </div>
                 
-                <label for="inputTags" class="col-form-label">Habilitats:</label>
+                <label for="inputTags" class="col-form-label" *ngIf="userIsRockstar">Habilitats:</label>
+                <label for="inputTags" class="col-form-label" *ngIf="!userIsRockstar">Serveis:</label>
                 
-                <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..."  (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
+                <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" [placeholder]="userIsRockstar ? 'Disseny, tecnologia...' : 'Muntatge, desenvolupament...'"  (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
 
                 <div class="form-group d-flex mt-2">
                     <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
@@ -57,38 +57,46 @@
                     </div>    
                 </div>
 
-                <div class="form-group">    <!-- si es un rockstar -->
+                <div class="form-group" *ngIf="userIsRockstar">
                     <label for="experiencia" class="col-form-label">Experiència:</label>
-                    <input formArrayName="inputExperiencia" type="text" class="form-control" id="experiencia">
+                    <input formControlName="inputExperiencia" type="text" class="form-control" id="experiencia">
                 </div>
 
-                <div class="form-group">    <!-- si es un rockstar -->
+                <div class="form-group" *ngIf="userIsRockstar">
                     <label for="educacio" class="col-form-label">Educació:</label>
-                    <input formArrayName="inputEducacio" type="text" class="form-control" id="educacio">
+                    <input formControlName="inputEducacio" type="text" class="form-control" id="educacio">
+                </div>
+
+                <div class="form-group" *ngIf="userIsRockstar">
+                    <label for="ocupacio" class="col-form-label">Ocupació:</label>
+                    <input formControlName="inputOcupacio" type="text" class="form-control" id="ocupacio" placeholder="Enginyer/a @ Hub&Rock">
                 </div>
 
                 <div class="form-group text-center mb-5">
-                    <a href="#" class="text-center">+ Afegir CV</a>
+                    <label class="afegeix-link">
+                        <input formControlName="inputCV" accept=".pdf" type="file" style="display: none;" multiple>
+                        <a>+ Afegeix PDFs</a>
+                    </label>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputLinkedin">LinkedIn</label>
-                        <input formArrayName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                        <input formControlName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputTwitter">Twitter</label>
-                        <input formArrayName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
+                        <input formControlName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputInstagram">Instagram</label>
-                        <input formArrayName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
+                        <input formControlName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputFacebook">Facebook</label>
-                        <input formArrayName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
+                        <input formControlName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
                     </div>
                 </div>
             </div>
@@ -97,7 +105,7 @@
         </div>
         <div class="modal-footer">
             <a type="button" data-dismiss="modal" (click)="confirmQuit()">Saltar aquest procés</a>
-            <button type="button" class="btn btn-primary desar" (click)="onSubmit()">Desar</button>
+            <button type="button" class="btn btn-primary desar" data-dismiss="modal" (click)="onSubmit()">Desar</button>
         </div>
     </div>
   </div>
@@ -163,10 +171,13 @@
                                         <!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
                                 </div>
                                 <div class="tags">
-                                    <button type="button" class="tag btn tag-red">Startups</button>
-                                    <button type="button" class="tag btn tag-blue">Empreses</button>
-                                    <button type="button" class="tag btn tag-orange">Estudiants</button>
-                                    <button type="button" class="tag btn tag-purple">Públic general</button>
+                                    <button *ngFor="let participants of repte.participants" type="button" class="tag btn"
+                                        [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                                    'tag-blue': participants.participants_name == 'Empreses',
+                                                    'tag-orange': participants.participants_name == 'Estudiants',
+                                                    'tag-purple': participants.participants_name == 'Públic general'}">
+                                        {{participants.participants_name}}
+                                    </button>
                                 </div>
                             </div>
                         </div>

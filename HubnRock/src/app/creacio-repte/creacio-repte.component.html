@@ -438,9 +438,9 @@
                 <p>Puja documents PDF relacionats amb el repte</p>
                 <div class="text-center">
                     <label class="afegeix-link">
-                    <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
-                    <a>+ Afegeix PDFs</a>
-                  </label>
+                        <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
+                        <a>+ Afegeix PDFs</a>
+                    </label>
                 </div>
 
                 <div *ngFor="let pdf of pdfArray" class="mb-3">

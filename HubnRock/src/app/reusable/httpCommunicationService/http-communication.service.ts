@@ -169,13 +169,28 @@ export class HttpCommunicationService {
 
   }
 
-  editShortUser(form): Observable<any> {
+  getForumRespostes(topicId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/messages/${topicId}`)
+      .pipe(map(data => {
 
+        return data;
+
+      }));
+  }
+
+  editShortUser(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/shortEdit', form)
       .pipe(map(data => {
 
         return data;
       }));
+  }
+
+  changeFirstLogin(form): Observable<any> {
+    return this.http.post<any>(environment.api + '/user/changeFirstLogin', form)
+    .pipe(map(data => {
+      return data;
+    }));
   }
 
   addRepteBorrador(form: FormData): Observable<any> {

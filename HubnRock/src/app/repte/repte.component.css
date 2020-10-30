@@ -632,6 +632,7 @@ img {
     padding-top: 60px;
     padding-bottom: 60px;
     padding-right: 60px;
+    padding-left: 60px;
     word-wrap: break-word;
 }
 
@@ -658,4 +659,5 @@ img {
 
 .answer {
     margin-left: 40px;
+    padding-top: 10px;
 }
