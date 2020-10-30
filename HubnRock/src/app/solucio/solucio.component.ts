@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
 import { User } from '../user';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-solucio',
@@ -14,6 +15,7 @@ export class SolucioComponent implements OnInit {
 
   constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
+  public fileStorageUrl = environment.api + '/image/';
   public idSolucio;
   public solucio;
   public repte;
@@ -114,6 +116,14 @@ export class SolucioComponent implements OnInit {
 
   }
 
+  isEsborrany() {
+    if (this.solucio && this.solucio.estat_idestat == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   repteEnProces(): Boolean {
     let dateIniciRepte = new Date(this.repte.data_inici);
     let dateFinalRepte = new Date(this.repte.data_final);
@@ -124,6 +134,26 @@ export class SolucioComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  deleteSolucio() {
+    let confirmWindow = confirm('Esta segur que vol eliminar aquesta solució?')
+
+    if (confirmWindow == true) {
+      if (this.idSolucio && this.canDelete()) {
+
+        this.httpCommunication.deleteSolucio(this.idSolucio).pipe(first())
+          .subscribe(data => {
+            if (data.code == 1) {
+              if (this.currentUser) {
+                this.router.navigate([`/perfil/${this.currentUser.idUser}`])
+              }
+            }
+          })
+
+      }
+    }
+
   }
 
   ngOnDestroy() {

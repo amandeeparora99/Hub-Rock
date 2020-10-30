@@ -393,6 +393,22 @@ export class HttpCommunicationService {
       }));
   }
 
+  deleteRepte(idRepte) {
+    return this.http.get<any>(environment.api + `/repte/eliminarRepteUser/${idRepte}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  deleteSolucio(idSolucio) {
+    return this.http.get<any>(environment.api + `/solucio/eliminarSolucioUser/${idSolucio}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   // changeUserDetails(form): Observable<any> {
   //   return this.http.post<any>(environment.api + '/solucio/addValidat/' + form)
   //   .pipe(map(data => {

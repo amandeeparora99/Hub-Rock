@@ -23,10 +23,10 @@
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
-                <!--EN MOVIL NO HA DESTAR AL FINAL-->
-                <button class="btn hubrock-btn" *ngIf="canParticipate()">PARTICIPA AL REPTE</button>
-                <button class="btn hubrock-btn mt-2" *ngIf="canEdit()">EDITA EL REPTE</button>
-                <button class="btn hubrock-btn mt-2" *ngIf="canDelete()">ELIMINA EL REPTE</button>
+                <button class="btn hubrock-btn" type="button" *ngIf="canParticipate()">PARTICIPA AL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()">EDITA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && isEsborrany()">CONTINUA L'ESBORRANY</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA EL REPTE</button>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
@@ -302,13 +302,9 @@
                 </div>
 
                 <div id="altresrecursosfiles" class="row d-flex flex-column">
-                    <div class="d-flex align-items-center">
+                    <div *ngFor="let recurs of repte.recursos" class="d-flex align-items-center">
                         <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                        <a href="#">Llei de protecció de dades</a>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                        <a href="#">Manual màquina 1</a>
+                        <a target="_blank" [href]="fileStorageUrl + recurs.recurs_url_fitxer" download>{{recurs.recurs_nom}}</a>
                     </div>
                 </div>
 

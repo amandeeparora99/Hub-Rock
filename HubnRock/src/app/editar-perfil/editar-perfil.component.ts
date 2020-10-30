@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -14,9 +15,13 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   editUserForm: FormGroup;
+  currentUser: User;
 
   public idUsuari;
   public usuariObject;
+
+  inputValue;
+  tags = [];
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -115,6 +120,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   ngOnInit(): void {
 
+
+
     this.idUsuari = this.aRouter.snapshot.params.id;
 
     if (this.idUsuari) {
@@ -138,6 +145,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       experiencia: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       educacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       pdfFile: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+      inputTags: ['',],
+      inputLinkedIn: ['',],
+      inputTwitter: ['',],
+      inputInstagram: ['',],
+      inputFacebook: ['',],
 
       //ELS CAMPS QUE NO HI HA AQUI I QUE PERTANYIN A UN 'USUARI' ELS HEM DE PODER PASSAR COM A NULL
     })
@@ -164,7 +176,13 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             bio: this.usuariObject.bio,
             experiencia: this.usuariObject.experiencia,
             educacio: this.usuariObject.educacio,
+            inputLinkedIn: this.usuariObject.xarxes_linkedin,
+            inputTwitter: this.usuariObject.xarxes_twitter,
+            inputInstagram: this.usuariObject.xarxes_instagram,
+            inputFacebook: this.usuariObject.xarxes_facebook,
           })
+
+          
 
           console.log(this.usuariObject)
 
@@ -206,6 +224,36 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     if (this.editUserForm.dirty) {
       $event.returnValue = true;
     }
+  }
+
+  onSearchChange(searchValue: string): void {
+    if (searchValue.slice(-1) == ',') {
+      this.addTag(searchValue.slice(0, -1))
+      console.log(searchValue.slice(0, -1) + ": added to string")
+      this.inputValue = ''
+    }
+  }
+
+  addTag(string) {
+    this.tags.push(string);
+  }
+
+  getTags() {
+    console.log(this.tags)
+  }
+
+  addTagSubmit(string) {
+    this.tags.push(string);
+    this.inputValue = ''
+  }
+
+  deleteTag(tagName) {
+    for (var i = 0; i < this.tags.length; i++) {
+      if (this.tags[i] === tagName) {
+        this.tags.splice(i, 1);
+      }
+    }
+    console.log(this.tags)
   }
 
   ngOnDestroy() {

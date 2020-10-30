@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -10,11 +12,19 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   templateUrl: './creacio-repte.component.html',
   styleUrls: ['./creacio-repte.component.css']
 })
-export class CreacioRepteComponent implements OnInit {
+export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+  constructor(private router: Router, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+
+  hasUnsavedData(): boolean {
+    if (this.formDone) {
+      return false;
+    } else {
+      return this.repteForm.dirty;
+    }
+  }
 
   repteForm: FormGroup;
   usuariForm: FormGroup;
@@ -25,6 +35,11 @@ export class CreacioRepteComponent implements OnInit {
 
   objectFotosPreview: any = {};
   objectFotos: any = {};
+
+  idRepte;
+  success = false;
+
+  formDone = false;
 
   fotoPortada = null;
   pdfArray;
@@ -202,7 +217,6 @@ export class CreacioRepteComponent implements OnInit {
         estudiantsCheckbox: [false],
         expertsCheckbox: [false]
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
-      //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
       limitParticipants: ['', Validators.pattern('[0-9]+')],
       datesGroup: this.fb.group({
         dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
@@ -224,7 +238,7 @@ export class CreacioRepteComponent implements OnInit {
         this.addPreguntaFormGroup(),
       ]),
 
-      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
+      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
     });
 
     this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
@@ -387,16 +401,36 @@ export class CreacioRepteComponent implements OnInit {
 
   changeRadioToS(value) {
     this.radioToSValue = value;
+
+    if (this.radioToSValue == 'hubandrock') {
+
+      this.repteForm.get('customTOS').setValidators([Validators.maxLength(5000), Validators.minLength(3)])
+      this.repteForm.get('customTOS').updateValueAndValidity()
+
+    } else if (this.radioToSValue == 'custom') {
+
+      this.repteForm.get('customTOS').setValidators([Validators.required, Validators.maxLength(5000), Validators.minLength(3)])
+      this.repteForm.get('customTOS').updateValueAndValidity()
+
+    }
   }
 
   onPdfSelected(event) {
     if (event.target.files) {
-      console.log(event.target, event.target.files)
-      this.pdfArray = event.target.files
-      // console.log(this.solucioForm.get('pdf').value)
-      // Array.from(this.pdfArray).forEach(file => {
-      //   console.log(file)
-      // });
+      let totalSize = 0;
+
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
+        totalSize += element.size
+      }
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+
+      } else {
+        this.pdfArray = null;
+        confirm('Supera el límit de 15MB')
+      }
 
     }
   }
@@ -556,7 +590,7 @@ export class CreacioRepteComponent implements OnInit {
     return this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioSolucio: ['', [Validators.required, Validators.maxLength(900), Validators.minLength(3)]],
-      fotoSolucio: ['', [Validators.required]]
+      fotoSolucio: ['']
     })
   }
 
@@ -623,6 +657,14 @@ export class CreacioRepteComponent implements OnInit {
     (<FormArray>this.repteForm.get('preguntaArray')).removeAt(partnerGroupIndex)
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  public onPageUnload($event: BeforeUnloadEvent) {
+
+    if (this.repteForm.dirty && !this.formDone) {
+      $event.returnValue = true;
+    }
+  }
+
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()
 
@@ -665,7 +707,7 @@ export class CreacioRepteComponent implements OnInit {
 
       } else {
 
-        formData.append('limit_participants', ' ')
+        formData.append('limit_participants', '')
 
       }
 
@@ -815,6 +857,7 @@ export class CreacioRepteComponent implements OnInit {
       }
 
     } else {
+      this.formDone = true;
 
       if (this.formErrors.campsErronis) {
         this.formErrors.campsErronis = '';
@@ -830,10 +873,11 @@ export class CreacioRepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
+            if (data.code == 1) {
+              this.success = true;
+              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              this.router.navigate([`/perfil/${currentUserId}`])
+            }
           });
     }
 
@@ -858,6 +902,8 @@ export class CreacioRepteComponent implements OnInit {
       this.logValidationErrorsUntouched()
 
     } else {
+      this.formDone = true;
+
       if (this.formErrors.campsErronis) {
         this.formErrors.campsErronis = '';
       }
@@ -872,10 +918,11 @@ export class CreacioRepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
-          },
-          error => {
-            console.log("Fail")
+            if (data.code == 1) {
+              this.success = true;
+              this.idRepte = data.lastId;
+            }
+
           });
     }
   }

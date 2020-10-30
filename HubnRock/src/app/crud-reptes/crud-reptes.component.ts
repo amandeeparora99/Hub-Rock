@@ -187,56 +187,20 @@ export class CrudReptesComponent implements OnInit {
         });
   }
 
+  repteTancatOrProces(dateInici, dateFinal): Boolean {
+    // comprovar que el repte està en procès
+    let dateIniciRepte = new Date(dateInici);
+    let dateFinalRepte = new Date(dateFinal);
+    let currentDate = new Date();
 
+    if ((dateIniciRepte < currentDate && dateFinalRepte > currentDate) ||
+      (dateIniciRepte < currentDate && dateFinalRepte < currentDate)) {
 
-  //AIXO JA NO HO NECESITEM I THINK
-  // getReptesReptesPage(pagina, elements) {
-  //   this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(pagina, elements)
-  //     .pipe(first())
-  //     .subscribe(
-  //       data => {
-  //         console.log(data.rows);
-  //         if (data.code == "1") {
-  //           this.allReptes = data.rows;
-  //           this.sortReptes();
-  //         }
-  //       },
-  //       error => {
-  //         //this.error = error;
-  //         //this.loading = false;
-  //       });
-  // }
-
-
-  //AIXO TAMPOC HO NECESSITEM
-  // sortReptes(){
-  //   console.log("hola")
-  //   this.allReptes.forEach(repte => {
-  //     var currentDate = new Date();
-  //     var givenDate = new Date(repte.data_inici);
-  //     var givenFinalDate = new Date(repte.data_final);
-
-  //     if(givenDate > currentDate){
-  //       this.reptesOberts.push(repte);
-  //     }
-  //     else if(givenDate <= currentDate && givenFinalDate > currentDate){
-  //       this.reptesProces.push(repte);
-  //     }
-  //     else{
-  //       this.reptesTancats.push(repte);
-  //     }
-  //   })
-
-  //   this.reptesOberts.forEach(element => {
-  //     console.log("Obert, comença dia: " + element.data_inici);
-  //   });
-  //   this.reptesProces.forEach(element => {
-  //     console.log("Proces, comença dia: " + element.data_inici);
-  //   });
-  //   this.reptesTancats.forEach(element => {
-  //     console.log("Tancat, comença dia: " + element.data_inici);
-  //   });
-  // }
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   diesRestants(data_inici) {
     let date = new Date(data_inici);

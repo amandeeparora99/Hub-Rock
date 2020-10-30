@@ -28,6 +28,11 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
   success = false;
   maxMembres = 10;
 
+  repte;
+  individual_equip;
+  limit_participants;
+
+
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
 
@@ -105,6 +110,7 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
     }
 
 
+
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuSolucio: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],  //max 280 chars en aquest
@@ -132,7 +138,23 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
     this.httpClient.getSolucio(idSolucio).pipe(first())
       .subscribe(data => {
         if (data.code == '1') {
+
           this.solucioObject = data.row;
+
+          this.httpClient.getRepte(this.solucioObject.solucio_proposada_repte_idrepte)
+            .pipe(first())
+            .subscribe(
+              data => {
+                if (data.code == '1') {
+
+                  this.repte = data.row;
+                  this.individual_equip = this.repte.individual_equip;
+                  if (this.repte.limit_participants != '') {
+                    this.limit_participants = this.repte.limit_participants;
+                  }
+
+                }
+              });
 
           this.solucioForm.patchValue({
             nomSolucio: this.solucioObject.solucio_proposada_nom,
