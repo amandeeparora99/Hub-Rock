@@ -16,10 +16,16 @@ export class RepteComponent implements OnInit {
 
   public idRepte = null;
   public repte = null;
+
   public forum = null;
+  public forumRespostes = null;
+
   public repteExists = true;
   videoUrl;
   public currentUser: User;
+
+  public textAreaOn: Boolean = false;
+  public forumButtonText = '+ Fes una publicació';
 
   public solucionsProposades = [];
 
@@ -30,6 +36,7 @@ export class RepteComponent implements OnInit {
 
   subscriptionHttp$: Subscription
   subscriptionHttp2$: Subscription
+  subscriptionHttp3$: Subscription
 
   ngOnInit(): void {
 
@@ -281,6 +288,37 @@ export class RepteComponent implements OnInit {
       return "https://www.youtube.com/embed/" + split[1]
     }
 
+  }
+
+  switchTextArea(){
+    if(!this.textAreaOn) {
+      this.textAreaOn = true;
+      this.forumButtonText = '+ Publica'
+    }
+    else {
+      console.log("ENVIANT FORUM")
+    }
+    
+  }
+
+  carregarRespostes(idMissatgePare) {
+
+    this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+            this.forumRespostes = data.rows;
+            console.log("RESPOSTES:", this.forumRespostes)
+          } else {
+            console.log("Forum ERROR")
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+    
   }
 
 

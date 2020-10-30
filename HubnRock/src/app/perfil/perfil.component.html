@@ -30,11 +30,15 @@
                             <div class="row no-gutters">
                                 <div class="col">
                                     <!-- <p class="mt-4 perfil-info">{{usuariObject.ocupacio}} <br> <img *ngIf="usuariObject.ubicacio" class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">{{usuariObject.ubicacio}}</span></p> -->
-                                    <img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Twitter.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Instagram.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Facebook.png" alt="">
-                                    <img src="../../assets/testicons/Correu.png" alt="">
+                                    <p class="mt-4 perfil-info">
+                                        <img class="mr-1" src="../../assets/testicons/place-localizer.png" alt="">
+                                        <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
+                                        <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
+                                    </p>
+                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
+                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
+                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
+                                    <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
                                 </div>
                             </div>
                         </div>
@@ -76,13 +80,14 @@
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Els nostres serveis</h5>
-                            <p class="p-border mr-4">tecnologia</p>
-                            <p class="p-border mr-4">disseny</p>
+                            <p class="card-text" *ngIf="!usuariObject.serveis.length">Serveis sense definir</p>
+                            <p *ngFor="let servei of usuariObject.serveis" class="p-border mr-4">{{servei.servei_nom}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Presentació empresa</h5>
-                            <img class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a href="#" class="link-perfil-empresa">CV AI Factory</a>
+                            <p class="card-text" *ngIf="!usuariObject.cv_path">Aquesta empresa no ha compartit la seva presentació</p>
+                            <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <a *ngIf="usuariObject.cv_path" href="#" class="link-perfil-empresa">Presentació empresa {{usuariObject.nom_empresa}}</a>
                         </div>
                     </div>
                 </div>
@@ -97,24 +102,38 @@
 
                         <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
                             <div class="row w-100">
-                                <div *ngFor="let repteEsborrany of userReptesEsborrany" class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="card repte-esborrany">
-                                        <img class="card-img-top" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
+                                
+                                <div *ngFor="let repteEsborrany of userReptesEsborrany; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="card"> <!--routerLink="/repte/{{repte.idrepte}}"-->
+                                        <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
-                                                <img class="rounded-circle" width="25px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25"> &nbsp;AI Factory
+                                                <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
+                                                <p class="m-0 username" routerLink="/homepage">{{repteEsborrany.user.nom_empresa}}</p>
                                             </div>
                                             <h5 class="card-title titol-repte">{{repteEsborrany.nom}}</h5>
-                                            <p class="card-text desc-repte">Programació utilitzant la intel·ligència artificial. Ideal per aprenents i fins i tot per usuaris avançats.</p>
-                                            <div class="card-title d-flex">
-                                                <img width="25px" src="../../assets/illustrations/Win2.png" alt="25x25"> &nbsp;10.000€ / 5.000€ / 3.500€
+                                            <p *ngIf="!repteEsborrany.descripcio_short" class="card-text desc-repte">Sense descripció breu</p>
+                                            <p *ngIf="repteEsborrany.descripcio_short" class="card-text desc-repte">{{repteEsborrany.descripcio_short}}</p>
+                                            <div class="card-title d-flex align-items-center">
+                                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                                <div class="d-flex align-items-center">
+                                                    <p *ngIf="!repteEsborrany.premis.length" class="m-0">Premis sense definir</p>
+                                                    <div *ngFor="let premi of repteEsborrany.premis; let i = index">
+                                                        <p class="m-0" *ngIf="i+1 != repteEsborrany.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                                        <p class="m-0" *ngIf="i+1 == repteEsborrany.premis.length">{{premi.premi_dotacio}}€</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="card-title d-flex">
-                                                <img width="25px" src="../../assets/illustrations/Time.png" alt="25x25"> &nbsp;A definir
+                                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
+                                                <p *ngIf="!repteEsborrany.data_inici || !repteEsborrany.data_final" class="m-0">Dates sense definir</p>
+                                                <p class="m-0">{{diesRestants(repteEsborrany.data_inici, repteEsborrany.data_final)}}</p>
                                             </div>
                                             <div class="tags">
-                                                <button type="button" class="tag btn btn-warning">Estudiants</button>
-                                                <button type="button" class="tag btn btn-success">Públic general</button>
+                                                <button type="button" class="tag btn tag-red">Startups</button>
+                                                <button type="button" class="tag btn tag-blue">Empreses</button>
+                                                <button type="button" class="tag btn tag-orange">Estudiants</button>
+                                                <button type="button" class="tag btn tag-purple">Públic general</button>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +191,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="!reptesNoMore" class="text-center">
+
+                            <div *ngIf="!reptesNoMore" class="w-100 d-flex justify-content-center">
                                 <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreReptes()">VEURE MÉS</button>
                             </div>
                         </div>
@@ -188,9 +208,9 @@
                 <!-- TABS SOLUCIONS -->
                 <div id="empresa-solucions" class="tab-pane fade">
                     <div *ngIf="isOwnUser">
-                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1">No hi ha creat cap esborrany</div>
                         <h1 class="reptestitle">Esborranys</h1>
-                        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1" style="margin-bottom: 90px;">No hi ha creat cap esborrany</div>
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length >= 1" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
                                     <div class="card solucio-esborrany p-2">
@@ -220,7 +240,7 @@
 
 
                     <h1 class="reptestitle">Solucions enviades</h1>
-                    <div *ngIf="userSolucions && userSolucions.length < 1">No hi ha creada cap solució</div>
+                    <div *ngIf="userSolucions && userSolucions.length < 1" style="margin-bottom: 90px;">No hi ha creada cap solució</div>
                     <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
@@ -275,12 +295,18 @@
                             </div>
                             <div class="row no-gutters">
                                 <div class="col">
-                                    <p class="mt-4 perfil-info">{{usuariObject.ocupacio}} <br> <img *ngIf="usuariObject.ubicacio" class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">{{usuariObject.ubicacio}}</span> </p>
-                                    <img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Twitter.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Instagram.png" alt="">
-                                    <img class="mr-2" src="../../assets/testicons/Facebook.png" alt="">
-                                    <img src="../../assets/testicons/Correu.png" alt="">
+                                    <p class="mt-4 perfil-info">
+                                        <span *ngIf="usuariObject.ocupacio">{{usuariObject.ocupacio}}<br></span>
+                                        <img class="mr-1" src="../../assets/testicons/place-localizer.png" alt="Ubicacio usuari">
+
+                                        <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
+                                        <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
+                                    </p>
+                                    
+                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
+                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
+                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
+                                    <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
                                 </div>
                             </div>
                         </div>
@@ -319,21 +345,24 @@
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>
-                            <p class="p-border mr-4">tecnologia</p>
-                            <p class="p-border mr-4">programació</p>
+                            <p class="card-text" *ngIf="!usuariObject.habilitats.length">Habilitats sense definir</p>
+                            <p *ngFor="let habilitat of usuariObject.habilitats" class="p-border mr-4">{{habilitat.servei_nom}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Experiència</h5>
+                            <p class="card-text" *ngIf="!usuariObject.experiencia">Experiència sense definir</p>
                             <p class="card-text">{{usuariObject.experiencia}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Educació</h5>
+                            <p class="card-text" *ngIf="!usuariObject.educacio">Educació sense definir</p>
                             <p class="card-text">{{usuariObject.educacio}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">CV</h5>
-                            <img class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a href="#" class="link-perfil-usuari">CV Laia Pedragosa</a>
+                            <p class="card-text" *ngIf="!usuariObject.cv_path">Aquest usuari no ha compartit el CV</p>
+                            <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <a *ngIf="usuariObject.cv_path" href="#" class="link-perfil-usuari">Presentació empresa {{usuariObject.nom_responsable}}</a>
                         </div>
                     </div>
                 </div>

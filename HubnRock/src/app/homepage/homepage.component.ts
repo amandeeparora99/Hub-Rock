@@ -24,6 +24,7 @@ export class HomepageComponent implements OnInit {
   tags = [];
   subscriptionHttp$: Subscription;
   subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder) { }
 
@@ -34,7 +35,10 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
         if (this.currentUser) {
           this.userIsRockstar = this.currentUser.userType;
-
+          if(this.currentUser.firstLogin) {
+            this.openModal();
+            this.changeUserFirstLogin();
+          }
         }
       }
     );
@@ -46,6 +50,7 @@ export class HomepageComponent implements OnInit {
       inputTags: ['',],
       inputExperiencia: ['',],
       inputEducacio: ['',],
+      inputOcupacio: ['',],
       inputCV: ['',],
       inputLinkedIn: ['',],
       inputTwitter: ['',],
@@ -55,6 +60,10 @@ export class HomepageComponent implements OnInit {
 
     this.getAllReptesHomepage();
 
+  }
+
+  openModal() {
+    document.getElementById("openModalButton").click();
   }
 
   getAllReptesHomepage() {
@@ -71,6 +80,21 @@ export class HomepageComponent implements OnInit {
         error => {
           //this.error = error;
           //this.loading = false;
+        });
+  }
+
+  changeUserFirstLogin() {
+    const formData = new FormData();
+    formData.append('first_login', '0');
+    this.subscriptionHttp2$ = this.httpCommunication.changeFirstLogin(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+          console.log(data);
+        },
+        error => {
+          console.log("Fail")
         });
   }
 
@@ -92,7 +116,6 @@ export class HomepageComponent implements OnInit {
   }
 
   confirmQuit() {
-    console.log("confirmQuit() -- open")
     let omplert: Boolean = false;
     
     for (const field in this.userForm.controls) {
@@ -105,8 +128,6 @@ export class HomepageComponent implements OnInit {
     if (omplert) {
       confirm("Tens camps omplerts, segur que vols sortir?")
     }
-
-    console.log("confirmQuit() -- close")
   }
 
   appendUserInfo(): FormData {
@@ -117,22 +138,13 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
       }
-      else {
-        formData.append('url_photo_profile', '');
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
       }
-      else {
-        formData.append('bio', '');
-      }
 
       if (this.userForm.get('inputUbicacio').value) {
         formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
-      }
-      else {
-        formData.append('ubicacio', '');
       }
 
       if (this.tags.length) {
@@ -140,43 +152,25 @@ export class HomepageComponent implements OnInit {
           formData.append(`servei_nom[${i}]`, this.tags[i]);
         }
       }
-      else {
-        formData.append('serveis', '');
-      }
 
       if (this.userForm.get('inputCV').value) {
         formData.append('cv_path', this.userForm.get('inputCV').value);
-      }
-      else {
-        formData.append('cv_path', '');
       }
 
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
-      else {
-        formData.append('xarxes_linkedin', '');
-      }
 
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
-      }
-      else {
-        formData.append('xarxes_twitter', '');
       }
 
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
-      else {
-        formData.append('xarxes_instagram', '');
-      }
 
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
-      }
-      else {
-        formData.append('xarxes_facebook', '');
       }
 
       return formData;
@@ -187,22 +181,13 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
       }
-      else {
-        formData.append('url_photo_profile', '');
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
       }
-      else {
-        formData.append('bio', '');
-      }
 
       if (this.userForm.get('inputUbicacio').value) {
         formData.append('ubicacio', this.userForm.get('inputUbicacio').value);
-      }
-      else {
-        formData.append('ubicacio', '');
       }
 
       if (this.tags.length) {
@@ -210,57 +195,37 @@ export class HomepageComponent implements OnInit {
           formData.append(`habilitat_nom[${i}]`, this.tags[i]);
         }
       }
-      else {
-        formData.append('habilitats', '');
-      }
 
       if (this.userForm.get('inputExperiencia').value) {
         formData.append('experiencia', this.userForm.get('inputExperiencia').value);
-      }
-      else {
-        formData.append('experiencia', '');
       }
 
       if (this.userForm.get('inputEducacio').value) {
         formData.append('educacio', this.userForm.get('inputEducacio').value);
       }
-      else {
-        formData.append('educacio', '');
+
+      if (this.userForm.get('inputOcupacio').value) {
+        formData.append('ocupacio', this.userForm.get('inputOcupacio').value);
       }
 
       if (this.userForm.get('inputCV').value) {
         formData.append('cv_path', this.userForm.get('inputCV').value);
       }
-      else {
-        formData.append('cv_path', '');
-      }
 
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
-      }
-      else {
-        formData.append('xarxes_linkedin', '');
       }
 
       if (this.userForm.get('inputTwitter').value) {
         formData.append('xarxes_twitter', this.userForm.get('inputTwitter').value);
       }
-      else {
-        formData.append('xarxes_twitter', '');
-      }
 
       if (this.userForm.get('inputInstagram').value) {
         formData.append('xarxes_instagram', this.userForm.get('inputInstagram').value);
       }
-      else {
-        formData.append('xarxes_instagram', '');
-      }
 
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
-      }
-      else {
-        formData.append('xarxes_facebook', '');
       }
 
       return formData;
