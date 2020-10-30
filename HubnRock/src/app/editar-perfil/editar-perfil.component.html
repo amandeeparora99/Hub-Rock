@@ -44,6 +44,7 @@
                         {{formErrors.nomResponsable}}
                     </span>
                 </div>
+
                 <!-- <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomCorreu}">
                     <label for="InputMail">Correu electrònic</label>
                     <input formControlName="nomCorreu" type="email" class="form-control" id="InputMail" aria-describedby="emailHelp" (blur)="logValidationErrors()">
@@ -94,11 +95,24 @@
                 </div>
 
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.bio}">
-                    <label for="InputBio">Bio</label>
+                    <label for="InputBio">Sobre tu:</label>
                     <input formControlName="bio" type="text" class="form-control" id="InputBio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.bio">
                         {{formErrors.bio}}
                     </span>
+                </div>
+
+                <label for="inputTags" class="col-form-label">Habilitats:</label>
+
+                <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..." (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
+
+                <div class="form-group d-flex mt-2">
+                    <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
+                        <p class="m-0 pl-2">{{tag}}</p>
+                        <div class="input-group-append">
+                            <button (click)="deleteTag(tag)" class="btn" type="button">X</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.experiencia}">
@@ -117,8 +131,29 @@
                     </span>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputLinkedin">LinkedIn</label>
+                        <input formControlName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputTwitter">Twitter</label>
+                        <input formControlName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputInstagram">Instagram</label>
+                        <input formControlName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputFacebook">Facebook</label>
+                        <input formControlName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
+                    </div>
+                </div>
+
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.pdfFile}">
-                    <label for="InputPdfFile">Fitxer</label><br>
+                    <label for="InputPdfFile">Afegir CV</label><br>
                     <input formControlName="pdfFile" type="file" id="InputPdfFile" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.pdfFile">
                         {{formErrors.pdfFile}}

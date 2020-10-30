@@ -23,9 +23,9 @@
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
-                <!--EN MOVIL NO HA DESTAR AL FINAL-->
                 <button class="btn hubrock-btn" type="button" *ngIf="canParticipate()">PARTICIPA AL REPTE</button>
-                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit()">EDITA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()">EDITA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && isEsborrany()">CONTINUA L'ESBORRANY</button>
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA EL REPTE</button>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">

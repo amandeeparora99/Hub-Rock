@@ -27,6 +27,7 @@ import { HttperrorinterceptorInterceptor } from './httperrorinterceptor.intercep
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { DatePipe } from '@angular/common';
+import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/editar-solucio-esborrany.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { DatePipe } from '@angular/common';
     SolucioComponent,
     EditarRepteComponent,
     SpinnerComponent,
+    EditarSolucioEsborranyComponent,
   ],
   imports: [
     BrowserModule,

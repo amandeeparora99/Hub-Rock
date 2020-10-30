@@ -116,6 +116,14 @@ export class SolucioComponent implements OnInit {
 
   }
 
+  isEsborrany() {
+    if (this.solucio && this.solucio.estat_idestat == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   repteEnProces(): Boolean {
     let dateIniciRepte = new Date(this.repte.data_inici);
     let dateFinalRepte = new Date(this.repte.data_final);

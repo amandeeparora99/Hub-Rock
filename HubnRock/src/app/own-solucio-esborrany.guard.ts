@@ -7,20 +7,20 @@ import { HttpCommunicationService } from './reusable/httpCommunicationService/ht
 @Injectable({
   providedIn: 'root'
 })
-export class OwnRepteEsborranyGuard implements CanActivate {
+export class OwnSolucioEsborranyGuard implements CanActivate {
 
   constructor(private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    let idRepte;
+    let idSolucio;
     let idCurrentUser;
 
-    idRepte = route.paramMap.get('id');
+    idSolucio = route.paramMap.get('id');
     idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
 
-    return this._httpService.getRepte(idRepte).pipe(
+    return this._httpService.getSolucio(idSolucio).pipe(
       map(data => {
         if (data.code == '1') {
 

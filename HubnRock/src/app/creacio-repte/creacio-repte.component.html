@@ -660,13 +660,18 @@
                         <label class="custom-control-label" for="customRadioDefaultBases">Utilitzar les bases legals genèriques de Hub
                             & Rock</label>
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadioCustomBases" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioCustomBases">Escriure bases legals
+                    <div class="form-group" [ngClass]="{'is-invalid' : formErrors.customTOS}">
+                        <div class="custom-control custom-radio">
+                            <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadioCustomBases" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioCustomBases">Escriure bases legals
                             personalitzades</label>
+                        </div>
+                        <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text" class="form-control mt-3 inputToS" id="InputResposta"></textarea>
+                        <span class="help-block" *ngIf="formErrors.customTOS">
+                        {{formErrors.customTOS}}
+                    </span>
                     </div>
-                    <textarea *ngIf="radioToSValue=='custom'" formControlName="customTOS" type="text" class="form-control mt-3 inputToS" id="InputResposta"></textarea>
-                    <span class="help-block"></span>
+
                 </div>
             </div>
         </div>
@@ -677,7 +682,7 @@
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Enhorabona</h1>
         <div class="paragraph-container">
-            <p class="text-center">El repte s'ha enviat correctamnet.</p>
+            <p class="text-center">El repte s'ha enviat correctament.</p>
             <p class="text-center">Un administrador revisarà el repte i decidirà si és apte per publicar.</p>
         </div>
         <div class="text-center">
