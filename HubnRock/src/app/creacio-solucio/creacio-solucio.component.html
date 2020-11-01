@@ -4,7 +4,7 @@
     <div class="text-center dot-spacing">
         <span class="dot"></span>
     </div>
-    <p id="reptetitle" class="text-center">Repte"Packáging ecològic"</p>
+    <p id="reptetitle" class="text-center" *ngIf="repte">Repte "{{repte.nom}}"</p>
     <div style="max-width:500px" class="container text-center steps-mt">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-12">
@@ -46,7 +46,7 @@
             <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="container" style="max-width: 731px; margin-bottom:100px;">
-            <div class="tab" *ngIf="currentTab == 0">
+            <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="title-form">Informació general</h1>
                 <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomSolucio}">
                     <label for="InputNom">Nom solució</label>
@@ -115,8 +115,17 @@
                 </div>
 
             </div>
-            <div class="tab equip" *ngIf="currentTab==1">
+            <div class="tab equip" [hidden]="currentTab != 1">
                 <h1 class="title-form">Informació sobre l'equip</h1>
+
+                <div class="row has-errors" *ngIf="formErrors.repteIndividualOEquip">
+                    <div class="col">
+                        <span class="help-block">
+                           {{formErrors.repteIndividualOEquip}}
+                        </span>
+                    </div>
+                </div>
+
                 <p class="bold-label mb-1">Individual o en equip?</p>
                 <hr class="mb-4">
                 <div class="custom-control custom-radio">

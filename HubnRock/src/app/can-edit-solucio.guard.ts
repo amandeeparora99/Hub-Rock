@@ -29,11 +29,17 @@ export class CanEditSolucioGuard implements CanActivate {
             let currentDate = new Date();
 
             if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
+              console.log('retorno true')
               return true;
             } else {
               this.router.navigate(['/homepage'])
+              console.log('retorno false')
+
               return false;
             }
+          } else{
+            console.log('no tinc dates')
+
           }
 
 

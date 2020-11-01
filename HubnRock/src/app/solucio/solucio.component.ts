@@ -74,15 +74,15 @@ export class SolucioComponent implements OnInit {
 
   canEdit(): Boolean {
     if (this.currentUser && this.repte) {
-      if (this.solucio.estat_idestat != 3) {
-        if (this.currentUser.idUser && this.currentUser.idUser == this.solucio.user_iduser) {
+      if (this.solucio.solucio_estat_idestat != 3) {
+        if (this.currentUser.idUser && this.currentUser.idUser == this.solucio.solucio_user_iduser) {
           return true;
         } else {
           return false;
         }
       } else {
         if (this.currentUser.idUser &&
-          this.currentUser.idUser == this.solucio.user_iduser &&
+          this.currentUser.idUser == this.solucio.solucio_user_iduser &&
           this.repteEnProces()) {
 
           return true;
@@ -97,15 +97,15 @@ export class SolucioComponent implements OnInit {
 
   canDelete(): Boolean {
     if (this.currentUser && this.repte) {
-      if (this.solucio.estat_idestat != 3) {
-        if (this.currentUser.idUser && this.currentUser.idUser == this.solucio.user_iduser) {
+      if (this.solucio.solucio_estat_idestat != 3) {
+        if (this.currentUser.idUser && this.currentUser.idUser == this.solucio.solucio_user_iduser) {
           return true;
         } else {
           return false;
         }
       } else {
         if (this.currentUser.idUser &&
-          this.currentUser.idUser == this.solucio.user_iduser &&
+          this.currentUser.idUser == this.solucio.solucio_user_iduser &&
           this.repteEnProces()) {
 
           return true;
@@ -117,7 +117,7 @@ export class SolucioComponent implements OnInit {
   }
 
   isEsborrany() {
-    if (this.solucio && this.solucio.estat_idestat == 1) {
+    if (this.solucio && this.solucio.solucio_estat_idestat == 1) {
       return true;
     } else {
       return false;

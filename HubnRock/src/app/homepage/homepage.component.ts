@@ -35,10 +35,10 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
         if (this.currentUser) {
           this.userIsRockstar = this.currentUser.userType;
-          if(this.currentUser.firstLogin) {
-            this.openModal();
-            this.changeUserFirstLogin();
-          }
+          // if(this.currentUser.firstLogin) {
+          this.openModal();
+          this.changeUserFirstLogin();
+          // }
         }
       }
     );
@@ -117,10 +117,10 @@ export class HomepageComponent implements OnInit {
 
   confirmQuit() {
     let omplert: Boolean = false;
-    
+
     for (const field in this.userForm.controls) {
       const control = this.userForm.get(field).value;
-      if(control) {
+      if (control) {
         omplert = true;
       }
     }

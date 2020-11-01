@@ -16,6 +16,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   editUserForm: FormGroup;
   currentUser: User;
+  userIsRockstar: Boolean;
 
   public idUsuari;
   public usuariObject;
@@ -120,24 +121,16 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   ngOnInit(): void {
 
-
-
-    this.idUsuari = this.aRouter.snapshot.params.id;
-
-    if (this.idUsuari) {
-      this.getUserFromComponent(this.idUsuari)
-    }
-
     this.editUserForm = this.fb.group({
       nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-      nomRockstar: [''],
+      nomRockstar: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       // nomCorreu: ['', [Validators.required, Validators.email]],
       // contrasenyaGroup: this.fb.group({
       // nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
       // nomRepeteixContrasenya: ['', [Validators.required]]
       // }, { validator: passwordsMatch }),
-      nifEmpresa: ['', Validators.required], //format de nif empresa
+      nifEmpresa: ['', [Validators.required, Validators.minLength(3)]], //format de nif empresa
       fotoPerfil: [''],
       ocupacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       ubicacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
@@ -154,6 +147,34 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       //ELS CAMPS QUE NO HI HA AQUI I QUE PERTANYIN A UN 'USUARI' ELS HEM DE PODER PASSAR COM A NULL
     })
 
+    this.httpCommunication.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+        if (this.currentUser) {
+          this.userIsRockstar = this.currentUser.userType;
+          if (this.userIsRockstar) {
+            this.editUserForm.get('nomEmpresa').clearValidators()
+            this.editUserForm.get('nomEmpresa').updateValueAndValidity()
+
+            this.editUserForm.get('nomResponsable').clearValidators()
+            this.editUserForm.get('nomResponsable').updateValueAndValidity()
+
+            this.editUserForm.get('nifEmpresa').clearValidators()
+            this.editUserForm.get('nifEmpresa').updateValueAndValidity()
+          } else {
+            this.editUserForm.get('nomRockstar').clearValidators()
+            this.editUserForm.get('nomRockstar').updateValueAndValidity()
+          }
+        }
+      }
+    );
+
+    this.idUsuari = this.aRouter.snapshot.params.id;
+
+    if (this.idUsuari) {
+      this.getUserFromComponent(this.idUsuari)
+    }
+
     this.subscriptionForm$ = this.editUserForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.editUserForm)
     });
@@ -166,11 +187,21 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
           this.usuariObject = data.row;
 
+          if (this.userIsRockstar) {
+            this.usuariObject.habilitats.forEach(habilitat => {
+              this.tags.push(habilitat.habilitat_nom)
+            });
+          } else {
+            this.usuariObject.serveis.forEach(servei => {
+              this.tags.push(servei.servei_nom)
+            });
+          }
+
           this.editUserForm.patchValue({
             nomEmpresa: this.usuariObject.nom_empresa,
             nomRockstar: this.usuariObject.nom_rockstar,
             nomResponsable: this.usuariObject.nom_responsable,
-            nifEmpresa: this.usuariObject.nif__empresa,
+            nifEmpresa: this.usuariObject.nif_empresa,
             ocupacio: this.usuariObject.ocupacio,
             ubicacio: this.usuariObject.ubicacio,
             bio: this.usuariObject.bio,
@@ -182,12 +213,40 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             inputFacebook: this.usuariObject.xarxes_facebook,
           })
 
-          
+
 
           console.log(this.usuariObject)
 
         }
       });
+  }
+
+  logValidationErrorsUntouched(group: FormGroup = this.editUserForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid) {
+        const messages = this.validationMessages[key];
+
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+      // if (abstractControl instanceof FormArray) {
+      //   for (const control of abstractControl.controls) {
+      //     if (control instanceof FormGroup) {
+      //       this.logValidationErrors(control);
+      //     }
+      //   }
+      // }
+    })
   }
 
   logValidationErrors(group: FormGroup = this.editUserForm): void {
@@ -215,7 +274,30 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   }
 
   onSubmit() {
-    console.log("submited")
+    console.log(this.editUserForm.errors)
+    console.log(this.editUserForm.valid)
+    if (this.editUserForm.invalid) {
+      this.logValidationErrorsUntouched()
+    } else {
+      let formData = this.appendUserInfo();
+    }
+  }
+
+  appendUserInfo(): FormData {
+    const formData = new FormData();
+
+    if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
+      formData.append('empresa_rockstar', '0');
+      if (this.editUserForm.get('InputfotoPerfilLogin').value) {
+        formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
+      }
+    } else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
+      formData.append('empresa_rockstar', '1');
+      if (this.editUserForm.get('InputfotoPerfilLogin').value) {
+        formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
+      }
+    }
+    return formData;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -255,6 +337,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     }
     console.log(this.tags)
   }
+
 
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()

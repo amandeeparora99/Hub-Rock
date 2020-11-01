@@ -16,6 +16,8 @@ export class PerfilComponent implements OnInit {
   public usuariObject;
   public isOwnUser = false;
 
+  currentDate = new Date();
+
   solucionsNoMore = false;
   solucionsEsborranyNoMore = false;
 
@@ -175,6 +177,12 @@ export class PerfilComponent implements OnInit {
   //   }
   // }
 
+  canParticipate(dateInici, dateFinal): boolean {
+    let dateIniciFormated = new Date(dateInici)
+    let dateFinalFormated = new Date(dateFinal)
+    return dateIniciFormated < this.currentDate && dateFinalFormated > this.currentDate;
+  }
+
   loadSolucionsEsborrany(pagina, elements) {
     if (this.isOwnUser) {
 
@@ -330,6 +338,10 @@ export class PerfilComponent implements OnInit {
   routeEditProfile() {
     console.log("redireccionant")
     this.router.navigate(['/perfil/' + this.usuariObject.user_iduser + '/editar-perfil']);
+  }
+
+  eliminarSolucio(idSolucio){
+    
   }
 
   ngOnDestroy() {

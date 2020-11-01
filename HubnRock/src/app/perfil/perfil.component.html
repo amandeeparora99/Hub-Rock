@@ -102,9 +102,10 @@
 
                         <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
                             <div class="row w-100">
-                                
+
                                 <div *ngFor="let repteEsborrany of userReptesEsborrany; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="card"> <!--routerLink="/repte/{{repte.idrepte}}"-->
+                                    <div class="card" [routerLink]="['/repte/', repteEsborrany.idrepte, 'editar-esborrany']">
+                                        <!--routerLink="/repte/{{repte.idrepte}}"-->
                                         <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
@@ -213,29 +214,24 @@
                         <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length >= 1" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
-                                    <div class="card solucio-esborrany p-2">
+                                    <div class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{solucioEsborrany.solucio_proposada_nom}}</h5>
-                                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte del medi ambient UdG</a></h6>
+                                            <h5 class="card-title text-overflow">{{solucioEsborrany.solucio_proposada_nom}}</h5>
+                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
 
                                         </div>
-                                        <div class="card-footer bg-transparent">
-                                            <div class="row">
-                                                <div class="col-auto pr-0">
-                                                    <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
-                                                </div>
-                                                <div class="col solucio-footer m-auto">
-                                                    <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
-                                                </div>
-                                            </div>
+                                        <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio()" class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div *ngIf="!solucionsEsborranyNoMore" class="text-center">
                                 <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucionsEsborrany()">VEURE MÉS</button>
                             </div>
                         </div>
+
                     </div>
 
 
@@ -244,10 +240,10 @@
                     <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
-                                <div class="card solucio-enviat p-2">
+                                <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+                                        <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
+                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                     </div>
                                     <div class="card-footer bg-transparent">
@@ -255,16 +251,16 @@
                                             <div class="col-auto pr-0">
                                                 <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
                                             </div>
-                                            <div class="col m-auto solucio-footer">
-                                                {{usuariObject.nom_empresa}}
+                                            <div class="col m-auto solucio-footer text-overflow-1">
+                                                {{solucio.user.nom_empresa}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="!solucionsNoMore" class="text-center">
-                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
-                            </div>
+                        </div>
+                        <div *ngIf="!solucionsNoMore" class="text-center">
+                            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
                         </div>
                     </div>
                 </div>
@@ -302,7 +298,7 @@
                                         <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
                                         <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
                                     </p>
-                                    
+
                                     <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
                                     <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
                                     <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
@@ -376,21 +372,13 @@
                         <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
-                                    <div class="card solucio-esborrany p-2">
+                                    <div class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{solucioEsborrany.solucio_proposada_nom}}</h5>
-                                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte Digital Campus UdG</a></h6>
+                                            <h5 class="card-title text-overflow">{{solucioEsborrany.solucio_proposada_nom}}</h5>
+                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
 
                                         </div>
                                         <div class="card-footer bg-transparent">
-                                            <div class="row">
-                                                <div class="col-auto pr-0">
-                                                    <img class="rounded-circle" width="45px" src="../../assets/illustrations/Time.png" alt="">
-                                                </div>
-                                                <div class="col solucio-footer m-auto">
-                                                    <span class="esborrany-inici">6 de juliol</span><br><span class="esborrany-final">Queden 8 dies</span>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -407,10 +395,10 @@
                     <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
-                                <div class="card solucio-enviat p-2">
+                                <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Repte del medi ambient UdG</a></h6>
+                                        <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
+                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                     </div>
                                     <div class="card-footer bg-transparent">
@@ -418,16 +406,16 @@
                                             <div class="col-auto pr-0">
                                                 <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/LaiaPedragosa.jpg" alt="">
                                             </div>
-                                            <div class="col m-auto solucio-footer">
-                                                nom usuari demanar ferran
+                                            <div class="col m-auto solucio-footer text-overflow-1">
+                                                {{solucio.user.nom_empresa}} adsfasfsad
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="!solucionsNoMore" class="text-center">
-                                <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
-                            </div>
+                        </div>
+                        <div *ngIf="!solucionsNoMore" class="text-center">
+                            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucions()">VEURE MÉS</button>
                         </div>
                     </div>
                 </div>

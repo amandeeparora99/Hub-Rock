@@ -23,9 +23,8 @@
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
-                <button class="btn hubrock-btn" type="button" *ngIf="canParticipate()">PARTICIPA AL REPTE</button>
+                <button class="btn hubrock-btn" type="button" *ngIf="canParticipate()" [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE</button>
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()">EDITA EL REPTE</button>
-                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && isEsborrany()">CONTINUA L'ESBORRANY</button>
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA EL REPTE</button>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
@@ -371,7 +370,7 @@
                 <div class="row d-flex justify-content-center">
 
                     <div class="forumBody" *ngFor="let forumPost of forum; let i = index">
-                        
+
                         <div class="forumContent" (click)="carregarRespostes(forumPost.id)">
                             <div class="row d-flex align-items-center mb-4">
                                 <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
@@ -392,10 +391,10 @@
                                 <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
                             </div>
                         </div>
-                        
-                        <div *ngIf="forumRespostes">   
+
+                        <div *ngIf="forumRespostes">
                             <hr>
-                            
+
                             <div class="forumContent answer" *ngFor="let resposta of forumRespostes; let i = index">
                                 <div class="row d-flex align-items-center mb-4">
                                     <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
@@ -437,8 +436,8 @@
                         <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
                             <div class="card solucio-enviat p-2" routerLink="/solucio/{{solucio.idsolucio}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+                                    <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
+                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
 
                                 </div>
                                 <div class="card-footer bg-transparent">
@@ -446,7 +445,7 @@
                                         <div class="col-auto pr-0">
                                             <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
                                         </div>
-                                        <div class="col m-auto solucio-footer">
+                                        <div class="col m-auto solucio-footer text-overflow-1">
                                             {{repte.user.nom_empresa || repte.user.nom_rockstar}}
                                         </div>
                                     </div>
