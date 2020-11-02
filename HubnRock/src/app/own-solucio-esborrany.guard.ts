@@ -24,7 +24,7 @@ export class OwnSolucioEsborranyGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (idCurrentUser && data.row.user_iduser == idCurrentUser && data.row.estat_idestat == 1) {
+          if (idCurrentUser && data.row.solucio_user_iduser == idCurrentUser && data.row.solucio_estat_idestat == 1) {
             return true;
           } else {
             this.router.navigate(['/homepage'])

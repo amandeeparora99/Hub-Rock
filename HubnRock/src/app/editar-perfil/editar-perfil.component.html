@@ -23,21 +23,21 @@
                     </div>
 
                 </div>
-                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
+                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
                     <label for="InputNom">Nom empresa</label>
                     <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomEmpresa">
                         {{formErrors.nomEmpresa}}
                     </span>
                 </div>
-                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomRockstar}">
+                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomRockstar}">
                     <label for="InputNomRockstar">Nom</label>
                     <input formControlName="nomRockstar" type="text" class="form-control" id="InputNomRockstar" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomRockstar">
                         {{formErrors.nomRockstar}}
                     </span>
                 </div>
-                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
+                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
                     <label for="InputRealName">Nom responsable</label>
                     <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomResponsable">
@@ -70,7 +70,7 @@
                     </div>
                 </div> -->
 
-                <div *ngIf="usuariObject && !usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nifEmpresa}">
+                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
                     <input formControlName="nifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nifEmpresa">
@@ -78,11 +78,11 @@
                     </span>
                 </div>
 
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.ocupacio}">
+                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.ocupacio}">
                     <label for="InputOcupacio">Ocupació</label>
                     <input formControlName="ocupacio" type="text" class="form-control" id="InputOcupacio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.ocupacio">
-                        {{formErrors.nifEmpresa}}
+                        {{formErrors.ocupacio}}
                     </span>
                 </div>
 
@@ -102,7 +102,8 @@
                     </span>
                 </div>
 
-                <label for="inputTags" class="col-form-label">Habilitats:</label>
+                <label for="inputTags" class="col-form-label" *ngIf="userIsRockstar">Habilitats:</label>
+                <label for="inputTags" class="col-form-label" *ngIf="!userIsRockstar">Serveis:</label>
 
                 <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..." (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
 
@@ -115,7 +116,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.experiencia}">
+                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.experiencia}">
                     <label for="InputExperiencia">Experiència</label>
                     <input formControlName="experiencia" type="text" class="form-control" id="INuptExperiencia" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.experiencia">
@@ -123,7 +124,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="usuariObject && usuariObject.empresa_rockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.educacio}">
+                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.educacio}">
                     <label for="InputEducacio">Educació</label>
                     <input formControlName="educacio" type="text" class="form-control" id="InputEducacio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.educacio">
@@ -161,7 +162,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" id="btn-login" [disabled]="editUserForm.invalid" class="btn btn-primary">Actualitza les dades</button>
+                    <button type="submit" id="btn-login" class="btn btn-primary">ACTUALITZA EL PERFIL</button>
                 </div>
             </form>
 

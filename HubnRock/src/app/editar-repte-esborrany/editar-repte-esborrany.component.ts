@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
@@ -13,25 +14,44 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute) { }
+
+
+  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
 
   hasUnsavedData(): boolean {
-    return this.repteForm.dirty;
+    if (this.formDone) {
+      return false;
+    } else {
+      return this.repteForm.dirty;
+    }
   }
 
-
   repteForm: FormGroup;
+  usuariForm: FormGroup;
   radioValue = 'equip';
-  radioToSValue = 'hubandrock'
+  radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
+
+  objectFotosPreview: any = {};
+  objectFotos: any = {};
+
+  repte;
+  idRepte;
+  success = false;
+
+  formDone = false;
+
   fotoPortada = null;
-  pdfNom = null;
-  idEsborrany;
-  repteObject: any;
+  pdfArray;
+  fotoRepte1Selected = "";
+  fotoRepte2Selected = "";
+  fotoRepte3Selected = "";
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
+
+  @ViewChild('inputFile') myInputVariable: ElementRef;
 
 
   validationMessages = {
@@ -53,29 +73,26 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     'fotoPortada': {
       'required': 'És un camp obligatori',
     },
-    'fotoRepresentativa1': {
-      'required': 'És un camp obligatori',
-    },
-    'fotoRepresentativa2': {
-      'required': 'És un camp obligatori',
-    },
-    'fotoRepresentativa3': {
-      'required': 'És un camp obligatori',
-    },
     'videoSolucio': {
-
+      'maxlength': 'Enllaç massa llarg',
+      'minlength': 'Enllaç massa curt'
     },
     'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
     },
+    'datesGroup': {
+      'dataIniciBiggerThanFinal': 'El repte no pot acabar abans de començar!'
+    },
     'limitParticipants': {
-      'required': 'És un camp obligatori',  //SI HA POSAT INDIVIDUAL NO CALDRIA
+      'pattern': 'Entra un nombre de participants vàlid',
     },
     'dataInici': {
       'required': 'És un camp obligatori',
+      'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'dataFinalitzacio': {
       'required': 'És un camp obligatori',
+      'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'nomPremi': {
       'required': 'És un camp obligatori',
@@ -126,7 +143,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       'maxlength': 'Biografia massa llarga',
       'minlength': 'Biografia massa curta'
     },
-    'inputJurat': {
+    'fotoJurat': {
 
     },
     'pregunta': {
@@ -145,6 +162,10 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       'minlength': 'Bases legals invàlides'
     },
 
+    'campsErronis': {
+      'errors': 'Hi ha camps erronis, comprova que el formulari estigui omplert correctament'
+    }
+
   };
 
 
@@ -153,12 +174,10 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     'descripcioBreuRepte': '',
     'descripcioDetalladaRepte': '',
     'fotoPortada': '',
-    'fotoRepresentativa1': '',
-    'fotoRepresentativa2': '',
-    'fotoRepresentativa3': '',
     'videoSolucio': '',
     'checkboxGroup': '',
     'limitParticipants': '',
+    'datesGroup': '',
     'dataInici': '',
     'dataFinalitzacio': '',
     'nomPremi': '',
@@ -173,39 +192,39 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     'logoPartner': '',
     'nomCognomsJurat': '',
     'biografiaJurat': '',
-    'inputJurat': '',
+    'fotoJurat': '',
     'pregunta': '',
     'resposta': '',
-    'customTOS': ''
+    'customTOS': '',
+    'campsErronis': '',
   };
 
   ngOnInit(): void {
-
-    this.idEsborrany = this.aRouter.snapshot.params.id;
-
-    if (this.idEsborrany) {
-      this.getEsborrany(this.idEsborrany)
-    }
+    this.idRepte = this.aRouter.snapshot.params.id;
 
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
       descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
-      fotoPortada: ['', [Validators.required]],
-      fotoRepresentativa1: ['', [Validators.required]],
-      fotoRepresentativa2: ['', [Validators.required]],
-      fotoRepresentativa3: ['', [Validators.required]],
-      videoSolucio: [''], //validador custom youtube format
+      fotoPortada: ['',
+        // [Validators.required]
+      ],
+      fotoRepresentativa1: ['', []],
+      fotoRepresentativa2: ['', []],
+      fotoRepresentativa3: ['', []],
+      pdf: [''],
+      videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
       checkboxGroup: this.fb.group({
         empresesCheckbox: [true],
         startupsCheckbox: [false],
         estudiantsCheckbox: [false],
         expertsCheckbox: [false]
       }, { validator: requireCheckboxesToBeCheckedValidator() }),
-      //Com vols que t'enviem els que poden participar?, el checkbox amb diferents participants
-      limitParticipants: ['', [Validators.pattern('[0-9]+')]],
-      dataInici: ['', Validators.required],  //Data inici no pot ser anterior a la data actual
-      dataFinalitzacio: ['', Validators.required],
+      limitParticipants: ['', Validators.pattern('[0-9]+')],
+      datesGroup: this.fb.group({
+        dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
+        dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
+      }, { validator: dataIniciBiggerThanFinal() }),
       premiArray: this.fb.array([
         this.addPremiFormGroup(),
       ]),
@@ -222,57 +241,53 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         this.addPreguntaFormGroup(),
       ]),
 
-      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],  //Quina mida creus que necessitem per un Términos y condiciones?
+      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
     });
 
     this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.repteForm)
     });
+
+    if (this.idRepte) {
+
+      this.httpClient.getRepte(this.idRepte)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+
+              this.repte = data.row;
+
+              this.repteForm.patchValue({
+                nomRepte: this.repte.nom,
+                descripcioBreuRepte: this.repte.descripcio_short,
+                descripcioDetalladaRepte: this.repte.descripcio_long,
+
+              })
+
+            }
+          });
+
+    }
   }
 
-  getEsborrany(idEsborrany) {
 
-    this.httpClient.getRepte(idEsborrany).pipe(first())
-      .subscribe(data => {
-        if (data.code == '1') {
-          this.repteObject = data.row;
+  getInterpolationCondition(name, i) {
+    let stringInterpolation: string = name + i
 
-          this.repteForm.patchValue({
-            nomRepte: this.repteObject.nom,
-            descripcioBreuRepte: this.repteObject.descripcio_short,
-            descripcioDetalladaRepte: this.repteObject.descripcio_long,
-            fotoPortada: this.repteObject.url_photo_main,
-            fotoRepresentativa1: this.repteObject.url_photo_1,
-            fotoRepresentativa2: this.repteObject.url_photo_2,
-            fotoRepresentativa3: this.repteObject.url_photo_3,
-            videoSolucio: this.repteObject.url_video,           
-          })
-
-          // if (this.solucioObject.solucio_proposada_individual_equip == '0') {
-
-          //   // window.onload = function () {
-          //   //   this.radioValue = "individual"
-          //   //   let radioIndividual = document.getElementById("customRadio1") as HTMLInputElement
-          //   //   radioIndividual.checked = true;
-          //   //   console.log('fent aixo individual')
-          //   // };
-
-          // } else if (this.solucioObject.solucio_proposada_individual_equip == '1') {
-
-          //   // window.onload = function () {
-          //   //   this.radioValue = "equip"
-          //   //   let radioEquip = document.getElementById("customRadio") as HTMLInputElement
-          //   //   radioEquip.checked = true;
-          //   //   console.log('fent aixo qeuip')
-
-          //   // };
-
-
-          // }
-
-        }
-      });
+    if (this.objectFotosPreview[stringInterpolation]) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  getObjectProperty(name, i) {
+    let stringInterpolation: string = name + i
+
+    return this.objectFotosPreview[stringInterpolation];
+  }
+
 
   logValidationErrors(group: FormGroup = this.repteForm): void {
     Object.keys(group.controls).forEach((key: string) => {
@@ -294,40 +309,297 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         this.logValidationErrors(abstractControl);
       }
 
+      if (abstractControl instanceof FormArray) {
+
+        if (abstractControl == this.repteForm.get('partnerArray')) {
+
+          for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
+            if (control instanceof FormGroup) {
+
+              if (control.controls.nomPartner.value ||
+                control.controls.breuDescripcioPartner.value ||
+                control.controls.logoPartner.value) {
+
+                control.controls.nomPartner.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
+                control.controls.nomPartner.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.breuDescripcioPartner.setValidators([Validators.required, Validators.maxLength(900), Validators.minLength(3)])
+                control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.logoPartner.setValidators([Validators.required])
+                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+
+                control.updateValueAndValidity({ emitEvent: false });
+              }
+              else {
+
+                control.controls.nomPartner.setValidators([Validators.maxLength(255), Validators.minLength(3)])
+                control.controls.nomPartner.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.breuDescripcioPartner.setValidators([Validators.maxLength(900), Validators.minLength(3)])
+                control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.logoPartner.clearValidators()
+                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+
+                control.updateValueAndValidity({ emitEvent: false });
+
+              }
+            }
+          }
+
+        }
+        else if (abstractControl == this.repteForm.get('juratArray')) {
+
+          for (let control of (<FormArray>this.repteForm.get('juratArray')).controls) {
+            if (control instanceof FormGroup) {
+
+              if (control.controls.nomCognomsJurat.value ||
+                control.controls.biografiaJurat.value ||
+                control.controls.fotoJurat.value) {
+
+                control.controls.nomCognomsJurat.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
+                control.controls.nomCognomsJurat.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.biografiaJurat.setValidators([Validators.required, Validators.maxLength(900), Validators.minLength(3)])
+                control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.fotoJurat.setValidators([Validators.required])
+                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+
+                control.updateValueAndValidity({ emitEvent: false });
+
+              } else {
+
+                control.controls.nomCognomsJurat.setValidators([Validators.maxLength(255), Validators.minLength(3)])
+                control.controls.nomCognomsJurat.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.biografiaJurat.setValidators([Validators.maxLength(900), Validators.minLength(3)])
+                control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
+
+
+                control.controls.fotoJurat.clearValidators()
+                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+
+                control.updateValueAndValidity({ emitEvent: false });
+
+              }
+            }
+          }
+        }
+      }
+
     })
 
   }
 
+  todayDate() {
+    let today = new Date();
+    let todayFormat = this.datepipe.transform(today, 'yyyy-MM-dd');
+
+    return todayFormat;
+  }
+
+  tomorrowDate() {
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    let tomorrowFormat = this.datepipe.transform(tomorrow, 'yyyy-MM-dd');
+
+    return tomorrowFormat;
+  }
+
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
-    this.radioValue = 'equip';
   }
 
   changeRadio(value) {
     this.radioValue = value;
+
   }
 
   changeRadioToS(value) {
     this.radioToSValue = value;
+
+    if (this.radioToSValue == 'hubandrock') {
+
+      this.repteForm.get('customTOS').setValidators([Validators.maxLength(5000), Validators.minLength(3)])
+      this.repteForm.get('customTOS').updateValueAndValidity()
+
+    } else if (this.radioToSValue == 'custom') {
+
+      this.repteForm.get('customTOS').setValidators([Validators.required, Validators.maxLength(5000), Validators.minLength(3)])
+      this.repteForm.get('customTOS').updateValueAndValidity()
+
+    }
   }
 
-  onFileSelected(event) {
+  onPdfSelected(event) {
     if (event.target.files) {
+      let totalSize = 0;
+
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
+        totalSize += element.size
+      }
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+
+      } else {
+        this.pdfArray = null;
+        confirm('Supera el límit de 15MB')
+      }
+
+    }
+  }
+
+  resetPdfArray() {
+    this.pdfArray = null;
+  }
+
+  onFileSelected(event, index?) {
+    //FER UN OBJECTE DE PREVIEWS I UN DE FILES
+
+    if (event.target.files) {
+
+      console.log('fiel pujat', event.target.files[0])
+
+      let inputName = event.target.name;
+
+      this.objectFotos[inputName] = event.target.files[0]
+
+      console.log(inputName, index)
 
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0])
 
       reader.onload = (event: any) => {
-        this.fotoPortada = event.target.result
+
+        this.objectFotosPreview[inputName] = reader.result
+
       }
 
     }
+    console.log(this.objectFotosPreview)
+
+
+  }
+  ensenyarObjecte() {
+    console.log(this.objectFotosPreview)
+    console.log(this.objectFotos)
   }
 
-  onPDFSelected(event) {
-    console.log(event.target.files[0])
-    this.pdfNom = event.target.files[0].name
+  fotosRepteSelected(event, numFoto) {
+    if (event.target.files) {
+      if (numFoto == 1) {
+        this.fotoRepte1Selected = "../../assets/simpleicons/tic.png";
+      }
+      else if (numFoto == 2) {
+        this.fotoRepte2Selected = "../../assets/simpleicons/tic.png";
+      }
+      else if (numFoto == 3) {
+        this.fotoRepte3Selected = "../../assets/simpleicons/tic.png";
+      }
+    }
+  }
+
+  eliminarFoto(fotoName) {
+    console.log("INSIDEEEEEEEEEEEEEEEEEE TOOOOOOOOOOOOOO DEEEEEEEEEEEPPPPPPPPPP", fotoName)
+    delete this.objectFotosPreview[fotoName]
+    delete this.objectFotos[fotoName]
+
+  }
+
+  eliminarFotoArray(fotoName) {
+    let str = fotoName;
+
+    //Separem el nom de foto
+    let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
+    let number = Number(arraySplit[1]);  //0
+
+    this.loopObjectFotosPreview(number, arraySplit[0]);
+    // this.loopObjectFotos(number, arraySplit[0]);
+
+  }
+
+
+  loopObjectFotosPreview(number, valueName) {
+
+    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    let arrayLength = Object.keys(this.objectFotosPreview).length - 1
+
+    for (const [key, value] of Object.entries(this.objectFotosPreview)) {
+      let index = key.split(/([0-9]+)/)[1];
+      console.log("LOOP NÚMERO: " + index)
+      if (index < number) {
+        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+      }
+      if (index == number) {
+        console.log("PREMI QUE VOLEM ELIMINAR")
+      }
+      if (index > number) {
+        console.log("PREMI QUE VOLEM RESTAR")
+        let resta = Number(index) - 1;
+        let stringPassada = valueName + Number(index)
+        let stringRestada = valueName + resta
+
+        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+
+        this.objectFotosPreview[stringRestada] = this.objectFotosPreview[stringPassada]
+
+      }
+    }
+    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    console.log("ELIMINANT ULTIM OBJECTE...")
+    delete this.objectFotosPreview[valueName + arrayLength];
+    console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
+
+  }
+
+  loopObjectFotos(number, valueName) {
+
+    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    let arrayLength = Object.keys(this.objectFotos).length - 1
+
+    for (const [key, value] of Object.entries(this.objectFotos)) {
+      let index = key.split(/([0-9]+)/)[1];
+      console.log("LOOP NÚMERO: " + index)
+      if (index < number) {
+        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+      }
+      if (index == number) {
+        console.log("PREMI QUE VOLEM ELIMINAR")
+      }
+      if (index > number) {
+        console.log("PREMI QUE VOLEM RESTAR")
+        let resta = Number(index) - 1;
+        let stringPassada = valueName + Number(index)
+        let stringRestada = valueName + resta
+
+        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+
+        this.objectFotos[stringRestada] = this.objectFotos[stringPassada]
+
+      }
+    }
+    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    console.log("ELIMINANT ULTIM OBJECTE...")
+    delete this.objectFotos[valueName + arrayLength];
+    console.log("ArrayObject despres de manipular: ", this.objectFotos)
+
+  }
+
+  reset() {
+    this.myInputVariable.nativeElement.value = '';
+    this.fotoRepte1Selected = '';
   }
 
   addPremiFormGroup(): FormGroup {
@@ -343,7 +615,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     return this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioSolucio: ['', [Validators.required, Validators.maxLength(900), Validators.minLength(3)]],
-      fotoSolucio: ['', [Validators.required]]
+      fotoSolucio: ['']
     })
   }
 
@@ -359,7 +631,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     return this.fb.group({
       nomCognomsJurat: ['', [Validators.maxLength(255), Validators.minLength(3)]],
       biografiaJurat: ['', [Validators.maxLength(900), Validators.minLength(3)]],
-      inputJurat: [''],
+      fotoJurat: [''],
     })
   }
 
@@ -413,7 +685,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   @HostListener('window:beforeunload', ['$event'])
   public onPageUnload($event: BeforeUnloadEvent) {
 
-    if (this.repteForm.dirty) {
+    if (this.repteForm.dirty && !this.formDone) {
       $event.returnValue = true;
     }
   }
@@ -426,25 +698,74 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   checkboxvalues() {
     console.log("CHECKBOXES")
     console.log(this.repteForm.get('checkboxGroup').value)
-    console.log(this.repteForm.get('checkboxGroup').errors)
+    console.log(this.repteForm.get('checkboxGroup').value.empresesCheckbox)
   }
 
-  desaBorrador() {
+  appendRepte(): FormData {
 
     const formData = new FormData();
-    formData.append('descripcio_short', this.repteForm.get('descripcioBreuRepte').value);
-    formData.append('descripcio_long', this.repteForm.get('descripcioDetalladaRepte').value);
-    formData.append('individual_equip', '1');
-    formData.append('limit_participants', this.repteForm.get('limitParticipants').value);
-    // formData.append('data_inici', this.repteForm.get('dataInici').value);
-    // formData.append('data_final', this.repteForm.get('dataFinalitzacio').value);
-    formData.append('bases_legals', '0');
-    // formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
-    // formData.append('url_photo_3', this.repteForm.get('fotoRepresentativa3').value);
-    // formData.append('url_photo_2', this.repteForm.get('fotoRepresentativa2').value);
-    // formData.append('url_photo_main', this.repteForm.get('fotoPortada').value);
-    // formData.append('url_photo_1', this.repteForm.get('fotoRepresentativa1').value);
-    formData.append('nom', this.repteForm.get('nomRepte').value);
+
+    if (this.repteForm.get('descripcioBreuRepte').value) {
+      formData.append('descripcio_short', this.repteForm.get('descripcioBreuRepte').value);
+    }
+
+    if (this.repteForm.get('descripcioDetalladaRepte').value) {
+      formData.append('descripcio_long', this.repteForm.get('descripcioDetalladaRepte').value);
+    }
+
+    if (this.repteForm.get('nomRepte').value) {
+      formData.append('nom', this.repteForm.get('nomRepte').value);
+    }
+
+    if (this.repteForm.get('videoSolucio').value) {
+      formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
+
+    }
+
+    if (this.radioValue == "equip") {
+
+      formData.append('individual_equip', '1')
+
+      if (this.repteForm.get('limitParticipants').value) {
+
+        formData.append('limit_participants', this.repteForm.get('limitParticipants').value)
+
+      }
+
+    } else {
+      formData.append('individual_equip', '0');
+
+    }
+
+    if (this.radioToSValue == "custom") {
+      formData.append('bases_legals', '1')
+      if (this.repteForm.get('customTOS').value) {
+        formData.append('bases_legals_personals', this.repteForm.get('customTOS').value)
+      }
+    } else {
+      formData.append('bases_legals', '0');
+    }
+
+    if (this.repteForm.get('datesGroup').get('dataInici').value) {
+      let iniciDate = this.datepipe.transform(this.repteForm.get('datesGroup').get('dataInici').value, 'dd/MM/yyyy')
+      formData.append('data_inici', iniciDate)
+    }
+
+    if (this.repteForm.get('datesGroup').get('dataFinalitzacio').value) {
+      let finalDate = this.datepipe.transform(this.repteForm.get('datesGroup').get('dataFinalitzacio').value, 'dd/MM/yyyy')
+      formData.append('data_final', finalDate)
+    }
+
+    formData.append('participants[empreses]', (this.repteForm.get('checkboxGroup').value.empresesCheckbox))
+    formData.append('participants[startups]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
+    formData.append('participants[estudiants]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
+    formData.append('participants[experts]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
+
+    // APPENDING FOTOS REPTE
+    if (this.objectFotosPreview.fotoPortada) {
+      console.log('appending url photo main amb ', this.objectFotosPreview.fotoPortada)
+      formData.append('url_photo_main', this.objectFotosPreview.fotoPortada)
+    }
 
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
@@ -496,8 +817,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       if (this.repteForm.get('juratArray').value[i].biografiaJurat) {
         formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
       }
-      if (this.repteForm.get('juratArray').value[i].inputJurat) {
-        formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
+      if (this.repteForm.get('juratArray').value[i].fotoJurat) {
+        formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].fotoJurat);
       }
     }
 
@@ -511,100 +832,194 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       }
     }
 
-    //APENDING RECURSOS
-    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-    //   formData.append(`recurs_nom[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-    //   formData.append(`recurs_url_fitxer[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-    // }
+    //APPENDING RECURSOS
+    if (this.pdfArray) {
+      for (let index = 0; index < this.pdfArray.length; index++) {
+        const file = this.pdfArray[index];
+
+        formData.append(`recurs_nom[${index}]`, file.name);
+        formData.append(`recurs_url_fitxer[${index}]`, file);
+      }
+    }
+
+    return formData;
+  }
+
+  desaBorrador() {
+
+    if (!this.repteForm.get('nomRepte').value) {
+
+      if (!this.formErrors.nomRepte) {
+        this.formErrors.nomRepte += this.validationMessages.nomRepte.required + ' ';
+      }
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+    } else if (this.repteForm.get('nomRepte').value.length < 3) {
+
+      if (!this.formErrors.nomRepte) {
+        this.formErrors.nomRepte += this.validationMessages.nomRepte.minlength + ' ';
+      }
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+    } else if (this.repteForm.get('nomRepte').value.length > 255) {
+
+      if (!this.formErrors.nomRepte) {
+        this.formErrors.nomRepte += this.validationMessages.nomRepte.maxlength + ' ';
+      }
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+    } else {
+      this.formDone = true;
+
+      if (this.formErrors.campsErronis) {
+        this.formErrors.campsErronis = '';
+      }
+
+      let formData: any = this.appendRepte();
+
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+
+      this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == 1) {
+              this.success = true;
+              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              this.router.navigate([`/perfil/${currentUserId}`])
+            }
+          });
+    }
 
 
 
-    this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log("HOLAOL")
-          console.log(data);
-        },
-        error => {
-          console.log("Fail")
-        });
 
   }
 
 
   onRepteSubmit() {
 
-    const formData = new FormData();
-    formData.append('descripcio_short', this.repteForm.get('descripcioBreuRepte').value);
-    formData.append('descripcio_long', this.repteForm.get('descripcioDetalladaRepte').value);
-    formData.append('individual_equip', '1');
-    formData.append('limit_participants', this.repteForm.get('limitParticipants').value);
-    formData.append('data_inici', '20/10/2020');
-    formData.append('data_final', '21/10/2020');
-    formData.append('bases_legals', '0');
-    formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
-    formData.append('url_photo_3', this.repteForm.get('fotoRepresentativa3').value);
-    formData.append('url_photo_2', this.repteForm.get('fotoRepresentativa2').value);
-    formData.append('url_photo_main', this.repteForm.get('fotoPortada').value);
-    formData.append('url_photo_1', this.repteForm.get('fotoRepresentativa1').value);
-    formData.append('nom', this.repteForm.get('nomRepte').value);
+    if (!this.repteForm.valid) {
+      console.log(this.repteForm.valid)
+      for (const field in this.repteForm.controls) { // 'field' is a string
+        const control = this.repteForm.get(field).errors; // 'control' is a FormControl  
+        console.log(field, control)
+      }
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
 
-    //APPENDING PREMI
-    for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
-      formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
-      formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
-      formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
-      formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
+      this.logValidationErrorsUntouched()
+
+    } else {
+      this.formDone = true;
+
+      if (this.formErrors.campsErronis) {
+        this.formErrors.campsErronis = '';
+      }
+
+      let formData: any = this.appendRepte();
+
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+
+      this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == 1) {
+              this.success = true;
+              this.idRepte = data.lastId;
+            }
+
+          });
     }
+  }
 
-    //APPENDING SOLUCIO
-    for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
-      formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
-      formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
-      formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
-    }
+  logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
 
-    //APPENDING PARTNER
-    for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
-      formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
-      formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
-      formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
-    }
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid) {
+        const messages = this.validationMessages[key];
 
-    //APPENDING JURAT
-    for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
-      formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
-      formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
-      formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].inputJurat);
-    }
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
 
-    //APPENDING FAQ
-    for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-      formData.append(`faq_pregunta[${i}]`, this.repteForm.get('preguntaArray').value[i].pregunta);
-      formData.append(`faq_resposta[${i}]`, this.repteForm.get('preguntaArray').value[i].resposta);
-    }
-
-    //APENDING RECURSOS
-    // for (var i = 0; i < (<FormArray>this.repteForm.get('preguntaArray')).controls.length; i++) {
-    //   formData.append(`faq_pregunta[${i}]`, 'idskfjwoeoiwjfiowefoiwejfijfoiwjfiowjfioewjfoiwjfiowjefiojf');
-    //   formData.append(`faq_resposta[${i}]`, 'slkdowiejfoiwejfoiwjeofjwoiejfoiwjeifojweijfowiejfoiwjefjf');
-    // }
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+      // if (abstractControl instanceof FormArray) {
+      //   for (const control of abstractControl.controls) {
+      //     if (control instanceof FormGroup) {
+      //       this.logValidationErrors(control);
+      //     }
+      //   }
+      // }
+    })
+  }
 
 
+}
 
-    this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log("Fail")
-        });
 
+// function dateGreaterThan(control: AbstractControl): { [key: string]: boolean } | null {
+
+//   if (this.repteForm.get('dataFinalitzacio').value && this.repteForm.get('dataFinalitzacio').value) {
+
+//     let dataFinal = new Date(this.repteForm.get('dataFinalitzacio').value);
+//     let dataInici = new Date(this.repteForm.get('dataInici').value);
+
+//     if (dataInici > dataFinal) {
+//       return { 'dateGreaterThan': true }
+//     }
+//   }
+
+//   return null;
+
+// };
+
+
+function dateShorterThanToday(control: AbstractControl): { [key: string]: any } | null {
+  let date = new Date(control.value);
+  let currentDate = new Date();
+
+  if (date.getDate() > currentDate.getDate() || dateString(date) == dateString(currentDate)) {
+    return null;
+  }
+  else {
+    return { dataInici: true }
   }
 }
+
+
+
+function dateString(date) {
+  var any = date.getFullYear();
+  var mes = date.getMonth() + 1;
+  var dia = date.getDate();
+
+  return dia + "/" + mes + "/" + any
+}
+
+
 
 function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
   return function validate(formGroup: FormGroup) {
@@ -621,6 +1036,21 @@ function requireCheckboxesToBeCheckedValidator(minRequired = 1): ValidatorFn {
     if (checked < minRequired) {
       return {
         requireCheckboxesToBeChecked: true,
+      };
+    }
+
+    return null;
+  };
+}
+
+function dataIniciBiggerThanFinal(): ValidatorFn {
+  return function validate(form: FormGroup) {
+    let startDate = new Date(form.value.dataInici);
+    let endDate = new Date(form.value.dataFinalitzacio);
+
+    if (startDate >= endDate) {
+      return {
+        dataIniciBiggerThanFinal: true
       };
     }
 

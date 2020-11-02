@@ -108,6 +108,12 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     'repteChecks': {
       'noValid': 'No es pot participar al repte, el repte no és vàlid',
       'noEnProces': 'No es pot participar al repte, el repte no està en procés'
+    },
+    'repteIndividualOEquip': {
+      'repteEnEquip': 'El repte només accepta solucions en equip',
+      'repteIndividual': 'El repte només accepta solucions individuals',
+      'repteEnEquipLimitMembres': 'L\'equip supera el limit de membres indicat pel repte'
+
     }
   };
 
@@ -116,6 +122,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     'nomSolucio': '',
     'campsErronis': '',
     'repteChecks': '',
+    'repteIndividualOEquip': '',
   };
 
 
@@ -239,7 +246,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
-    this.radioValue = 'equip';
   }
 
 
@@ -329,7 +335,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   onSubmit() {
-
+    this.formErrors.repteIndividualOEquip = '';
     if (!this.solucioForm.valid) {
       if (!this.formErrors.campsErronis) {
         this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
@@ -349,7 +355,38 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         this.formErrors.repteChecks += this.validationMessages.repteChecks.noEnProces + ' ';
       }
 
-    } else {
+    } else if (this.repte.individual_equip == 0 && this.radioValue != 'individual') {
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+      if (!this.formErrors.repteIndividualOEquip) {
+        this.formErrors.repteIndividualOEquip += this.validationMessages.repteIndividualOEquip.repteIndividual + ' ';
+      }
+
+    } else if (this.repte.individual_equip == 1 && this.radioValue != 'equip') {
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+      if (!this.formErrors.repteIndividualOEquip) {
+        this.formErrors.repteIndividualOEquip += this.validationMessages.repteIndividualOEquip.repteEnEquip + ' ';
+      }
+
+    } else if (this.repte.limit_participants && (<FormArray>this.solucioForm.get('membreArray')).length > this.repte.limit_participants) {
+
+      if (!this.formErrors.campsErronis) {
+        this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
+      }
+
+      if (!this.formErrors.repteIndividualOEquip) {
+        this.formErrors.repteIndividualOEquip += this.validationMessages.repteIndividualOEquip.repteEnEquipLimitMembres + ' ';
+      }
+
+    }
+    else {
       this.formDone = true;
 
       if (this.formErrors.campsErronis) {

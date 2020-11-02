@@ -54,7 +54,7 @@ export class ReptesComponent implements OnInit {
 
   seeMoreProces() {
     this.currentProcesPage = this.currentProcesPage + 1;
-    this.getReptesOberts(this.currentProcesPage, this.elements)
+    this.getReptesProces(this.currentProcesPage, this.elements)
 
   }
 

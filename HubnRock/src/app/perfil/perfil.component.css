@@ -211,7 +211,7 @@ a {
 
 #empresa-solucions .card {
     border-radius: 14px;
-    height: 250px;
+    min-height: 250px;
     border: none;
 }
 
@@ -242,6 +242,12 @@ a {
 
 #empresa-solucions .card-subtitle a {
     color: #020e7d;
+    text-decoration: none;
+}
+
+#empresa-solucions .card-subtitle a:hover {
+    color: #020e7d;
+    text-decoration: underline;
 }
 
 #empresa-solucions .solucio-enviat .solucio-footer {
@@ -293,7 +299,7 @@ a {
 
 #usuari-solucions .card {
     border-radius: 14px;
-    height: 250px;
+    min-height: 250px;
     border: none;
 }
 
@@ -434,4 +440,34 @@ a {
 .username:hover {
     color: #00e292;
     cursor: pointer;
+}
+
+.text-overflow {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.text-overflow-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.esborrany-expired {
+    color: #c0392b;
+}
+
+.eliminar-esborrany-link {
+    color: #020e7d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.eliminar-esborrany-link:hover {
+    color: #020e7d;
+    font-weight: bold;
+    text-decoration: underline;
 }

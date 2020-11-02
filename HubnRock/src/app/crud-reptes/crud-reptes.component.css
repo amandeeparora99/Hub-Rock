@@ -3,6 +3,33 @@
     font-size: 14px;
 }
 
+#hubrock-reptes #banner {
+    height: 453px;
+    background-image: url('../../assets/testpics/BannerReptesverd.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#hubrock-reptes #banner .container {
+    max-width: 1110px;
+}
+
+#hubrock-reptes #banner .container .title {
+    font-family: 'WorkSans-Bold';
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: -2.47px;
+    color: #020e7d;
+}
+
+#hubrock-reptes #banner .container .subtitle {
+    font-family: 'WorkSans-Regular';
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.99px;
+    color: #020e7d;
+}
+
 #hubrock-reptes #toolbar {
     margin-top: 72px;
 }
@@ -24,6 +51,7 @@
     background-color: white;
     border-color: #020e7d;
     border-right: 0;
+    pointer-events: none;
 }
 
 #icon:hover {
@@ -65,7 +93,8 @@
 
 #hubrock-reptesoberts,
 #hubrock-reptesproces,
-#hubrock-reptestancats {
+#hubrock-reptestancats,
+#hubrock-reptescerca {
     margin-bottom: 128px;
 }
 
@@ -86,6 +115,10 @@
     margin-bottom: 39px;
     font-size: 14px;
     letter-spacing: -0.95px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .fitxa-repte .titol-repte {
@@ -98,18 +131,22 @@
     margin-top: 30px;
 }
 
+.tags button {
+    pointer-events: none;
+}
+
 .tags .tag {
     margin: 2px;
 }
 
-
-/* .card {
+.card {
     margin-bottom: 20px;
-} */
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+}
 
-.eliminat {
-    background-color: black;
-    color: white;
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .checkboxes input[type="checkbox"] {
@@ -120,4 +157,14 @@ input[type="checkbox"]:checked+label {
     color: #00e292;
     font-family: 'WorkSans-Bold';
     font-weight: bold;
+}
+
+.username:hover {
+    color: #00e292;
+    cursor: pointer;
+}
+
+.eliminat {
+    background-color: black;
+    color: white;
 }

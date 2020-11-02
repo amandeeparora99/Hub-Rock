@@ -28,9 +28,9 @@ export class SolucioCanViewGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.estat_idestat == 3) {
+          if (data.row.solucio_estat_idestat == 3) {
             return true;
-          } else if (data.row.estat_idestat != 3 && idCurrentUser && data.row.user_iduser == idCurrentUser) {
+          } else if (data.row.solucio_estat_idestat != 3 && idCurrentUser && data.row.solucio_user_iduser == idCurrentUser) {
             return true;
           } else {
             this.router.navigate(['/homepage'])

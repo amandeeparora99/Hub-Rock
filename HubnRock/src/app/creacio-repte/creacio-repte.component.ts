@@ -705,10 +705,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
         formData.append('limit_participants', this.repteForm.get('limitParticipants').value)
 
-      } else {
-
-        formData.append('limit_participants', '')
-
       }
 
     } else {

@@ -17,7 +17,6 @@
     </div>
     <div class="container d-flex flex-column align-items-end mt-5">
         <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()">EDITA LA SOLUCIÓ</button>
-        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && isEsborrany()">CONTINUA L'ESBORRANY</button>
         <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button>
 
     </div>

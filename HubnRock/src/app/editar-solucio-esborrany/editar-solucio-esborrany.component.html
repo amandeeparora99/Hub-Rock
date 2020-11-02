@@ -4,7 +4,7 @@
     <div class="text-center dot-spacing">
         <span class="dot"></span>
     </div>
-    <p id="reptetitle" class="text-center">Repte "Packáging ecològic"</p>
+    <p id="reptetitle" class="text-center" *ngIf="solucio">Repte "{{solucio.nom}}"</p>
     <div style="max-width:500px" class="container text-center steps-mt">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-12">
@@ -20,14 +20,36 @@
     </div>
     <hr class="mt-4 mb-4">
     <form id="regForm" [formGroup]="solucioForm" (ngSubmit)="onSubmit()">
-        <div class="row mb-110">
-            <div class="col-md-3 col-sm-6"></div>
-            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="prevBtn" *ngIf="currentTab != 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ACTUALITZA LA SOLUCIÓ</button></div>
+        <div *ngIf="formErrors.campsErronis" class="row has-errors">
+            <div class="col">
+                <span class="help-block">
+                    {{formErrors.campsErronis}}
+                </span>
+            </div>
         </div>
+        <div *ngIf="formErrors.repteChecks" class="row has-errors">
+            <div class="col">
+                <span class="help-block">
+                    {{formErrors.repteChecks}}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" (click)="desaBorrador()">ACTUALITZA L'ESBORRANY</button>
+                <!-- <div class="spinner-border text-primary">
+                    <span class="sr-only">Loading...</span>
+                </div> -->
+            </div>
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
+        </div>
+        <div class="row mb-110">
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany">ELIMINA L'ESBORRANY</button></div>
+        </div>
+
         <div class="container" style="max-width: 731px; margin-bottom:100px;">
-            <div class="tab" *ngIf="currentTab == 0">
+            <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="title-form">Informació general</h1>
                 <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomSolucio}">
                     <label for="InputNom">Nom solució</label>
@@ -38,7 +60,9 @@
                     <label for="InputBreuDescripcio" class="mb-0">Breu descripció de la solució</label><br>
                     <div class="d-flex justify-content-between">
                         <label class="additional-info" for="InputBreuDescripcio">Descriu la solució en 1 o 2 frases
-                        </label><span>{{this.solucioForm.get('descripcioBreuSolucio').value.length}} / 280</span>
+                        </label>
+                        <span> <span *ngIf="solucioForm.get('descripcioBreuSolucio').value">{{solucioForm.get('descripcioBreuSolucio').value.length}}</span>
+                        <span *ngIf="!solucioForm.get('descripcioBreuSolucio').value">0</span> / 280</span>
                     </div>
                     <textarea type="text" formControlName="descripcioBreuSolucio" class="form-control" id="InputBreuDescripcio" maxlength="280" (blur)="logValidationErrors()"></textarea>
                     <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span>
@@ -79,31 +103,31 @@
                         Els documents han d’estar en format PDF. </label>
                 </div>
                 <hr class="mt-2 mb-5">
-                <div class="text-center afegeix-link"><a href="#">+ Afegeix PDFs</a></div>
+                <div class="text-center">
+                    <label class="afegeix-link">
+                    <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
+                    <a>+ Afegeix PDFs</a>
+                  </label>
+                </div>
+
+                <div *ngFor="let pdf of pdfArray" class="mb-3">
+                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                    <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
+                    <span class="ml-3" *ngIf="!pdf.name">{{pdf.recurs_solucio_nom}}</span>
+                </div>
+
+                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
+                </div>
+
             </div>
-            <div class="tab equip" *ngIf="currentTab==1">
+            <div class="tab equip" [hidden]="currentTab != 1">
                 <h1 class="title-form">Informació sobre l'equip</h1>
 
-                <div class="row is-invalid" *ngIf="!individual_equip">
+                <div class="row has-errors" *ngIf="formErrors.repteIndividualOEquip">
                     <div class="col">
                         <span class="help-block">
-                           El repte només accepta solucions individuals
-                        </span>
-                    </div>
-                </div>
-
-                <div class="row is-invalid" *ngIf="individual_equip && limit_participants">
-                    <div class="col">
-                        <span class="help-block">
-                          El repte només accepta solucions en equip de {{limit_participants}} membres
-                        </span>
-                    </div>
-                </div>
-
-                <div class="row is-invalid" *ngIf="individual_equip && !limit_participants">
-                    <div class="col">
-                        <span class="help-block">
-                          El repte només accepta solucions en equip
+                           {{formErrors.repteIndividualOEquip}}
                         </span>
                     </div>
                 </div>
@@ -111,11 +135,11 @@
                 <p class="bold-label mb-1">Individual o en equip?</p>
                 <hr class="mb-4">
                 <div class="custom-control custom-radio">
-                    <input (change)="onItemChange($event.target.value)" value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input (change)="onItemChange($event.target.value)" value="individual" type="radio" [checked]="radioValue == 'individual'" id="customRadio1" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">Individual</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input (change)="onItemChange($event.target.value)" type="radio" id="customRadio2" checked value="equip" name="customRadio" class="custom-control-input">
+                    <input (change)="onItemChange($event.target.value)" type="radio" id="customRadio2" [checked]="radioValue == 'equip'" value="equip" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="customRadio2">En equip</label>
                 </div>
                 <div *ngIf="radioValue=='equip'">
@@ -170,7 +194,7 @@
             <p class="text-center">El creador del repte es posarà en contacte amb tu per qualsevol dubte, i us mantindrem informat sobre l’evolució del repte.</p>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary btn-manage">TORNA AL PERFIL</button>
+            <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">TORNA AL REPTE</button>
         </div>
     </div>
 </section>
