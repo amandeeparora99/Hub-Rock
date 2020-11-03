@@ -216,6 +216,57 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
                     }
 
+                    if (this.radioValue == 'individual') {
+                      for (let control of (<FormArray>this.solucioForm.get('membreArray')).controls) {
+
+                        this.solucioForm.get('nomEquip').clearValidators()
+                        this.solucioForm.get('nomEquip').updateValueAndValidity()
+
+                        this.solucioForm.updateValueAndValidity()
+
+                        if (control instanceof FormGroup) {
+
+                          control.controls.nomICognomsMembre.clearValidators()
+                          control.controls.nomICognomsMembre.updateValueAndValidity()
+
+
+                          control.controls.posicioMembre.clearValidators()
+                          control.controls.posicioMembre.updateValueAndValidity()
+
+
+                          control.controls.linkMembre.clearValidators()
+                          control.controls.linkMembre.updateValueAndValidity()
+
+                          control.updateValueAndValidity()
+                        }
+                      }
+                    } else if (this.radioValue == 'equip') {
+
+                      this.solucioForm.get('nomEquip').setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
+                      this.solucioForm.get('nomEquip').updateValueAndValidity()
+
+                      this.solucioForm.updateValueAndValidity()
+
+
+                      for (let control of (<FormArray>this.solucioForm.get('membreArray')).controls) {
+                        if (control instanceof FormGroup) {
+
+                          control.controls.nomICognomsMembre.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
+                          control.controls.nomICognomsMembre.updateValueAndValidity()
+
+
+                          control.controls.posicioMembre.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
+                          control.controls.posicioMembre.updateValueAndValidity()
+
+
+                          control.controls.linkMembre.updateValueAndValidity()
+
+                          control.updateValueAndValidity();
+                        }
+                      }
+
+                    }
+
                   }
                 }
               )
@@ -380,7 +431,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         this.pdfArray = event.target.files
       } else {
         this.pdfArray = null;
-        confirm('Supera el límit de 15MB')
+        alert('Supera el límit de 15MB')
       }
       // console.log(this.solucioForm.get('pdf').value)
       // Array.from(this.pdfArray).forEach(file => {

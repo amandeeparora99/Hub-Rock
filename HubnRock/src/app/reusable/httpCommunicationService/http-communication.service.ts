@@ -188,9 +188,9 @@ export class HttpCommunicationService {
 
   changeFirstLogin(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/changeFirstLogin', form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   addRepteBorrador(form: FormData): Observable<any> {
@@ -409,6 +409,21 @@ export class HttpCommunicationService {
       }));
   }
 
+  editSolucioEsborrany(idSolucio) {
+    return this.http.get<any>(environment.api + `/solucio/editBorrador/${idSolucio}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  editRepteEsborrany(idRepte) {
+    return this.http.get<any>(environment.api + `/repte/editBorrador/${idRepte}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
   // changeUserDetails(form): Observable<any> {
   //   return this.http.post<any>(environment.api + '/solucio/addValidat/' + form)
   //   .pipe(map(data => {

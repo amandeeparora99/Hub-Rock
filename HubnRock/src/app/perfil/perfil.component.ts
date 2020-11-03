@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+  public fileStorageUrl = environment.api + '/image/';
 
   public idUsuari;
   public usuariExists = true;
@@ -340,8 +342,8 @@ export class PerfilComponent implements OnInit {
     this.router.navigate(['/perfil/' + this.usuariObject.user_iduser + '/editar-perfil']);
   }
 
-  eliminarSolucio(idSolucio){
-    
+  eliminarSolucio(idSolucio) {
+    console.log(idSolucio)
   }
 
   ngOnDestroy() {

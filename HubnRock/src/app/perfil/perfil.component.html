@@ -15,7 +15,7 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <img class="rounded-circle" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                            <img class="rounded-circle" [src]="fileStorageUrl + usuariObject.url_photo_profile" alt="">
                         </div>
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
@@ -221,7 +221,8 @@
 
                                         </div>
                                         <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
-                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio()" class="eliminar-esborrany-link">eliminar-la</a>
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                                class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
 
@@ -278,7 +279,7 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <img height="214px" height="214px" class="rounded-circle" src="../../assets/logos/LaiaPedragosa.jpg" alt="">
+                            <img height="214px" height="214px" class="rounded-circle" [src]="fileStorageUrl + usuariObject.url_photo_profile" alt="">
                         </div>
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
@@ -378,7 +379,9 @@
                                             <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
 
                                         </div>
-                                        <div class="card-footer bg-transparent">
+                                        <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                                class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
                                 </div>
@@ -407,7 +410,7 @@
                                                 <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/LaiaPedragosa.jpg" alt="">
                                             </div>
                                             <div class="col m-auto solucio-footer text-overflow-1">
-                                                {{solucio.user.nom_empresa}} adsfasfsad
+                                                {{solucio.user.nom_empresa}}
                                             </div>
                                         </div>
                                     </div>

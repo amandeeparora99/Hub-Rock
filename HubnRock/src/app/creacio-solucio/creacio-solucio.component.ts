@@ -319,7 +319,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         this.pdfArray = event.target.files
       } else {
         this.pdfArray = null;
-        confirm('Supera el límit de 15MB')
+        alert('Supera el límit de 15MB')
       }
       // console.log(this.solucioForm.get('pdf').value)
       // Array.from(this.pdfArray).forEach(file => {

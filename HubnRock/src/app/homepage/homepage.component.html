@@ -5,110 +5,124 @@
 <button id="openModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" [hidden]="true">Large modal</button>
 
 <div id="modalFirstLogin" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title title" id="exampleModalLabel">Benvingut a Hub&Rock!</h5>
-        </div>
-        <div class="modal-body">
-            
-        <p>Completa aquest formulari per acabar de configurar el teu perfil i començar a donar-te a conèixer! (Si ho prefereixes, pots saltar aquest procés i editar el teu perfil posteriorment)</p>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="exampleModalLabel">Benvingut a Hub&Rock!</h5>
+            </div>
+            <div class="modal-body">
 
-        <form [formGroup]="userForm">
-            <div class="form-group" >
+                <p>Completa aquest formulari per acabar de configurar el teu perfil i començar a donar-te a conèixer! (Si ho prefereixes, pots saltar aquest procés i editar el teu perfil posteriorment)</p>
 
-                <div class="row">
-                    <div class="col-md-4 mb-2 ml-0">
-                        <div class="image-upload d-flex justify-content-center align-items-center">
-                            <label for="fotoPerfilLogin" class="pointer mb-0">
-                                <div class="row d-flex flex-column justify-content-center">
+                <form [formGroup]="userForm">
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-4 mb-2 ml-0">
+                                <div class="elimina-link" *ngIf="fotoPerfilPreview">
+                                    <a (click)="eliminarFoto()">- Elimina aquesta foto</a>
+                                </div>
+                                <div class="image-upload d-flex justify-content-center align-items-center">
+                                    <label for="fotoPerfilLogin" class="pointer mb-0">
+                                <div *ngIf="!fotoPerfilPreview" class="row d-flex flex-column justify-content-center">
                                     <img src="https://dummyimage.com/61x61/00e293/000000"
                                         class="rounded-circle align-self-center" />
                                     <p class="mb-0">Afegeix foto</p>
                                 </div>
                             </label>
-                            <input formControlName="InputfotoPerfilLogin" id="fotoPerfilLogin" type="file"/>
+                                    <input accept="image/*" formControlName="InputfotoPerfilLogin" (change)="onFileSelected($event)" id="fotoPerfilLogin" type="file" />
+                                    <img class="image-upload" *ngIf="fotoPerfilPreview" width="100%" height="100%" [src]="fotoPerfilPreview" alt="your image" />
+                                </div>
+                            </div>
+                            <div class="col-md-8 mb-2 ml-0">
+                                <div class="form-group">
+                                    <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="userIsRockstar">Sobre tu:</label>
+                                    <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="!userIsRockstar">Sobre l'empresa:</label>
+                                    <textarea formControlName="inputSobreTu" style="min-height: 70px;" class="form-control" id="sobreTu"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubicacio" class="col-form-label mt-0 pt-0">Ubicació:</label>
+                                    <input formControlName="inputUbicacio" type="text" class="form-control" id="ubicacio">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8 mb-2 ml-0">
-                        <div class="form-group">
-                            <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="userIsRockstar">Sobre tu:</label>
-                            <label for="sobreTu" class="col-form-label mt-0 pt-0" *ngIf="!userIsRockstar">Sobre l'empresa:</label>
-                            <textarea formControlName="inputSobreTu" style="min-height: 70px;" class="form-control" id="sobreTu"></textarea>
+
+                        <label for="inputTags" class="col-form-label" *ngIf="userIsRockstar">Habilitats:</label>
+                        <label for="inputTags" class="col-form-label" *ngIf="!userIsRockstar">Serveis:</label>
+
+                        <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" [placeholder]="userIsRockstar ? 'Disseny, tecnologia...' : 'Muntatge, desenvolupament...'" (input)="onSearchChange($event.target.value)"
+                            [(ngModel)]="inputValue">
+
+                        <div class="form-group d-flex mt-2">
+                            <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
+                                <p class="m-0 pl-2">{{tag}}</p>
+                                <div class="input-group-append">
+                                    <button (click)="deleteTag(tag)" class="btn" type="button">X</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="ubicacio" class="col-form-label mt-0 pt-0">Ubicació:</label>
-                            <input formControlName="inputUbicacio" type="text" class="form-control" id="ubicacio">
+
+                        <div class="form-group" *ngIf="userIsRockstar">
+                            <label for="experiencia" class="col-form-label">Experiència:</label>
+                            <input formControlName="inputExperiencia" type="text" class="form-control" id="experiencia">
                         </div>
-                    </div>
-                </div>
-                
-                <label for="inputTags" class="col-form-label" *ngIf="userIsRockstar">Habilitats:</label>
-                <label for="inputTags" class="col-form-label" *ngIf="!userIsRockstar">Serveis:</label>
-                
-                <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" [placeholder]="userIsRockstar ? 'Disseny, tecnologia...' : 'Muntatge, desenvolupament...'"  (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
 
-                <div class="form-group d-flex mt-2">
-                    <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
-                        <p class="m-0 pl-2">{{tag}}</p>
-                        <div class="input-group-append">
-                            <button (click)="deleteTag(tag)" class="btn" type="button">X</button>
+                        <div class="form-group" *ngIf="userIsRockstar">
+                            <label for="educacio" class="col-form-label">Educació:</label>
+                            <input formControlName="inputEducacio" type="text" class="form-control" id="educacio">
                         </div>
-                    </div>    
-                </div>
 
-                <div class="form-group" *ngIf="userIsRockstar">
-                    <label for="experiencia" class="col-form-label">Experiència:</label>
-                    <input formControlName="inputExperiencia" type="text" class="form-control" id="experiencia">
-                </div>
+                        <div class="form-group" *ngIf="userIsRockstar">
+                            <label for="ocupacio" class="col-form-label">Ocupació:</label>
+                            <input formControlName="inputOcupacio" type="text" class="form-control" id="ocupacio" placeholder="Enginyer/a @ Hub&Rock">
+                        </div>
 
-                <div class="form-group" *ngIf="userIsRockstar">
-                    <label for="educacio" class="col-form-label">Educació:</label>
-                    <input formControlName="inputEducacio" type="text" class="form-control" id="educacio">
-                </div>
-
-                <div class="form-group" *ngIf="userIsRockstar">
-                    <label for="ocupacio" class="col-form-label">Ocupació:</label>
-                    <input formControlName="inputOcupacio" type="text" class="form-control" id="ocupacio" placeholder="Enginyer/a @ Hub&Rock">
-                </div>
-
-                <div class="form-group text-center mb-5">
-                    <label class="afegeix-link">
-                        <input formControlName="inputCV" accept=".pdf" type="file" style="display: none;" multiple>
-                        <a>+ Afegeix PDFs</a>
+                        <div class="form-group text-center mb-2">
+                            <label class="afegeix-link">
+                        <input formControlName="inputCV" accept=".pdf" type="file" style="display: none;" (change)="onPdfSelected($event)">
+                        <a>+ Afegeix CV (pdf)</a>
                     </label>
-                </div>
+                        </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputLinkedin">LinkedIn</label>
-                        <input formControlName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                        <div *ngFor="let pdf of pdfArray" class="mb-2 text-center">
+                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <span class="ml-3">{{pdf.name}}</span>
+                        </div>
+
+                        <div *ngIf="pdfArray" class="text-center elimina-link mt-3 mb-2">
+                            <a (click)="resetPdfArray()">Esborra l'arxiu seleccionat</a>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputLinkedin">LinkedIn</label>
+                                <input formControlName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputTwitter">Twitter</label>
+                                <input formControlName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputInstagram">Instagram</label>
+                                <input formControlName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputFacebook">Facebook</label>
+                                <input formControlName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputTwitter">Twitter</label>
-                        <input formControlName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputInstagram">Instagram</label>
-                        <input formControlName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputFacebook">Facebook</label>
-                        <input formControlName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
-                    </div>
-                </div>
+
+                </form>
             </div>
-            
-        </form>
-        </div>
-        <div class="modal-footer">
-            <a type="button" data-dismiss="modal" (click)="confirmQuit()">Saltar aquest procés</a>
-            <button type="button" class="btn btn-primary desar" data-dismiss="modal" (click)="onSubmit()">Desar</button>
+            <div class="modal-footer">
+                <a type="button" data-dismiss="modal" (click)="confirmQuit()">Saltar aquest procés</a>
+                <button type="button" class="btn btn-primary desar" data-dismiss="modal" (click)="onSubmit()">Desar</button>
+            </div>
         </div>
     </div>
-  </div>
 </div>
 
 <!-- //FORMULARI DEL FIRST LOGIN -->
@@ -171,8 +185,7 @@
                                         <!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
                                 </div>
                                 <div class="tags">
-                                    <button *ngFor="let participants of repte.participants" type="button" class="tag btn"
-                                        [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                    <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                                     'tag-blue': participants.participants_name == 'Empreses',
                                                     'tag-orange': participants.participants_name == 'Estudiants',
                                                     'tag-purple': participants.participants_name == 'Públic general'}">

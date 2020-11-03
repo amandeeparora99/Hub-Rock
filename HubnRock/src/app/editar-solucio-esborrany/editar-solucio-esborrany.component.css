@@ -116,11 +116,13 @@ textarea {
 .btn-eliminar-esborrany {
     width: 100%;
     border-radius: 8px;
-    color: white;
+    border: solid 1px #c0392b;
+    color: #c0392b;
     letter-spacing: -0.9px;
     font-size: 17px;
+    font-family: 'WorkSans-Regular';
     font-weight: 600;
-    background-color: #c0392b;
+    background-color: white;
     height: 55px;
     margin: 2px;
 }
