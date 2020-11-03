@@ -193,6 +193,25 @@ export class HttpCommunicationService {
       }));
   }
 
+  // FORUM ==================================
+
+  sendForumTopic(repteId, form): Observable<any> {
+    return this.http.post<any>(environment.api + `/forumData/topic/${repteId}`, form)
+    .pipe(map(data => {
+      return data;
+    }));
+  }
+
+  sendForumMessage(form): Observable<any> {
+    return this.http.post<any>(environment.api + '/forumData/message', form)
+    .pipe(map(data => {
+      return data;
+    }));
+  }
+
+  //==========================================
+
+
   addRepteBorrador(form: FormData): Observable<any> {
     //   for (var value of form.values()) {
     //     console.log(value); 

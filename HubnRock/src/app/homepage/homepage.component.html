@@ -164,9 +164,9 @@
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
                             <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
-                                <div class="card-title d-flex">
+                                <div class="card-title d-flex" routerLink="/homepage">
                                     <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
-                                    <p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
+                                    <p class="m-0 username">{{repte.user.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>

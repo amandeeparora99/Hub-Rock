@@ -659,7 +659,7 @@ img {
 
 .answer {
     margin-left: 40px;
-    padding-top: 10px;
+    padding-top: 1px;
 }
 
 .text-overflow {
@@ -674,4 +674,8 @@ img {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.margintop60 {
+    padding-top: 60px;
 }
