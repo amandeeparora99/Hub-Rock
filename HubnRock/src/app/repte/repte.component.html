@@ -35,21 +35,6 @@
                         <img class="participateimg" src="../../assets/illustrations/{{categoria.participants_name}}.png" alt="Categoria empresa">
                         <p class="typetext">{{categoria.participants_name}}</p>
                     </div>
-                    <!-- 
-                    <div *ngIf="repte.participants[1]" class="d-flex flex-column align-items-center">
-                        <img class="participateimg" src="../../assets/illustrations/Startup.png" alt="">
-                        <p class="typetext">{{repte.participants[1].participants_name}}</p>
-                    </div>
-
-                    <div *ngIf="repte.participants[2]" class="d-flex flex-column align-items-center">
-                        <img class="participateimg" src="../../assets/illustrations/Student.png" alt="">
-                        <p class="typetext">{{repte.participants[2].participants_name}}</p>
-                    </div>
-
-                    <div *ngIf="repte.participants[3]" class="d-flex flex-column align-items-center">
-                        <img class="participateimg" src="../../assets/illustrations/Experts.png" alt="">
-                        <p class="typetext">{{repte.participants[3].participants_name}}</p>
-                    </div> -->
 
                 </div>
             </div>
@@ -387,22 +372,27 @@
                                 <p>{{forumPost.text}}</p>
                             </div>
                             <div class="row d-flex comentariButtons">
-                                <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                <button type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                 <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
+                            </div>
+
+                            <div class="row d-flex justify-content-end" *ngIf="returnTrue(forumPost.id)">
+                                <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" [id]="'resposta'+forumPost.id" style="height: 70px;"></textarea>
+                                <button type="button" class="btn" (click)="sendTopic(respostaForum.value)">Envia</button>
                             </div>
                         </div>
 
-                        <div *ngIf="forumRespostes">
+                        <div *ngIf="objectRespostes['forumParent'+forumPost.id]">
                             <hr>
 
-                            <div class="forumContent answer" *ngFor="let resposta of forumRespostes; let i = index">
+                            <div class="forumContent answer" *ngFor="let resposta of objectRespostes['forumParent'+forumPost.id]; let i = index">
                                 <div class="row d-flex align-items-center mb-4">
                                     <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
                                     <div class="col">
                                         <div class="row">
                                             <p class="m-0 mr-3">Maria Serra</p><button type="button" class="commentRank">Creador del repte</button></div>
                                         <div class="row">
-                                            <p class="m-0">5 Maig de noseke</p>
+                                            <p class="m-0">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -410,12 +400,48 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                    <button type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                     <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
                                 </div>
-                            </div>
 
-                            <!-- IF TE RESPOSTES, ENSENYELES AQUI, ABANS DE SEGUIR AMB EL LOOP DE LES ALTRES RESPOSTES. EL CONTESTAR EL QUE FARÀ ÉS CONTESTAR AL PARENT, NO CADA UN DELS FILLS! -->
+                                <div class="row d-flex justify-content-end" *ngIf="returnTrue(resposta.id)">
+                                    <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
+                                    <button type="button" class="btn" (click)="sendMessage(respostaForum.value, resposta.id)">Envia</button>
+                                </div>
+                                
+
+                                <!-- IF TE RESPOSTES, ENSENYELES AQUI, ABANS DE SEGUIR AMB EL LOOP DE LES ALTRES RESPOSTES. EL CONTESTAR EL QUE FARÀ ÉS CONTESTAR AL PARENT, NO CADA UN DELS FILLS! -->
+
+                                <div class="margintop60" *ngFor="let answer of resposta.childs; let i = index">
+                                    <div class="row d-flex align-items-center mb-4">
+                                        <img src="https://dummyimage.com/58/000/fff" class="rounded-circle align-self-center mr-3">
+                                        <div class="col">
+                                            <div class="row">
+                                                <p class="m-0 mr-3">Maria Serra</p><button type="button" class="commentRank">Creador del repte</button></div>
+                                            <div class="row">
+                                                <p class="m-0">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row comentariText mb-3">
+                                        <p>{{answer.content}}</p>
+                                    </div>
+                                    <div class="row d-flex comentariButtons">
+                                        <button type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                        <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
+                                    </div>
+
+                                    <div class="row d-flex justify-content-end" *ngIf="returnTrue(answer.id)">
+                                        <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
+                                        <button type="button" class="btn" (click)="sendMessage(respostaForum.value, resposta.id, answer.id)">Envia</button>
+                                    </div>
+                                </div>
+
+                                
+
+                                <!-- /Repostes -->
+                            </div>
+                            
 
                         </div>
 

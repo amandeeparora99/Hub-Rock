@@ -21,6 +21,8 @@ export class RepteComponent implements OnInit {
 
   public forum = null;
   public forumRespostes = null;
+  objectRespostes: any = {};
+  objectButtonsInput: any = {};
 
   public repteExists = true;
   videoUrl;
@@ -39,6 +41,7 @@ export class RepteComponent implements OnInit {
   subscriptionHttp$: Subscription
   subscriptionHttp2$: Subscription
   subscriptionHttp3$: Subscription
+  subscriptionHttp4$: Subscription
 
   ngOnInit(): void {
 
@@ -325,13 +328,15 @@ export class RepteComponent implements OnInit {
 
   carregarRespostes(idMissatgePare) {
 
-    this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
+    if(!this.objectRespostes["forumParent" + idMissatgePare]) {
+      this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
       .pipe(first())
       .subscribe(
         data => {
           if (data.code == '1') {
-            this.forumRespostes = data.rows;
-            console.log("RESPOSTES:", this.forumRespostes)
+            let variableName = "forumParent" + idMissatgePare;
+            this.objectRespostes[variableName] = data.rows;
+            console.log("RESPOSTES:", this.objectRespostes[variableName])
           } else {
             console.log("Forum ERROR")
           }
@@ -340,9 +345,86 @@ export class RepteComponent implements OnInit {
           //this.error = error;
           //this.loading = false;
         });
+    }
+    else{
+      console.log("Already loaded!")
+    }
     
   }
 
+  contestar(idResposta){
+    //Posem tots els inputs en false again i nomes activem el que ha apretat nou l'user.
+    for (const [key, value] of Object.entries(this.objectButtonsInput)) {
+      console.log(key, value);
+      if(value == true) {
+        this.objectButtonsInput[key] = false
+      }
+    }
+    this.objectButtonsInput[idResposta] = true;
+  }
 
+  returnTrue(idResposta){
+    if(this.objectButtonsInput[idResposta]) {
+      return this.objectButtonsInput[idResposta]
+    }
+    else {
+      return false;
+    }
+  }
+
+  sendMessage(message, topicId, messageParentId) {
+    console.log(message)
+    const formData = new FormData();
+    formData.append('message', message);
+    formData.append('topicId', topicId);
+    if(messageParentId) {
+      formData.append('messageParentId', messageParentId);
+
+      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Missatge enviat correctament!");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
+    else{
+      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Missatge enviat correctament!");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
+  
+  }
+
+  sendTopic(message) {
+    console.log(message);
+
+    const formData = new FormData();
+    formData.append('message', message);
+
+    this.subscriptionHttp4$ = this.httpCommunication.sendForumTopic(this.idRepte, formData)
+    .pipe(first())
+    .subscribe(
+      data => {
+        console.log(data);
+        alert("Missatge enviat correctament!");
+      },
+      error => {
+        console.log("Fail")
+        alert("S'ha produït un error");
+      });
+  }
 
 }
