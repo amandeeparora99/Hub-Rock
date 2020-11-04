@@ -186,6 +186,14 @@ export class HttpCommunicationService {
       }));
   }
 
+  uploadImageShortEdit(form): Observable<any> {
+    return this.http.post<any>(environment.api + '/user/addUserPhoto', form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   changeFirstLogin(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/changeFirstLogin', form)
       .pipe(map(data => {
@@ -197,16 +205,16 @@ export class HttpCommunicationService {
 
   sendForumTopic(repteId, form): Observable<any> {
     return this.http.post<any>(environment.api + `/forumData/topic/${repteId}`, form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   sendForumMessage(form): Observable<any> {
     return this.http.post<any>(environment.api + '/forumData/message', form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   //==========================================

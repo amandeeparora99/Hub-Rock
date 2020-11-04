@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-editar-repte-esborrany',
@@ -26,8 +27,9 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  currentUser: User;
+
   repteForm: FormGroup;
-  usuariForm: FormGroup;
   radioValue = 'equip';
   radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
@@ -38,7 +40,13 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   repte;
   idRepte;
-  success = false;
+  idRepteCreat;
+
+  success = true;
+
+  eliminat = false;
+  enviat = false;
+  actualitzat = true;
 
   formDone = false;
 
@@ -201,6 +209,12 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   ngOnInit(): void {
     this.idRepte = this.aRouter.snapshot.params.id;
+
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
 
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
@@ -1106,11 +1120,28 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == 1) {
               this.success = true;
-              this.idRepte = data.lastId;
+              this.idRepteCreat = data.lastId;
+
+              this.subscriptionHttp1$ = this.httpClient.deleteRepte(this.idRepte)
+                .pipe(first())
+                .subscribe();
             }
 
           });
     }
+  }
+
+  deleteRepte() {
+    this.subscriptionHttp1$ = this.httpClient.deleteRepte(this.idRepte)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == 1) {
+            this.success = true;
+            this.eliminat = true;
+          }
+
+        });
   }
 
   logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {

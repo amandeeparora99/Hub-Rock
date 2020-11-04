@@ -20,9 +20,10 @@ export class HomepageComponent implements OnInit {
   userIsRockstar: Boolean;
   inputValue;
   success = false;
+  usuariObject;
+  currentUserImage: File;
 
   pdfArray;
-  fotoPerfil;
   fotoPerfilPreview;
 
   tags = [];
@@ -39,6 +40,22 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
         if (this.currentUser) {
           this.userIsRockstar = this.currentUser.userType;
+          this.subscriptionHttp$ = this.httpCommunication.getUser(this.currentUser.idUser)
+            .pipe(first())
+            .subscribe(
+              data => {
+                if (data.code == "1") {
+                  this.usuariObject = data.row;
+
+                  fetch('http://api.hubandrock.com/image/' + this.usuariObject.url_photo_profile)
+                    .then(res => res.blob()) // Gets the response and returns it as a blob
+                    .then(blob => {
+                      this.currentUserImage = new File([blob], 'image');
+
+                    });
+
+                }
+              });
           // if(this.currentUser.firstLogin) {
           this.openModal();
           this.changeUserFirstLogin();
@@ -120,9 +137,17 @@ export class HomepageComponent implements OnInit {
   }
 
   onFileSelected(event) {
-
     if (event.target.files) {
-      this.fotoPerfil = event.target.files[0]
+
+      let formData = new FormData();
+      formData.append('url_photo_profile', event.target.files[0]);
+
+      this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.success = true;
+          });
 
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0])
@@ -130,13 +155,24 @@ export class HomepageComponent implements OnInit {
       reader.onload = (event: any) => {
         this.fotoPerfilPreview = event.target.result
       }
+
+
     }
 
   }
 
   eliminarFoto() {
-    this.fotoPerfil = null;
     this.fotoPerfilPreview = null;
+
+    let formData = new FormData();
+    formData.append('url_photo_profile', this.currentUserImage);
+
+    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+        });
   }
 
   onPdfSelected(event) {
@@ -161,6 +197,16 @@ export class HomepageComponent implements OnInit {
   }
 
   confirmQuit() {
+    let formData = new FormData();
+    formData.append('url_photo_profile', this.currentUserImage);
+
+    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+        });
+
     let omplert: Boolean = false;
 
     for (const field in this.userForm.controls) {
@@ -180,9 +226,6 @@ export class HomepageComponent implements OnInit {
 
     if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
       formData.append('empresa_rockstar', '0');
-      if (this.fotoPerfil) {
-        formData.append('url_photo_profile', this.fotoPerfil);
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
@@ -226,9 +269,6 @@ export class HomepageComponent implements OnInit {
 
     else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
       formData.append('empresa_rockstar', '1');
-      if (this.userForm.get('InputfotoPerfilLogin').value) {
-        formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
@@ -280,7 +320,7 @@ export class HomepageComponent implements OnInit {
         formData.append(`cv_path`, this.pdfArray[0]);
         // formData.append(`recurs_url_fitxer[${index}]`, file);
       }
-      
+
       return formData;
     }
 

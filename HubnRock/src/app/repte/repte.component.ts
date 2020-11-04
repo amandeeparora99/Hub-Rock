@@ -315,56 +315,56 @@ export class RepteComponent implements OnInit {
 
   }
 
-  switchTextArea(){
-    if(!this.textAreaOn) {
+  switchTextArea() {
+    if (!this.textAreaOn) {
       this.textAreaOn = true;
       this.forumButtonText = '+ Publica'
     }
     else {
       console.log("ENVIANT FORUM")
     }
-    
+
   }
 
   carregarRespostes(idMissatgePare) {
 
-    if(!this.objectRespostes["forumParent" + idMissatgePare]) {
+    if (!this.objectRespostes["forumParent" + idMissatgePare]) {
       this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
-      .pipe(first())
-      .subscribe(
-        data => {
-          if (data.code == '1') {
-            let variableName = "forumParent" + idMissatgePare;
-            this.objectRespostes[variableName] = data.rows;
-            console.log("RESPOSTES:", this.objectRespostes[variableName])
-          } else {
-            console.log("Forum ERROR")
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+              let variableName = "forumParent" + idMissatgePare;
+              this.objectRespostes[variableName] = data.rows;
+              console.log("RESPOSTES:", this.objectRespostes[variableName])
+            } else {
+              console.log("Forum ERROR")
+            }
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
     }
-    else{
+    else {
       console.log("Already loaded!")
     }
-    
+
   }
 
-  contestar(idResposta){
+  contestar(idResposta) {
     //Posem tots els inputs en false again i nomes activem el que ha apretat nou l'user.
     for (const [key, value] of Object.entries(this.objectButtonsInput)) {
       console.log(key, value);
-      if(value == true) {
+      if (value == true) {
         this.objectButtonsInput[key] = false
       }
     }
     this.objectButtonsInput[idResposta] = true;
   }
 
-  returnTrue(idResposta){
-    if(this.objectButtonsInput[idResposta]) {
+  returnTrue(idResposta) {
+    if (this.objectButtonsInput[idResposta]) {
       return this.objectButtonsInput[idResposta]
     }
     else {
@@ -373,39 +373,43 @@ export class RepteComponent implements OnInit {
   }
 
   sendMessage(message, topicId, messageParentId) {
-    console.log(message)
-    const formData = new FormData();
+    console.log('parent id',messageParentId)
+    const formData: any = new FormData();
     formData.append('message', message);
     formData.append('topicId', topicId);
-    if(messageParentId) {
+    console.log('valors del form data')
+   
+    if (messageParentId) {
       formData.append('messageParentId', messageParentId);
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            alert("Missatge enviat correctament!");
+          },
+          error => {
+            console.log("Fail")
+            alert("S'ha produït un error");
+          });
+    }
+    else {
+      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            alert("Missatge enviat correctament!");
+          },
+          error => {
+            console.log("Fail")
+            alert("S'ha produït un error");
+          });
+    }
 
-      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-          alert("Missatge enviat correctament!");
-        },
-        error => {
-          console.log("Fail")
-          alert("S'ha produït un error");
-        });
-    }
-    else{
-      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-          alert("Missatge enviat correctament!");
-        },
-        error => {
-          console.log("Fail")
-          alert("S'ha produït un error");
-        });
-    }
-  
   }
 
   sendTopic(message) {
@@ -415,16 +419,16 @@ export class RepteComponent implements OnInit {
     formData.append('message', message);
 
     this.subscriptionHttp4$ = this.httpCommunication.sendForumTopic(this.idRepte, formData)
-    .pipe(first())
-    .subscribe(
-      data => {
-        console.log(data);
-        alert("Missatge enviat correctament!");
-      },
-      error => {
-        console.log("Fail")
-        alert("S'ha produït un error");
-      });
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Missatge enviat correctament!");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
   }
 
 }
