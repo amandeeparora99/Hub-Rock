@@ -194,11 +194,22 @@ export class HttpCommunicationService {
       }));
   }
 
-  changeFirstLogin(form): Observable<any> {
-    return this.http.post<any>(environment.api + '/user/changeFirstLogin', form)
-      .pipe(map(data => {
+  changeFirstLogin(first_login): Observable<any> {
+      const body = new HttpParams()
+      .set('first_login', first_login)
+      
+    return this.http.post<any>(environment.api + '/user/changeFirstLogin',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        console.log(data)
         return data;
-      }));
+      }
+    }));
   }
 
   // FORUM ==================================
@@ -215,6 +226,26 @@ export class HttpCommunicationService {
       .pipe(map(data => {
         return data;
       }));
+  }
+
+  sendHelp(message, topicId, messageParentId): Observable<any> {
+    const body = new HttpParams()
+      .set('message', message)
+      .set('topicId', topicId)
+      .set('messageParentId', messageParentId)
+
+    return this.http.post<any>(environment.api + '/forumData/message',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        console.log(data)
+        return data;
+      }
+    }));
   }
 
   //==========================================
