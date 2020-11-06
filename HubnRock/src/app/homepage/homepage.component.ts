@@ -103,9 +103,9 @@ export class HomepageComponent implements OnInit {
   }
 
   changeUserFirstLogin() {
-    const formData = new FormData();
-    formData.append('first_login', '0');
-    this.subscriptionHttp2$ = this.httpCommunication.changeFirstLogin(formData)
+    //Un cop enviat ja no sera el primer cop que entra
+    let first_login = 0;
+    this.subscriptionHttp2$ = this.httpCommunication.changeFirstLogin(first_login)
       .pipe(first())
       .subscribe(
         data => {
@@ -217,6 +217,8 @@ export class HomepageComponent implements OnInit {
     if (omplert) {
       confirm("Tens camps omplerts, segur que vols sortir?")
     }
+
+    this.changeUserFirstLogin();
   }
 
   appendUserInfo(): FormData {

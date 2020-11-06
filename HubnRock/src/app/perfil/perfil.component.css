@@ -153,7 +153,11 @@ a {
 }
 
 .profilecard {
-    cursor: auto;
+    cursor: auto!important;
+}
+
+.profilecard:hover {
+    box-shadow: none;
 }
 
 .repte-rebutjat {
