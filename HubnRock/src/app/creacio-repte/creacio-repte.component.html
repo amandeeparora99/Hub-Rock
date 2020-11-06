@@ -58,7 +58,9 @@
                     <label for="InputDescripcioBreuRepte" class="mb-0">Breu descripció del repte</label><br>
                     <div class="d-flex justify-content-between">
                         <label class="additional-info" for="descripcioBreuRepte">Descriu la solució en 1 o 2 frases
-                        </label><span>{{this.repteForm.get('descripcioBreuRepte').value.length}} / 280</span>
+                        </label>
+                        <span> <span *ngIf="repteForm.get('descripcioBreuRepte').value">{{this.repteForm.get('descripcioBreuRepte').value.length}}</span>
+                        <span *ngIf="!repteForm.get('descripcioBreuRepte').value">0</span> / 280</span>
                     </div>
                     <textarea type="text" formControlName="descripcioBreuRepte" class="form-control" id="InputDescripcioBreuRepte" maxlength="280" (blur)="logValidationErrors()"></textarea>
                     <span class="help-block" *ngIf="formErrors.descripcioBreuRepte">

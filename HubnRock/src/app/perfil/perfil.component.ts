@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+  public fileStorageUrl = environment.api + '/image/';
 
   public idUsuari;
   public usuariExists = true;
@@ -90,6 +92,9 @@ export class PerfilComponent implements OnInit {
             );
 
 
+          } else {
+            this.loadReptes(this.currentReptesPage, this.elements)
+            this.loadSolucions(this.currentSolucionsPage, this.elements)
           }
 
 
@@ -233,10 +238,11 @@ export class PerfilComponent implements OnInit {
           }
         })
     } else {
-
+      console.log('CARREGANT DES DE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
       this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            console.log('NHA TROBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
             if (data.rows.length < 1) {
               this.solucionsNoMore = true;
             }
@@ -340,8 +346,8 @@ export class PerfilComponent implements OnInit {
     this.router.navigate(['/perfil/' + this.usuariObject.user_iduser + '/editar-perfil']);
   }
 
-  eliminarSolucio(idSolucio){
-    
+  eliminarSolucio(idSolucio) {
+    console.log(idSolucio)
   }
 
   ngOnDestroy() {

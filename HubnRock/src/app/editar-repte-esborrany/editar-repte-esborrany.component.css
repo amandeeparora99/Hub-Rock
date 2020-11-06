@@ -39,6 +39,20 @@ textarea#InputBreuDescripcio {
     margin-bottom: 110px;
 }
 
+.btn-eliminar-esborrany {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #c0392b;
+    color: #c0392b;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
+
 #regForm .formpagetitle {
     font-family: 'WorkSans-Bold';
     font-size: 34px;

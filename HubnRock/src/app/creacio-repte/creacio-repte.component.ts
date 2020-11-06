@@ -429,7 +429,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       } else {
         this.pdfArray = null;
-        confirm('Supera el límit de 15MB')
+        alert('Supera el límit de 15MB')
       }
 
     }
@@ -693,7 +693,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     }
 
     if (this.repteForm.get('videoSolucio').value) {
-      formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
+      formData.append('url_video', this.repteForm.get('videoSolucio').value);
 
     }
 

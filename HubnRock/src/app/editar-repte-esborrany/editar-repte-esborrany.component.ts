@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { animationFrameScheduler, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-editar-repte-esborrany',
@@ -26,8 +27,9 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  currentUser: User;
+
   repteForm: FormGroup;
-  usuariForm: FormGroup;
   radioValue = 'equip';
   radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
@@ -38,7 +40,13 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   repte;
   idRepte;
+  idRepteCreat;
+
   success = false;
+
+  eliminat = false;
+  enviat = false;
+  actualitzat = false;
 
   formDone = false;
 
@@ -202,6 +210,12 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   ngOnInit(): void {
     this.idRepte = this.aRouter.snapshot.params.id;
 
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
+
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -215,7 +229,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       pdf: [''],
       videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
       checkboxGroup: this.fb.group({
-        empresesCheckbox: [true],
+        empresesCheckbox: [false],
         startupsCheckbox: [false],
         estudiantsCheckbox: [false],
         expertsCheckbox: [false]
@@ -226,19 +240,19 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
       }, { validator: dataIniciBiggerThanFinal() }),
       premiArray: this.fb.array([
-        this.addPremiFormGroup(),
+
       ]),
       solucioArray: this.fb.array([
-        this.addSolucioFormGroup(),
+
       ]),
       partnerArray: this.fb.array([
-        this.addPartnerFormGroup(),
+
       ]),
       juratArray: this.fb.array([
-        this.addJuratFormGroup(),
+
       ]),
       preguntaArray: this.fb.array([
-        this.addPreguntaFormGroup(),
+
       ]),
 
       customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
@@ -262,10 +276,175 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 nomRepte: this.repte.nom,
                 descripcioBreuRepte: this.repte.descripcio_short,
                 descripcioDetalladaRepte: this.repte.descripcio_long,
+                videoSolucio: this.repte.url_video,
 
               })
 
+              //PATCH PARTICIPANTS
+              for (let index = 0; index < this.repte.participants.length; index++) {
+                const participant = this.repte.participants[index];
+
+                if (participant.participants_name == "Empreses") {
+                  this.repteForm.get('checkboxGroup').patchValue({
+                    empresesCheckbox: [true]
+                  })
+                } else if (participant.participants_name == "Startups") {
+                  this.repteForm.get('checkboxGroup').patchValue({
+                    startupsCheckbox: [true]
+                  })
+                } else if (participant.participants_name == "Estudiants") {
+                  this.repteForm.get('checkboxGroup').patchValue({
+                    estudiantsCheckbox: [true]
+                  })
+                } else if (participant.participants_name == "Experts") {
+                  this.repteForm.get('checkboxGroup').patchValue({
+                    expertsCheckbox: [true]
+                  })
+                }
+
+              }
+
+              //PATCH INDIVIDUAL EQUIP
+              if (this.repte.individual_equip == 1) {
+                this.radioValue = 'equip'
+              } else if (this.repte.individual_equip == 0) {
+                this.radioValue = 'individual'
+              }
+
+              if (this.repte.limit_participants) {
+                this.repteForm.patchValue({ limitParticipants: this.repte.limit_participants })
+              }
+
+              //PATCH DATES
+              if (this.repte.data_inici) {
+                let dateRepteInici = this.datepipe.transform(this.repte.data_inici, 'yyyy-MM-dd')
+                this.repteForm.get('datesGroup').patchValue({ dataInici: dateRepteInici })
+              }
+
+              if (this.repte.data_final) {
+                let dateRepteFinal = this.datepipe.transform(this.repte.data_final, 'yyyy-MM-dd')
+                this.repteForm.get('datesGroup').patchValue({ dataFinalitzacio: dateRepteFinal })
+              }
+
+              //PATCH RECURSOS
+              if (this.repte.recursos.length) {
+                this.pdfArray = this.repte.recursos
+              }
+
+              //PATCH PREMIS
+              if (this.repte.premis.length) {
+                console.log('length premis', this.repte.premis.length)
+                for (var i = 0; i < this.repte.premis.length; i++) {
+
+                  (<FormArray>this.repteForm.get('premiArray')).push(this.addPremiFormGroup());
+
+                  (<FormArray>this.repteForm.get('premiArray')).at(i).patchValue({
+                    nomPremi: this.repte.premis[i].premi_nom,
+                    dotacioPremi: this.repte.premis[i].premi_dotacio,
+                    descripcioPremi: this.repte.premis[i].premi_descripcio
+                    // fotoPremi: ['']
+                  });
+                }
+
+              } else {
+                (<FormArray>this.repteForm.get('premiArray')).push(this.addPremiFormGroup());
+
+              }
+
+              //PATCH SOLUCIONS
+              if (this.repte.solucions.length) {
+                console.log('length solucions', this.repte.solucions.length)
+
+                for (var i = 0; i < this.repte.solucions.length; i++) {
+
+                  (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
+
+                  (<FormArray>this.repteForm.get('solucioArray')).at(i).patchValue({
+                    nomSolucio: this.repte.solucions[i].solucio_nom,
+                    descripcioSolucio: this.repte.solucions[i].solucio_descripcio,
+                  });
+                }
+
+              } else {
+                (<FormArray>this.repteForm.get('solucioArray')).push(this.addSolucioFormGroup());
+
+              }
+
+              //PATCH PARTNERS
+              if (this.repte.partners.length) {
+                for (var i = 0; i < this.repte.partners.length; i++) {
+
+                  (<FormArray>this.repteForm.get('partnerArray')).push(this.addPartnerFormGroup());
+
+                  (<FormArray>this.repteForm.get('partnerArray')).at(i).patchValue({
+                    nomPartner: this.repte.partners[i].partner_nom,
+                    breuDescripcioPartner: this.repte.partners[i].partner_descripcio,
+                  });
+                }
+
+              } else {
+                (<FormArray>this.repteForm.get('partnerArray')).push(this.addPartnerFormGroup());
+
+              }
+
+              //PATCH JURATS
+              if (this.repte.jurats.length) {
+                for (var i = 0; i < this.repte.jurats.length; i++) {
+
+                  (<FormArray>this.repteForm.get('juratArray')).push(this.addJuratFormGroup());
+
+                  (<FormArray>this.repteForm.get('juratArray')).at(i).patchValue({
+                    nomCognomsJurat: this.repte.jurats[i].jurat_nom,
+                    biografiaJurat: this.repte.jurats[i].jurat_bio,
+                  });
+                }
+
+              } else {
+                (<FormArray>this.repteForm.get('juratArray')).push(this.addJuratFormGroup());
+
+              }
+
+              //PATCH FAQ
+              if (this.repte.faqs.length) {
+                for (var i = 0; i < this.repte.faqs.length; i++) {
+
+                  (<FormArray>this.repteForm.get('preguntaArray')).push(this.addPreguntaFormGroup());
+
+                  (<FormArray>this.repteForm.get('preguntaArray')).at(i).patchValue({
+                    pregunta: this.repte.faqs[i].faq_pregunta,
+                    resposta: this.repte.faqs[i].faq_resposta,
+                  });
+                }
+
+              } else {
+                (<FormArray>this.repteForm.get('preguntaArray')).push(this.addPreguntaFormGroup());
+
+              }
             }
+
+            //PATCH CUSTOM TOS
+            if (this.repte.bases_legals == 1) {
+              this.radioToSValue = 'custom'
+            } else if (this.repte.individual_equip == 0) {
+              this.radioToSValue = 'hubandrock'
+            }
+
+            if (this.repte.bases_legals == 1) {
+              this.repteForm.patchValue({ customTOS: this.repte.bases_legals_personals })
+            }
+
+            if (this.radioToSValue == 'hubandrock') {
+
+              this.repteForm.get('customTOS').setValidators([Validators.maxLength(5000), Validators.minLength(3)])
+              this.repteForm.get('customTOS').updateValueAndValidity()
+
+            } else if (this.radioToSValue == 'custom') {
+
+              this.repteForm.get('customTOS').setValidators([Validators.required, Validators.maxLength(5000), Validators.minLength(3)])
+              this.repteForm.get('customTOS').updateValueAndValidity()
+
+            }
+
           });
 
     }
@@ -454,7 +633,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
       } else {
         this.pdfArray = null;
-        confirm('Supera el límit de 15MB')
+        alert('Supera el límit de 15MB')
       }
 
     }
@@ -718,7 +897,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     }
 
     if (this.repteForm.get('videoSolucio').value) {
-      formData.append('url_photo_video', this.repteForm.get('videoSolucio').value);
+      formData.append('url_video', this.repteForm.get('videoSolucio').value);
 
     }
 
@@ -941,11 +1120,28 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == 1) {
               this.success = true;
-              this.idRepte = data.lastId;
+              this.idRepteCreat = data.lastId;
+
+              this.subscriptionHttp1$ = this.httpClient.deleteRepte(this.idRepte)
+                .pipe(first())
+                .subscribe();
             }
 
           });
     }
+  }
+
+  deleteRepte() {
+    this.subscriptionHttp1$ = this.httpClient.deleteRepte(this.idRepte)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == 1) {
+            this.success = true;
+            this.eliminat = true;
+          }
+
+        });
   }
 
   logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {

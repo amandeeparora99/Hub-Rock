@@ -57,7 +57,9 @@
                     <label for="InputBreuDescripcio" class="mb-0">Breu descripció de la solució</label><br>
                     <div class="d-flex justify-content-between">
                         <label class="additional-info" for="InputBreuDescripcio">Descriu la solució en 1 o 2 frases
-                        </label><span>{{this.solucioForm.get('descripcioBreuSolucio').value.length}} / 280</span>
+                        </label>
+                        <span> <span *ngIf="solucioForm.get('descripcioBreuSolucio').value">{{solucioForm.get('descripcioBreuSolucio').value.length}}</span>
+                        <span *ngIf="!solucioForm.get('descripcioBreuSolucio').value">0</span> / 280</span>
                     </div>
                     <textarea type="text" formControlName="descripcioBreuSolucio" class="form-control" id="InputBreuDescripcio" maxlength="280" (blur)="logValidationErrors()"></textarea>
                     <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span>

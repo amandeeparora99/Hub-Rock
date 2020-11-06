@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { DatePipe, formatDate } from '@angular/common';
 import { User } from '../user';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-homepage',
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  public fileStorageUrl = environment.api + '/image/';
 
   userForm: FormGroup;
   allReptes = [];
@@ -20,6 +22,11 @@ export class HomepageComponent implements OnInit {
   userIsRockstar: Boolean;
   inputValue;
   success = false;
+  usuariObject;
+  currentUserImage: File;
+
+  pdfArray;
+  fotoPerfilPreview;
 
   tags = [];
   subscriptionHttp$: Subscription;
@@ -35,10 +42,26 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
         if (this.currentUser) {
           this.userIsRockstar = this.currentUser.userType;
-          // if(this.currentUser.firstLogin) {
-          this.openModal();
-          this.changeUserFirstLogin();
-          // }
+          this.subscriptionHttp$ = this.httpCommunication.getUser(this.currentUser.idUser)
+            .pipe(first())
+            .subscribe(
+              data => {
+                if (data.code == "1") {
+                  this.usuariObject = data.row;
+
+                  fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
+                    .then(res => res.blob()) // Gets the response and returns it as a blob
+                    .then(blob => {
+                      this.currentUserImage = new File([blob], 'image');
+
+                    });
+
+                }
+              });
+          if (this.currentUser.firstLogin) {
+            this.openModal();
+            this.changeUserFirstLogin();
+          }
         }
       }
     );
@@ -76,10 +99,6 @@ export class HomepageComponent implements OnInit {
             this.allReptes = data.rows;
 
           }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
         });
   }
 
@@ -115,7 +134,77 @@ export class HomepageComponent implements OnInit {
 
   }
 
+  onFileSelected(event) {
+    if (event.target.files) {
+
+      let formData = new FormData();
+      formData.append('url_photo_profile', event.target.files[0]);
+
+      this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.success = true;
+          });
+
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0])
+
+      reader.onload = (event: any) => {
+        this.fotoPerfilPreview = event.target.result
+      }
+
+
+    }
+
+  }
+
+  eliminarFoto() {
+    this.fotoPerfilPreview = null;
+
+    let formData = new FormData();
+    formData.append('url_photo_profile', this.currentUserImage);
+
+    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+        });
+  }
+
+  onPdfSelected(event) {
+    if (event.target.files) {
+      let totalSize = 0;
+
+      totalSize = event.target.files[0].size;
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+
+      } else {
+        this.pdfArray = null;
+        confirm('Supera el límit de 15MB')
+      }
+
+    }
+  }
+
+  resetPdfArray() {
+    this.pdfArray = null;
+  }
+
   confirmQuit() {
+    let formData = new FormData();
+    formData.append('url_photo_profile', this.currentUserImage);
+
+    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+        });
+
     let omplert: Boolean = false;
 
     for (const field in this.userForm.controls) {
@@ -135,9 +224,6 @@ export class HomepageComponent implements OnInit {
 
     if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
       formData.append('empresa_rockstar', '0');
-      if (this.userForm.get('InputfotoPerfilLogin').value) {
-        formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
@@ -151,10 +237,6 @@ export class HomepageComponent implements OnInit {
         for (var i = 0; i < this.tags.length; i++) {
           formData.append(`servei_nom[${i}]`, this.tags[i]);
         }
-      }
-
-      if (this.userForm.get('inputCV').value) {
-        formData.append('cv_path', this.userForm.get('inputCV').value);
       }
 
       if (this.userForm.get('inputLinkedIn').value) {
@@ -172,15 +254,15 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
       }
-
+      if (this.pdfArray) {
+        formData.append(`cv_path`, this.pdfArray[0]);
+        // formData.append(`recurs_url_fitxer[${index}]`, file);
+      }
       return formData;
     }
 
     else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
       formData.append('empresa_rockstar', '1');
-      if (this.userForm.get('InputfotoPerfilLogin').value) {
-        formData.append('url_photo_profile', this.userForm.get('InputfotoPerfilLogin').value);
-      }
 
       if (this.userForm.get('inputSobreTu').value) {
         formData.append('bio', this.userForm.get('inputSobreTu').value);
@@ -208,10 +290,6 @@ export class HomepageComponent implements OnInit {
         formData.append('ocupacio', this.userForm.get('inputOcupacio').value);
       }
 
-      if (this.userForm.get('inputCV').value) {
-        formData.append('cv_path', this.userForm.get('inputCV').value);
-      }
-
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
@@ -226,6 +304,11 @@ export class HomepageComponent implements OnInit {
 
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
+      }
+
+      if (this.pdfArray) {
+        formData.append(`cv_path`, this.pdfArray[0]);
+        // formData.append(`recurs_url_fitxer[${index}]`, file);
       }
 
       return formData;

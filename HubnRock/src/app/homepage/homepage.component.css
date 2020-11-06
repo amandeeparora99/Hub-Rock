@@ -3,7 +3,6 @@
     font-size: 14px;
 }
 
-
 #container-fluid {
     height: 100%;
     background-color: rgba(0, 226, 146, 0.64);
@@ -285,7 +284,6 @@
     -webkit-box-orient: vertical;
 }
 
-
 .fitxa-repte .titol-repte {
     font-family: 'WorkSans-Bold';
     font-size: 18px;
@@ -307,16 +305,18 @@
 }
 
 .card:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .username {
     color: #2a2a2a;
 }
+
 .username:hover {
     color: #00e292;
     cursor: pointer;
 }
+
 
 /*
 
@@ -354,6 +354,25 @@
     color: white;
 } */
 
+.elimina-link a {
+    color: #e74c3c;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.afegeix-link a {
+    color: #020e7d;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.afegeix-link a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
 .userTag {
     border: 1px solid grey;
     border-radius: 9px;
@@ -371,9 +390,13 @@
     font-family: 'WorkSans-Bold';
 }
 
-#modalFirstLogin a, .desar, p, input{
+#modalFirstLogin a,
+.desar,
+p,
+input {
     font-size: 16px;
 }
+
 .desar {
     min-width: 50px;
 }
@@ -382,7 +405,9 @@
     justify-content: space-between;
 }
 
-.modal-body, .modal-footer, .modal-header {
+.modal-body,
+.modal-footer,
+.modal-header {
     padding: 30px;
 }
 

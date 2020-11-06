@@ -28,6 +28,7 @@ import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { DatePipe } from '@angular/common';
 import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/editar-solucio-esborrany.component';
+import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/edit
     EditarRepteComponent,
     SpinnerComponent,
     EditarSolucioEsborranyComponent,
+    ClickStopPropagationDirective,
   ],
   imports: [
     BrowserModule,

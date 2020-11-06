@@ -186,27 +186,35 @@ export class HttpCommunicationService {
       }));
   }
 
+  uploadImageShortEdit(form): Observable<any> {
+    return this.http.post<any>(environment.api + '/user/addUserPhoto', form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   changeFirstLogin(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/changeFirstLogin', form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   // FORUM ==================================
 
   sendForumTopic(repteId, form): Observable<any> {
     return this.http.post<any>(environment.api + `/forumData/topic/${repteId}`, form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   sendForumMessage(form): Observable<any> {
     return this.http.post<any>(environment.api + '/forumData/message', form)
-    .pipe(map(data => {
-      return data;
-    }));
+      .pipe(map(data => {
+        return data;
+      }));
   }
 
   sendHelp(message, topicId, messageParentId): Observable<any> {
@@ -448,6 +456,21 @@ export class HttpCommunicationService {
       }));
   }
 
+  editSolucioEsborrany(idSolucio) {
+    return this.http.get<any>(environment.api + `/solucio/editBorrador/${idSolucio}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  editRepteEsborrany(idRepte) {
+    return this.http.get<any>(environment.api + `/repte/editBorrador/${idRepte}`)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
   // changeUserDetails(form): Observable<any> {
   //   return this.http.post<any>(environment.api + '/solucio/addValidat/' + form)
   //   .pipe(map(data => {

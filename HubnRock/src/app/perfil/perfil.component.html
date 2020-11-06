@@ -15,7 +15,7 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <img class="rounded-circle" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                            <img height="214px" width="214px" class="rounded-circle" [src]="fileStorageUrl + usuariObject.url_photo_profile" alt="">
                         </div>
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
@@ -35,10 +35,11 @@
                                         <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
                                         <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
                                     </p>
-                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
-                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
-                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
-                                    <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
+                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin" target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
+                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram" target="_blank"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
+                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook" target="_blank"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
+                                    <a *ngIf="usuariObject.xarxes_twitter" [attr.href]="usuariObject.xarxes_twitter" target="_blank"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
+                                    <!-- <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Correu.png" alt="Correu"></a> -->
                                 </div>
                             </div>
                         </div>
@@ -87,7 +88,7 @@
                             <h5 class="card-title">Presentació empresa</h5>
                             <p class="card-text" *ngIf="!usuariObject.cv_path">Aquesta empresa no ha compartit la seva presentació</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a *ngIf="usuariObject.cv_path" href="#" class="link-perfil-empresa">Presentació empresa {{usuariObject.nom_empresa}}</a>
+                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-empresa">Currículum {{usuariObject.nom_empresa}}</a>
                         </div>
                     </div>
                 </div>
@@ -214,14 +215,15 @@
                         <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length >= 1" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
-                                    <div class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
+                                    <div click-stop-propagation class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
                                         <div class="card-body">
                                             <h5 class="card-title text-overflow">{{solucioEsborrany.solucio_proposada_nom}}</h5>
-                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
+                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
 
                                         </div>
                                         <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
-                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio()" class="eliminar-esborrany-link">eliminar-la</a>
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                                class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
 
@@ -240,16 +242,16 @@
                     <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
-                                <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                                <div class="card solucio-enviat p-2" click-stop-propagation [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
+                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                     </div>
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                                                <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
                                             </div>
                                             <div class="col m-auto solucio-footer text-overflow-1">
                                                 {{solucio.user.nom_empresa}}
@@ -278,7 +280,7 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <img height="214px" height="214px" class="rounded-circle" src="../../assets/logos/LaiaPedragosa.jpg" alt="">
+                            <img height="214px" width="214px" class="rounded-circle" [src]="fileStorageUrl + usuariObject.url_photo_profile" alt="">
                         </div>
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
@@ -299,10 +301,11 @@
                                         <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
                                     </p>
 
-                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
-                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
-                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
-                                    <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
+                                    <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin" target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
+                                    <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram" target="_blank"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
+                                    <a *ngIf="usuariObject.xarxes_facebook" [attr.href]="usuariObject.xarxes_facebook" target="_blank"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
+                                    <a *ngIf="usuariObject.xarxes_twitter" [attr.href]="usuariObject.xarxes_twitter" target="_blank"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a>
+                                    <!-- <a *ngIf="usuariObject.xarxes_correu" [attr.href]="usuariObject.xarxes_correu"><img class="mr-2" src="../../assets/testicons/Correu.png" alt="Correu"></a> -->
                                 </div>
                             </div>
                         </div>
@@ -342,7 +345,7 @@
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>
                             <p class="card-text" *ngIf="!usuariObject.habilitats.length">Habilitats sense definir</p>
-                            <p *ngFor="let habilitat of usuariObject.habilitats" class="p-border mr-4">{{habilitat.servei_nom}}</p>
+                            <p *ngFor="let habilitat of usuariObject.habilitats" class="p-border mr-4">{{habilitat.habilitat_nom}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Experiència</h5>
@@ -358,7 +361,7 @@
                             <h5 class="card-title">CV</h5>
                             <p class="card-text" *ngIf="!usuariObject.cv_path">Aquest usuari no ha compartit el CV</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a *ngIf="usuariObject.cv_path" href="#" class="link-perfil-usuari">Presentació empresa {{usuariObject.nom_responsable}}</a>
+                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-usuari">Presentació {{usuariObject.nom_rockstar}}</a>
                         </div>
                     </div>
                 </div>
@@ -372,13 +375,15 @@
                         <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
-                                    <div class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
+                                    <div click-stop-propagation class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
                                         <div class="card-body">
                                             <h5 class="card-title text-overflow">{{solucioEsborrany.solucio_proposada_nom}}</h5>
-                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
+                                            <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucioEsborrany.idrepte]" target="_blank">{{solucioEsborrany.nom}}</a></h6>
 
                                         </div>
-                                        <div class="card-footer bg-transparent">
+                                        <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                                class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
                                 </div>
@@ -395,19 +400,19 @@
                     <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
-                                <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                                <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
+                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                     </div>
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/LaiaPedragosa.jpg" alt="">
+                                                <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
                                             </div>
                                             <div class="col m-auto solucio-footer text-overflow-1">
-                                                {{solucio.user.nom_empresa}} adsfasfsad
+                                                {{solucio.user.nom_rockstar}}
                                             </div>
                                         </div>
                                     </div>
