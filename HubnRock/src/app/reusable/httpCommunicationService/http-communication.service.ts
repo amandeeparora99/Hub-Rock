@@ -195,9 +195,9 @@ export class HttpCommunicationService {
   }
 
   changeFirstLogin(first_login): Observable<any> {
-      const body = new HttpParams()
+    const body = new HttpParams()
       .set('first_login', first_login)
-      
+
     return this.http.post<any>(environment.api + '/user/changeFirstLogin',
       body.toString(),
       {
@@ -206,6 +206,8 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
+        let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
+        this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
         console.log(data)
         return data;
       }
