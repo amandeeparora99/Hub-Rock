@@ -33,6 +33,7 @@ export class RepteCanViewGuard implements CanActivate {
             return true;
           } else {
             this.router.navigate(['/homepage'])
+            alert('No és possible visualitzar aquest repte perquè no és vàlid')
             return false;
           }
 

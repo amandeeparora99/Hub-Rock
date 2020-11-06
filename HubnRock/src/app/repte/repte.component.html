@@ -408,7 +408,7 @@
                                     <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
                                     <button type="button" class="btn" (click)="sendMessage(respostaForum.value, resposta.id)">Envia</button>
                                 </div>
-                                
+
 
                                 <!-- IF TE RESPOSTES, ENSENYELES AQUI, ABANS DE SEGUIR AMB EL LOOP DE LES ALTRES RESPOSTES. EL CONTESTAR EL QUE FARÀ ÉS CONTESTAR AL PARENT, NO CADA UN DELS FILLS! -->
 
@@ -437,11 +437,11 @@
                                     </div>
                                 </div>
 
-                                
+
 
                                 <!-- /Repostes -->
                             </div>
-                            
+
 
                         </div>
 
@@ -460,10 +460,10 @@
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">
                         <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
-                            <div class="card solucio-enviat p-2" routerLink="/solucio/{{solucio.idsolucio}}">
+                            <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                 <div class="card-body">
                                     <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte', solucio.idrepte]" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
 
                                 </div>
                                 <div class="card-footer bg-transparent">

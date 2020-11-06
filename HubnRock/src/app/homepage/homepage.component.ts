@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { DatePipe, formatDate } from '@angular/common';
 import { User } from '../user';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-homepage',
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  public fileStorageUrl = environment.api + '/image/';
 
   userForm: FormGroup;
   allReptes = [];
@@ -47,7 +49,7 @@ export class HomepageComponent implements OnInit {
                 if (data.code == "1") {
                   this.usuariObject = data.row;
 
-                  fetch('http://api.hubandrock.com/image/' + this.usuariObject.url_photo_profile)
+                  fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
                     .then(res => res.blob()) // Gets the response and returns it as a blob
                     .then(blob => {
                       this.currentUserImage = new File([blob], 'image');
@@ -56,10 +58,10 @@ export class HomepageComponent implements OnInit {
 
                 }
               });
-          // if(this.currentUser.firstLogin) {
-          this.openModal();
-          this.changeUserFirstLogin();
-          // }
+          if (this.currentUser.firstLogin) {
+            this.openModal();
+            this.changeUserFirstLogin();
+          }
         }
       }
     );
@@ -97,10 +99,6 @@ export class HomepageComponent implements OnInit {
             this.allReptes = data.rows;
 
           }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
         });
   }
 
@@ -241,10 +239,6 @@ export class HomepageComponent implements OnInit {
         }
       }
 
-      if (this.userForm.get('inputCV').value) {
-        formData.append('cv_path', this.userForm.get('inputCV').value);
-      }
-
       if (this.userForm.get('inputLinkedIn').value) {
         formData.append('xarxes_linkedin', this.userForm.get('inputLinkedIn').value);
       }
@@ -294,10 +288,6 @@ export class HomepageComponent implements OnInit {
 
       if (this.userForm.get('inputOcupacio').value) {
         formData.append('ocupacio', this.userForm.get('inputOcupacio').value);
-      }
-
-      if (this.userForm.get('inputCV').value) {
-        formData.append('cv_path', this.userForm.get('inputCV').value);
       }
 
       if (this.userForm.get('inputLinkedIn').value) {

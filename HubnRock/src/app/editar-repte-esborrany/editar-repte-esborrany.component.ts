@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { animationFrameScheduler, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -42,11 +42,11 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   idRepte;
   idRepteCreat;
 
-  success = true;
+  success = false;
 
   eliminat = false;
   enviat = false;
-  actualitzat = true;
+  actualitzat = false;
 
   formDone = false;
 

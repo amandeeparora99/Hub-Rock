@@ -92,6 +92,9 @@ export class PerfilComponent implements OnInit {
             );
 
 
+          } else {
+            this.loadReptes(this.currentReptesPage, this.elements)
+            this.loadSolucions(this.currentSolucionsPage, this.elements)
           }
 
 
@@ -235,10 +238,11 @@ export class PerfilComponent implements OnInit {
           }
         })
     } else {
-
+      console.log('CARREGANT DES DE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
       this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
+            console.log('NHA TROBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
             if (data.rows.length < 1) {
               this.solucionsNoMore = true;
             }

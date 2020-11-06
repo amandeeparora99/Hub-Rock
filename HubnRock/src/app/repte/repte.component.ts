@@ -5,6 +5,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 import { first } from 'rxjs/operators';
 import { User } from '../user';
 import { environment } from 'src/environments/environment';
+// import { ClickStopPropagationDirective } from '../click-stop-propagation.directive';
 
 @Component({
   selector: 'app-repte',
@@ -222,6 +223,9 @@ export class RepteComponent implements OnInit {
     this.subscriptionHttp$ = this.httpCommunication.getSolucionsByRepte(this.idRepte, page, elements).pipe(first())
       .subscribe(data => {
         if (data.code == "1") {
+          if (data.rows.length < 1) {
+            this.solucionsProposadesNoMore = true;
+          }
 
           for (let index = 0; index < data.rows.length; index++) {
             const solucioProposada = data.rows[index];
@@ -373,12 +377,12 @@ export class RepteComponent implements OnInit {
   }
 
   sendMessage(message, topicId, messageParentId) {
-    console.log('parent id',messageParentId)
+    console.log('parent id', messageParentId)
     const formData: any = new FormData();
     formData.append('message', message);
     formData.append('topicId', topicId);
     console.log('valors del form data')
-   
+
     if (messageParentId) {
       formData.append('messageParentId', messageParentId);
       for (var value of formData.values()) {
