@@ -347,7 +347,16 @@ export class PerfilComponent implements OnInit {
   }
 
   eliminarSolucio(idSolucio) {
-    console.log(idSolucio)
+
+    this.subscriptionHttp1$ = this.httpClient.deleteSolucio(idSolucio)
+      .pipe(first())
+      .subscribe(data => {
+        if (data.code == 1) {
+          window.location.reload()
+        }
+      }
+      );
+
   }
 
   ngOnDestroy() {

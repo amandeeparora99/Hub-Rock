@@ -445,11 +445,6 @@ a {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.username:hover {
-    color: #00e292;
-    cursor: pointer;
-}
-
 .text-overflow {
     overflow: hidden;
     display: -webkit-box;
@@ -478,4 +473,10 @@ a {
     color: #020e7d;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.username:hover {
+    color: #00e292 !important;
+    text-decoration: none;
+    cursor: pointer;
 }
