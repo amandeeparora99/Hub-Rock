@@ -53,9 +53,7 @@ export class HomepageComponent implements OnInit {
                     .then(res => res.blob()) // Gets the response and returns it as a blob
                     .then(blob => {
                       this.currentUserImage = new File([blob], 'image');
-
-                    });
-
+                    })
                 }
               });
           if (this.currentUser.firstLogin) {
