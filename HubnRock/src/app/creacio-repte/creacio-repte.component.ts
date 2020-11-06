@@ -36,6 +36,15 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   objectFotosPreview: any = {};
   objectFotos: any = {};
 
+  objectSolucionsPreview: any = {};
+  objectSolucions: any = {};
+
+  objectPartnersPreview: any = {};
+  objectPartners: any = {};
+
+  objectJuratPreview: any = {};
+  objectJurat: any = {};
+
   idRepte;
   success = false;
 
@@ -500,16 +509,29 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
 
-    this.loopObjectFotosPreview(number, arraySplit[0]);
+    // this.loopObjectFotosPreview(number, arraySplit[0]);    //S'HA DE DESCOMENTAR
     // this.loopObjectFotos(number, arraySplit[0]);
 
   }
 
 
-  loopObjectFotosPreview(number, valueName) {
+  loopObjectFotosPreview(number, valueName, arrayName) {
 
     console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
-    let arrayLength = Object.keys(this.objectFotosPreview).length - 1
+    let arrayLength;
+
+    if(arrayName == 'premis') {
+      arrayLength = Object.keys(this.objectFotosPreview).length - 1
+    }
+    else if(arrayName == 'solucions') {
+      arrayLength = Object.keys(this.objectSolucionsPreview).length - 1
+    }
+    else if(arrayName == 'partners') {
+      arrayLength = Object.keys(this.objectPartnersPreview).length - 1
+    }
+    else if(arrayName == 'jurats'){
+      arrayLength = Object.keys(this.objectJuratPreview).length - 1
+    }
 
     for (const [key, value] of Object.entries(this.objectFotosPreview)) {
       let index = key.split(/([0-9]+)/)[1];
@@ -536,7 +558,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectFotosPreview[valueName + arrayLength];
     console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
-
   }
 
   loopObjectFotos(number, valueName) {
