@@ -209,6 +209,26 @@ export class HttpCommunicationService {
     }));
   }
 
+  sendHelp(message, topicId, messageParentId): Observable<any> {
+    const body = new HttpParams()
+      .set('message', message)
+      .set('topicId', topicId)
+      .set('messageParentId', messageParentId)
+
+    return this.http.post<any>(environment.api + '/forumData/message',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        console.log(data)
+        return data;
+      }
+    }));
+  }
+
   //==========================================
 
 

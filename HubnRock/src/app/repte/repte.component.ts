@@ -21,6 +21,7 @@ export class RepteComponent implements OnInit {
 
   public forum = null;
   public forumRespostes = null;
+  public hasForum: Boolean = false;
   objectRespostes: any = {};
   objectButtonsInput: any = {};
 
@@ -200,7 +201,9 @@ export class RepteComponent implements OnInit {
         data => {
           if (data.code == '1') {
             this.forum = data.rows
-
+            if(this.forum.length > 0) {
+              this.hasForum = true;
+            }
           } else {
             console.log("Forum ERROR")
           }
@@ -306,6 +309,24 @@ export class RepteComponent implements OnInit {
 
   }
 
+  repteCanHaveForum(data_inici, data_final) {
+    if (data_inici && data_final) {
+      let dateInici = new Date(data_inici);
+      let dateFinal = new Date(data_final);
+      let currentDate = new Date();
+
+      if (dateInici > currentDate) {
+        return true;
+      }
+      else if (dateInici < currentDate && dateFinal > currentDate) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
   getYoutubeUrl(url) {
     if (url) {
       var string = url;
@@ -374,13 +395,11 @@ export class RepteComponent implements OnInit {
 
   sendMessage(message, topicId, messageParentId) {
     console.log(message)
-    const formData = new FormData();
-    formData.append('message', message);
-    formData.append('topicId', topicId);
-    if(messageParentId) {
-      formData.append('messageParentId', messageParentId);
+    console.log(topicId)
+    console.log(messageParentId)
 
-      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+    if(messageParentId != 0) {
+      this.subscriptionHttp4$ = this.httpCommunication.sendHelp(message, topicId, messageParentId)
       .pipe(first())
       .subscribe(
         data => {
@@ -393,12 +412,12 @@ export class RepteComponent implements OnInit {
         });
     }
     else{
-      this.subscriptionHttp4$ = this.httpCommunication.sendForumMessage(formData)
+      this.subscriptionHttp4$ = this.httpCommunication.sendHelp(message, topicId, '')
       .pipe(first())
       .subscribe(
         data => {
           console.log(data);
-          alert("Missatge enviat correctament!");
+          alert("Missatge fill enviat correctament!");
         },
         error => {
           console.log("Fail")

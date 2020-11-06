@@ -329,7 +329,6 @@
                         the date on which either Party has served written notice on the other of the dispute, the dispute will be referred to arbitration. The arbitration shall take place in Singapore and shall be settled under the Rules of Arbitration
                         of the International Chamber of Commerce by one arbitrator selected in accordance with the said Rules. The award of arbitration shall be final and binding on both parties and shall be in lieu of any other remedy. Each party shall
                         bear its own costs.
-
                         <br>
                     </div>
                     <div class="legaltext" *ngIf="repte.bases_legals == 1">{{repte.bases_legals_personals}}</div>
@@ -341,7 +340,7 @@
             <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
-                <div class="row d-flex justify-content-center postForum">
+                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                     <textarea class="form-control inputForum fadeIn" *ngIf="textAreaOn" id="textareaForum"></textarea>
                     <div class="inputForum" *ngIf="!textAreaOn">
                         As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
@@ -353,6 +352,8 @@
                 </div>
 
                 <div class="row d-flex justify-content-center">
+
+                    <p *ngIf="!hasForum">Aquest repte no té missatges.</p>
 
                     <div class="forumBody" *ngFor="let forumPost of forum; let i = index">
 
@@ -372,13 +373,13 @@
                                 <p>{{forumPost.text}}</p>
                             </div>
                             <div class="row d-flex comentariButtons">
-                                <button type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                 <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
                             </div>
 
-                            <div class="row d-flex justify-content-end" *ngIf="returnTrue(forumPost.id)">
+                            <div class="row d-flex justify-content-end" *ngIf="returnTrue(forumPost.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                                 <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" [id]="'resposta'+forumPost.id" style="height: 70px;"></textarea>
-                                <button type="button" class="btn" (click)="sendTopic(respostaForum.value)">Envia</button>
+                                <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, 0)">Envia</button>
                             </div>
                         </div>
 
@@ -400,13 +401,13 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                     <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
                                 </div>
 
-                                <div class="row d-flex justify-content-end" *ngIf="returnTrue(resposta.id)">
+                                <div class="row d-flex justify-content-end" *ngIf="returnTrue(resposta.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                                     <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                    <button type="button" class="btn" (click)="sendMessage(respostaForum.value, resposta.id)">Envia</button>
+                                    <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id)">Envia</button>
                                 </div>
                                 
 
@@ -427,35 +428,31 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                         <button type="button" class="btn forumButton"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">250 M'agrada</button>
                                     </div>
 
-                                    <div class="row d-flex justify-content-end" *ngIf="returnTrue(answer.id)">
+                                    <div class="row d-flex justify-content-end" *ngIf="returnTrue(answer.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                                         <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                        <button type="button" class="btn" (click)="sendMessage(respostaForum.value, resposta.id, answer.id)">Envia</button>
+                                        <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id)">Envia</button>
                                     </div>
                                 </div>
 
-                                
-
                                 <!-- /Repostes -->
+
                             </div>
                             
 
                         </div>
 
-
                     </div>
                 </div>
-
 
             </div>
 
 
             <div id="propostes" class="tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Solucions proposades</h1>
-
 
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">

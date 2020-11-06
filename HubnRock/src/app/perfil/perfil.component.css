@@ -152,6 +152,10 @@ a {
     margin-bottom: 20px;
 }
 
+.profilecard {
+    cursor: auto;
+}
+
 .repte-rebutjat {
     background-color: #ff6666;
 }
