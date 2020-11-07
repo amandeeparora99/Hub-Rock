@@ -701,7 +701,7 @@
 
         <div class="text-center">
             <button *ngIf="(eliminat && currentUser) || (actualitzat && currentUser)" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
-            <button *ngIf="enviat && idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepteCreat]">VEURE EL REPTE</button>
+            <button *ngIf="enviat && idRepteCreat" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepteCreat]">VEURE EL REPTE</button>
         </div>
     </div>
 </section>

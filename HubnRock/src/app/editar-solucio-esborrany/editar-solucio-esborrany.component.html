@@ -45,7 +45,7 @@
             <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="row mb-110">
-            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany">ELIMINA L'ESBORRANY</button></div>
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteSolucio()">ELIMINA L'ESBORRANY</button></div>
         </div>
 
         <div class="container" style="max-width: 731px; margin-bottom:100px;">
@@ -189,13 +189,25 @@
 <section id="solucioSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Enhorabona</h1>
-        <div class="paragraph-container">
-            <p class="text-center">La teva solució s’ha enviat correctament.</p>
+
+        <div class="paragraph-container" *ngIf="enviat">
+            <p class="text-center">La teva solució s'ha enviat correctament.</p>
             <p class="text-center">El creador del repte es posarà en contacte amb tu per qualsevol dubte, i us mantindrem informat sobre l’evolució del repte.</p>
         </div>
-        <div class="text-center">
-            <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">TORNA AL REPTE</button>
+
+        <div class="paragraph-container" *ngIf="eliminat">
+            <p class="text-center">L'esborrany s'ha eliminat correctament.</p>
         </div>
+
+        <div class="paragraph-container" *ngIf="actualitzat">
+            <p class="text-center">L'esborrany s'ha actualitzat correctament</p>
+        </div>
+
+        <div class="text-center">
+            <button *ngIf="(eliminat && currentUser) || (actualitzat && currentUser)" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
+            <button *ngIf="enviat && idSolucioCreada" class="btn btn-primary btn-manage" [routerLink]="['/solucio/', idSolucioCreada]">VEURE LA SOLUCIÓ</button>
+        </div>
+
     </div>
 </section>
 

@@ -1069,14 +1069,16 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         console.log(value);
       }
 
-      this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
+      this.subscriptionHttp1$ = this.httpClient.editRepteEsborrany(this.idRepte, formData)
         .pipe(first())
         .subscribe(
           data => {
+            console.log(data)
             if (data.code == 1) {
               this.success = true;
-              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
-              this.router.navigate([`/perfil/${currentUserId}`])
+              this.actualitzat = true;
+              // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              // this.router.navigate([`/perfil/${currentUserId}`])
             }
           });
     }
@@ -1119,8 +1121,9 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
-              this.success = true;
               this.idRepteCreat = data.lastId;
+              this.success = true;
+              this.enviat = true;
 
               this.subscriptionHttp1$ = this.httpClient.deleteRepte(this.idRepte)
                 .pipe(first())

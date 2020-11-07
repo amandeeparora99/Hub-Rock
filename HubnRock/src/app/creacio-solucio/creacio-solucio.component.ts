@@ -24,6 +24,8 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  idSolucioCreada;
+
   private idRepte;
   repte;
   pdfArray;
@@ -399,11 +401,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .pipe(first())
         .subscribe(
           data => {
+            this.idSolucioCreada = data.lastId;
             this.success = true;
+
             console.log(data);
-          },
-          error => {
-            console.log("Fail")
           });
 
     }
@@ -479,9 +480,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
               this.router.navigate([`/perfil/${currentUserId}`])
 
             }
-          },
-          error => {
-            console.log("Fail")
           });
     }
   }
