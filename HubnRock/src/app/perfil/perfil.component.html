@@ -222,7 +222,7 @@
 
                                         </div>
                                         <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
-                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a click-stop-propagation (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
                                                 class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
@@ -251,10 +251,10 @@
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                             </div>
-                                            <div class="col m-auto solucio-footer text-overflow-1">
-                                                {{solucio.user.nom_empresa}}
+                                            <div class="col m-auto text-overflow-1">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -382,7 +382,7 @@
 
                                         </div>
                                         <div class="card-footer card-footer-text esborrany-expired" *ngIf="!canParticipate(solucioEsborrany.data_inici, solucioEsborrany.data_final)">
-                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
+                                            El repte al qual pertany aquesta solució ha acabat i ja no accepta propostes. Comprova que hagis guardat qualsevol idea interessant abans d'<a click-stop-propagation (click)="eliminarSolucio(solucioEsborrany.idsolucio_proposada)"
                                                 class="eliminar-esborrany-link">eliminar-la</a>
                                         </div>
                                     </div>
@@ -409,10 +409,10 @@
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                             </div>
-                                            <div class="col m-auto solucio-footer text-overflow-1">
-                                                {{solucio.user.nom_rockstar}}
+                                            <div class="col m-auto text-overflow-1">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}</a>
                                             </div>
                                         </div>
                                     </div>
