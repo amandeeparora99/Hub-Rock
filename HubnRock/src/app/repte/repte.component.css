@@ -600,6 +600,7 @@ img {
 .forumbutton {
     letter-spacing: -0.25px;
     color: #020e7d;
+    background-color: white;
     padding-left: 30px;
     max-width: 793px;
     font-weight: bold;
@@ -616,8 +617,13 @@ img {
 }
 
 #textareaForum {
-    min-height: 120px;
+    min-height: 137px;
     border-radius: 5px;
+}
+
+.forumprofilepic {
+    width: 58px;
+    height: 58px;
 }
 
 .forumBody {

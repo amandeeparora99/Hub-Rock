@@ -158,13 +158,23 @@ export class HttpCommunicationService {
       }));
   }
 
+
+  //FÒRUM ------------------------------
+
   getForum(repte_id, page, elements): Observable<any> {
 
     return this.http.get<any>(environment.api + `/forumData/topics/${repte_id}/${page}/${elements}`)
       .pipe(map(data => {
-
         return data;
+      }));
 
+  }
+
+  getForumLogin(repte_id, page, elements): Observable<any> {
+
+    return this.http.get<any>(environment.api + `/forumData/topicsAuth/${repte_id}/${page}/${elements}`)
+      .pipe(map(data => {
+        return data;
       }));
 
   }
@@ -172,11 +182,47 @@ export class HttpCommunicationService {
   getForumRespostes(topicId): Observable<any> {
     return this.http.get<any>(environment.api + `/forumData/messages/${topicId}`)
       .pipe(map(data => {
-
         return data;
-
       }));
   }
+
+  getForumRespostesLogin(topicId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/messagesAuth/${topicId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  likeTopic(topicId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/likeTopic/${topicId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  dislikeTopic(topicId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/dislikeTopic/${topicId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  likeMessage(messageId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/likeMessage/${messageId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  dislikeMessage(messageId): Observable<any> {
+    return this.http.get<any>(environment.api + `/forumData/dislikeMessage/${messageId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+  
+
+  // ---------------------
 
   editShortUser(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/shortEdit', form)
