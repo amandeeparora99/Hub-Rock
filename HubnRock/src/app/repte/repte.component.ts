@@ -44,6 +44,7 @@ export class RepteComponent implements OnInit {
   subscriptionHttp2$: Subscription
   subscriptionHttp3$: Subscription
   subscriptionHttp4$: Subscription
+  subscriptionHttp5$: Subscription
 
   ngOnInit(): void {
 
@@ -196,7 +197,7 @@ export class RepteComponent implements OnInit {
 
   getRepteForum(idRepte, page, elements) {
     console.log("getRepteForum")
-    this.subscriptionHttp2$ = this.httpCommunication.getForum(idRepte, page, elements)
+    this.subscriptionHttp2$ = this.httpCommunication.getForumLogin(idRepte, page, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -264,6 +265,7 @@ export class RepteComponent implements OnInit {
     }
 
   }
+
 
   ngOnDestroy() {
     this.subscriptionHttp$?.unsubscribe()
@@ -340,21 +342,23 @@ export class RepteComponent implements OnInit {
 
   }
 
-  switchTextArea() {
+  switchTextArea(topicPostMsg) {
     if (!this.textAreaOn) {
       this.textAreaOn = true;
       this.forumButtonText = '+ Publica'
     }
     else {
       console.log("ENVIANT FORUM")
+      console.log(topicPostMsg)
     }
 
   }
 
   carregarRespostes(idMissatgePare) {
 
+    //Falta fer el get sense auth en cas que sigui user sense login
     if (!this.objectRespostes["forumParent" + idMissatgePare]) {
-      this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
+      this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
         .pipe(first())
         .subscribe(
           data => {
@@ -375,6 +379,97 @@ export class RepteComponent implements OnInit {
       console.log("Already loaded!")
     }
 
+  }
+
+  likePost(user_like_count, idPost){
+    if(user_like_count == 0) {
+      this.subscriptionHttp5$ = this.httpCommunication.likeTopic(idPost)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Has fet LIKE al post");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
+    else{
+      this.subscriptionHttp5$ = this.httpCommunication.dislikeTopic(idPost)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Has fet DISLIKE al post");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
+  }
+
+  likePostChange(index, likeUser) {
+    if(likeUser == 1) {
+      this.forum[index].like_count = this.forum[index].like_count - 1
+      this.forum[index].like_user_count = 0
+    }
+    else{
+      this.forum[index].like_count = this.forum[index].like_count + 1
+      this.forum[index].like_user_count = 1
+    }
+  }
+
+  likeMessageChange(idMissatgePare, index, likeUser) {
+    if(likeUser == 1) {
+      this.objectRespostes["forumParent"+idMissatgePare][index].like_count = this.objectRespostes["forumParent"+idMissatgePare][index].like_count - 1
+      this.objectRespostes["forumParent"+idMissatgePare][index].like_user_count = 0
+    }
+    else{
+      this.objectRespostes["forumParent"+idMissatgePare][index].like_count = this.objectRespostes["forumParent"+idMissatgePare][index].like_count + 1
+      this.objectRespostes["forumParent"+idMissatgePare][index].like_user_count = 1
+    }
+  }
+
+  likeAnswerChange(idMissatgePare, index, childIndex, likeUser) {
+    if(likeUser == 1) {
+      this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_count = this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_count - 1
+      this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_user_count = 0
+    }
+    else{
+      this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_count = this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_count + 1
+      this.objectRespostes["forumParent"+idMissatgePare][index].childs[childIndex].like_user_count = 1
+    }
+  }
+
+  likeMessage(user_like_count, idMessage){
+    if(user_like_count == 0) {
+      this.subscriptionHttp5$ = this.httpCommunication.likeMessage(idMessage)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Has fet LIKE al comentari");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
+    else{
+      this.subscriptionHttp5$ = this.httpCommunication.dislikeMessage(idMessage)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          alert("Has fet DISLIKE al comentari");
+        },
+        error => {
+          console.log("Fail")
+          alert("S'ha produït un error");
+        });
+    }
   }
 
   contestar(idResposta) {
