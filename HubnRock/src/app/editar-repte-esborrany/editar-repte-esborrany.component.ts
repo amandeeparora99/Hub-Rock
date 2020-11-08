@@ -50,6 +50,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   formDone = false;
 
+  checkUntouched = false;
+
   fotoPortada = null;
   pdfArray;
   fotoRepte1Selected = "";
@@ -221,7 +223,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
       descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       fotoPortada: ['',
-        // [Validators.required]
+        [Validators.required]
       ],
       fotoRepresentativa1: ['', []],
       fotoRepresentativa2: ['', []],
@@ -301,7 +303,6 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                     expertsCheckbox: [true]
                   })
                 }
-
               }
 
               //PATCH INDIVIDUAL EQUIP
@@ -1090,7 +1091,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
 
   onRepteSubmit() {
-
+    this.checkUntouched = true;
+    console.log(this.repteForm.get('checkboxGroup'))
     if (!this.repteForm.valid) {
       console.log(this.repteForm.valid)
       for (const field in this.repteForm.controls) { // 'field' is a string
@@ -1163,7 +1165,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {

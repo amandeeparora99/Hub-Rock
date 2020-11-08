@@ -22,11 +22,13 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       return this.solucioForm.dirty;
     }
   }
-  
+
   currentUser: User;
 
   idRepte;
   repte;
+
+  checkUntouched = false;
 
   idSolucio;
   solucio;
@@ -343,7 +345,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {
@@ -375,9 +377,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
   }
-
-
-
 
   onItemChange(value) {
     this.radioValue = value;
@@ -463,6 +462,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   onSubmit() {
+    this.checkUntouched = true;
     this.formErrors.repteIndividualOEquip = '';
     if (!this.solucioForm.valid) {
       if (!this.formErrors.campsErronis) {

@@ -294,44 +294,44 @@
                             <hr class="mt-1" style="margin-bottom: 30px;">
                         </div>
 
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : premi.get('nomPremi').invalid && premi.get('nomPremi').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (premi.get('nomPremi').invalid && premi.get('nomPremi').touched) || (premi.get('nomPremi').invalid && checkUntouched)}">
                             <label [attr.for]="'InputNomPremi'+i">Nom del premi</label>
                             <input formControlName="nomPremi" type="text" class="form-control" [id]="'InputNomPremi' + i" (blur)="logValidationErrors()">
-                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.required && premi.get('nomPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('nomPremi').errors?.required && premi.get('nomPremi').touched) || (premi.get('nomPremi').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.minlength && premi.get('nomPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('nomPremi').errors?.minlength && premi.get('nomPremi').touched) || (premi.get('nomPremi').errors?.minlength&& checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="premi.get('nomPremi').errors?.maxlength && premi.get('nomPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('nomPremi').errors?.maxlength && premi.get('nomPremi').touched) || (premi.get('nomPremi').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
 
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : premi.get('dotacioPremi').invalid && premi.get('dotacioPremi').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (premi.get('dotacioPremi').invalid && premi.get('dotacioPremi').touched) || (premi.get('dotacioPremi').invalid && checkUntouched)}">
                             <label [attr.for]="'InputDotacioPremi'+i">Dotació del premi</label>
                             <input formControlName="dotacioPremi" type="text" class="form-control" [id]="'InputDotacioPremi' + i" (blur)="logValidationErrors()">
-                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.required && premi.get('dotacioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('dotacioPremi').errors?.required && premi.get('dotacioPremi').touched) || (premi.get('dotacioPremi').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.minlength && premi.get('dotacioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('dotacioPremi').errors?.minlength && premi.get('dotacioPremi').touched) || (premi.get('dotacioPremi').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="premi.get('dotacioPremi').errors?.maxlength && premi.get('dotacioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('dotacioPremi').errors?.maxlength && premi.get('dotacioPremi').touched) || (premi.get('dotacioPremi').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
 
-                        <div class="form-group regularFont">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (premi.get('descripcioPremi').invalid && premi.get('descripcioPremi').touched) || (premi.get('descripcioPremi').invalid && checkUntouched)}">
                             <label [attr.for]="'InputDescripcioPremi' + i">Descripció del premi</label><span class="opcional-text">(Opcional)</span><br>
                             <input formControlName="descripcioPremi" type="text" class="form-control" [id]="'InputDescripcioPremi' + i">
-                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('descripcioPremi').errors?.required && premi.get('descripcioPremi').touched) || (premi.get('descripcioPremi').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('descripcioPremi').errors?.minlength && premi.get('descripcioPremi').touched) || (premi.get('descripcioPremi').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched">
+                            <span class="help-block" *ngIf="(premi.get('descripcioPremi').errors?.maxlength && premi.get('descripcioPremi').touched) || (premi.get('descripcioPremi').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
@@ -359,12 +359,11 @@
 
                                 <input formControlName="fotoPremi" [attr.name]="'fotoPremi'+ i" (change)="onFileSelected($event, i)" [id]="'InputFotoPremi' + i" type="file" />
                             </div>
-
-                            <div class="text-center afegeix-link">
-                                <a (click)="addPremiButtonClick(); addPremiToObject('fotoPremi'+ i)">+ Afegeix un altre premi</a>
-                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="text-center afegeix-link">
+                    <a (click)="addPremiButtonClick(); addPremiToObject('fotoPremi'+ i)">+ Afegeix un altre premi</a>
                 </div>
             </div>
             <!--Tab-->
@@ -382,34 +381,34 @@
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">
                         </div>
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : solucio.get('nomSolucio').invalid && solucio.get('nomSolucio').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (solucio.get('nomSolucio').invalid && solucio.get('nomSolucio').touched) || (solucio.get('nomSolucio').invalid && checkUntouched)}">
                             <label [attr.for]="'InputNomSolucio'+i">Nom de la solucio buscada</label>
                             <input formControlName="nomSolucio" type="text" class="form-control" [id]="'InputNomSolucio' + i" (blur)="logValidationErrors()">
-                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.required && solucio.get('nomSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('nomSolucio').errors?.required && solucio.get('nomSolucio').touched) || (solucio.get('nomSolucio').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.minlength && solucio.get('nomSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('nomSolucio').errors?.minlength && solucio.get('nomSolucio').touched) || (solucio.get('nomSolucio').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="solucio.get('nomSolucio').errors?.maxlength && solucio.get('nomSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('nomSolucio').errors?.maxlength && solucio.get('nomSolucio').touched) || (solucio.get('nomSolucio').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : solucio.get('descripcioSolucio').invalid && solucio.get('descripcioSolucio').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (solucio.get('descripcioSolucio').invalid && solucio.get('descripcioSolucio').touched) || (solucio.get('descripcioSolucio').invalid && checkUntouched)}">
                             <label [attr.for]="'InputDescripcioSolucio' + i">Descripció de la solució</label>
                             <input formControlName="descripcioSolucio" type="text" class="form-control" [id]="'InputDescripcioSolucio' + i" (blur)="logValidationErrors()">
-                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.required && solucio.get('descripcioSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('descripcioSolucio').errors?.required && solucio.get('descripcioSolucio').touched) || (solucio.get('descripcioSolucio').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.minlength && solucio.get('descripcioSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('descripcioSolucio').errors?.minlength && solucio.get('descripcioSolucio').touched) || (solucio.get('descripcioSolucio').errors?.minlength && checkUntouched)">
                                 Descripció massa curta
                             </span>
-                            <span class="help-block" *ngIf="solucio.get('descripcioSolucio').errors?.maxlength && solucio.get('descripcioSolucio').touched">
+                            <span class="help-block" *ngIf="(solucio.get('descripcioSolucio').errors?.maxlength && solucio.get('descripcioSolucio').touched) || (solucio.get('descripcioSolucio').errors?.maxlength && checkUntouched)">
                                 Descripció massa llarga
                             </span>
                         </div>
 
-                        <div class="form-group hubrockformgrup regularFont" [ngClass]="{'is-invalid' : solucio.get('fotoSolucio').invalid && solucio.get('fotoSolucio').touched}">
+                        <div class="form-group hubrockformgrup regularFont" [ngClass]="{'is-invalid' : (solucio.get('fotoSolucio').invalid && solucio.get('fotoSolucio').touched || (solucio.get('fotoSolucio').invalid && checkUntouched))}">
                             <div class="d-flex justify-content-between">
 
                                 <label [attr.for]="'InputFotoSolucio' + i">Foto solució<span class="opcional-text">(Opcional)</span></label>
@@ -419,7 +418,7 @@
                                 </div>
 
                             </div>
-                            
+
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
                                 <label *ngIf="!getInterpolationCondition('fotoSolucio', i)" [attr.for]="'InputFotoSolucio' + i " class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
@@ -438,10 +437,10 @@
                             </span>
                         </div>
 
-                        <div class="text-center afegeix-link">
-                            <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
-                        </div>
                     </div>
+                </div>
+                <div class="text-center afegeix-link">
+                    <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
                 </div>
 
                 <div class="separator hubrockformgrup"></div>
@@ -484,39 +483,39 @@
                             <hr class="mt-1" style="margin-bottom: 30px;">
                         </div>
 
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : partner.get('nomPartner').invalid && partner.get('nomPartner').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (partner.get('nomPartner').invalid && partner.get('nomPartner').touched) || (partner.get('nomPartner').invalid && checkUntouched)}">
                             <label [attr.for]="'InputNomSolucio'+i">Nom del partner</label>
                             <input formControlName="nomPartner" type="text" class="form-control" [id]="'InputNomPartner' + i">
-                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.required && partner.get('nomPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('nomPartner').errors?.required && partner.get('nomPartner').touched) || (partner.get('nomPartner').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.minlength && partner.get('nomPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('nomPartner').errors?.minlength && partner.get('nomPartner').touched) || (partner.get('nomPartner').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="partner.get('nomPartner').errors?.maxlength && partner.get('nomPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('nomPartner').errors?.maxlength && partner.get('nomPartner').touched) || (partner.get('nomPartner').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : partner.get('breuDescripcioPartner').invalid && partner.get('breuDescripcioPartner').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (partner.get('breuDescripcioPartner').invalid && partner.get('breuDescripcioPartner').touched) || (partner.get('breuDescripcioPartner').invalid && checkUntouched)}">
                             <label [attr.for]="'InputBreuDescripcioPartner'+i">Breu descripció del partner</label>
                             <textarea formControlName="breuDescripcioPartner" type="text" class="form-control" [id]="'InputBreuDescripcioPartner' + i"></textarea>
-                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.required && partner.get('breuDescripcioPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('breuDescripcioPartner').errors?.required && partner.get('breuDescripcioPartner').touched) || (partner.get('breuDescripcioPartner').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.minlength && partner.get('breuDescripcioPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('breuDescripcioPartner').errors?.minlength && partner.get('breuDescripcioPartner').touched) || (partner.get('breuDescripcioPartner').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="partner.get('breuDescripcioPartner').errors?.maxlength && partner.get('breuDescripcioPartner').touched">
+                            <span class="help-block" *ngIf="(partner.get('breuDescripcioPartner').errors?.maxlength && partner.get('breuDescripcioPartner').touched) || (partner.get('breuDescripcioPartner').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
 
-                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : partner.get('logoPartner').invalid && partner.get('logoPartner').touched}">
-                            
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : (partner.get('logoPartner').invalid && partner.get('logoPartner').touched) || (partner.get('logoPartner').invalid && checkUntouched)}">
+
                             <div class="col-md-4 mb-2">
 
                                 <label [attr.for]="'InputLogoPartner' + i">Logo partner</label>
-                                
+
                                 <div class="text-center elimina-link" *ngIf="getInterpolationCondition('fotoPartner', i)">
                                     <a (click)="eliminarFoto('fotoPartner' + i)">- Elimina aquesta foto</a>
                                 </div>
@@ -533,18 +532,17 @@
 
                                     <input formControlName="logoPartner" [attr.name]="'fotoPartner'+ i" (change)="onFileSelectedPartner($event, i)" [id]="'InputLogoPartner'+i" type="file" />
                                 </div>
-                                <span class="help-block" *ngIf="partner.get('logoPartner').errors?.required && partner.get('logoPartner').touched">
+                                <span class="help-block" *ngIf="(partner.get('logoPartner').errors?.required && partner.get('logoPartner').touched) || (partner.get('logoPartner').errors?.required && checkUntouched)">
                                     És un camp obligatori
                                 </span>
 
                             </div>
 
                         </div>
-
-                        <div class="text-center afegeix-link mt-4 mb-4">
-                            <a (click)="addPartnerButtonClick(); addPremiToObject('fotoPartner'+ i)">+ Afegeix un altre partner</a>
-                        </div>
                     </div>
+                </div>
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addPartnerButtonClick(); addPremiToObject('fotoPartner'+ i)">+ Afegeix un altre partner</a>
                 </div>
 
                 <div class="separator hubrockformgrup"></div>
@@ -570,33 +568,33 @@
                             <hr class="mt-1" style="margin-bottom: 30px;">
                         </div>
 
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : jurat.get('nomCognomsJurat').invalid && jurat.get('nomCognomsJurat').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (jurat.get('nomCognomsJurat').invalid && jurat.get('nomCognomsJurat').touched) || (jurat.get('nomCognomsJurat').invalid && checkUntouched)}">
                             <label [attr.for]="'InputNomCognomsJurat'+i">Nom i cognoms del jurat</label>
                             <input formControlName="nomCognomsJurat" type="text" class="form-control" [id]="'InputNomCognomsJurat' + i">
-                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.required && jurat.get('nomCognomsJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('nomCognomsJurat').errors?.required && jurat.get('nomCognomsJurat').touched) || (jurat.get('nomCognomsJurat').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.minlength && jurat.get('nomCognomsJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('nomCognomsJurat').errors?.minlength && jurat.get('nomCognomsJurat').touched) || (jurat.get('nomCognomsJurat').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="jurat.get('nomCognomsJurat').errors?.maxlength && jurat.get('nomCognomsJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('nomCognomsJurat').errors?.maxlength && jurat.get('nomCognomsJurat').touched) || (jurat.get('nomCognomsJurat').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : jurat.get('biografiaJurat').invalid && jurat.get('biografiaJurat').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (jurat.get('biografiaJurat').invalid && jurat.get('biografiaJurat').touched) || (jurat.get('biografiaJurat').invalid && checkUntouched)}">
                             <label [attr.for]="'InputBiografiaJurat'+i">Breu biografia</label>
                             <textarea formControlName="biografiaJurat" type="text" class="form-control" [id]="'InputBiografiaJurat' + i"></textarea>
-                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.required && jurat.get('biografiaJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('biografiaJurat').errors?.required && jurat.get('biografiaJurat').touched) || (jurat.get('biografiaJurat').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.minlength && jurat.get('biografiaJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('biografiaJurat').errors?.minlength && jurat.get('biografiaJurat').touched) || (jurat.get('biografiaJurat').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="jurat.get('biografiaJurat').errors?.maxlength && jurat.get('biografiaJurat').touched">
+                            <span class="help-block" *ngIf="(jurat.get('biografiaJurat').errors?.maxlength && jurat.get('biografiaJurat').touched) || (jurat.get('biografiaJurat').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').touched}">
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : (jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').checkUntouched)}">
 
                             <div class="col-md-4 mb-2">
 
@@ -618,20 +616,19 @@
 
                                     <input formControlName="fotoJurat" [attr.name]="'fotoJurat'+ i" (change)="onFileSelectedJurat($event, i)" [id]="'fotoJurat' + i" type="file" />
                                 </div>
-                                <span class="help-block" *ngIf="jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched">
+                                <span class="help-block" *ngIf="(jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').checkUntouched)">
                                     És un camp obligatori
                                 </span>
                             </div>
 
                         </div>
-
-                        <div class="text-center afegeix-link mt-4 mb-4">
-                            <a (click)="addJuratButtonClick(); addPremiToObject('fotoJurat'+ i)">+ Afegeix unaltre jurat</a>
-                        </div>
                     </div>
                 </div>
+                <div class="text-center afegeix-link mt-4 mb-4">
+                    <a (click)="addJuratButtonClick(); addPremiToObject('fotoJurat'+ i)">+ Afegeix unaltre jurat</a>
+                </div>
 
-                
+
             </div>
 
 
@@ -653,29 +650,29 @@
                             </div>
                         </div>
 
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').invalid && checkUntouched)}">
                             <label [attr.for]="'InputPregunta' + i">Pregunta</label>
                             <input formControlName="pregunta" type="text" class="form-control" [id]="'InputPregunta' + i" (blur)="logValidationErrors()">
-                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.required && pregunta.get('pregunta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('pregunta').errors?.required && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.minlength && pregunta.get('pregunta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('pregunta').errors?.minlength && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="pregunta.get('pregunta').errors?.maxlength && pregunta.get('pregunta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('pregunta').errors?.maxlength && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
-                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : pregunta.get('resposta').invalid && pregunta.get('resposta').touched}">
+                        <div class="form-group regularFont" [ngClass]="{'is-invalid' : (pregunta.get('resposta').invalid && pregunta.get('resposta').touched) || (pregunta.get('resposta').invalid && checkUntouched)}">
                             <label for="InputResposta">Resposta</label>
                             <textarea formControlName="resposta" type="text" class="form-control" [id]="'InputResposta' + i" (blur)="logValidationErrors()"></textarea>
-                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.required && pregunta.get('resposta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('resposta').errors?.required && pregunta.get('resposta').touched) || (pregunta.get('resposta').errors?.required && checkUntouched)">
                                 És un camp obligatori
                             </span>
-                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.minlength && pregunta.get('resposta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('resposta').errors?.minlength && pregunta.get('resposta').touched) || (pregunta.get('resposta').errors?.minlength && checkUntouched)">
                                 Nom massa curt
                             </span>
-                            <span class="help-block" *ngIf="pregunta.get('resposta').errors?.maxlength && pregunta.get('resposta').touched">
+                            <span class="help-block" *ngIf="(pregunta.get('resposta').errors?.maxlength && pregunta.get('resposta').touched) || (pregunta.get('resposta').errors?.maxlength && checkUntouched)">
                                 Nom massa llarg
                             </span>
                         </div>
