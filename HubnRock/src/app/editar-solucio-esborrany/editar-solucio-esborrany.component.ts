@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-editar-solucio-esborrany',
@@ -22,18 +23,29 @@ export class EditarSolucioEsborranyComponent implements OnInit {
     }
   }
 
+  currentUser: User;
+
   idRepte;
   repte;
 
+  checkUntouched = false;
+
   idSolucio;
   solucio;
+  idSolucioCreada;
 
   pdfArray;
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
   numberOfTabs = 1; //0 + 1 = 2 tabs
+
   success = false;
+
+  eliminat = false;
+  enviat = false;
+  actualitzat = false;
+
   maxMembres = 10;
   loading = false;
 
@@ -129,6 +141,12 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
 
     this.currentTab = 0;
     this.radioValue = 'equip';
@@ -327,7 +345,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {
@@ -359,9 +377,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   nextPrev(n) {
     this.currentTab = this.currentTab + n;
   }
-
-
-
 
   onItemChange(value) {
     this.radioValue = value;
@@ -447,7 +462,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   onSubmit() {
-    //FER ADD REVISIO I ELIMINAR AQUESTA SOLUCIO ESBORRANY QUAN DONI EN FERRAN...
+    this.checkUntouched = true;
     this.formErrors.repteIndividualOEquip = '';
     if (!this.solucioForm.valid) {
       if (!this.formErrors.campsErronis) {
@@ -512,11 +527,15 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
+            this.idSolucioCreada = data.lastId;
             this.success = true;
+            this.enviat = true;
             console.log(data);
-          },
-          error => {
-            console.log("Fail")
+
+            this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
+              .pipe(first())
+              .subscribe();
+
           });
 
     }
@@ -525,7 +544,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   desaBorrador() {
-    //FER EDIT BORRADOR QUAN EL DONI EN FERRAN....
     if (!this.solucioForm.get('nomSolucio').value) {
 
       if (!this.formErrors.nomSolucio) {
@@ -582,22 +600,33 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         console.log(value);
       }
 
-      this.subscriptionHttp2$ = this.httpClient.addSolucioBorrador(formData, this.idRepte)
+      this.subscriptionHttp2$ = this.httpClient.editSolucioEsborrany(this.idSolucio, formData)
         .pipe(first())
         .subscribe(
           data => {
             if (data.code == '1') {
 
               this.success = true;
-              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
-              this.router.navigate([`/perfil/${currentUserId}`])
+              this.actualitzat = true;
+              // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              // this.router.navigate([`/perfil/${currentUserId}`])
 
             }
-          },
-          error => {
-            console.log("Fail")
           });
     }
+  }
+
+  deleteSolucio() {
+    this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == 1) {
+            this.success = true;
+            this.eliminat = true;
+          }
+
+        });
   }
 
   appendRepte(): FormData {

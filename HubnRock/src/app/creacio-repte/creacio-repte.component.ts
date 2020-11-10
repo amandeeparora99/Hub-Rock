@@ -26,6 +26,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  checkUntouched = false;
+
   repteForm: FormGroup;
   usuariForm: FormGroup;
   radioValue = 'equip';
@@ -212,7 +214,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
       descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       fotoPortada: ['',
-        // [Validators.required]
+        [Validators.required]
       ],
       fotoRepresentativa1: ['', []],
       fotoRepresentativa2: ['', []],
@@ -257,49 +259,49 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   getInterpolationCondition(name, i) {
     let stringInterpolation: string = name + i
-    if(name == 'fotoPremi') {
+    if (name == 'fotoPremi') {
       if (this.objectFotosPreview[stringInterpolation]) {
         return true;
       } else {
         return false;
       }
     }
-    else if(name == 'fotoSolucio') {
+    else if (name == 'fotoSolucio') {
       if (this.objectSolucionsPreview[stringInterpolation]) {
         return true;
       } else {
         return false;
       }
     }
-    else if(name == 'fotoPartner') {
+    else if (name == 'fotoPartner') {
       if (this.objectPartnersPreview[stringInterpolation]) {
         return true;
       } else {
         return false;
       }
     }
-    else if(name == 'fotoJurat') {
+    else if (name == 'fotoJurat') {
       if (this.objectJuratsPreview[stringInterpolation]) {
         return true;
       } else {
         return false;
       }
     }
-    
+
   }
 
   getObjectProperty(name, i) {
     let stringInterpolation: string = name + i
-    if(name == 'fotoPremi') {
+    if (name == 'fotoPremi') {
       return this.objectFotosPreview[stringInterpolation];
     }
-    else if(name == 'fotoSolucio') {
+    else if (name == 'fotoSolucio') {
       return this.objectSolucionsPreview[stringInterpolation];
     }
-    else if(name == 'fotoPartner') {
+    else if (name == 'fotoPartner') {
       return this.objectPartnersPreview[stringInterpolation];
     }
-    else if(name == 'fotoJurat') {
+    else if (name == 'fotoJurat') {
       return this.objectJuratsPreview[stringInterpolation];
     }
 
@@ -505,7 +507,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       this.objectSolucions[inputName] = event.target.files[0]
 
       console.log(inputName, index)
-      
+
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0])
       reader.onload = (event: any) => {
@@ -522,7 +524,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       this.objectPartners[inputName] = event.target.files[0]
 
       console.log(inputName, index)
-      
+
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0])
       reader.onload = (event: any) => {
@@ -539,7 +541,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       this.objectJurats[inputName] = event.target.files[0]
 
       console.log(inputName, index)
-      
+
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0])
       reader.onload = (event: any) => {
@@ -573,19 +575,19 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     let str = fotoName;
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
 
-    if(arraySplit[0] == 'fotoPremi'){
+    if (arraySplit[0] == 'fotoPremi') {
       delete this.objectFotosPreview[fotoName]
       delete this.objectFotos[fotoName]
     }
-    else if(arraySplit[0] == 'fotoSolucio'){
+    else if (arraySplit[0] == 'fotoSolucio') {
       delete this.objectSolucionsPreview[fotoName]
       delete this.objectSolucions[fotoName]
     }
-    else if(arraySplit[0] == 'fotoPartner'){
+    else if (arraySplit[0] == 'fotoPartner') {
       delete this.objectPartnersPreview[fotoName]
       delete this.objectPartners[fotoName]
     }
-    else if(arraySplit[0] == 'fotoJurat'){
+    else if (arraySplit[0] == 'fotoJurat') {
       delete this.objectJuratsPreview[fotoName]
       delete this.objectJurats[fotoName]
     }
@@ -599,55 +601,55 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
 
-    if(arraySplit[0] == 'fotoPremi'){
+    if (arraySplit[0] == 'fotoPremi') {
       this.loopObjectFotosPreview(number, arraySplit[0]);
       this.loopObjectFotos(number, arraySplit[0]);
     }
-    else if(arraySplit[0] == 'fotoSolucio'){
+    else if (arraySplit[0] == 'fotoSolucio') {
       this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
       this.loopObjectFotosSolucio(number, arraySplit[0]);
     }
-    else if(arraySplit[0] == 'fotoPartner'){
+    else if (arraySplit[0] == 'fotoPartner') {
       this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
       this.loopObjectFotosPartner(number, arraySplit[0]);
     }
-    else if(arraySplit[0] == 'fotoJurat'){
+    else if (arraySplit[0] == 'fotoJurat') {
       this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
       this.loopObjectFotosJurat(number, arraySplit[0]);
     }
-    
+
 
   }
 
-  addPremiToObject(inputName){
+  addPremiToObject(inputName) {
     let str = inputName;
     let arraySplit = str.split(/([0-9]+)/)
 
-    if(arraySplit[0] == 'fotoPremi'){
-      if(!this.objectFotosPreview[inputName]){
+    if (arraySplit[0] == 'fotoPremi') {
+      if (!this.objectFotosPreview[inputName]) {
         this.objectFotosPreview[inputName] = '';
         this.objectFotos[inputName] = '';
       }
     }
-    else if(arraySplit[0] == 'fotoSolucio'){
-      if(!this.objectSolucionsPreview[inputName]){
+    else if (arraySplit[0] == 'fotoSolucio') {
+      if (!this.objectSolucionsPreview[inputName]) {
         this.objectSolucionsPreview[inputName] = '';
         this.objectSolucions[inputName] = '';
       }
     }
-    else if(arraySplit[0] == 'fotoPartner'){
-      if(!this.objectPartnersPreview[inputName]){
+    else if (arraySplit[0] == 'fotoPartner') {
+      if (!this.objectPartnersPreview[inputName]) {
         this.objectPartnersPreview[inputName] = '';
         this.objectPartners[inputName] = '';
       }
     }
-    else if(arraySplit[0] == 'fotoJurat'){
-      if(!this.objectJuratsPreview[inputName]){
+    else if (arraySplit[0] == 'fotoJurat') {
+      if (!this.objectJuratsPreview[inputName]) {
         this.objectJuratsPreview[inputName] = '';
         this.objectJurats[inputName] = '';
       }
     }
-    
+
   }
 
   loopObjectFotosPreview(number, valueName) {
@@ -713,7 +715,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     console.log("ArrayObject despres de manipular: ", this.objectFotos)
 
   }
-  
+
 
   reset() {
     this.myInputVariable.nativeElement.value = '';
@@ -1027,7 +1029,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
   onRepteSubmit() {
-
+    this.checkUntouched = true;
     if (!this.repteForm.valid) {
       console.log(this.repteForm.valid)
       for (const field in this.repteForm.controls) { // 'field' is a string
@@ -1082,7 +1084,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {

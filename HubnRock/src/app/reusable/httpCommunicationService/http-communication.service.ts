@@ -515,16 +515,17 @@ export class HttpCommunicationService {
       }));
   }
 
-  editSolucioEsborrany(idSolucio) {
-    return this.http.get<any>(environment.api + `/solucio/editBorrador/${idSolucio}`)
+  editSolucioEsborrany(idSolucio, form): Observable<any> {
+    return this.http.post<any>(environment.api + `/solucio/editBorrador/${idSolucio}`, form)
       .pipe(map(data => {
 
         return data;
       }));
   }
 
-  editRepteEsborrany(idRepte) {
-    return this.http.get<any>(environment.api + `/repte/editBorrador/${idRepte}`)
+  editRepteEsborrany(idRepte, form): Observable<any> {
+
+    return this.http.post<any>(environment.api + `/repte/editBorrador/${idRepte}`, form)
       .pipe(map(data => {
 
         return data;

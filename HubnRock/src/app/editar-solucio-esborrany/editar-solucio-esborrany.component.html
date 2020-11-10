@@ -45,7 +45,7 @@
             <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="row mb-110">
-            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany">ELIMINA L'ESBORRANY</button></div>
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteSolucio()">ELIMINA L'ESBORRANY</button></div>
         </div>
 
         <div class="container" style="max-width: 731px; margin-bottom:100px;">
@@ -156,19 +156,19 @@
                                     <a (click)="removeMemberButtonClick(i)">- Elimina aquest membre</a></div>
                             </div>
                             <hr class="mb-4">
-                            <div class="form-group input-mb" [ngClass]="{'has-errors' : membre.get('nomICognomsMembre').invalid && membre.get('nomICognomsMembre').touched && radioValue=='equip'}">
+                            <div class="form-group input-mb" [ngClass]="{'has-errors' : (membre.get('nomICognomsMembre').invalid && membre.get('nomICognomsMembre').touched && radioValue=='equip') || (membre.get('nomICognomsMembre').invalid && checkUntouched && radioValue=='equip')}">
                                 <label [attr.for]="'InputNomICognomsMembre'+i">Nom i cognoms</label>
                                 <input type="text" formControlName="nomICognomsMembre" class="form-control equip-text-input" [id]="'InputNomICognomsMembre'+i">
-                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.required && membre.get('nomICognomsMembre').touched && radioValue=='equip'">És un camp requerit</span>
-                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.maxlength && membre.get('nomICognomsMembre').touched && radioValue=='equip'">Has sobrepassat el màxim de 255 caràcters.</span>
-                                <span class="help-block" *ngIf="membre.get('nomICognomsMembre').errors?.minlength && membre.get('nomICognomsMembre').touched && radioValue=='equip'">Ha de tenir mínim de 3 caràcters.</span>
+                                <span class="help-block" *ngIf="(membre.get('nomICognomsMembre').errors?.required && membre.get('nomICognomsMembre').touched && radioValue=='equip') || (membre.get('nomICognomsMembre').errors?.required && checkUntouched && radioValue=='equip')">És un camp requerit</span>
+                                <span class="help-block" *ngIf="(membre.get('nomICognomsMembre').errors?.maxlength && membre.get('nomICognomsMembre').touched && radioValue=='equip') || (membre.get('nomICognomsMembre').errors?.maxlength && checkUntouched && radioValue=='equip')">Has sobrepassat el màxim de 255 caràcters.</span>
+                                <span class="help-block" *ngIf="(membre.get('nomICognomsMembre').errors?.minlength && membre.get('nomICognomsMembre').touched && radioValue=='equip') || (membre.get('nomICognomsMembre').errors?.minlength && checkUntouched && radioValue=='equip')">Ha de tenir mínim de 3 caràcters.</span>
                             </div>
-                            <div class="form-group input-mb" [ngClass]="{'has-errors' : membre.get('posicioMembre').invalid && membre.get('posicioMembre').touched && radioValue=='equip'}">
+                            <div class="form-group input-mb" [ngClass]="{'has-errors' : (membre.get('posicioMembre').invalid && membre.get('posicioMembre').touched && radioValue=='equip') || (membre.get('posicioMembre').invalid && checkUntouched && radioValue=='equip')}">
                                 <label [attr.for]="'InputPosicioMembre'+i">Posició a l’equip</label>
                                 <input type="text" formControlName="posicioMembre" class="form-control equip-text-input" [id]="'InputPosicioMembre'+i">
-                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.required && membre.get('posicioMembre').touched && radioValue=='equip'">És un camp requerit</span>
-                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.maxlength && membre.get('posicioMembre').touched && radioValue=='equip'">Has sobrepassat el màxim de 255 caràcters.</span>
-                                <span class="help-block" *ngIf="membre.get('posicioMembre').errors?.minlength && membre.get('posicioMembre').touched && radioValue=='equip'">Ha de tenir mínim de 3 caràcters.</span>
+                                <span class="help-block" *ngIf="(membre.get('posicioMembre').errors?.required && membre.get('posicioMembre').touched && radioValue=='equip') || (membre.get('posicioMembre').errors?.required && checkUntouched && radioValue=='equip')">És un camp requerit</span>
+                                <span class="help-block" *ngIf="(membre.get('posicioMembre').errors?.maxlength && membre.get('posicioMembre').touched && radioValue=='equip') || (membre.get('posicioMembre').errors?.maxlength && checkUntouched && radioValue=='equip')">Has sobrepassat el màxim de 255 caràcters.</span>
+                                <span class="help-block" *ngIf="(membre.get('posicioMembre').errors?.minlength && membre.get('posicioMembre').touched && radioValue=='equip') || (membre.get('posicioMembre').errors?.minlength && checkUntouched && radioValue=='equip')">Ha de tenir mínim de 3 caràcters.</span>
 
                             </div>
                             <div class="form-group input-mb">
@@ -189,13 +189,25 @@
 <section id="solucioSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Enhorabona</h1>
-        <div class="paragraph-container">
-            <p class="text-center">La teva solució s’ha enviat correctament.</p>
+
+        <div class="paragraph-container" *ngIf="enviat">
+            <p class="text-center">La teva solució s'ha enviat correctament.</p>
             <p class="text-center">El creador del repte es posarà en contacte amb tu per qualsevol dubte, i us mantindrem informat sobre l’evolució del repte.</p>
         </div>
-        <div class="text-center">
-            <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">TORNA AL REPTE</button>
+
+        <div class="paragraph-container" *ngIf="eliminat">
+            <p class="text-center">L'esborrany s'ha eliminat correctament.</p>
         </div>
+
+        <div class="paragraph-container" *ngIf="actualitzat">
+            <p class="text-center">L'esborrany s'ha actualitzat correctament</p>
+        </div>
+
+        <div class="text-center">
+            <button *ngIf="(eliminat && currentUser) || (actualitzat && currentUser)" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
+            <button *ngIf="enviat && idSolucioCreada" class="btn btn-primary btn-manage" [routerLink]="['/solucio/', idSolucioCreada]">VEURE LA SOLUCIÓ</button>
+        </div>
+
     </div>
 </section>
 

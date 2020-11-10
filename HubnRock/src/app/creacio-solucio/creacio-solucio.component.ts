@@ -24,6 +24,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  checkUntouched = false;
+
+  idSolucioCreada;
+
   private idRepte;
   repte;
   pdfArray;
@@ -215,7 +219,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {
@@ -335,6 +339,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   onSubmit() {
+    this.checkUntouched = true;
     this.formErrors.repteIndividualOEquip = '';
     if (!this.solucioForm.valid) {
       if (!this.formErrors.campsErronis) {
@@ -399,11 +404,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .pipe(first())
         .subscribe(
           data => {
+            this.idSolucioCreada = data.lastId;
             this.success = true;
+
             console.log(data);
-          },
-          error => {
-            console.log("Fail")
           });
 
     }
@@ -479,9 +483,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
               this.router.navigate([`/perfil/${currentUserId}`])
 
             }
-          },
-          error => {
-            console.log("Fail")
           });
     }
   }
