@@ -212,10 +212,6 @@ export class HomepageComponent implements OnInit {
       }
     }
 
-    if (omplert) {
-      confirm("Tens camps omplerts, segur que vols sortir?")
-    }
-
     this.changeUserFirstLogin();
   }
 
