@@ -321,15 +321,17 @@
             <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
-                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                    <textarea #topicPost class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
-                    <div class="inputForum" *ngIf="!textAreaOn">
-                        As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
-                        to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through the
-                        corresponding means.
+                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()">
+                    <div class="row d-flex justify-content-center postForumDiv">
+                        <textarea #topicPost class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
+                        <div class="inputForum" *ngIf="!textAreaOn">
+                            As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
+                            to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through the
+                            corresponding means.
+                        </div>
+    
+                        <button type="button" class="forumbutton text-left" (click)="switchTextArea(topicPost.value)">{{ forumButtonText }}</button>
                     </div>
-
-                    <button type="button" class="forumbutton text-left" (click)="switchTextArea(topicPost.value)">{{ forumButtonText }}</button>
                 </div>
 
                 <div class="row d-flex justify-content-center">
@@ -343,11 +345,11 @@
                                 <img [src]="'http://api.hubandrock.com/image/'+forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
                                     <div class="row">
-                                        <p class="m-0">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
+                                        <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
                                         <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                     </div>
                                     <div class="row">
-                                        <p class="m-0">{{forumPost.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                        <p class="m-0 forumPostDate">{{forumPost.creation_date | date: 'dd/MM/yyyy'}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -355,8 +357,8 @@
                                 <p>{{forumPost.text}}</p>
                             </div>
                             <div class="row d-flex comentariButtons">
-                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
-                                <button type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
+                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
                                     <img [src]="forumPost.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                     {{forumPost.like_count}} M'agrada</button>
                             </div>
@@ -375,11 +377,11 @@
                                     <img [src]="'http://api.hubandrock.com/image/'+resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
                                         <div class="row">
-                                            <p class="m-0 mr-3">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
+                                            <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
                                             <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                         </div>
                                         <div class="row">
-                                            <p class="m-0">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                            <p class="m-0 forumPostDate">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -387,7 +389,7 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                     <button type="button" class="btn forumButton" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
                                         <img [src]="resposta.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                         {{resposta.like_count}} M'agrada
@@ -407,11 +409,11 @@
                                         <img [src]="'http://api.hubandrock.com/image/'+answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
                                             <div class="row">
-                                                <p class="m-0 mr-3">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
+                                                <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
                                                 <button *ngIf="repte.user_iduser == answer.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                             </div>
                                             <div class="row">
-                                                <p class="m-0">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                                <p class="m-0 forumPostDate">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -419,7 +421,7 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                         <button type="button" class="btn forumButton" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
                                             <img [src]="answer.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                             {{answer.like_count}} M'agrada

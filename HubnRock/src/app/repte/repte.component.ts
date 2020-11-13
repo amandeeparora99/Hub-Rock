@@ -193,7 +193,8 @@ export class RepteComponent implements OnInit {
 
   getRepteForum(idRepte, page, elements) {
     console.log("getRepteForum")
-    this.subscriptionHttp2$ = this.httpCommunication.getForumLogin(idRepte, page, elements)
+    if(this.httpCommunication.loggedIn()){
+      this.subscriptionHttp2$ = this.httpCommunication.getForumLogin(idRepte, page, elements)
       .pipe(first())
       .subscribe(
         data => {
@@ -210,7 +211,26 @@ export class RepteComponent implements OnInit {
           //this.error = error;
           //this.loading = false;
         });
-
+    }
+    else{
+      this.subscriptionHttp2$ = this.httpCommunication.getForum(idRepte, page, elements)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == '1') {
+            this.forum = data.rows
+            if(this.forum.length > 0) {
+              this.hasForum = true;
+            }
+          } else {
+            console.log("Forum ERROR")
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+    }
   }
 
   seeMoreSolucionsProposades() {
@@ -354,7 +374,8 @@ export class RepteComponent implements OnInit {
 
     //Falta fer el get sense auth en cas que sigui user sense login
     if (!this.objectRespostes["forumParent" + idMissatgePare]) {
-      this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
+      if(this.httpCommunication.loggedIn()){
+        this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
         .pipe(first())
         .subscribe(
           data => {
@@ -370,6 +391,26 @@ export class RepteComponent implements OnInit {
             //this.error = error;
             //this.loading = false;
           });
+      }
+      else{
+        this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+              let variableName = "forumParent" + idMissatgePare;
+              this.objectRespostes[variableName] = data.rows;
+              console.log("RESPOSTES:", this.objectRespostes[variableName])
+            } else {
+              console.log("Forum ERROR")
+            }
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
+      }
+      
     }
     else {
       console.log("Already loaded!")
@@ -486,6 +527,10 @@ export class RepteComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  isUserLoggedIn(){
+    return this.httpCommunication.loggedIn();
   }
 
   sendMessage(message, topicId, messageParentId) {
