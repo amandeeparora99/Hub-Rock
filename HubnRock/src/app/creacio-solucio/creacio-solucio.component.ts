@@ -404,10 +404,13 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .pipe(first())
         .subscribe(
           data => {
-            this.idSolucioCreada = data.lastId;
-            this.success = true;
+            if (data.code == 1) {
+              this.idSolucioCreada = data.lastId;
+              this.success = true;
 
-            console.log(data);
+              console.log(data);
+            }
+
           });
 
     }

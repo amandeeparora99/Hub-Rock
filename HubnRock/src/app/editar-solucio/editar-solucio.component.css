@@ -113,6 +113,20 @@ textarea {
     margin: 2px;
 }
 
+.btn-eliminar-esborrany {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #c0392b;
+    color: #c0392b;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
+
 .btn-submit {
     margin: 2px;
     width: 100%;
@@ -242,18 +256,4 @@ a:focus {
 #solucioSuccess .paragraph-container {
     margin-top: 70px;
     margin-bottom: 70px;
-}
-
-.no-existeix {
-    height: 100vh;
-}
-
-.no-existeix h1 {
-    font-size: 48px;
-    letter-spacing: -1.2px;
-    font-family: 'WorkSans-Bold';
-}
-
-.no-existeix .btn-manage {
-    width: 255px;
 }

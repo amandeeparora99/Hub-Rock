@@ -131,11 +131,11 @@
                 <p class="bold-label mb-1">Individual o en equip?</p>
                 <hr class="mb-4">
                 <div class="custom-control custom-radio">
-                    <input (change)="onItemChange($event.target.value)" value="individual" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <input (change)="onItemChange($event.target.value)" value="individual" type="radio" [checked]="radioValue == 'individual'" id="customRadio1" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="customRadio1">Individual</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input (change)="onItemChange($event.target.value)" type="radio" id="customRadio2" checked value="equip" name="customRadio" class="custom-control-input">
+                    <input (change)="onItemChange($event.target.value)" type="radio" id="customRadio2" [checked]="radioValue == 'equip'" value="equip" name="customRadio" class="custom-control-input">
                     <label class="custom-control-label" for="customRadio2">En equip</label>
                 </div>
                 <div *ngIf="radioValue=='equip'">

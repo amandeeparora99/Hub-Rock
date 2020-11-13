@@ -37,12 +37,7 @@ export class CanEditSolucioGuard implements CanActivate {
 
               return false;
             }
-          } else{
-            console.log('no tinc dates')
-
           }
-
-
         } else {
           this.router.navigate(['/homepage'])
           return false;

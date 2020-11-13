@@ -527,14 +527,17 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            this.idSolucioCreada = data.lastId;
-            this.success = true;
-            this.enviat = true;
-            console.log(data);
+            if (data.code == 1) {
+              this.idSolucioCreada = data.lastId;
+              this.success = true;
+              this.enviat = true;
+              console.log(data);
 
-            this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
-              .pipe(first())
-              .subscribe();
+              this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
+                .pipe(first())
+                .subscribe();
+            }
+
 
           });
 

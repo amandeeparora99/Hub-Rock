@@ -31,7 +31,8 @@ export class RegisterComponent implements OnInit {
     },
     'nomCorreu': {
       'required': 'Introdueix un correu',
-      'email': 'Introdueix un correu vàlid'
+      'email': 'Introdueix un correu vàlid',
+      'emailExists': 'Aquest correu ja existeix'
     },
     'nomContrasenya': {
       'required': 'Introdueix una contrasenya',
@@ -140,71 +141,80 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.subscriptionHttp1$ = this.httpCommunication.emailExists(this.registerForm.controls.nomCorreu.value)
+      .subscribe(data => {
+        if (data.code == 1) {
+          this.formErrors.nomCorreu += this.validationMessages.nomCorreu.emailExists + ' ';
 
-    if (this.accountType == 'empresa') {
-      this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
-        this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-        this.registerForm.controls.nomEmpresa.value,
-        this.registerForm.controls.nomResponsable.value,
-        this.registerForm.controls.nomNifEmpresa.value,
+        } else {
+          if (this.accountType == 'empresa') {
+            this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
+              this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+              this.registerForm.controls.nomEmpresa.value,
+              this.registerForm.controls.nomResponsable.value,
+              this.registerForm.controls.nomNifEmpresa.value,
 
-      )
-        .pipe(first())
-        .subscribe(
-          data => {
-            console.log(data);
-            if (data.code == "1") {
+            )
+              .pipe(first())
+              .subscribe(
+                data => {
+                  console.log(data);
+                  if (data.code == "1") {
 
-              this.router.navigate(["/homepage"]);
+                    this.router.navigate(["/homepage"]);
 
-            }
-            else if (data.code == 534) {
-              this.registerForm.controls['password'].setErrors({ 'password': true });
-              console.log("fallat");
-            }
-            else if (data.code == 533) {
-              this.registerForm.controls['email'].setErrors({ 'email': true });
-              console.log("fallat");
+                  }
+                  else if (data.code == 534) {
+                    this.registerForm.controls['password'].setErrors({ 'password': true });
+                    console.log("fallat");
+                  }
+                  else if (data.code == 533) {
+                    this.registerForm.controls['email'].setErrors({ 'email': true });
+                    console.log("fallat");
 
-            }
-          },
-          error => {
-            //this.error = error;
-            //this.loading = false;
-          });
+                  }
+                },
+                error => {
+                  //this.error = error;
+                  //this.loading = false;
+                });
 
-    }
-    else if (this.accountType == 'rockstar') {
-      this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
-        this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-        this.registerForm.controls.nomResponsable.value,
+          }
+          else if (this.accountType == 'rockstar') {
+            this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
+              this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+              this.registerForm.controls.nomResponsable.value,
 
-      )
-        .pipe(first())
-        .subscribe(
-          data => {
-            console.log(data);
-            if (data.code == "1") {
+            )
+              .pipe(first())
+              .subscribe(
+                data => {
+                  console.log(data);
+                  if (data.code == "1") {
 
-              this.router.navigate(["/homepage"]);
+                    this.router.navigate(["/homepage"]);
 
-            }
-            else if (data.code == 534) {
-              this.registerForm.controls['password'].setErrors({ 'password': true });
-              console.log("fallat");
-            }
-            else if (data.code == 533) {
-              this.registerForm.controls['email'].setErrors({ 'email': true });
-              console.log("fallat");
+                  }
+                  else if (data.code == 534) {
+                    this.registerForm.controls['password'].setErrors({ 'password': true });
+                    console.log("fallat");
+                  }
+                  else if (data.code == 533) {
+                    this.registerForm.controls['email'].setErrors({ 'email': true });
+                    console.log("fallat");
 
-            }
-          },
-          error => {
-            //this.error = error;
-            //this.loading = false;
-          });
+                  }
+                },
+                error => {
+                  //this.error = error;
+                  //this.loading = false;
+                });
 
-    }
+          }
+        }
+      })
+
+
   }
 
 
