@@ -1,0 +1,330 @@
+* {
+    font-family: 'WorkSans-Regular';
+}
+
+.is-invalid input,
+.is-invalid textarea {
+    border: 1px solid red;
+}
+
+.is-invalid label {
+    color: red;
+}
+
+.is-invalid span {
+    color: red;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+label {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    font-family: 'WorkSans-Bold';
+}
+
+label.additional-info {
+    font-size: 15px;
+    letter-spacing: -0.38px;
+    font-family: 'WorkSans-Regular';
+}
+
+textarea#InputBreuDescripcio {
+    height: 100px;
+}
+
+.actionbtns {
+    margin-bottom: 110px;
+}
+
+.btn-eliminar-esborrany {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #c0392b;
+    color: #c0392b;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
+
+#regForm .formpagetitle {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 45px;
+}
+
+.image-upload {
+    height: 211px;
+    border-radius: 10px;
+    border: solid 1px #b6b6b6;
+}
+
+.image-upload p {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.img-infohelp .maxwidth-348 label {
+    width: 348px;
+}
+
+.helpbutton {
+    margin-bottom: 0.5rem;
+}
+
+.optionalfield {
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.38px;
+    color: #7b7b7b;
+    font-family: 'WorkSans-Regular';
+}
+
+input {
+    height: 55px;
+}
+
+textarea {
+    height: 230px;
+    box-sizing: border-box;
+    border: 1px solid #b6b6b6;
+    border-radius: 10px;
+    resize: none;
+    padding: 12px 20px;
+}
+
+::placeholder {
+    font-family: 'WorkSans-Regular';
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    color: #b6b6b6;
+}
+
+.title-form {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.85px;
+    margin-bottom: 45px;
+}
+
+.max-width-1110 {
+    max-width: 1110px;
+}
+
+#pagetitle {
+    font-size: 48px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -1.67px;
+}
+
+#reptetitle {
+    margin-top: 1rem;
+    font-size: 24px;
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.83px;
+}
+
+.has-errors input {
+    border: 1px solid red;
+}
+
+.has-errors label {
+    color: red;
+}
+
+.has-errors span {
+    color: red;
+}
+
+.step-text {
+    font-size: 20px;
+    letter-spacing: -0.68px;
+    font-family: 'WorkSans-Regular';
+}
+
+.step-text.active {
+    font-family: 'WorkSans-Bold';
+}
+
+.step {
+    height: 65px;
+    width: 65px;
+    margin: 15px 2px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 10px;
+    font-family: 'WorkSans-Regular';
+    font-size: 28px;
+    letter-spacing: -0.39px;
+}
+
+.step.active {
+    background-color: #00e292;
+    font-family: 'WorkSans-Bold';
+}
+
+.step.finish {
+    background-color: #4CAF50;
+}
+
+.btn-manage {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #020e7d;
+    color: #020e7d;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
+}
+
+.btn-submit {
+    margin: 2px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    color: #000000;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: #00e292;
+    height: 55px;
+}
+
+.opcional-text {
+    color: #7b7b7b;
+    letter-spacing: -0.38px;
+    font-size: 15px;
+    margin-left: 15px;
+}
+
+.dot-spacing {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.steps-mt {
+    margin-top: 80px;
+}
+
+.mb-110 {
+    margin-bottom: 110px;
+}
+
+.hubrockformgrup {
+    margin-bottom: 70px;
+}
+
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+
+input[type="checkbox"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+
+.ilustration {
+    width: 136px;
+    height: 136px;
+}
+
+@media (max-width: 768px) {
+    .ilustration {
+        max-width: 70px;
+        max-height: 70px;
+    }
+}
+
+.regularFont label {
+    font-size: 18px;
+    font-family: 'WorkSans-Regular';
+}
+
+.regularFont .fontsize15 {
+    font-size: 15px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    border: solid 1px #020e7d;
+}
+
+.opacity0 {
+    opacity: 0;
+}
+
+.afegeix-link a {
+    color: #020e7d;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.afegeix-link a:hover {
+    color: #00e292;
+    text-decoration-line: none;
+}
+
+.elimina-link a {
+    color: #e74c3c;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+}
+
+.inputToS {
+    height: 600px;
+}
+
+.elimina-link a {
+    color: #e74c3c;
+    letter-spacing: -0.45px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.checkboxfail {
+    color: red;
+}
+
+#repteSuccess .btn-manage {
+    width: 255px;
+}
+
+#repteSuccess h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+#repteSuccess p {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+}
+
+#repteSuccess .paragraph-container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}

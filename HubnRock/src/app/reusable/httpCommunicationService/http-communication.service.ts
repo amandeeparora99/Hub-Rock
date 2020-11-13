@@ -82,6 +82,14 @@ export class HttpCommunicationService {
     return localStorage.getItem('currentUser');
   }
 
+  emailExists(email): Observable<any> {
+    return this.http.get<any>(environment.api + '/usersData/existsEmail/' + email)
+      .pipe(map(data => {
+
+        return data;
+
+      }));
+  }
 
   registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa): Observable<any> {
     const body = new HttpParams()
@@ -220,7 +228,7 @@ export class HttpCommunicationService {
         return data;
       }));
   }
-  
+
 
   // ---------------------
 
@@ -523,9 +531,26 @@ export class HttpCommunicationService {
       }));
   }
 
+  editSolucio(idSolucio, form): Observable<any> {
+    return this.http.post<any>(environment.api + `/solucio/editRevisio/${idSolucio}`, form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   editRepteEsborrany(idRepte, form): Observable<any> {
 
     return this.http.post<any>(environment.api + `/repte/editBorrador/${idRepte}`, form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
+  editRepte(idRepte, form): Observable<any> {
+
+    return this.http.post<any>(environment.api + `/repte/editRevisio/${idRepte}`, form)
       .pipe(map(data => {
 
         return data;

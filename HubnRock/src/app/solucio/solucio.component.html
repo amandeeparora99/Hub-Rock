@@ -16,83 +16,83 @@
         </div>
     </div>
     <div class="container d-flex flex-column align-items-end mt-5">
-        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()">EDITA LA SOLUCIÓ</button>
-        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button>
+        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany() && idSolucio" [routerLink]="['/solucio/', idSolucio, 'editar-solucio']">EDITA LA SOLUCIÓ</button>
+        <button class=" btn hubrock-btn mt-2 " type="button " *ngIf="canDelete() " (click)="deleteSolucio() ">ELIMINA LA SOLUCIÓ</button>
 
     </div>
 </section>
 
-<section *ngIf="solucio" id="solucio-body">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                <div class="bigtitle">
-                    <div class="row">
+<section *ngIf="solucio " id="solucio-body ">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
+                <div class="bigtitle ">
+                    <div class="row ">
                         <h1>SOBRE LA SOLUCIÓ</h1>
                     </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                    <div class="row ">
+                        <div class="hrcustom ">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <p>{{solucio.solucio_proposada_descripcio_short}}</p>
                     </div>
                 </div>
 
-                <div class="soluciosection">
-                    <div class="row">
+                <div class="soluciosection ">
+                    <div class="row ">
                         <h2>Resum solució</h2>
                     </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                    <div class="row ">
+                        <div class="hrcustom ">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <p>{{solucio.solucio_proposada_descripcio_long}}</p>
                     </div>
                 </div>
 
-                <div class="soluciosection">
-                    <div class="row">
+                <div class="soluciosection ">
+                    <div class="row ">
                         <h2>Resum solució</h2>
                     </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                    <div class="row ">
+                        <div class="hrcustom ">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <p>{{solucio.solucio_proposada_perque_innovacio}}</p>
                     </div>
                 </div>
 
 
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="container">
-                    <div class="bigtitle">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+                <div class="container ">
+                    <div class="bigtitle ">
                         <h1>L'EQUIP</h1>
                     </div>
 
-                    <div class="equip">
-                        <div class="container">
-                            <div class="row">
-                                <p class="mb-1">Nom equip</p>
+                    <div class="equip ">
+                        <div class="container ">
+                            <div class="row ">
+                                <p class="mb-1 ">Nom equip</p>
                             </div>
-                            <div class="row">
-                                <div class="hrcustom-white"></div>
+                            <div class="row ">
+                                <div class="hrcustom-white "></div>
                             </div>
-                            <div class="row">
-                                <p class="teamname"><b>{{solucio.solucio_proposada_nom_equip}}</b></p>
+                            <div class="row ">
+                                <p class="teamname "><b>{{solucio.solucio_proposada_nom_equip}}</b></p>
                             </div>
-                            <div class="row">
-                                <p class="mb-1">Membres</p>
+                            <div class="row ">
+                                <p class="mb-1 ">Membres</p>
                             </div>
-                            <div class="row">
-                                <div class="hrcustom-white mb-4"></div>
+                            <div class="row ">
+                                <div class="hrcustom-white mb-4 "></div>
                             </div>
-                            <div class="row mb-4" *ngFor="let membre of solucio.membres; let i = index">
-                                <img src="https://dummyimage.com/65x65/000/fff" alt="" class="rounded-circle align-self-center mr-3">
-                                <div class="d-flex flex-column membre">
+                            <div class="row mb-4 " *ngFor="let membre of solucio.membres; let i=i ndex ">
+                                <img src="https://dummyimage.com/65x65/000/fff " alt=" " class="rounded-circle align-self-center mr-3 ">
+                                <div class="d-flex flex-column membre ">
                                     <p><b>{{membre.membre_nom}}</b></p>
                                     <p><b>{{membre.membre_posicio}}</b></p>
                                     <p>{{membre.membre_link}}</p>
@@ -101,14 +101,14 @@
                         </div>
                     </div>
 
-                    <div class="bigtitle">
+                    <div class="bigtitle ">
                         <h1>DOCUMENTACIÓ</h1>
                     </div>
 
-                    <div id="altresrecursosfiles" class="d-flex flex-column">
-                        <div *ngFor="let recurs of solucio.recursos" class="d-flex align-items-center">
-                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a target="_blank" [href]="fileStorageUrl + recurs.recurs_solucio_url_file" download>{{recurs.recurs_solucio_nom}}</a>
+                    <div id="altresrecursosfiles " class="d-flex flex-column ">
+                        <div *ngFor="let recurs of solucio.recursos " class="d-flex align-items-center ">
+                            <img width="30 " src="../../assets/simpleicons/fileicon.png " alt=" ">
+                            <a target="_blank " [href]="fileStorageUrl + recurs.recurs_solucio_url_file " download>{{recurs.recurs_solucio_nom}}</a>
                         </div>
                     </div>
                 </div>
@@ -116,13 +116,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="bigtitle">
+        <div class="row ">
+            <div class="bigtitle ">
                 <h1>DOCUMENTACIÓ</h1>
             </div>
 
-            <iframe class="mb-3" width="1130" height="634" src="https://www.youtube.com/embed/viimfQi_pUw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <iframe width="1130" height="634" src="https://www.youtube.com/embed/viimfQi_pUw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="mb-3 " width="1130 " height="634 " src="https://www.youtube.com/embed/viimfQi_pUw " frameborder="0 " allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>
+            <iframe width="1130 " height="634 " src="https://www.youtube.com/embed/viimfQi_pUw " frameborder="0 " allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>
         </div>
     </div>
 </section>

@@ -25,15 +25,16 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       return this.repteForm.dirty;
     }
   }
-
   checkUntouched = false;
 
   repteForm: FormGroup;
-  usuariForm: FormGroup;
   radioValue = 'equip';
   radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
+
+  fotosReptePreview: any = {};
+  fotosRepte: any = {};
 
   objectFotosPreview: any = {};
   objectFotos: any = {};
@@ -52,11 +53,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   formDone = false;
 
-  fotoPortada = null;
   pdfArray;
-  fotoRepte1Selected = "";
-  fotoRepte2Selected = "";
-  fotoRepte3Selected = "";
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -65,29 +62,30 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   validationMessages = {
     'nomRepte': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Nom massa llarg',
       'minlength': 'Nom massa curt'
     },
     'descripcioBreuRepte': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Descripció massa llarga',
       'minlength': 'Descripció massa curta'
     },
     'descripcioDetalladaRepte': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Descripció massa llarga',
       'minlength': 'Descripció massa curta'
     },
     'fotoPortada': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
     },
     'videoSolucio': {
       'maxlength': 'Enllaç massa llarg',
       'minlength': 'Enllaç massa curt'
     },
     'checkboxGroup': {
-      'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
+      'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!',
+      'required': 'És un camp requerit'
     },
     'datesGroup': {
       'dataIniciBiggerThanFinal': 'El repte no pot acabar abans de començar!'
@@ -96,24 +94,24 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       'pattern': 'Entra un nombre de participants vàlid',
     },
     'dataInici': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'dataFinalitzacio': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'dateShorterThanToday': 'La data no pot ser inferior a avui'
     },
     'nomPremi': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Nom massa llarg',
       'minlength': 'Nom massa curt'
     },
     'dotacioPremi': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'minlength': 'Premi invàlid'
     },
     'descripcioPremi': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Descripció massa llarga',
       'minlength': 'Descripció massa curta'
     },
@@ -121,17 +119,17 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
     },
     'nomSolucio': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Nom massa llarg',
       'minlength': 'Nom massa curt'
     },
     'descripcioSolucio': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Descripció massa llarga',
       'minlength': 'Descripció massa curta'
     },
     'fotoSolucio': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
     },
     'nomPartner': {
       'maxlength': 'Nom massa llarg',  //Falta fer que sigui required if tal.
@@ -156,17 +154,17 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
     },
     'pregunta': {
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Pregunta massa llarga',
       'minlength': 'Pregunta invàlida'
     },
     'resposta': {
-      'required': 'És un camp obligatori.',
+      'required': 'És un camp requerit.',
       'maxlength': 'Resposta massa llarga',
       'minlength': 'Resposta invàlida'
     },
     'customTOS': {  //Sha de fer required si ha triat customTOS
-      'required': 'És un camp obligatori',
+      'required': 'És un camp requerit',
       'maxlength': 'Les bases legals excedeixen el màxim de caràcters',
       'minlength': 'Bases legals invàlides'
     },
@@ -483,6 +481,24 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     this.pdfArray = null;
   }
 
+  onFileRepteFoto(event) {
+    if (event.target.files) {
+
+      const inputName = event.target.name;
+
+      this.fotosRepte[inputName] = event.target.files[0]
+
+      console.log(this.fotosRepte)
+
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (event: any) => {
+        this.fotosReptePreview[inputName] = reader.result
+        console.log(this.fotosReptePreview)
+      }
+    }
+  }
+
   onFileSelected(event, index?) {
     if (event.target.files) {
       console.log('fiel pujat', event.target.files[0])
@@ -551,25 +567,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     console.log(this.objectJuratsPreview)
   }
 
-  ensenyarObjecte() {
-    console.log(this.objectFotosPreview)
-    console.log(this.objectFotos)
-  }
-
-  fotosRepteSelected(event, numFoto) {
-    if (event.target.files) {
-      if (numFoto == 1) {
-        this.fotoRepte1Selected = "../../assets/simpleicons/tic.png";
-      }
-      else if (numFoto == 2) {
-        this.fotoRepte2Selected = "../../assets/simpleicons/tic.png";
-      }
-      else if (numFoto == 3) {
-        this.fotoRepte3Selected = "../../assets/simpleicons/tic.png";
-      }
-    }
-  }
-
   eliminarFoto(fotoName) {
     console.log("INSIDEEEEEEEEEEEEEEEEEE TOOOOOOOOOOOOOO DEEEEEEEEEEEPPPPPPPPPP", fotoName)
     let str = fotoName;
@@ -590,6 +587,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     else if (arraySplit[0] == 'fotoJurat') {
       delete this.objectJuratsPreview[fotoName]
       delete this.objectJurats[fotoName]
+    } else {
+      delete this.fotosRepte[fotoName]
+      delete this.fotosReptePreview[fotoName]
     }
 
   }
@@ -714,12 +714,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     delete this.objectFotos[valueName + arrayLength];
     console.log("ArrayObject despres de manipular: ", this.objectFotos)
 
-  }
-
-
-  reset() {
-    this.myInputVariable.nativeElement.value = '';
-    this.fotoRepte1Selected = '';
   }
 
   addPremiFormGroup(): FormGroup {
@@ -881,16 +875,13 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     formData.append('participants[estudiants]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
     formData.append('participants[experts]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
-    // APPENDING FOTOS REPTE
-    if (this.objectFotosPreview.fotoPortada) {
-      console.log('appending url photo main amb ', this.objectFotosPreview.fotoPortada)
-      formData.append('url_photo_main', this.objectFotosPreview.fotoPortada)
-    }
-
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
       if (this.repteForm.get('premiArray').value[i].nomPremi) {
         formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
+      } else {
+        formData.append(`premi_nom[${i}]`, '');
+
       }
       if (this.repteForm.get('premiArray').value[i].dotacioPremi) {
         formData.append(`premi_dotacio[${i}]`, this.repteForm.get('premiArray').value[i].dotacioPremi);
@@ -898,34 +889,51 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       if (this.repteForm.get('premiArray').value[i].descripcioPremi) {
         formData.append(`premi_descripcio[${i}]`, this.repteForm.get('premiArray').value[i].descripcioPremi);
       }
-      if (this.repteForm.get('premiArray').value[i].fotoPremi) {
-        formData.append(`premi_url_photo[${i}]`, this.repteForm.get('premiArray').value[i].fotoPremi);
+
+      let premiFotoName = 'fotoPremi' + i;
+
+      if (this.objectFotos[premiFotoName]) {
+        formData.append(`premi_url_photo[${i}]`, this.objectFotos[premiFotoName]);
       }
+
     }
 
     //APPENDING SOLUCIO
     for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
       if (this.repteForm.get('solucioArray').value[i].nomSolucio) {
         formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
+      } else {
+        formData.append(`solucio_nom[${i}]`, '');
+
       }
       if (this.repteForm.get('solucioArray').value[i].descripcioSolucio) {
         formData.append(`solucio_descripcio[${i}]`, this.repteForm.get('solucioArray').value[i].descripcioSolucio);
       }
-      if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
-        formData.append(`solucio_url_photo[${i}]`, this.repteForm.get('solucioArray').value[i].fotoSolucio);
+
+      let solucioFotoName = 'fotoSolucio' + i;
+
+      if (this.objectSolucions[solucioFotoName]) {
+        formData.append(`solucio_url_photo[${i}]`, this.objectSolucions[solucioFotoName]);
       }
+
     }
 
     //APPENDING PARTNER
     for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
       if (this.repteForm.get('partnerArray').value[i].nomPartner) {
         formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
+      } else {
+        formData.append(`partner_nom[${i}]`, '');
+
       }
       if (this.repteForm.get('partnerArray').value[i].breuDescripcioPartner) {
         formData.append(`partner_descripcio[${i}]`, this.repteForm.get('partnerArray').value[i].breuDescripcioPartner);
       }
-      if (this.repteForm.get('partnerArray').value[i].logoPartner) {
-        formData.append(`partner_url_logo[${i}]`, this.repteForm.get('partnerArray').value[i].logoPartner);
+
+      let partnerFotoName = 'fotoPartner' + i;
+
+      if (this.objectPartners[partnerFotoName]) {
+        formData.append(`partner_url_logo[${i}]`, this.objectPartners[partnerFotoName]);
       }
     }
 
@@ -933,12 +941,19 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
       if (this.repteForm.get('juratArray').value[i].nomCognomsJurat) {
         formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
+      } else {
+        formData.append(`jurat_nom[${i}]`, '');
+
       }
+
       if (this.repteForm.get('juratArray').value[i].biografiaJurat) {
         formData.append(`jurat_bio[${i}]`, this.repteForm.get('juratArray').value[i].biografiaJurat);
       }
-      if (this.repteForm.get('juratArray').value[i].fotoJurat) {
-        formData.append(`jurat_url_photo[${i}]`, this.repteForm.get('juratArray').value[i].fotoJurat);
+
+      let juratFotoName = 'fotoJurat' + i;
+
+      if (this.objectJurats[juratFotoName]) {
+        formData.append(`jurat_url_photo[${i}]`, this.objectJurats[juratFotoName]);
       }
     }
 
@@ -960,6 +975,23 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         formData.append(`recurs_nom[${index}]`, file.name);
         formData.append(`recurs_url_fitxer[${index}]`, file);
       }
+    }
+
+    //APPENDING FOTOS REPTE
+    if (this.fotosRepte.fotoPortada) {
+      formData.append(`url_photo_main`, this.fotosRepte.fotoPortada);
+    }
+
+    if (this.fotosRepte.fotoRepresentativa1) {
+      formData.append(`url_photo_1`, this.fotosRepte.fotoRepresentativa1);
+    }
+
+    if (this.fotosRepte.fotoRepresentativa2) {
+      formData.append(`url_photo_2`, this.fotosRepte.fotoRepresentativa2);
+    }
+
+    if (this.fotosRepte.fotoRepresentativa3) {
+      formData.append(`url_photo_3`, this.fotosRepte.fotoRepresentativa3);
     }
 
     return formData;
@@ -1030,6 +1062,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   onRepteSubmit() {
     this.checkUntouched = true;
+
     if (!this.repteForm.valid) {
       console.log(this.repteForm.valid)
       for (const field in this.repteForm.controls) { // 'field' is a string
@@ -1084,7 +1117,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrorsUntouched(abstractControl);
+        this.logValidationErrors(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {

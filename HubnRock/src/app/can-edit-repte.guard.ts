@@ -23,17 +23,8 @@ export class CanEditRepteGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.estat_idestat == 3) {
-
-            let dateIniciRepte = new Date(data.row.data_inici);
-            let currentDate = new Date();
-
-            if (idCurrentUser == data.row.user_iduser && dateIniciRepte > currentDate) {
-              return true;
-            } else {
-              this.router.navigate(['/homepage'])
-              return false;
-            }
+          if (data.row.estat_idestat != 3) {
+            return true;
           } else {
             this.router.navigate(['/homepage'])
             return false;
