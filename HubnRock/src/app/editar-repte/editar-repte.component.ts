@@ -225,52 +225,6 @@ export class EditarRepteComponent implements OnInit {
       }
     );
 
-    this.repteForm = this.fb.group({
-      nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
-      descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
-      fotoPortada: ['',
-        []
-      ],
-      fotoRepresentativa1: ['', []],
-      fotoRepresentativa2: ['', []],
-      fotoRepresentativa3: ['', []],
-      pdf: [''],
-      videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
-      checkboxGroup: this.fb.group({
-        empresesCheckbox: [false],
-        startupsCheckbox: [false],
-        estudiantsCheckbox: [false],
-        expertsCheckbox: [false]
-      }, { validator: requireCheckboxesToBeCheckedValidator() }),
-      limitParticipants: ['', Validators.pattern('[0-9]+')],
-      datesGroup: this.fb.group({
-        dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
-        dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
-      }, { validator: dataIniciBiggerThanFinal() }),
-      premiArray: this.fb.array([
-
-      ]),
-      solucioArray: this.fb.array([
-
-      ]),
-      partnerArray: this.fb.array([
-
-      ]),
-      juratArray: this.fb.array([
-
-      ]),
-      preguntaArray: this.fb.array([
-
-      ]),
-
-      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
-    });
-
-    this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
-      this.logValidationErrors(this.repteForm)
-    });
-
     if (this.idRepte) {
 
       this.httpClient.getRepte(this.idRepte)
@@ -281,6 +235,84 @@ export class EditarRepteComponent implements OnInit {
 
               this.repte = data.row;
 
+              let participantsEmpresa = false;
+              let participantsStartups = false;
+              let participantsEstudiants = false;
+              let participantsExperts = false;
+
+              // PATCH PARTICIPANTS
+              for (let index = 0; index < this.repte.participants.length; index++) {
+                const participant = this.repte.participants[index];
+
+                if (participant.participants_name == "Empreses") {
+                  // this.repteForm.get('checkboxGroup').patchValue({
+                  //   empresesCheckbox: [true]
+                  // })
+                  participantsEmpresa = true;
+                } else if (participant.participants_name == "Startups") {
+                  // this.repteForm.get('checkboxGroup').patchValue({
+                  //   startupsCheckbox: [true]
+                  // })
+                  participantsStartups = true;
+                } else if (participant.participants_name == "Estudiants") {
+                  // this.repteForm.get('checkboxGroup').patchValue({
+                  //   estudiantsCheckbox: [true]
+                  // })
+                  participantsEstudiants = true;
+                } else if (participant.participants_name == "Experts") {
+                  // this.repteForm.get('checkboxGroup').patchValue({
+                  //   expertsCheckbox: [true]
+                  // })
+                  participantsExperts = true;
+                }
+              }
+
+              this.repteForm = this.fb.group({
+                nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+                descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
+                descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
+                fotoPortada: ['',
+                  []
+                ],
+                fotoRepresentativa1: ['', []],
+                fotoRepresentativa2: ['', []],
+                fotoRepresentativa3: ['', []],
+                pdf: [''],
+                videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
+                checkboxGroup: this.fb.group({
+                  empresesCheckbox: [participantsEmpresa],
+                  startupsCheckbox: [participantsStartups],
+                  estudiantsCheckbox: [participantsEstudiants],
+                  expertsCheckbox: [participantsExperts]
+                }, { validator: requireCheckboxesToBeCheckedValidator() }),
+                limitParticipants: ['', Validators.pattern('[0-9]+')],
+                datesGroup: this.fb.group({
+                  dataInici: ['', [Validators.required, dateShorterThanToday]],  //Data inici no pot ser anterior a la data actual
+                  dataFinalitzacio: ['', [Validators.required, dateShorterThanToday]],
+                }, { validator: dataIniciBiggerThanFinal() }),
+                premiArray: this.fb.array([
+
+                ]),
+                solucioArray: this.fb.array([
+
+                ]),
+                partnerArray: this.fb.array([
+
+                ]),
+                juratArray: this.fb.array([
+
+                ]),
+                preguntaArray: this.fb.array([
+
+                ]),
+
+                customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
+              });
+
+              this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
+                this.logValidationErrors(this.repteForm)
+              });
+
               this.repteForm.patchValue({
                 nomRepte: this.repte.nom,
                 descripcioBreuRepte: this.repte.descripcio_short,
@@ -289,28 +321,6 @@ export class EditarRepteComponent implements OnInit {
 
               })
 
-              // PATCH PARTICIPANTS
-              for (let index = 0; index < this.repte.participants.length; index++) {
-                const participant = this.repte.participants[index];
-
-                if (participant.participants_name == "Empreses") {
-                  this.repteForm.get('checkboxGroup').patchValue({
-                    empresesCheckbox: [true]
-                  })
-                } else if (participant.participants_name == "Startups") {
-                  this.repteForm.get('checkboxGroup').patchValue({
-                    startupsCheckbox: [true]
-                  })
-                } else if (participant.participants_name == "Estudiants") {
-                  this.repteForm.get('checkboxGroup').patchValue({
-                    estudiantsCheckbox: [true]
-                  })
-                } else if (participant.participants_name == "Experts") {
-                  this.repteForm.get('checkboxGroup').patchValue({
-                    expertsCheckbox: [true]
-                  })
-                }
-              }
 
               //PATCH INDIVIDUAL EQUIP
               if (this.repte.individual_equip == 1) {
@@ -1221,14 +1231,13 @@ export class EditarRepteComponent implements OnInit {
     formData.append('participants[estudiants]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
     formData.append('participants[experts]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
 
-    // APPENDING FOTOS REPTE
-    if (this.objectFotosPreview.fotoPortada) {
-      console.log('appending url photo main amb ', this.objectFotosPreview.fotoPortada)
-      formData.append('url_photo_main', this.objectFotosPreview.fotoPortada)
-    }
-
     // APPENDING PREMI
     for (var i = 0; i < (<FormArray>this.repteForm.get('premiArray')).controls.length; i++) {
+
+      if (this.repte.premis[i]) {
+        formData.append(`idpremi[${i}]`, this.repte.premis[i].idpremi);
+      }
+
       if (this.repteForm.get('premiArray').value[i].nomPremi) {
         formData.append(`premi_nom[${i}]`, this.repteForm.get('premiArray').value[i].nomPremi);
       } else {
@@ -1245,12 +1254,19 @@ export class EditarRepteComponent implements OnInit {
       let premiFotoName = 'fotoPremi' + i;
 
       if (this.objectFotos[premiFotoName]) {
-        formData.append(`premi_url_photo[${i}]`, this.objectFotos[premiFotoName]);
+        if (this.repteForm.get('premiArray').value[i].fotoPremi) {
+          formData.append(`premi_url_photo[${i}]`, this.objectFotos[premiFotoName]);
+        }
       }
     }
 
     //APPENDING SOLUCIO
     for (var i = 0; i < (<FormArray>this.repteForm.get('solucioArray')).controls.length; i++) {
+
+      if (this.repte.solucions[i]) {
+        formData.append(`idsolucio[${i}]`, this.repte.solucions[i].idsolucio);
+      }
+
       if (this.repteForm.get('solucioArray').value[i].nomSolucio) {
         formData.append(`solucio_nom[${i}]`, this.repteForm.get('solucioArray').value[i].nomSolucio);
       } else {
@@ -1264,12 +1280,19 @@ export class EditarRepteComponent implements OnInit {
       let solucioFotoName = 'fotoSolucio' + i;
 
       if (this.objectSolucions[solucioFotoName]) {
-        formData.append(`solucio_url_photo[${i}]`, this.objectSolucions[solucioFotoName]);
+        if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
+          formData.append(`solucio_url_photo[${i}]`, this.objectSolucions[solucioFotoName]);
+        }
       }
     }
 
     //APPENDING PARTNER
     for (var i = 0; i < (<FormArray>this.repteForm.get('partnerArray')).controls.length; i++) {
+
+      if (this.repte.partners[i]) {
+        formData.append(`idpartner[${i}]`, this.repte.partners[i].idpartner);
+      }
+
       if (this.repteForm.get('partnerArray').value[i].nomPartner) {
         formData.append(`partner_nom[${i}]`, this.repteForm.get('partnerArray').value[i].nomPartner);
       } else {
@@ -1283,12 +1306,19 @@ export class EditarRepteComponent implements OnInit {
       let partnerFotoName = 'fotoPartner' + i;
 
       if (this.objectPartners[partnerFotoName]) {
-        formData.append(`partner_url_logo[${i}]`, this.objectPartners[partnerFotoName]);
+        if (this.repteForm.get('partnerArray').value[i].logoPartner) {
+          formData.append(`partner_url_logo[${i}]`, this.objectPartners[partnerFotoName]);
+        }
       }
     }
 
     //APPENDING JURAT
     for (var i = 0; i < (<FormArray>this.repteForm.get('juratArray')).controls.length; i++) {
+
+      if (this.repte.jurats[i]) {
+        formData.append(`idjurat[${i}]`, this.repte.jurats[i].idjurat);
+      }
+
       if (this.repteForm.get('juratArray').value[i].nomCognomsJurat) {
         formData.append(`jurat_nom[${i}]`, this.repteForm.get('juratArray').value[i].nomCognomsJurat);
       } else {
@@ -1302,7 +1332,9 @@ export class EditarRepteComponent implements OnInit {
       let juratFotoName = 'fotoJurat' + i;
 
       if (this.objectJurats[juratFotoName]) {
-        formData.append(`jurat_url_photo[${i}]`, this.objectJurats[juratFotoName]);
+        if (this.repteForm.get('juratArray').value[i].fotoJurat) {
+          formData.append(`jurat_url_photo[${i}]`, this.objectJurats[juratFotoName]);
+        }
       }
     }
 
@@ -1319,28 +1351,39 @@ export class EditarRepteComponent implements OnInit {
     //APPENDING RECURSOS
     if (this.pdfArray) {
       for (let index = 0; index < this.pdfArray.length; index++) {
-        const file = this.pdfArray[index];
+        if (this.repteForm.get('pdf').value) {
 
-        formData.append(`recurs_nom[${index}]`, file.name);
-        formData.append(`recurs_url_fitxer[${index}]`, file);
+          const file = this.pdfArray[index];
+
+          formData.append(`recurs_nom[${index}]`, file.name);
+          formData.append(`recurs_url_fitxer[${index}]`, file);
+        }
       }
     }
 
     //APPENDING FOTOS REPTE
     if (this.fotosRepte.fotoPortada) {
-      formData.append(`url_photo_main`, this.fotosRepte.fotoPortada);
+      if (this.repteForm.get('fotoPortada').value) {
+        formData.append(`url_photo_main`, this.fotosRepte.fotoPortada);
+      }
     }
 
     if (this.fotosRepte.fotoRepresentativa1) {
-      formData.append(`url_photo_1`, this.fotosRepte.fotoRepresentativa1);
+      if (this.repteForm.get('fotoRepresentativa1').value) {
+        formData.append(`url_photo_1`, this.fotosRepte.fotoRepresentativa1);
+      }
     }
 
     if (this.fotosRepte.fotoRepresentativa2) {
-      formData.append(`url_photo_2`, this.fotosRepte.fotoRepresentativa2);
+      if (this.repteForm.get('fotoRepresentativa2').value) {
+        formData.append(`url_photo_2`, this.fotosRepte.fotoRepresentativa2);
+      }
     }
 
     if (this.fotosRepte.fotoRepresentativa3) {
-      formData.append(`url_photo_3`, this.fotosRepte.fotoRepresentativa3);
+      if (this.repteForm.get('fotoRepresentativa3').value) {
+        formData.append(`url_photo_3`, this.fotosRepte.fotoRepresentativa3);
+      }
     }
 
 

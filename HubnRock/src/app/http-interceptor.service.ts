@@ -24,9 +24,9 @@ export class HttpInterceptorService implements HttpInterceptor {
       return next.handle(reqWithToken).pipe(
         map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-
             console.log('event--->>>', event);
             this.spinnerService.requestEnded();
+            this.spinnerService.resetSpinner()
 
           }
           return event;
@@ -39,6 +39,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
             console.log('event--->>>', event);
             this.spinnerService.requestEnded();
+            this.spinnerService.resetSpinner();
 
           }
           return event;

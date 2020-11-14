@@ -20,6 +20,7 @@ export class SpinnerComponent implements OnInit {
 
   init() {
     this.spinnerService.getSpinnerObserver().subscribe((status) => {
+      console.log(status)
       this.showSpinner = status == 'start';
       this.cdRef.detectChanges();
     })

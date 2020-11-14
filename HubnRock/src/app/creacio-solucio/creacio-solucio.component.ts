@@ -543,6 +543,8 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
         if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre && this.radioValue == 'equip') {
           formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
+        } else {
+          formData.append(`membre_nom[${i}]`, '');
         }
 
         if (this.solucioForm.get('membreArray').value[i].posicioMembre && this.radioValue == 'equip') {

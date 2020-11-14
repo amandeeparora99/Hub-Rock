@@ -27,7 +27,7 @@
         </div>
     </div>
     <hr>
-    <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
+    <form *ngIf="repteForm" id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
         <div *ngIf="formErrors.campsErronis" class="row is-invalid">
             <div class="col">
                 <span class="help-block">

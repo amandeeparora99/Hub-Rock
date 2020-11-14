@@ -55,7 +55,7 @@ const routes: Routes = [
   { path: 'repte/:id/editar-repte', component: EditarRepteComponent, canActivate: [AuthGuard, OwnRepteGuard, CanEditRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'repte/:id/editar-esborrany', component: EditarRepteEsborranyComponent, canActivate: [AuthGuard, OwnRepteEsborranyGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'perfil/:id', component: PerfilComponent },
-  // { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
+  { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },

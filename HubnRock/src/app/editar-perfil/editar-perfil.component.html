@@ -154,11 +154,28 @@
                 </div>
 
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.pdfFile}">
-                    <label for="InputPdfFile">Afegir CV</label><br>
-                    <input formControlName="pdfFile" type="file" id="InputPdfFile" (blur)="logValidationErrors()">
+                    <label for="InputPdfFile">Afegir CV o presentació de l'empresa</label><br>
                     <span class="help-block" *ngIf="formErrors.pdfFile">
                         {{formErrors.pdfFile}}
                     </span>
+                </div>
+
+                <div class="text-center">
+                    <label class="afegeix-link">
+                    <input accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;">
+                    <a>+ Afegeix PDF</a>
+                  </label>
+                </div>
+
+                <div *ngIf="pdfArray" class="mb-3">
+                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                    <span class="ml-3" *ngIf="currentUser && currentUser.userType == 1">Currículum {{usuariObject.nom_rockstar}}</span>
+                    <span class="ml-3" *ngIf="currentUser && currentUser.userType == 0">Presentació {{usuariObject.nom_empresa}}</span>
+
+                </div>
+
+                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
 
                 <div class="text-center">
