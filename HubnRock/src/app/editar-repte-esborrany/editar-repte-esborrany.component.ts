@@ -1460,8 +1460,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
             console.log(data)
             if (data.code == 1) {
               window.scrollTo(0, 0)
-              this.success = true;
-              this.actualitzat = true;
+              // this.success = true;
+              // this.actualitzat = true;
               this.toastr.success('Repte desat com a esborrany', 'Desat')
               // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
               // this.router.navigate([`/perfil/${currentUserId}`])

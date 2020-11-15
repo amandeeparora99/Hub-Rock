@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 
 @Component({
@@ -24,9 +25,12 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     }
   }
 
+  currentUser: User;
+
   checkUntouched = false;
 
   idSolucioCreada;
+  idSolucioEsborrany;
 
   private idRepte;
   repte;
@@ -36,6 +40,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   currentTab: number; // Current tab is set to be the first tab (0)
   numberOfTabs = 1; //0 + 1 = 2 tabs
   success = false;
+  borradorEnviat = false;
   maxMembres = 10;
   loading = false;
 
@@ -131,6 +136,12 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
 
   ngOnInit(): void {
+
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
 
     this.idRepte = this.aRouter.snapshot.params.id;
 
@@ -483,11 +494,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == '1') {
               window.scrollTo(0, 0)
-
+              this.idSolucioEsborrany = data.lastId;
               this.success = true;
-              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
-              this.router.navigate([`/perfil/${currentUserId}`])
-
+              this.borradorEnviat = true;
             }
           });
     }

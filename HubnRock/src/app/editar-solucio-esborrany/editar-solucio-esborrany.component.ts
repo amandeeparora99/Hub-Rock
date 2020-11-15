@@ -620,8 +620,8 @@ export class EditarSolucioEsborranyComponent implements OnInit {
             if (data.code == '1') {
               window.scrollTo(0, 0)
 
-              this.success = true;
-              this.actualitzat = true;
+              // this.success = true;
+              // this.actualitzat = true;
               // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
               // this.router.navigate([`/perfil/${currentUserId}`])
 

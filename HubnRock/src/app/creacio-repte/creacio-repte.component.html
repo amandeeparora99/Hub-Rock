@@ -715,7 +715,7 @@
     </form>
 </div>
 <section id="repteSuccess" *ngIf="success">
-    <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+    <div *ngIf="!borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Enhorabona</h1>
         <div class="paragraph-container">
             <p class="text-center">El repte s'ha enviat correctament.</p>
@@ -723,6 +723,16 @@
         </div>
         <div class="text-center">
             <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">VEURE EL REPTE</button>
+        </div>
+    </div>
+    <div *ngIf="borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+        <div class="paragraph-container">
+            <h1 class="text-center">Repte desat</h1>
+            <p class="text-center">L'esborrany s'ha desat correctament.</p>
+        </div>
+        <div class="text-center">
+            <button *ngIf="idRepteEsborrany" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepteEsborrany, 'editar-esborrany']">SEGUIR EDITANT</button>
+            <button *ngIf="currentUser" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
         </div>
     </div>
 </section>
