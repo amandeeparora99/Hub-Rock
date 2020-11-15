@@ -29,9 +29,9 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
-                <div class="d-flex w-100 justify-content-between category-div">
+                <div class="d-flex w-100 justify-content-start category-div">
 
-                    <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center">
+                    <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center categoriaRepte">
                         <img class="participateimg" src="../../assets/illustrations/{{categoria.participants_name}}.png" alt="Categoria empresa">
                         <p class="typetext">{{categoria.participants_name}}</p>
                     </div>
@@ -42,19 +42,20 @@
                 <!--EN MOVIL NO HA DESTAR AL FINAL-->
                 <div class="d-flex w-100 justify-content-between align-items-start info-div">
 
-                    <div class="d-flex">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>2 - {{repte.limit_participants}}<br> persones
+                    <div class="d-flex align-items-center minwidth-190">
+                        <img class="participateimgCat align-self-center" src="../../assets/illustrations/Company.png" alt="">
+                        <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
+                        <h1 *ngIf="repte.individual_equip != 0">2 - {{repte.limit_participants}}<br> persones
                         </h1>
                     </div>
 
-                    <div class="d-flex">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>{{repte.data_inici | date:'shortDate'}}<br>{{diesRestants(repte.data_inici, repte.data_final)}}</h1>
+                    <div class="d-flex minwidth-190">
+                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
+                        <h1>{{repte.data_inici | date:'shortDate'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})</h1>
                     </div>
 
-                    <div class="d-flex align-items-center">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
+                    <div class="d-flex align-items-center minwidth-190">
+                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
                         <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}€</h1>
                     </div>
 
@@ -201,7 +202,7 @@
                 </div>
 
                 <div class="row d-flex justify-content-center margin-bottom-40">
-                    <p *ngIf="repte.individual_equip == 0">Individual</p>
+                    <p *ngIf="repte.individual_equip == 0 || !repte.limit_participants">Individual</p>
                     <p *ngIf="repte.individual_equip == 1 && repte.limit_participants == '2'">Equips de 2 persones</p>
                     <p *ngIf="repte.individual_equip == 1 && repte.limit_participants != '2'">Equips de 2 - {{repte.limit_participants}} persones</p>
                 </div>
@@ -230,8 +231,8 @@
 
                 <div class="tab-content" id="premis-tabContent">
                     <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="text-premis row d-flex justify-content-between">
-                            <img src="../../assets/testpics/Premi_Mac.png">
+                        <div class="text-premis row d-flex justify-content-start">
+                            <img class="premiImg" src="../../assets/testpics/Premi_Mac.png">
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
                                 <p>{{i + 1}} premi</p>
@@ -312,26 +313,7 @@
                 <h1 class="tabtitle text-center">Bases legals</h1>
 
                 <div class="container">
-                    <div class="legaltext" *ngIf="repte.bases_legals == 0">
-                        Participation in the Challenge implies acknowledgement and acceptance of the characteristics, limits and risks of the internet and related technologies, particularly with regards to performance, response time, security of software and computer equipment
-                        against various potential attacks, such as viruses, logic bombs or Trojans, and loss or misuse of data. As a result, the Sponsor will not be held liable in any way for any damage incurred by Participants arising from these characteristics,
-                        limits and risks, which Participants accept by registering and taking part in the Challenge. The Sponsor will not in any case be held liable for damages resulting from faults with or delays in the submission of deliverables by
-                        Participants, including refusal to accept these deliverables as a consequence of their submission outside the deadlines set out in the Rules, from faults with or delays to the sending of any emails by the Participant sent as part
-                        of the Challenge, or from any alterations made to the deliverables independently of the Sponsor. The Sponsor will not in any case be held liable for damages resulting from services provide by a third-party relating to the prizes.
-                        The Sponsor will not be held liable for the consequences of a Participant’s disqualification from the Challenge as a result of their violation of these Rules. PERSONAL DATA PROTECTION Participation in the Challenge requires the
-                        communication of the Participant's personal data ("Personal Data"). Participant’s personal data is subject to processing within the meaning of the regulations on the protection of personal data (The EU 2016/679 General Data Protection
-                        Regulation and the Council of 27 April 2016, known as GDPR) for which the Sponsor defines the purposes and means and is, as such, “Data controller” within the meaning of the GDPR. The purposes of the processing are: To meet the
-                        organization of the challenge needs To organize the intermediation between the Participant and the Sponsor, to ensure identification, communication and preservation of the exchanges with the Participant In accordance with the provisions
-                        of the GDPR, the Sponsor undertakes to implement organizational and technical security measures in order to protect all Participant’s Personal Data. The Sponsor undertakes these measures to allow the exercise of Participants’ rights
-                        from GDPR. CLAIMS Any Participant’s claims arising from the Challenge, should be addressed no later than thirty (30) days following the Challenge end date to fsgsecretariat@adb.org. All claims must include: (i) the Participant’s
-                        complete contact details (name, address, email address and phone); (ii) the name of the Challenge; and (iii) a clear and detailed explanation for the claim. SETTLEMENT OF DISPUTES The Challenge and any action related thereto shall
-                        be governed by this section of the Rules. The parties will attempt in good faith to resolve any dispute or claim arising out of or in relation to the Challenge. If the dispute cannot be settled amicably within the agreed date from
-                        the date on which either Party has served written notice on the other of the dispute, the dispute will be referred to arbitration. The arbitration shall take place in Singapore and shall be settled under the Rules of Arbitration
-                        of the International Chamber of Commerce by one arbitrator selected in accordance with the said Rules. The award of arbitration shall be final and binding on both parties and shall be in lieu of any other remedy. Each party shall
-                        bear its own costs.
-                        <br>
-                    </div>
-                    <div class="legaltext" *ngIf="repte.bases_legals == 1">{{repte.bases_legals_personals}}</div>
+                    <div class="legaltext">{{repte.bases_legals_personals}}</div>
                 </div>
 
             </div>
@@ -340,15 +322,17 @@
             <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
-                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                    <textarea #topicPost class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
-                    <div class="inputForum" *ngIf="!textAreaOn">
-                        As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
-                        to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through the
-                        corresponding means.
+                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()">
+                    <div class="row d-flex justify-content-center postForumDiv">
+                        <textarea #topicPost class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
+                        <div class="inputForum" *ngIf="!textAreaOn">
+                            As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
+                            to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through the
+                            corresponding means.
+                        </div>
+    
+                        <button type="button" class="forumbutton text-left" (click)="switchTextArea(topicPost.value)">{{ forumButtonText }}</button>
                     </div>
-
-                    <button type="button" class="forumbutton text-left" (click)="switchTextArea(topicPost.value)">{{ forumButtonText }}</button>
                 </div>
 
                 <div class="row d-flex justify-content-center">
@@ -362,11 +346,11 @@
                                 <img [src]="'http://api.hubandrock.com/image/'+forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
                                     <div class="row">
-                                        <p class="m-0">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
+                                        <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
                                         <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                     </div>
                                     <div class="row">
-                                        <p class="m-0">{{forumPost.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                        <p class="m-0 forumPostDate">{{forumPost.creation_date | date: 'dd/MM/yyyy'}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -374,8 +358,8 @@
                                 <p>{{forumPost.text}}</p>
                             </div>
                             <div class="row d-flex comentariButtons">
-                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
-                                <button type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
+                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
                                     <img [src]="forumPost.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                     {{forumPost.like_count}} M'agrada</button>
                             </div>
@@ -394,11 +378,11 @@
                                     <img [src]="'http://api.hubandrock.com/image/'+resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
                                         <div class="row">
-                                            <p class="m-0 mr-3">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
+                                            <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
                                             <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                         </div>
                                         <div class="row">
-                                            <p class="m-0">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                            <p class="m-0 forumPostDate">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -406,7 +390,7 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                     <button type="button" class="btn forumButton" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
                                         <img [src]="resposta.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                         {{resposta.like_count}} M'agrada
@@ -426,11 +410,11 @@
                                         <img [src]="'http://api.hubandrock.com/image/'+answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
                                             <div class="row">
-                                                <p class="m-0 mr-3">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
+                                                <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
                                                 <button *ngIf="repte.user_iduser == answer.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                             </div>
                                             <div class="row">
-                                                <p class="m-0">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                                <p class="m-0 forumPostDate">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -438,7 +422,7 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
                                         <button type="button" class="btn forumButton" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
                                             <img [src]="answer.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
                                             {{answer.like_count}} M'agrada

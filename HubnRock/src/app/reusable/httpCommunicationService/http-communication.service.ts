@@ -170,21 +170,17 @@ export class HttpCommunicationService {
   //FÒRUM ------------------------------
 
   getForum(repte_id, page, elements): Observable<any> {
-
     return this.http.get<any>(environment.api + `/forumData/topics/${repte_id}/${page}/${elements}`)
       .pipe(map(data => {
         return data;
       }));
-
   }
 
   getForumLogin(repte_id, page, elements): Observable<any> {
-
     return this.http.get<any>(environment.api + `/forumData/topicsAuth/${repte_id}/${page}/${elements}`)
       .pipe(map(data => {
         return data;
       }));
-
   }
 
   getForumRespostes(topicId): Observable<any> {

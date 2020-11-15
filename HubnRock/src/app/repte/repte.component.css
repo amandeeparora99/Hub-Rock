@@ -53,7 +53,12 @@ img {
 #repte-infobox .participateimg {
     width: 40px;
     height: 40px;
-    margin-right: 15px
+}
+
+#repte-infobox .participateimgCat {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
 }
 
 .typetext {
@@ -600,7 +605,7 @@ img {
 .forumbutton {
     letter-spacing: -0.25px;
     color: #020e7d;
-    background-color: white;
+    background-color:#f7f7f7;
     padding-left: 30px;
     max-width: 793px;
     font-weight: bold;
@@ -609,6 +614,31 @@ img {
     border-radius: 5px;
     border: solid 2px #020e7d;
     transition: 0.3s;
+}
+
+.forumPostName {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.22px;
+    color: #020e7d;
+}
+.forumPostName:hover{
+    color: #00e292;
+    cursor: pointer;
+}
+
+.forumPostDate {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.2px;
+    color: #7b7b7b;
 }
 
 .forumbutton:hover {
@@ -632,6 +662,14 @@ img {
     box-shadow: 1px 1px 8px 3px rgba(222, 222, 222, 0.48);
     border: solid 1px #d3d3d3;
     margin-bottom: 51px;
+}
+
+.postForumDiv {
+    width: 920px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    padding-top: 28px;
+    padding-bottom: 28px;
 }
 
 .forumContent {
@@ -685,4 +723,16 @@ img {
 .margintop60 {
     padding-top: 60px;
     margin-left: 40px;
+}
+
+.categoriaRepte {
+    margin-right: 10px;
+}
+
+.minwidth-190 {
+    min-width: 190px;
+}
+
+.premiImg {
+    margin-right: 50px;
 }

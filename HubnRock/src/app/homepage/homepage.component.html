@@ -163,9 +163,9 @@
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
                             <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                             <div class="card-body fitxa-repte">
-                                <div class="card-title d-flex" routerLink="/homepage">
-                                    <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
-                                    <p class="m-0 username">{{repte.user.nom_empresa}}</p>
+                                <div class="card-title d-flex">
+                                    <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
@@ -180,8 +180,7 @@
                                 </div>
                                 <div class="card-title d-flex">
                                     <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
-                                    <p class="m-0">
-                                        <!-- {{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ( -->{{diesRestants(repte.data_inici, repte.data_final)}}</p>
+                                    <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
                                 </div>
                                 <div class="tags">
                                     <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',

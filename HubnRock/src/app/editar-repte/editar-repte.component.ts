@@ -771,6 +771,7 @@ export class EditarRepteComponent implements OnInit {
 
   todayDate() {
     let today = new Date();
+    today.setDate(today.getDate() + 1)
     let todayFormat = this.datepipe.transform(today, 'yyyy-MM-dd');
 
     return todayFormat;
@@ -778,7 +779,7 @@ export class EditarRepteComponent implements OnInit {
 
   tomorrowDate() {
     let tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setDate(tomorrow.getDate() + 2);
     let tomorrowFormat = this.datepipe.transform(tomorrow, 'yyyy-MM-dd');
 
     return tomorrowFormat;
@@ -1758,7 +1759,7 @@ function dateShorterThanToday(control: AbstractControl): { [key: string]: any } 
   let date = new Date(control.value);
   let currentDate = new Date();
 
-  if (date.getDate() > currentDate.getDate() || dateString(date) == dateString(currentDate)) {
+  if (date > currentDate || dateString(date) == dateString(currentDate)) {
     return null;
   }
   else {
