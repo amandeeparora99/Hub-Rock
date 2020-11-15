@@ -29,6 +29,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { DatePipe } from '@angular/common';
 import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/editar-solucio-esborrany.component';
 import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -57,7 +59,14 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
     AppRoutingModule,
     AuthenticationModule,
     ReusableModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      preventDuplicates: true
+    })
   ],
   providers: [HttpCommunicationService, DatePipe, AuthGuard,
     {

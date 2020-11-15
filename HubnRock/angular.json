@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.css",
               "src/assets/fonts/WorkSans/WorkSans.css"

@@ -7,6 +7,7 @@ import { DatePipe, formatDate } from '@angular/common';
 import { User } from '../user';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-homepage',
@@ -33,7 +34,7 @@ export class HomepageComponent implements OnInit {
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
 
-  constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder) { }
+  constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -125,9 +126,11 @@ export class HomepageComponent implements OnInit {
         data => {
           this.success = true;
           console.log(data);
+          this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
         },
         error => {
           console.log("Fail")
+          this.toastr.error('Hi ha hagut un problema amb el servidor', 'Error')
         });
 
   }
