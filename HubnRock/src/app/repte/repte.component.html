@@ -29,9 +29,9 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
-                <div class="d-flex w-100 justify-content-between category-div">
+                <div class="d-flex w-100 justify-content-start category-div">
 
-                    <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center">
+                    <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center categoriaRepte">
                         <img class="participateimg" src="../../assets/illustrations/{{categoria.participants_name}}.png" alt="Categoria empresa">
                         <p class="typetext">{{categoria.participants_name}}</p>
                     </div>
@@ -42,19 +42,20 @@
                 <!--EN MOVIL NO HA DESTAR AL FINAL-->
                 <div class="d-flex w-100 justify-content-between align-items-start info-div">
 
-                    <div class="d-flex">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>2 - {{repte.limit_participants}}<br> persones
+                    <div class="d-flex align-items-center minwidth-190">
+                        <img class="participateimgCat align-self-center" src="../../assets/illustrations/Company.png" alt="">
+                        <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
+                        <h1 *ngIf="repte.individual_equip != 0">2 - {{repte.limit_participants}}<br> persones
                         </h1>
                     </div>
 
-                    <div class="d-flex">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
-                        <h1>{{repte.data_inici | date:'shortDate'}}<br>{{diesRestants(repte.data_inici, repte.data_final)}}</h1>
+                    <div class="d-flex minwidth-190">
+                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
+                        <h1>{{repte.data_inici | date:'shortDate'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})</h1>
                     </div>
 
-                    <div class="d-flex align-items-center">
-                        <img class="participateimg" src="../../assets/illustrations/Company.png" alt="">
+                    <div class="d-flex align-items-center minwidth-190">
+                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
                         <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}€</h1>
                     </div>
 
@@ -201,7 +202,7 @@
                 </div>
 
                 <div class="row d-flex justify-content-center margin-bottom-40">
-                    <p *ngIf="repte.individual_equip == 0">Individual</p>
+                    <p *ngIf="repte.individual_equip == 0 || !repte.limit_participants">Individual</p>
                     <p *ngIf="repte.individual_equip == 1 && repte.limit_participants == '2'">Equips de 2 persones</p>
                     <p *ngIf="repte.individual_equip == 1 && repte.limit_participants != '2'">Equips de 2 - {{repte.limit_participants}} persones</p>
                 </div>
@@ -230,8 +231,8 @@
 
                 <div class="tab-content" id="premis-tabContent">
                     <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="text-premis row d-flex justify-content-between">
-                            <img src="../../assets/testpics/Premi_Mac.png">
+                        <div class="text-premis row d-flex justify-content-start">
+                            <img class="premiImg" src="../../assets/testpics/Premi_Mac.png">
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
                                 <p>{{i + 1}} premi</p>

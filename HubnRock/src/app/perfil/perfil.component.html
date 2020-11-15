@@ -110,8 +110,8 @@
                                         <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
-                                                <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
-                                                <p class="m-0 username" routerLink="/homepage">{{repteEsborrany.user.nom_empresa}}</p>
+                                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
+                                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repteEsborrany.user_iduser}}">{{repteEsborrany.user.nom_empresa}}</p>
                                             </div>
                                             <h5 class="card-title titol-repte">{{repteEsborrany.nom}}</h5>
                                             <p *ngIf="!repteEsborrany.descripcio_short" class="card-text desc-repte">Sense descripció breu</p>
@@ -132,10 +132,12 @@
                                                 <p class="m-0">{{diesRestants(repteEsborrany.data_inici, repteEsborrany.data_final)}}</p>
                                             </div>
                                             <div class="tags">
-                                                <button type="button" class="tag btn tag-red">Startups</button>
-                                                <button type="button" class="tag btn tag-blue">Empreses</button>
-                                                <button type="button" class="tag btn tag-orange">Estudiants</button>
-                                                <button type="button" class="tag btn tag-purple">Públic general</button>
+                                                <button *ngFor="let participants of repteEsborrany.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                                    'tag-blue': participants.participants_name == 'Empreses',
+                                                    'tag-orange': participants.participants_name == 'Estudiants',
+                                                    'tag-purple': participants.participants_name == 'Públic general'}">
+                                                {{participants.participants_name}}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +164,8 @@
                                     <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
-                                            <img class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/homepage">
-                                            <p class="m-0 username" routerLink="/homepage">{{repte.user.nom_empresa}}</p>
+                                            <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                            <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                         </div>
                                         <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                         <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
@@ -181,10 +183,12 @@
                                             <p class="m-0">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})</p>
                                         </div>
                                         <div class="tags">
-                                            <button type="button" class="tag btn tag-red">Startups</button>
-                                            <button type="button" class="tag btn tag-blue">Empreses</button>
-                                            <button type="button" class="tag btn tag-orange">Estudiants</button>
-                                            <button type="button" class="tag btn tag-purple">Públic general</button>
+                                            <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                                'tag-blue': participants.participants_name == 'Empreses',
+                                                'tag-orange': participants.participants_name == 'Estudiants',
+                                                'tag-purple': participants.participants_name == 'Públic general'}">
+                                            {{participants.participants_name}}
+                                            </button>
                                         </div>
                                     </div>
                                     <div *ngIf="repte.estat_idestat != 3" class="card-footer">
