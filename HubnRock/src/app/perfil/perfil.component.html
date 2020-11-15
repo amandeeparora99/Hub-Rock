@@ -88,7 +88,7 @@
                             <h5 class="card-title">Presentació empresa</h5>
                             <p class="card-text" *ngIf="!usuariObject.cv_path">Aquesta empresa no ha compartit la seva presentació</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-empresa">Currículum {{usuariObject.nom_empresa}}</a>
+                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-empresa">Presentació {{usuariObject.nom_empresa}}</a>
                         </div>
                     </div>
                 </div>
@@ -365,7 +365,7 @@
                             <h5 class="card-title">CV</h5>
                             <p class="card-text" *ngIf="!usuariObject.cv_path">Aquest usuari no ha compartit el CV</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-usuari">Presentació {{usuariObject.nom_rockstar}}</a>
+                            <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-usuari">Currículum {{usuariObject.nom_rockstar}}</a>
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
   idSolucio;
   solucio;
-  idSolucioCreada;
 
   pdfArray;
   solucioForm: FormGroup;
@@ -523,24 +522,33 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
       let formData = this.appendRepte();
 
-      this.subscriptionHttp1$ = this.httpClient.addSolucioValid(formData, this.idRepte)
+      // this.subscriptionHttp1$ = this.httpClient.addSolucioValid(formData, this.idRepte)
+      //   .pipe(first())
+      //   .subscribe(
+      //     data => {
+      //       if (data.code == 1) {
+      //         this.idSolucioCreada = data.lastId;
+      //         this.success = true;
+      //         this.enviat = true;
+      //         console.log(data);
+
+      //         this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
+      //           .pipe(first())
+      //           .subscribe();
+      //       }
+
+
+      //     });
+
+      this.subscriptionHttp1$ = this.httpClient.editSolucio(this.idSolucio, formData)
         .pipe(first())
         .subscribe(
           data => {
             if (data.code == 1) {
-              this.idSolucioCreada = data.lastId;
               this.success = true;
               this.enviat = true;
-              console.log(data);
-
-              this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
-                .pipe(first())
-                .subscribe();
             }
-
-
           });
-
     }
 
 
@@ -683,8 +691,15 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       //APPENDING MEMBRES
       for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
 
+        if (this.solucio.membres[i]) {
+          formData.append(`idmembre[${i}]`, this.solucio.membres[i].idmembre);
+        }
+
         if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre && this.radioValue == 'equip') {
           formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
+        } else {
+          formData.append(`membre_nom[${i}]`, '');
+
         }
 
         if (this.solucioForm.get('membreArray').value[i].posicioMembre && this.radioValue == 'equip') {
@@ -700,10 +715,13 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
     if (this.pdfArray) {
       for (let index = 0; index < this.pdfArray.length; index++) {
-        const file = this.pdfArray[index];
+        if (this.solucioForm.get('pdf').value) {
 
-        formData.append(`recurs_solucio_nom[${index}]`, file.name);
-        formData.append(`recurs_solucio_url_file[${index}]`, file);
+          const file = this.pdfArray[index];
+
+          formData.append(`recurs_solucio_nom[${index}]`, file.name);
+          formData.append(`recurs_solucio_url_file[${index}]`, file);
+        }
 
       }
     }

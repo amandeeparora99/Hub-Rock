@@ -18,6 +18,10 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   currentUser: User;
   userIsRockstar: Boolean;
 
+  formDone = false;
+
+  pdfArray;
+
   public idUsuari;
   public usuariObject;
 
@@ -116,7 +120,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private aRouter: ActivatedRoute) { }
 
   hasUnsavedData(): boolean {
-    return this.editUserForm.dirty;
+    if (this.formDone) {
+      return false;
+    } else {
+      return this.editUserForm.dirty;
+    }
   }
 
   ngOnInit(): void {
@@ -213,7 +221,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             inputFacebook: this.usuariObject.xarxes_facebook,
           })
 
-
+          //PATCH RECURSOS
+          if (this.usuariObject.cv_path) {
+            this.pdfArray = this.usuariObject.cv_path
+            console.log(this.pdfArray)
+          }
 
           console.log(this.usuariObject)
 
@@ -273,12 +285,42 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   }
 
+  onPdfSelected(event) {
+    if (event.target.files) {
+      let totalSize = 0;
+
+      console.log(event.target.files[0].size, event.target.files)
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
+        totalSize += element.size
+      }
+
+      if (totalSize < 15728640) {
+        this.pdfArray = event.target.files
+      } else {
+        this.pdfArray = null;
+        alert('Supera el límit de 15MB')
+      }
+      // console.log(this.solucioForm.get('pdf').value)
+      // Array.from(this.pdfArray).forEach(file => {
+      //   console.log(file)
+      // });
+
+    }
+  }
+
+  resetPdfArray() {
+    this.pdfArray = null;
+  }
+
   onSubmit() {
     console.log(this.editUserForm.errors)
     console.log(this.editUserForm.valid)
     if (this.editUserForm.invalid) {
       this.logValidationErrorsUntouched()
     } else {
+      this.formDone = true;
+
       let formData = this.appendUserInfo();
     }
   }
@@ -291,19 +333,28 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if (this.editUserForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
       }
+      
     } else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
       formData.append('empresa_rockstar', '1');
       if (this.editUserForm.get('InputfotoPerfilLogin').value) {
         formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
       }
     }
+
+    // if (this.pdfArray) {
+     
+
+    //     formData.append(`recurs_nom[${index}]`, file.name);
+    //     formData.append(`recurs_url_fitxer[${index}]`, file);
+      
+    // }
     return formData;
   }
 
   @HostListener('window:beforeunload', ['$event'])
   public onPageUnload($event: BeforeUnloadEvent) {
 
-    if (this.editUserForm.dirty) {
+    if (this.editUserForm.dirty && !this.formDone) {
       $event.returnValue = true;
     }
   }

@@ -205,7 +205,7 @@
 
         <div class="text-center">
             <button *ngIf="(eliminat && currentUser) || (actualitzat && currentUser)" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
-            <button *ngIf="enviat && idSolucioCreada" class="btn btn-primary btn-manage" [routerLink]="['/solucio/', idSolucioCreada]">VEURE LA SOLUCIÓ</button>
+            <button *ngIf="enviat && idSolucio" class="btn btn-primary btn-manage" [routerLink]="['/solucio/', idSolucio]">VEURE LA SOLUCIÓ</button>
         </div>
 
     </div>

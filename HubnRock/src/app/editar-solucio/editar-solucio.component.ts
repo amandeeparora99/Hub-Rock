@@ -675,8 +675,14 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
       //APPENDING MEMBRES
       for (var i = 0; i < (<FormArray>this.solucioForm.get('membreArray')).controls.length; i++) {
 
+        if (this.solucio.membres[i]) {
+          formData.append(`idmembre[${i}]`, this.solucio.membres[i].idmembre);
+        }
+
         if (this.solucioForm.get('membreArray').value[i].nomICognomsMembre && this.radioValue == 'equip') {
           formData.append(`membre_nom[${i}]`, this.solucioForm.get('membreArray').value[i].nomICognomsMembre);
+        } else {
+          formData.append(`membre_nom[${i}]`, '');
         }
 
         if (this.solucioForm.get('membreArray').value[i].posicioMembre && this.radioValue == 'equip') {
@@ -692,11 +698,13 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
 
     if (this.pdfArray) {
       for (let index = 0; index < this.pdfArray.length; index++) {
-        const file = this.pdfArray[index];
+        if (this.solucioForm.get('pdf').value) {
 
-        formData.append(`recurs_solucio_nom[${index}]`, file.name);
-        formData.append(`recurs_solucio_url_file[${index}]`, file);
+          const file = this.pdfArray[index];
 
+          formData.append(`recurs_solucio_nom[${index}]`, file.name);
+          formData.append(`recurs_solucio_url_file[${index}]`, file);
+        }
       }
     }
 

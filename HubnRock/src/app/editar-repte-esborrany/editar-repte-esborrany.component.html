@@ -27,7 +27,7 @@
         </div>
     </div>
     <hr>
-    <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
+    <form *ngIf="repteForm" id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
         <div *ngIf="formErrors.campsErronis" class="row is-invalid">
             <div class="col">
                 <span class="help-block">
@@ -732,7 +732,7 @@
 
         <div class="text-center">
             <button *ngIf="(eliminat && currentUser) || (actualitzat && currentUser)" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', currentUser.idUser]">TORNA AL PERFIL</button>
-            <button *ngIf="enviat && idRepteCreat" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepteCreat]">VEURE EL REPTE</button>
+            <button *ngIf="enviat && idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">VEURE EL REPTE</button>
         </div>
     </div>
 </section>
