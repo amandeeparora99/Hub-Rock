@@ -124,15 +124,13 @@ export class HomepageComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.success = true;
-          console.log(data);
-          this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
-        },
-        error => {
-          console.log("Fail")
-          this.toastr.error('Hi ha hagut un problema amb el servidor', 'Error')
-        });
-
+          if(data.code == 1) {
+            this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
+            this.success = true;
+            console.log(data);
+          }
+        }
+      );
   }
 
   onFileSelected(event) {

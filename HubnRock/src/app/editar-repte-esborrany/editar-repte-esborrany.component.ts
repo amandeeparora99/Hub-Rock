@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { animationFrameScheduler, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -18,7 +19,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
 
 
-  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, 
+    public datepipe: DatePipe, public toastr: ToastrService) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -1458,9 +1460,9 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
             console.log(data)
             if (data.code == 1) {
               window.scrollTo(0, 0)
-
               this.success = true;
               this.actualitzat = true;
+              this.toastr.success('Repte desat com a esborrany', 'Desat')
               // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
               // this.router.navigate([`/perfil/${currentUserId}`])
             }

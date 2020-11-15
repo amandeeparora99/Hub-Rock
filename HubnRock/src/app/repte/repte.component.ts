@@ -5,6 +5,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 import { first } from 'rxjs/operators';
 import { User } from '../user';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 // import { ClickStopPropagationDirective } from '../click-stop-propagation.directive';
 
 @Component({
@@ -14,7 +15,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RepteComponent implements OnInit {
 
-  constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
+  constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService,
+    public toastr: ToastrService) { }
 
   public fileStorageUrl = environment.api + '/image/';
   public idRepte = null;
@@ -45,6 +47,7 @@ export class RepteComponent implements OnInit {
   subscriptionHttp3$: Subscription
   subscriptionHttp4$: Subscription
   subscriptionHttp5$: Subscription
+  subscriptionHttp6$: Subscription
 
   ngOnInit(): void {
 
@@ -366,6 +369,16 @@ export class RepteComponent implements OnInit {
     else {
       console.log("ENVIANT FORUM")
       console.log(topicPostMsg)
+      this.subscriptionHttp6$ = this.httpCommunication.postTopic(this.idRepte,topicPostMsg)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            if(data.code == 1){
+              this.toastr.success('Missatge enviat correctament', 'Enviat')
+            }
+          }
+        );
     }
 
   }
@@ -425,12 +438,8 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Has fet LIKE al post");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+          }
+        );
     }
     else {
       this.subscriptionHttp5$ = this.httpCommunication.dislikeTopic(idPost)
@@ -438,12 +447,8 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Has fet DISLIKE al post");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+          }
+        );
     }
   }
 
@@ -487,12 +492,8 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Has fet LIKE al comentari");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+          }
+        );
     }
     else {
       this.subscriptionHttp5$ = this.httpCommunication.dislikeMessage(idMessage)
@@ -500,12 +501,8 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Has fet DISLIKE al comentari");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+          }
+        );
     }
   }
 
@@ -534,9 +531,6 @@ export class RepteComponent implements OnInit {
   }
 
   sendMessage(message, topicId, messageParentId) {
-    console.log(message)
-    console.log(topicId)
-    console.log(messageParentId)
 
     if (messageParentId != 0) {
       this.subscriptionHttp4$ = this.httpCommunication.sendHelp(message, topicId, messageParentId)
@@ -544,12 +538,11 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Missatge enviat correctament!");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+            if(data.code == 1){
+              this.toastr.success('Missatge enviat correctament', 'Enviat')
+            }
+          }
+        );
     }
     else {
       this.subscriptionHttp4$ = this.httpCommunication.sendHelp(message, topicId, '')
@@ -557,12 +550,11 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            alert("Missatge fill enviat correctament!");
-          },
-          error => {
-            console.log("Fail")
-            alert("S'ha produït un error");
-          });
+            if(data.code == 1){
+              this.toastr.success('Missatge enviat correctament', 'Enviat')
+            }
+          }
+        );
     }
 
   }

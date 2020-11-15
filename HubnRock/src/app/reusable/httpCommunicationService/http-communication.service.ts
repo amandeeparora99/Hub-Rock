@@ -225,6 +225,26 @@ export class HttpCommunicationService {
       }));
   }
 
+  postTopic(repteId, message): Observable<any> {
+    const body = new HttpParams()
+      .set('message', message)
+
+    return this.http.post<any>(environment.api + `/forumData/topic/${repteId}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
+        this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
+        console.log(data)
+        return data;
+      }
+    }));
+  }
+
 
   // ---------------------
 

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
@@ -16,7 +17,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
 
-  constructor(private router: Router, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+  constructor(private router: Router, private fb: FormBuilder, 
+    private httpClient: HttpCommunicationService, public datepipe: DatePipe, public toastr: ToastrService) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -1059,10 +1061,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == 1) {
               window.scrollTo(0, 0)
-
-              this.success = true;
               let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
-              this.router.navigate([`/perfil/${currentUserId}`])
+              this.toastr.success('Repte desat com a esborrany', 'Desat')
+              console.log("TOASTER")
             }
           });
     }
@@ -1107,9 +1108,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == 1) {
               window.scrollTo(0, 0)
-
               this.success = true;
               this.idRepte = data.lastId;
+              this.toastr.success('Repte enviat per revisar!', 'Enviat')
             }
 
           });

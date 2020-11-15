@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -16,7 +17,8 @@ import { User } from '../user';
 export class EditarRepteComponent implements OnInit {
 
 
-  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, public datepipe: DatePipe) { }
+  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, 
+    public datepipe: DatePipe, public toastr: ToastrService) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -1498,7 +1500,7 @@ export class EditarRepteComponent implements OnInit {
           data => {
             if (data.code == 1) {
               window.scrollTo(0, 0)
-
+              this.toastr.success('Repte desat com a esborrany', 'Desat')
               this.success = true;
               this.enviat = true;
             }
