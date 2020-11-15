@@ -545,6 +545,8 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               this.enviat = true;
             }
@@ -616,6 +618,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         .subscribe(
           data => {
             if (data.code == '1') {
+              window.scrollTo(0, 0)
 
               this.success = true;
               this.actualitzat = true;
@@ -633,6 +636,8 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       .subscribe(
         data => {
           if (data.code == 1) {
+            window.scrollTo(0, 0)
+
             this.success = true;
             this.eliminat = true;
           }

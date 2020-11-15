@@ -332,6 +332,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
           for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
             if (control instanceof FormGroup) {
+              console.log('LOGO JURAT VALUE', control.controls.logoPartner.value)
 
               if (control.controls.nomPartner.value ||
                 control.controls.breuDescripcioPartner.value ||
@@ -582,10 +583,19 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       delete this.objectSolucions[fotoName]
     }
     else if (arraySplit[0] == 'fotoPartner') {
+      (<FormArray>this.repteForm.get('partnerArray')).at(arraySplit[1]).patchValue({
+        logoPartner: null
+      })
+
       delete this.objectPartnersPreview[fotoName]
       delete this.objectPartners[fotoName]
     }
     else if (arraySplit[0] == 'fotoJurat') {
+
+      (<FormArray>this.repteForm.get('juratArray')).at(arraySplit[1]).patchValue({
+        fotoJurat: null
+      })
+
       delete this.objectJuratsPreview[fotoName]
       delete this.objectJurats[fotoName]
     } else {
@@ -1048,6 +1058,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
               this.router.navigate([`/perfil/${currentUserId}`])
@@ -1094,6 +1106,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               this.idRepte = data.lastId;
             }
