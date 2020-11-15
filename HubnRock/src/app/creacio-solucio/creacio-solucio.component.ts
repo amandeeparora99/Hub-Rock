@@ -405,6 +405,8 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.idSolucioCreada = data.lastId;
               this.success = true;
 
@@ -480,6 +482,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == '1') {
+              window.scrollTo(0, 0)
 
               this.success = true;
               let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;

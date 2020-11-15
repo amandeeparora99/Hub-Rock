@@ -704,8 +704,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
 
 
-                // control.controls.logoPartner.setValidators([Validators.required])
-                // control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                control.controls.logoPartner.setValidators([Validators.required])
+                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
 
                 control.updateValueAndValidity({ emitEvent: false });
               }
@@ -719,8 +719,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
 
 
-                // control.controls.logoPartner.clearValidators()
-                // control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                control.controls.logoPartner.clearValidators()
+                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
 
                 control.updateValueAndValidity({ emitEvent: false });
 
@@ -746,8 +746,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
 
 
-                // control.controls.fotoJurat.setValidators([Validators.required])
-                // control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                control.controls.fotoJurat.setValidators([Validators.required])
+                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
 
                 control.updateValueAndValidity({ emitEvent: false });
 
@@ -761,8 +761,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
 
 
-                // control.controls.fotoJurat.clearValidators()
-                // control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                control.controls.fotoJurat.clearValidators()
+                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
 
                 control.updateValueAndValidity({ emitEvent: false });
 
@@ -941,10 +941,18 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       delete this.objectSolucions[fotoName]
     }
     else if (arraySplit[0] == 'fotoPartner') {
+      (<FormArray>this.repteForm.get('partnerArray')).at(arraySplit[1]).patchValue({
+        logoPartner: null
+      })
+
       delete this.objectPartnersPreview[fotoName]
       delete this.objectPartners[fotoName]
     }
     else if (arraySplit[0] == 'fotoJurat') {
+      (<FormArray>this.repteForm.get('juratArray')).at(arraySplit[1]).patchValue({
+        fotoJurat: null
+      })
+
       delete this.objectJuratsPreview[fotoName]
       delete this.objectJurats[fotoName]
     } else {
@@ -1448,6 +1456,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
           data => {
             console.log(data)
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               this.actualitzat = true;
               // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
@@ -1510,6 +1520,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               this.enviat = true;
             }
@@ -1525,6 +1537,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       .subscribe(
         data => {
           if (data.code == 1) {
+            window.scrollTo(0, 0)
+
             this.success = true;
             this.eliminat = true;
           }

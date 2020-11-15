@@ -527,6 +527,8 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             if (data.code == 1) {
+              window.scrollTo(0, 0)
+
               this.success = true;
               this.enviat = true;
               console.log(data);
