@@ -1,5 +1,6 @@
 <app-header></app-header>
-<section id="hubrock-repte-banner" *ngIf="repteExists">
+<section id="hubrock-repte-banner" *ngIf="repteExists"
+    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
 </section>
 
 <div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
@@ -13,8 +14,9 @@
 <section id="hubrock-repte-info" *ngIf="repteExists">
     <div class="container">
         <div class="d-flex align-items-center owner mb-3">
-            <img class="rounded-circle" width="34px" src="../../assets/logos/AIFactoryLogo.png" alt="25x25">
-            <h3 class="repteowner mb-0">AI Factory</h3>
+            <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile" 
+                alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+            <h3 *ngIf="repte" class="repteowner mb-0" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</h3>
         </div>
 
         <div id="repte-infobox" class="row d-flex justify-content-between" *ngIf="repte">
@@ -43,19 +45,19 @@
                 <div class="d-flex w-100 justify-content-between align-items-start info-div">
 
                     <div class="d-flex align-items-center minwidth-190">
-                        <img class="participateimgCat align-self-center" src="../../assets/illustrations/Company.png" alt="">
+                        <img class="participateimgCat align-self-center" src="../../assets/illustrations/Community.png" alt="">
                         <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
                         <h1 *ngIf="repte.individual_equip != 0">2 - {{repte.limit_participants}}<br> persones
                         </h1>
                     </div>
 
                     <div class="d-flex minwidth-190">
-                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
+                        <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
                         <h1>{{repte.data_inici | date:'shortDate'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})</h1>
                     </div>
 
                     <div class="d-flex align-items-center minwidth-190">
-                        <img class="participateimgCat" src="../../assets/illustrations/Company.png" alt="">
+                        <img class="participateimgCat" src="../../assets/illustrations/Win2.png" alt="">
                         <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}€</h1>
                     </div>
 
@@ -113,21 +115,6 @@
             </li>
         </ul>
 
-        <!-- BACKUP -->
-
-        <!-- <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#propostes">Propostes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#faq">FAQ</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#jurat">Jurat</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#partners">Partners</a>
-        </li> -->
-
         <!-- Tab panes -->
         <div class="tab-content" *ngIf="repte">
             <div id="resum" class="container tab-pane active">
@@ -141,13 +128,12 @@
                 </div>
 
                 <div id="fotosSobreElRepte" class="row d-flex justify-content-between">
-                    <img width="537px" height="287px" src="../../assets/testpics/Imatge1.png">
-                    <img width="537px" height="287px" src="../../assets/testpics/Imatge2.png">
+                    <div class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
+                    <div class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
                 <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
-
-                    <iframe width="660" height="370" [src]="+getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="660" height="370" [src]="getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
 
 
@@ -158,7 +144,7 @@
                     <div class="col-md-3 col-sm-6 col-xs-12" *ngFor="let soluciobuscada of repte.solucions; let i = index">
                         <div class="card">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
+                                <div class="rounded-circle solucionsbuscadesImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"></div>
                             </div>
                             <div class="card-body solucio-info text-center">
                                 <h5 class="card-title">{{soluciobuscada.solucio_nom}}</h5>
@@ -166,18 +152,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <img class="rounded-circle" src="https://3.bp.blogspot.com/-LMc-xKy_DEs/T3AjG4trr_I/AAAAAAAAAFc/Z45mKeRS1cw/s400/zebra-pattern-avatar.jpg" width="89px" height="89px" style="margin-top: 26px; margin-bottom: 16px;">
-                            </div>
-                            <div class="card-body solucio-info text-center">
-                                <h5 class="card-title">Temàtica 2</h5>
-                                <p class="card-text">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar</p>
-                            </div>
-                        </div>
-                    </div> -->
 
                 </div>
 
@@ -232,7 +206,7 @@
                 <div class="tab-content" id="premis-tabContent">
                     <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-premis row d-flex justify-content-start">
-                            <img class="premiImg" src="../../assets/testpics/Premi_Mac.png">
+                            <div class="premiImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}"></div>
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
                                 <p>{{i + 1}} premi</p>
@@ -254,26 +228,28 @@
 
                 <div class="text-premis row d-flex justify-content-start" *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
-                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 == 0">
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" 
+                            class="align-self-start tematicaImg" *ngIf="i % 2 == 0"></div>
                         <!--Si el numero es parell -> text esquerre-->
 
                         <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0">
                             <!--Si el numero es senar <- text dreta-->
                             <h1 class="tematicatitle">{{soluciobuscada.solucio_nom}}</h1>
                             <p>{{soluciobuscada.solucio_descripcio}}</p>
-                            <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
-                                src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button>
+                            <!-- <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
+                                src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button> -->
                         </div>
                     </div>
                     <div class="col">
                         <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 == 0">
                             <h1 class="tematicatitle">{{soluciobuscada.solucio_nom}}</h1>
                             <p>{{soluciobuscada.solucio_descripcio}}</p>
-                            <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
-                                    src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button>
+                            <!-- <button type="button" class="btn btn-primary btn-quebusquem"><img width="30"
+                                    src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button> -->
                         </div>
 
-                        <img src="../../assets/testpics/Temàtica1.png" class="align-self-start" *ngIf="i % 2 != 0">
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" 
+                            class="align-self-start tematicaImg" *ngIf="i % 2 != 0"></div>
                     </div>
 
                 </div>
@@ -343,7 +319,7 @@
 
                         <div class="forumContent" (click)="carregarRespostes(forumPost.id);">
                             <div class="row d-flex align-items-center mb-4">
-                                <img [src]="'http://api.hubandrock.com/image/'+forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                <img [src]="fileStorageUrl + forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
                                     <div class="row">
                                         <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
@@ -375,7 +351,7 @@
 
                             <div class="forumContent answer" *ngFor="let resposta of objectRespostes['forumParent'+forumPost.id]; let i = index">
                                 <div class="row d-flex align-items-center mb-4">
-                                    <img [src]="'http://api.hubandrock.com/image/'+resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                    <img [src]="fileStorageUrl + resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
                                         <div class="row">
                                             <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
@@ -407,7 +383,7 @@
 
                                 <div class="margintop60" *ngFor="let answer of resposta.childs; let j = index">
                                     <div class="row d-flex align-items-center mb-4">
-                                        <img [src]="'http://api.hubandrock.com/image/'+answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                        <img [src]="fileStorageUrl + answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
                                             <div class="row">
                                                 <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
@@ -586,7 +562,7 @@
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container" *ngFor="let jurat of repte.jurats; let i = index">
-                        <img src="../../assets/testpics/MariaGuardiola.jpg" class="rounded-circle align-self-center jurat-img">
+                        <img [src]="fileStorageUrl + jurat.jurat_url_photo" class="rounded-circle align-self-center jurat-img">
                         <h1>{{jurat.jurat_nom}}</h1>
                         <p class="text-center">{{jurat.jurat_bio}}</p>
                     </div>
@@ -602,11 +578,11 @@
                 </div>
 
                 <div class="row d-flex justify-content-start align-items-center partner-container" *ngFor="let partner of repte.partners; let i = index">
-                    <img src="../../assets/testpics/NeonPic.jpg" alt="" class="rounded-circle partnerimg">
+                    <img [src]="fileStorageUrl + partner.partner_url_logo" width="250px" alt="Partner image" class="rounded-circle partnerimg">
                     <div class="partner-info">
                         <h3 class="partner-name">{{partner.partner_nom}}</h3>
                         <p>{{partner.partner_descripcio}}</p>
-                        <button type="button" class="btn btn-primary">VEURE PERFIL</button>
+                        <!-- <button type="button" class="btn btn-primary">VEURE PERFIL</button> -->
                     </div>
                 </div>
             </div>

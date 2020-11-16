@@ -10,9 +10,9 @@ img {
 #hubrock-repte-banner {
     height: 542px;
     background-color: burlywood;
-    background-image: url('../../assets/testpics/Banner_PackEco.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 #hubrock-repte-info {
@@ -730,9 +730,44 @@ img {
 }
 
 .minwidth-190 {
-    min-width: 190px;
+    min-width: 150px;
 }
 
 .premiImg {
     margin-right: 50px;
+    min-width: 500px;
+    min-height: 350px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.owner img, .owner .repteowner{
+    cursor: pointer;
+}
+
+#fotosSobreElRepte .fotosRepte {
+    min-width: 537px;
+    min-height: 287px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#quebusquem .tematicaImg {
+    min-width: 470px;
+    min-height: 265px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.solucionsbuscadesImg {
+    margin-top: 26px; 
+    margin-bottom: 16px;
+    min-width: 89px;
+    min-height: 89px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
