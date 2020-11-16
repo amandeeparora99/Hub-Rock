@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-creacio-repte',
@@ -17,7 +18,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
 
-  constructor(private router: Router, private fb: FormBuilder, 
+  constructor(private router: Router, private fb: FormBuilder,
     private httpClient: HttpCommunicationService, public datepipe: DatePipe, public toastr: ToastrService) { }
 
   hasUnsavedData(): boolean {
@@ -28,6 +29,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     }
   }
   checkUntouched = false;
+
+  currentUser: User;
+  idRepteEsborrany;
 
   repteForm: FormGroup;
   radioValue = 'equip';
@@ -52,6 +56,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   idRepte;
   success = false;
+  borradorEnviat = false;
 
   formDone = false;
 
@@ -209,6 +214,12 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   };
 
   ngOnInit(): void {
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUser = data;
+      }
+    );
+
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -1061,7 +1072,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
           data => {
             if (data.code == 1) {
               window.scrollTo(0, 0)
-              let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
+              this.idRepteEsborrany = data.lastId;
+              this.success = true;
+              this.borradorEnviat = true;
               this.toastr.success('Repte desat com a esborrany', 'Desat')
               console.log("TOASTER")
             }
@@ -1355,8 +1368,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 function dateShorterThanToday(control: AbstractControl): { [key: string]: any } | null {
   let date = new Date(control.value);
   let currentDate = new Date();
-  date.setHours(0,0,0,0);
-  currentDate.setHours(0,0,0,0);
+  date.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
 
   if (date > currentDate || dateString(date) == dateString(currentDate)) {
     return null;
