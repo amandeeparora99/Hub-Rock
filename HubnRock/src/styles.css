@@ -109,3 +109,13 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+/* CARDS HUB AND ROCK IMG */
+
+.card-repte-img {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 100%;
+    min-height: 211px;
+}

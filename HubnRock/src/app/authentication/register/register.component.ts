@@ -138,6 +138,7 @@ export class RegisterComponent implements OnInit {
   stepBack() {
     this.register = 0;
     this.accountType = 'empresa';
+    this.registerForm.reset();
   }
 
   onSubmit(): void {
