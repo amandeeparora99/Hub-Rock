@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { User } from '../user';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 // import { ClickStopPropagationDirective } from '../click-stop-propagation.directive';
 
 @Component({
@@ -15,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RepteComponent implements OnInit {
 
-  constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService,
+  constructor(private sanitizer: DomSanitizer, public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService,
     public toastr: ToastrService) { }
 
   public fileStorageUrl = environment.api + '/image/';
@@ -196,43 +197,43 @@ export class RepteComponent implements OnInit {
 
   getRepteForum(idRepte, page, elements) {
     console.log("getRepteForum")
-    if(this.httpCommunication.loggedIn()){
+    if (this.httpCommunication.loggedIn()) {
       this.subscriptionHttp2$ = this.httpCommunication.getForumLogin(idRepte, page, elements)
-      .pipe(first())
-      .subscribe(
-        data => {
-          if (data.code == '1') {
-            this.forum = data.rows
-            if (this.forum.length > 0) {
-              this.hasForum = true;
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+              this.forum = data.rows
+              if (this.forum.length > 0) {
+                this.hasForum = true;
+              }
+            } else {
+              console.log("Forum ERROR")
             }
-          } else {
-            console.log("Forum ERROR")
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
     }
-    else{
+    else {
       this.subscriptionHttp2$ = this.httpCommunication.getForum(idRepte, page, elements)
-      .pipe(first())
-      .subscribe(
-        data => {
-          if (data.code == '1') {
-            this.forum = data.rows
-            if(this.forum.length > 0) {
-              this.hasForum = true;
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+              this.forum = data.rows
+              if (this.forum.length > 0) {
+                this.hasForum = true;
+              }
+            } else {
+              console.log("Forum ERROR")
             }
-          } else {
-            console.log("Forum ERROR")
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
     }
   }
 
@@ -354,9 +355,13 @@ export class RepteComponent implements OnInit {
 
   getYoutubeUrl(url) {
     if (url) {
-      var string = url;
-      var split = string.split('watch?v=');
-      return "https://www.youtube.com/embed/" + split[1]
+      let safeUrl: SafeUrl;
+
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      var match = url.match(regExp);
+
+      safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
+      return safeUrl
     }
 
   }
@@ -369,12 +374,12 @@ export class RepteComponent implements OnInit {
     else {
       console.log("ENVIANT FORUM")
       console.log(topicPostMsg)
-      this.subscriptionHttp6$ = this.httpCommunication.postTopic(this.idRepte,topicPostMsg)
+      this.subscriptionHttp6$ = this.httpCommunication.postTopic(this.idRepte, topicPostMsg)
         .pipe(first())
         .subscribe(
           data => {
             console.log(data);
-            if(data.code == 1){
+            if (data.code == 1) {
               this.toastr.success('Missatge enviat correctament', 'Enviat')
             }
           }
@@ -387,43 +392,43 @@ export class RepteComponent implements OnInit {
 
     //Falta fer el get sense auth en cas que sigui user sense login
     if (!this.objectRespostes["forumParent" + idMissatgePare]) {
-      if(this.httpCommunication.loggedIn()){
+      if (this.httpCommunication.loggedIn()) {
         this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
-        .pipe(first())
-        .subscribe(
-          data => {
-            if (data.code == '1') {
-              let variableName = "forumParent" + idMissatgePare;
-              this.objectRespostes[variableName] = data.rows;
-              console.log("RESPOSTES:", this.objectRespostes[variableName])
-            } else {
-              console.log("Forum ERROR")
-            }
-          },
-          error => {
-            //this.error = error;
-            //this.loading = false;
-          });
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == '1') {
+                let variableName = "forumParent" + idMissatgePare;
+                this.objectRespostes[variableName] = data.rows;
+                console.log("RESPOSTES:", this.objectRespostes[variableName])
+              } else {
+                console.log("Forum ERROR")
+              }
+            },
+            error => {
+              //this.error = error;
+              //this.loading = false;
+            });
       }
-      else{
+      else {
         this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
-        .pipe(first())
-        .subscribe(
-          data => {
-            if (data.code == '1') {
-              let variableName = "forumParent" + idMissatgePare;
-              this.objectRespostes[variableName] = data.rows;
-              console.log("RESPOSTES:", this.objectRespostes[variableName])
-            } else {
-              console.log("Forum ERROR")
-            }
-          },
-          error => {
-            //this.error = error;
-            //this.loading = false;
-          });
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == '1') {
+                let variableName = "forumParent" + idMissatgePare;
+                this.objectRespostes[variableName] = data.rows;
+                console.log("RESPOSTES:", this.objectRespostes[variableName])
+              } else {
+                console.log("Forum ERROR")
+              }
+            },
+            error => {
+              //this.error = error;
+              //this.loading = false;
+            });
       }
-      
+
     }
     else {
       console.log("Already loaded!")
@@ -526,7 +531,7 @@ export class RepteComponent implements OnInit {
     }
   }
 
-  isUserLoggedIn(){
+  isUserLoggedIn() {
     return this.httpCommunication.loggedIn();
   }
 
@@ -538,7 +543,7 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            if(data.code == 1){
+            if (data.code == 1) {
               this.toastr.success('Missatge enviat correctament', 'Enviat')
             }
           }
@@ -550,7 +555,7 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            if(data.code == 1){
+            if (data.code == 1) {
               this.toastr.success('Missatge enviat correctament', 'Enviat')
             }
           }

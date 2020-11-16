@@ -3,7 +3,7 @@
 
 <!-- EDIT USER FORM -->
 
-<section id="register-empresa-section">
+<section id="register-empresa-section" *ngIf="!success">
 
     <div id="register-container">
 
@@ -13,13 +13,18 @@
 
             <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
                 <div class="row mb-2">
-                    <div class="col-md-auto">
-                        <img height="300px" width="300px" class="rounded-circle" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                    <div class="col-md-6" *ngIf="fotoProfilePreview">
+                        <img height="300px" width="300px" class="rounded-circle" [src]="fotoProfilePreview" alt="">
                     </div>
-                    <div class="col-md-auto">
+                    <div class="col-md-6">
                         <div class="row"><label for="profilePicture">Foto de perfil</label></div>
                         <hr>
-                        <div class="row"><input type="file" id="profilePicture"></div>
+                        <div class="row"><input formControlName="fotoPerfil" type="file" accept="image/*" id="profilePicture" (change)="onFileSelected($event)"></div>
+                        <div class="row">
+                            <div class="text-center elimina-link" *ngIf="fotoProfilePreview != currentFotoProfilePreview">
+                                <a (click)="eliminarFoto()">- Elimina aquesta foto</a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -162,7 +167,7 @@
 
                 <div class="text-center">
                     <label class="afegeix-link">
-                    <input accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;">
+                    <input formControlName="pdfFile" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;">
                     <a>+ Afegeix PDF</a>
                   </label>
                 </div>
@@ -187,6 +192,18 @@
         </div>
     </div>
 
+</section>
+
+<section id="repteSuccess" *ngIf="success">
+    <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+        <h1 class="text-center">Perfil Actualitzat</h1>
+        <div class="paragraph-container">
+            <p class="text-center">El seu perfil s'ha actualitzat correctament</p>
+        </div>
+        <div class="text-center">
+            <button *ngIf="idUsuari" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', idUsuari]">TORNA AL PERFIL</button>
+        </div>
+    </div>
 </section>
 
 <app-footer></app-footer>

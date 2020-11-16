@@ -5,6 +5,8 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 import { first } from 'rxjs/operators';
 import { User } from '../user';
 import { environment } from 'src/environments/environment';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-solucio',
@@ -13,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SolucioComponent implements OnInit {
 
-  constructor(public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
+  constructor(private sanitizer: DomSanitizer, public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
   public fileStorageUrl = environment.api + '/image/';
   public idSolucio;
@@ -152,6 +154,19 @@ export class SolucioComponent implements OnInit {
           })
 
       }
+    }
+
+  }
+
+  getYoutubeUrl(url) {
+    if (url) {
+      let safeUrl: SafeUrl;
+
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      var match = url.match(regExp);
+
+      safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
+      return safeUrl
     }
 
   }

@@ -264,6 +264,14 @@ export class HttpCommunicationService {
       }));
   }
 
+  editPersonalProfile(idUser, form): Observable<any> {
+    return this.http.post<any>(environment.api + `/user/edit/${idUser}`, form)
+      .pipe(map(data => {
+
+        return data;
+      }));
+  }
+
   changeFirstLogin(first_login): Observable<any> {
     const body = new HttpParams()
       .set('first_login', first_login)
