@@ -3,6 +3,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reptes',
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./reptes.component.css']
 })
 export class ReptesComponent implements OnInit {
+  public fileStorageUrl = environment.api + '/image/';
 
   currentObertPage = 1;
   currentProcesPage = 1;
