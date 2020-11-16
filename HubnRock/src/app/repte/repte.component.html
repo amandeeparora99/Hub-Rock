@@ -146,8 +146,7 @@
                 </div>
 
                 <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
-
-                    <iframe width="660" height="370" [src]="+getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="660" height="370" [src]="getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
 
 
@@ -327,10 +326,10 @@
                         <textarea #topicPost class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
                         <div class="inputForum" *ngIf="!textAreaOn">
                             As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
-                            to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through the
-                            corresponding means.
+                            to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through
+                            the corresponding means.
                         </div>
-    
+
                         <button type="button" class="forumbutton text-left" (click)="switchTextArea(topicPost.value)">{{ forumButtonText }}</button>
                     </div>
                 </div>

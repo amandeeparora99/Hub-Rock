@@ -24,10 +24,11 @@ export class HomepageComponent implements OnInit {
   inputValue;
   success = false;
   usuariObject;
-  currentUserImage: File;
+  // currentUserImage: File;
 
   pdfArray;
   fotoPerfilPreview;
+  fotoPerfil;
 
   tags = [];
   subscriptionHttp$: Subscription;
@@ -50,11 +51,11 @@ export class HomepageComponent implements OnInit {
                 if (data.code == "1") {
                   this.usuariObject = data.row;
 
-                  fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
-                    .then(res => res.blob()) // Gets the response and returns it as a blob
-                    .then(blob => {
-                      this.currentUserImage = new File([blob], 'image');
-                    })
+                  // fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
+                  //   .then(res => res.blob()) // Gets the response and returns it as a blob
+                  //   .then(blob => {
+                  //     this.currentUserImage = new File([blob], 'image');
+                  //   })
                 }
               });
           if (this.currentUser.firstLogin) {
@@ -117,6 +118,19 @@ export class HomepageComponent implements OnInit {
   }
 
   onSubmit() {
+    //UPLOAD PROFILE PIC
+    const profilePicFormData = new FormData;
+    profilePicFormData.append('url_photo_profile', this.fotoPerfil);
+
+    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(profilePicFormData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == 1) {
+            this.success = true;
+
+          }
+        });
 
     let formData = this.appendUserInfo();
 
@@ -124,7 +138,7 @@ export class HomepageComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if(data.code == 1) {
+          if (data.code == 1) {
             this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
             this.success = true;
             console.log(data);
@@ -136,15 +150,7 @@ export class HomepageComponent implements OnInit {
   onFileSelected(event) {
     if (event.target.files) {
 
-      let formData = new FormData();
-      formData.append('url_photo_profile', event.target.files[0]);
-
-      this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.success = true;
-          });
+      this.fotoPerfil = event.target.files[0]
 
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0])
@@ -160,16 +166,8 @@ export class HomepageComponent implements OnInit {
 
   eliminarFoto() {
     this.fotoPerfilPreview = null;
+    this.fotoPerfil = null;
 
-    let formData = new FormData();
-    formData.append('url_photo_profile', this.currentUserImage);
-
-    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.success = true;
-        });
   }
 
   onPdfSelected(event) {
@@ -194,15 +192,6 @@ export class HomepageComponent implements OnInit {
   }
 
   confirmQuit() {
-    let formData = new FormData();
-    formData.append('url_photo_profile', this.currentUserImage);
-
-    this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(formData)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.success = true;
-        });
 
     let omplert: Boolean = false;
 

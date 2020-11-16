@@ -27,15 +27,8 @@
         <div class="row ">
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
                 <div class="bigtitle ">
-                    <div class="row ">
+                    <div class="row">
                         <h1>SOBRE LA SOLUCIÓ</h1>
-                    </div>
-                    <div class="row ">
-                        <div class="hrcustom ">
-                        </div>
-                    </div>
-                    <div class="row ">
-                        <p>{{solucio.solucio_proposada_descripcio_short}}</p>
                     </div>
                 </div>
 
@@ -120,9 +113,7 @@
             <div class="bigtitle ">
                 <h1>DOCUMENTACIÓ</h1>
             </div>
-
-            <iframe class="mb-3 " width="1130 " height="634 " src="https://www.youtube.com/embed/viimfQi_pUw " frameborder="0 " allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>
-            <iframe width="1130 " height="634 " src="https://www.youtube.com/embed/viimfQi_pUw " frameborder="0 " allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>
+            <iframe class="mb-3 " width="1130 " height="634 " [src]="getYoutubeUrl(solucio.url_video)" frameborder="0 " allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>
         </div>
     </div>
 </section>

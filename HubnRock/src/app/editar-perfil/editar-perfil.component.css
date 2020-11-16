@@ -40,11 +40,45 @@ form input {
     cursor: pointer;
 }
 
+#repteSuccess .btn-manage {
+    width: 255px;
+}
+
+#repteSuccess h1 {
+    font-size: 48px;
+    letter-spacing: -1.2px;
+    font-family: 'WorkSans-Bold';
+}
+
+#repteSuccess p {
+    font-size: 22px;
+    letter-spacing: -0.55px;
+}
+
+#repteSuccess .paragraph-container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
 .afegeix-link a:hover {
     font-family: 'WorkSans-Regular';
     font-weight: normal;
     color: #00e292;
     text-decoration-line: none;
+}
+
+.btn-manage {
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px #020e7d;
+    color: #020e7d;
+    letter-spacing: -0.9px;
+    font-size: 17px;
+    font-family: 'WorkSans-Regular';
+    font-weight: 600;
+    background-color: white;
+    height: 55px;
+    margin: 2px;
 }
 
 .userTag {

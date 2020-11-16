@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
@@ -14,13 +15,22 @@ import { User } from '../user';
 })
 export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
+  public fileStorageUrl = environment.api + '/image/';
+
   editUserForm: FormGroup;
   currentUser: User;
   userIsRockstar: Boolean;
 
   formDone = false;
+  success = false;
 
   pdfArray;
+
+  fotoProfile;
+  fotoProfilePreview;
+
+  currentFotoProfile;
+  currentFotoProfilePreview;
 
   public idUsuari;
   public usuariObject;
@@ -145,7 +155,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       bio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       experiencia: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       educacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-      pdfFile: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+      pdfFile: ['',],
       inputTags: ['',],
       inputLinkedIn: ['',],
       inputTwitter: ['',],
@@ -225,6 +235,27 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
           if (this.usuariObject.cv_path) {
             this.pdfArray = this.usuariObject.cv_path
             console.log(this.pdfArray)
+          }
+
+          //PATCH FOTO PERFIL
+          if (this.usuariObject.url_photo_profile) {
+            console.log(this.fileStorageUrl + this.usuariObject.url_photo_profile)
+            fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
+              .then(res => res.blob()) // Gets the response and returns it as a blob
+              .then(blob => {
+                let blobToFile = new File([blob], 'image')
+                this.fotoProfile = blobToFile
+                this.currentFotoProfile = blobToFile
+
+                var reader = new FileReader();
+                reader.readAsDataURL(blob)
+                reader.onload = (event: any) => {
+                  this.fotoProfilePreview = reader.result
+                  this.currentFotoProfilePreview = reader.result
+                  console.log('PER QUE NO ENSENYA FOTOO', this.fotoProfilePreview, this.fotoProfile)
+
+                }
+              })
           }
 
           console.log(this.usuariObject)
@@ -314,14 +345,43 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   }
 
   onSubmit() {
-    console.log(this.editUserForm.errors)
-    console.log(this.editUserForm.valid)
     if (this.editUserForm.invalid) {
       this.logValidationErrorsUntouched()
     } else {
       this.formDone = true;
 
-      let formData = this.appendUserInfo();
+      if (this.fotoProfile != this.currentFotoProfile) {
+
+        const profilePicFormData = new FormData;
+        profilePicFormData.append('url_photo_profile', this.fotoProfile);
+
+        this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(profilePicFormData)
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == 1) {
+                window.scrollTo(0, 0)
+
+                this.success = true;
+                console.log('FOTO PUJADAAAA')
+
+              }
+            });
+      }
+
+      // let formData = this.appendUserInfo();
+
+      // this.subscriptionHttp1$ = this.httpCommunication.editPersonalProfile(this.idUsuari, formData)
+      //   .pipe(first())
+      //   .subscribe(
+      //     data => {
+      //       if (data.code == 1) {
+      //         // this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
+      //         // this.success = true;
+      //         console.log(data);
+      //       }
+      //     }
+      //   );
     }
   }
 
@@ -330,25 +390,114 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
     if (!this.userIsRockstar) {  //LOGGED AS EMPRESA
       formData.append('empresa_rockstar', '0');
-      if (this.editUserForm.get('InputfotoPerfilLogin').value) {
-        formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
+
+      if (this.editUserForm.get('bio').value) {
+        formData.append('bio', this.editUserForm.get('bio').value);
       }
-      
+
+      if (this.editUserForm.get('ubicacio').value) {
+        formData.append('ubicacio', this.editUserForm.get('ubicacio').value);
+      }
+
+      if (this.editUserForm.get('inputLinkedIn').value) {
+        formData.append('xarxes_linkedin', this.editUserForm.get('inputLinkedIn').value);
+      }
+
+      if (this.editUserForm.get('inputTwitter').value) {
+        formData.append('xarxes_twitter', this.editUserForm.get('inputTwitter').value);
+      }
+
+      if (this.editUserForm.get('inputInstagram').value) {
+        formData.append('xarxes_instagram', this.editUserForm.get('inputInstagram').value);
+      }
+
+      if (this.editUserForm.get('inputFacebook').value) {
+        formData.append('xarxes_facebook', this.editUserForm.get('inputFacebook').value);
+      }
+      if (this.editUserForm.get('nifEmpresa').value) {
+        formData.append('nif_empresa', this.editUserForm.get('nifEmpresa').value);
+      }
+      if (this.editUserForm.get('nomEmpresa').value) {
+        formData.append('nom_empresa', this.editUserForm.get('nomEmpresa').value);
+      }
+
+      if (this.editUserForm.get('nomResponsable').value) {
+        formData.append('nom_responsable', this.editUserForm.get('nomResponsable').value);
+      }
+      if (this.pdfArray) {
+        if (this.editUserForm.get('pdfFile').value) {
+          formData.append(`cv_path`, this.pdfArray[0]);
+          console.log('araaaaay', this.pdfArray)
+        }
+
+      }
+
+      if (this.tags.length) {
+        for (var i = 0; i < this.tags.length; i++) {
+          formData.append(`servei_nom[${i}]`, this.tags[i]);
+        }
+      }
+
+      return formData;
+
     } else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
       formData.append('empresa_rockstar', '1');
-      if (this.editUserForm.get('InputfotoPerfilLogin').value) {
-        formData.append('url_photo_profile', this.editUserForm.get('InputfotoPerfilLogin').value);
+
+      if (this.editUserForm.get('ocupacio').value) {
+        formData.append('ocupacio', this.editUserForm.get('ocupacio').value);
       }
+
+      if (this.editUserForm.get('educacio').value) {
+        formData.append('educacio', this.editUserForm.get('educacio').value);
+      }
+
+      if (this.editUserForm.get('experiencia').value) {
+        formData.append('experiencia', this.editUserForm.get('bio').value);
+      }
+
+      if (this.editUserForm.get('bio').value) {
+        formData.append('bio', this.editUserForm.get('bio').value);
+      }
+
+      if (this.editUserForm.get('ubicacio').value) {
+        formData.append('ubicacio', this.editUserForm.get('ubicacio').value);
+      }
+
+      if (this.editUserForm.get('inputLinkedIn').value) {
+        formData.append('xarxes_linkedin', this.editUserForm.get('inputLinkedIn').value);
+      }
+
+      if (this.editUserForm.get('inputTwitter').value) {
+        formData.append('xarxes_twitter', this.editUserForm.get('inputTwitter').value);
+      }
+
+      if (this.editUserForm.get('inputInstagram').value) {
+        formData.append('xarxes_instagram', this.editUserForm.get('inputInstagram').value);
+      }
+
+      if (this.editUserForm.get('inputFacebook').value) {
+        formData.append('xarxes_facebook', this.editUserForm.get('inputFacebook').value);
+      }
+
+      if (this.editUserForm.get('nomRockstar').value) {
+        formData.append('nom_rockstar', this.editUserForm.get('nomRockstar').value);
+      }
+
+      if (this.pdfArray) {
+        if (this.editUserForm.get('pdfFile').value) {
+          formData.append(`cv_path`, this.pdfArray[0]);
+          console.log('araaaaay', this.pdfArray)
+        }
+      }
+
+      if (this.tags.length) {
+        for (var i = 0; i < this.tags.length; i++) {
+          formData.append(`habilitat_nom[${i}]`, this.tags[i]);
+        }
+      }
+
+      return formData;
     }
-
-    // if (this.pdfArray) {
-     
-
-    //     formData.append(`recurs_nom[${index}]`, file.name);
-    //     formData.append(`recurs_url_fitxer[${index}]`, file);
-      
-    // }
-    return formData;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -380,6 +529,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     this.inputValue = ''
   }
 
+  eliminarFoto() {
+    this.fotoProfilePreview = this.currentFotoProfilePreview;
+    this.fotoProfile = this.currentFotoProfile;
+  }
+
   deleteTag(tagName) {
     for (var i = 0; i < this.tags.length; i++) {
       if (this.tags[i] === tagName) {
@@ -389,6 +543,20 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     console.log(this.tags)
   }
 
+  onFileSelected(event) {
+    if (event.target.files) {
+      console.log('fiel pujat', event.target.files[0])
+      this.fotoProfile = event.target.files[0]
+
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (event: any) => {
+        this.fotoProfilePreview = reader.result
+      }
+    }
+
+    console.log(this.fotoProfilePreview)
+  }
 
   ngOnDestroy() {
     this.subscriptionForm$?.unsubscribe()
