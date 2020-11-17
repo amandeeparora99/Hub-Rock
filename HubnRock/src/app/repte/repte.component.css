@@ -247,6 +247,7 @@ img {
     font-size: 30px;
     letter-spacing: -0.42px;
     margin-bottom: 36px;
+    max-width: 513px;
 }
 
 #premis-tabContent {
@@ -674,10 +675,22 @@ img {
 
 .forumContent {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
     padding-right: 60px;
     padding-left: 60px;
     word-wrap: break-word;
+}
+
+.firstTopic {
+    margin-bottom: 30px;
+}
+
+.answer:last-child {
+    margin-bottom: 30px;
+}
+
+.cpointer {
+    cursor: pointer;
 }
 
 .comentariText {
@@ -690,6 +703,15 @@ img {
     border: 0;
     margin-right: 40px;
     padding-left: 0px;
+    font-size: 14px;
+}
+
+.forumButton:hover, .enviaButton:hover {
+    color: #00e292;
+}
+
+.commentsLength{
+    font-size: 14px;
 }
 
 .commentRank {
@@ -720,8 +742,8 @@ img {
     -webkit-box-orient: vertical;
 }
 
-.margintop60 {
-    padding-top: 60px;
+.margintop30 {
+    padding-top: 30px;
     margin-left: 40px;
 }
 

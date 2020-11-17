@@ -309,11 +309,17 @@ export class HttpCommunicationService {
   }
 
   sendHelp(message, topicId, messageParentId): Observable<any> {
-    const body = new HttpParams()
+    if(messageParentId == ''){
+      var body = new HttpParams()
+      .set('message', message)
+      .set('topicId', topicId)
+    }
+    else{
+      var body = new HttpParams()
       .set('message', message)
       .set('topicId', topicId)
       .set('messageParentId', messageParentId)
-
+    }
     return this.http.post<any>(environment.api + '/forumData/message',
       body.toString(),
       {
