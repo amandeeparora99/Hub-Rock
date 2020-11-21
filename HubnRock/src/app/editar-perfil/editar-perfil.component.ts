@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -127,7 +128,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   }
 
-  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private aRouter: ActivatedRoute) { }
+  constructor(public toastr: ToastrService, private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private aRouter: ActivatedRoute) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -318,25 +319,26 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
+      let validSize = true;
       let totalSize = 0;
 
-      console.log(event.target.files[0].size, event.target.files)
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
+
         totalSize += element.size
+
+        if (element.size > 1000000) {
+          validSize = false;
+
+        }
       }
 
-      if (totalSize < 15728640) {
+      if (validSize && totalSize < 15728640) {
         this.pdfArray = event.target.files
       } else {
+        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
         this.pdfArray = null;
-        alert('Supera el límit de 15MB')
       }
-      // console.log(this.solucioForm.get('pdf').value)
-      // Array.from(this.pdfArray).forEach(file => {
-      //   console.log(file)
-      // });
-
     }
   }
 
@@ -348,40 +350,39 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     if (this.editUserForm.invalid) {
       this.logValidationErrorsUntouched()
     } else {
-      this.formDone = true;
+      let confirmWindow = confirm('Està segur que vol actualitzar el seu perfil personal?')
 
-      if (this.fotoProfile != this.currentFotoProfile) {
+      if (confirmWindow == true) {
+        this.formDone = true;
 
-        const profilePicFormData = new FormData;
-        profilePicFormData.append('url_photo_profile', this.fotoProfile);
+        if (this.fotoProfile != this.currentFotoProfile) {
 
-        this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(profilePicFormData)
+          const profilePicFormData = new FormData;
+          profilePicFormData.append('url_photo_profile', this.fotoProfile);
+
+          this.subscriptionHttp1$ = this.httpCommunication.uploadImageShortEdit(profilePicFormData)
+            .pipe(first())
+            .subscribe();
+        }
+
+        let formData = this.appendUserInfo();
+
+        this.subscriptionHttp1$ = this.httpCommunication.editPersonalProfile(formData)
           .pipe(first())
           .subscribe(
             data => {
               if (data.code == 1) {
                 window.scrollTo(0, 0)
-
+                this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
                 this.success = true;
-                console.log('FOTO PUJADAAAA')
-
+                console.log(data);
               }
-            });
+            }
+          );
       }
 
-      // let formData = this.appendUserInfo();
 
-      // this.subscriptionHttp1$ = this.httpCommunication.editPersonalProfile(this.idUsuari, formData)
-      //   .pipe(first())
-      //   .subscribe(
-      //     data => {
-      //       if (data.code == 1) {
-      //         // this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
-      //         // this.success = true;
-      //         console.log(data);
-      //       }
-      //     }
-      //   );
+
     }
   }
 

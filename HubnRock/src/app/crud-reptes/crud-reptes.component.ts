@@ -181,18 +181,23 @@ export class CrudReptesComponent implements OnInit {
   }
 
   changeState(idRepte, estat) {
-    this.subscriptionHttp4$ = this.httpCommunication.changeStateRepte(idRepte, estat)
-      .pipe(first())
-      .subscribe(
-        data => {
-          if (data.code == '1') {
-            window.location.reload();
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+    let confirmWindow = confirm('Està segur que vol canviar l\'estat d\'aquest repte?')
+
+    if (confirmWindow == true) {
+      this.subscriptionHttp4$ = this.httpCommunication.changeStateRepte(idRepte, estat)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == '1') {
+              window.location.reload();
+            }
+          },
+          error => {
+            //this.error = error;
+            //this.loading = false;
+          });
+    }
+
   }
 
   ngOnDestroy() {

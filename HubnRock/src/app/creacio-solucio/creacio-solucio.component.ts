@@ -92,6 +92,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
     },
     'videoSolucio': {
+      'pattern': 'No és un enllaç de Youtube vàlid'
     },
     'nomEquip': {
       'required': 'És un camp obligatori.',
@@ -159,6 +160,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
           }
         });
 
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
 
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
@@ -167,7 +169,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       descripcioSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],  //textarea gran, 500 o 1000 va be?
       innovadoraSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
       faseSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      videoSolucio: [''],
+      videoSolucio: ['', [Validators.pattern(regExp)]],
       pdf: [''],
       nomEquip: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       membreArray: this.fb.array([
@@ -322,25 +324,26 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
+      let validSize = true;
       let totalSize = 0;
 
-      console.log(event.target.files[0].size, event.target.files)
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
+
         totalSize += element.size
+
+        if (element.size > 1000000) {
+          validSize = false;
+
+        }
       }
 
-      if (totalSize < 15728640) {
+      if (validSize && totalSize < 15728640) {
         this.pdfArray = event.target.files
       } else {
+        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
         this.pdfArray = null;
-        alert('Supera el límit de 15MB')
       }
-      // console.log(this.solucioForm.get('pdf').value)
-      // Array.from(this.pdfArray).forEach(file => {
-      //   console.log(file)
-      // });
-
     }
   }
 
@@ -403,28 +406,33 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
     }
     else {
-      this.formDone = true;
+      let confirmWindow = confirm('Està segur que vol enviar aquesta solució?')
 
-      if (this.formErrors.campsErronis) {
-        this.formErrors.campsErronis = '';
+      if (confirmWindow == true) {
+        this.formDone = true;
+
+        if (this.formErrors.campsErronis) {
+          this.formErrors.campsErronis = '';
+        }
+
+        let formData = this.appendRepte();
+
+        this.subscriptionHttp1$ = this.httpClient.addSolucioValid(formData, this.idRepte)
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == 1) {
+                window.scrollTo(0, 0)
+
+                this.idSolucioCreada = data.lastId;
+                this.success = true;
+
+                console.log(data);
+              }
+
+            });
       }
 
-      let formData = this.appendRepte();
-
-      this.subscriptionHttp1$ = this.httpClient.addSolucioValid(formData, this.idRepte)
-        .pipe(first())
-        .subscribe(
-          data => {
-            if (data.code == 1) {
-              window.scrollTo(0, 0)
-
-              this.idSolucioCreada = data.lastId;
-              this.success = true;
-
-              console.log(data);
-            }
-
-          });
 
     }
 

@@ -87,8 +87,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       'required': 'És un camp requerit',
     },
     'videoSolucio': {
-      'maxlength': 'Enllaç massa llarg',
-      'minlength': 'Enllaç massa curt'
+      'pattern': 'No és un enllaç de youtube vàlid'
     },
     'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!',
@@ -220,6 +219,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
     );
 
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
     this.repteForm = this.fb.group({
       nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -231,7 +231,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       fotoRepresentativa2: ['', []],
       fotoRepresentativa3: ['', []],
       pdf: [''],
-      videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
+      videoSolucio: ['', Validators.pattern(regExp)], //validador custom youtube format
       checkboxGroup: this.fb.group({
         empresesCheckbox: [true],
         startupsCheckbox: [false],
@@ -320,6 +320,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
   logValidationErrors(group: FormGroup = this.repteForm): void {
+    console.log('LOG VALIDATION CRIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
 
@@ -343,13 +344,15 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
         if (abstractControl == this.repteForm.get('partnerArray')) {
 
+          let partnerArrayCounter = 0;
+
           for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
             if (control instanceof FormGroup) {
-              console.log('LOGO JURAT VALUE', control.controls.logoPartner.value)
+              console.log('LOGO JURAT VALUE', this.objectPartners)
 
               if (control.controls.nomPartner.value ||
                 control.controls.breuDescripcioPartner.value ||
-                control.controls.logoPartner.value) {
+                this.objectPartners['fotoPartner' + partnerArrayCounter]) {
 
                 control.controls.nomPartner.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
                 control.controls.nomPartner.updateValueAndValidity({ emitEvent: false })
@@ -381,17 +384,19 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
               }
             }
+            partnerArrayCounter++;
           }
 
-        }
-        else if (abstractControl == this.repteForm.get('juratArray')) {
+        } else if (abstractControl == this.repteForm.get('juratArray')) {
+
+          let juratArrayCounter = 0;
 
           for (let control of (<FormArray>this.repteForm.get('juratArray')).controls) {
             if (control instanceof FormGroup) {
 
               if (control.controls.nomCognomsJurat.value ||
                 control.controls.biografiaJurat.value ||
-                control.controls.fotoJurat.value) {
+                this.objectJurats['fotoJurat' + juratArrayCounter]) {
 
                 control.controls.nomCognomsJurat.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
                 control.controls.nomCognomsJurat.updateValueAndValidity({ emitEvent: false })
@@ -423,6 +428,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
               }
             }
+            juratArrayCounter++;
           }
         }
       }
@@ -474,21 +480,26 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
+      let validSize = true;
       let totalSize = 0;
 
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
+
         totalSize += element.size
+
+        if (element.size > 1000000) {
+          validSize = false;
+
+        }
       }
 
-      if (totalSize < 15728640) {
+      if (validSize && totalSize < 15728640) {
         this.pdfArray = event.target.files
-
       } else {
+        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
         this.pdfArray = null;
-        alert('Supera el límit de 15MB')
       }
-
     }
   }
 
@@ -498,86 +509,111 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   onFileRepteFoto(event) {
     if (event.target.files) {
+      if (event.target.files[0].size < 1000000) {
+        const inputName = event.target.name;
 
-      const inputName = event.target.name;
+        this.fotosRepte[inputName] = event.target.files[0]
 
-      this.fotosRepte[inputName] = event.target.files[0]
+        console.log(this.fotosRepte)
 
-      console.log(this.fotosRepte)
-
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.fotosReptePreview[inputName] = reader.result
-        console.log(this.fotosReptePreview)
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.fotosReptePreview[inputName] = reader.result
+          console.log(this.fotosReptePreview)
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
     }
   }
 
   onFileSelected(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectFotos[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectFotos[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectFotosPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectFotosPreview[inputName] = reader.result
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
     }
-    console.log(this.objectFotosPreview)
+
   }
 
   onFileSelectedSolucio(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectSolucions[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectSolucions[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectSolucionsPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectSolucionsPreview[inputName] = reader.result
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectSolucionsPreview)
   }
 
   onFileSelectedPartner(event, index?) {
     if (event.target.files) {
-      console.log('file PARTNER pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectPartners[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('file PARTNER pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectPartners[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectPartnersPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectPartnersPreview[inputName] = reader.result
+        }
+        this.logValidationErrors()
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectPartnersPreview)
   }
 
   onFileSelectedJurat(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectJurats[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectJurats[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectJuratsPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectJuratsPreview[inputName] = reader.result
+        }
+        this.logValidationErrors()
+
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectJuratsPreview)
   }
@@ -602,6 +638,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       delete this.objectPartnersPreview[fotoName]
       delete this.objectPartners[fotoName]
+      this.logValidationErrors()
     }
     else if (arraySplit[0] == 'fotoJurat') {
 
@@ -611,6 +648,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       delete this.objectJuratsPreview[fotoName]
       delete this.objectJurats[fotoName]
+      this.logValidationErrors()
     } else {
       delete this.fotosRepte[fotoName]
       delete this.fotosReptePreview[fotoName]
@@ -628,18 +666,24 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     if (arraySplit[0] == 'fotoPremi') {
       this.loopObjectFotosPreview(number, arraySplit[0]);
       this.loopObjectFotos(number, arraySplit[0]);
+
     }
     else if (arraySplit[0] == 'fotoSolucio') {
       this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
       this.loopObjectFotosSolucio(number, arraySplit[0]);
+
     }
     else if (arraySplit[0] == 'fotoPartner') {
       this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
       this.loopObjectFotosPartner(number, arraySplit[0]);
+      this.logValidationErrors()
+
     }
     else if (arraySplit[0] == 'fotoJurat') {
       this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
       this.loopObjectFotosJurat(number, arraySplit[0]);
+      this.logValidationErrors()
+
     }
 
 
@@ -1088,6 +1132,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
   onRepteSubmit() {
+    console.log(this.repteForm.get('datesGroup').valid)
+
     this.checkUntouched = true;
 
     if (!this.repteForm.valid) {
@@ -1103,30 +1149,34 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       this.logValidationErrorsUntouched()
 
     } else {
-      this.formDone = true;
+      let confirmWindow = confirm('Està segur que vol enviar aquest repte?')
 
-      if (this.formErrors.campsErronis) {
-        this.formErrors.campsErronis = '';
+      if (confirmWindow == true) {
+        this.formDone = true;
+
+        if (this.formErrors.campsErronis) {
+          this.formErrors.campsErronis = '';
+        }
+
+        let formData: any = this.appendRepte();
+
+        for (var value of formData.values()) {
+          console.log(value);
+        }
+
+        this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == 1) {
+                window.scrollTo(0, 0)
+                this.success = true;
+                this.idRepte = data.lastId;
+                this.toastr.success('Repte enviat per revisar!', 'Enviat')
+              }
+
+            });
       }
-
-      let formData: any = this.appendRepte();
-
-      for (var value of formData.values()) {
-        console.log(value);
-      }
-
-      this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
-        .pipe(first())
-        .subscribe(
-          data => {
-            if (data.code == 1) {
-              window.scrollTo(0, 0)
-              this.success = true;
-              this.idRepte = data.lastId;
-              this.toastr.success('Repte enviat per revisar!', 'Enviat')
-            }
-
-          });
     }
   }
 
@@ -1146,7 +1196,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
+        console.log('ERROOOOOOORS DE DATE', abstractControl.errors)
+        this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
       //   for (const control of abstractControl.controls) {
@@ -1368,15 +1419,18 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 function dateShorterThanToday(control: AbstractControl): { [key: string]: any } | null {
   let date = new Date(control.value);
   let currentDate = new Date();
-  date.setHours(0, 0, 0, 0);
-  currentDate.setHours(0, 0, 0, 0);
 
-  if (date > currentDate || dateString(date) == dateString(currentDate)) {
+  if (control.value) {
+    if (date > currentDate) {
+      return null;
+    }
+    else {
+      return { dateShorterThanToday: true }
+    }
+  } else {
     return null;
   }
-  else {
-    return { dataInici: true }
-  }
+
 }
 
 

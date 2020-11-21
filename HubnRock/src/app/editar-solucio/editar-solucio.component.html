@@ -83,12 +83,14 @@
                 </div>
                 <hr class="mb-5">
                 <h1 class="title-form">Documentació</h1>
-                <div class="form-group input-spacing">
+                <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.videoSolucio}">
                     <label for="link-video" class="mb-0 mr-3">Vídeo de la solució</label><span class="opcional-text">(Opcional)</span><br>
                     <label class="additional-info" for="link-video">Tens un video explicant la solució? Enganxa’l aquí.
                         Només funcionen links de Youtube. </label>
                     <input type="text" formControlName="videoSolucio" class="form-control input-for-text" id="link-video" placeholder="https://www.youtube.com/video">
-                    <span class="help-block"></span>
+                    <span class="help-block" *ngIf="formErrors.videoSolucio">
+                        {{formErrors.videoSolucio}}
+                    </span>
                 </div>
                 <div class="form-group mb-0">
                     <label for="link-video" class="mb-0 mr-3">Altres recursos</label><span class="opcional-text">(Opcional)</span><br>
@@ -182,7 +184,8 @@
 </div>
 <section id="solucioSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
-        <h1 class="text-center">Enhorabona</h1>
+        <h1 class="text-center" *ngIf="enviat">Enhorabona</h1>
+        <h1 class="text-center" *ngIf="eliminat">Solució eliminada</h1>
 
         <div class="paragraph-container" *ngIf="enviat">
             <p class="text-center">La teva solució s'ha editat correctament.</p>

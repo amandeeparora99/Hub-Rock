@@ -50,6 +50,34 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  logValidationErrorsUntouched(group: FormGroup = this.loginForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid) {
+        const messages = this.validationMessages[key];
+
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+      // if (abstractControl instanceof FormArray) {
+      //   for (const control of abstractControl.controls) {
+      //     if (control instanceof FormGroup) {
+      //       this.logValidationErrors(control);
+      //     }
+      //   }
+      // }
+    })
+  }
+
   logValidationErrors(group: FormGroup = this.loginForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -75,35 +103,35 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    // console.log("lo que passem" + this.loginForm.controls.email.value, this.loginForm.get(['password']).value)
-    this.subscriptionHttp$ = this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-          if (data.code == 302) {
-            this.router.navigate(["/homepage"]);
+    if (!this.loginForm.valid) {
+      this.logValidationErrorsUntouched()
+    } else {
+      // console.log("lo que passem" + this.loginForm.controls.email.value, this.loginForm.get(['password']).value)
+      this.subscriptionHttp$ = this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data);
+            if (data.code == 302) {
+              this.router.navigate(["/homepage"]);
 
-          }
-          else if (data.code == 534) {
-
-            if (!this.formErrors.password) {
-              this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
             }
+            else if (data.code == 534) {
 
-          }
-          else if (data.code == 533) {
+              if (!this.formErrors.password) {
+                this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
+              }
 
-            if (!this.formErrors.email) {
-              this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
             }
+            else if (data.code == 533) {
 
-          }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+              if (!this.formErrors.email) {
+                this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
+              }
+
+            }
+          });
+    }
 
   }
 

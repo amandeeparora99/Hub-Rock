@@ -177,13 +177,15 @@
                     </div>
                     <span class="help-block"></span>
                 </div>
-                <div class="form-group hubrockformgrup">
+                <div class="form-group hubrockformgrup" [ngClass]="{'is-invalid' : formErrors.videoSolucio}">
                     <label for="InputVideoSolucio" class="mb-0">Vídeo de la solució</label><span class="opcional-text">(Opcional)</span><br>
                     <label class="additional-info" for="InputVideoSolucio">Tens un video explicant la solució? Enganxa’l
                         aquí.
                         Només funcionen links de Youtube.</label>
                     <input type="text" formControlName="videoSolucio" class="form-control input-for-text" id="InputVideoSolucio" placeholder="https://www.youtube.com/video">
-                    <span class="help-block"></span>
+                    <span class="help-block" *ngIf="formErrors.videoSolucio">
+                        {{formErrors.videoSolucio}}
+                    </span>
                 </div>
                 <div class="form-group">
                     <label class="mb-0 mr-3">Qui pot participar?</label> <br>
@@ -598,7 +600,7 @@
                                 Massa llarg
                             </span>
                         </div>
-                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : (jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').checkUntouched)}">
+                        <div class="row d-flex justify-content-between regularFont" [ngClass]="{'is-invalid' : (jurat.get('fotoJurat').invalid && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').invalid && checkUntouched)}">
 
                             <div class="col-md-4 mb-2">
 
@@ -620,7 +622,7 @@
 
                                     <input accept="image/*" formControlName="fotoJurat" [attr.name]="'fotoJurat'+ i" (change)="onFileSelectedJurat($event, i)" [id]="'fotoJurat' + i" type="file" />
                                 </div>
-                                <span class="help-block" *ngIf="(jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').checkUntouched)">
+                                <span class="help-block" *ngIf="(jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').errors?.required && checkUntouched)">
                                     És un camp requerit
                                 </span>
                             </div>
@@ -717,7 +719,9 @@
 </div>
 <section id="repteSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
-        <h1 class="text-center">Enhorabona</h1>
+        <h1 class="text-center" *ngIf="enviat">Enhorabona</h1>
+        <h1 class="text-center" *ngIf="eliminat">Esborrany eliminat</h1>
+        <h1 class="text-center" *ngIf="actualitzat">Esborrany actualitzat</h1>
 
         <div class="paragraph-container" *ngIf="enviat">
             <p class="text-center">El repte s'ha enviat correctament.</p>
