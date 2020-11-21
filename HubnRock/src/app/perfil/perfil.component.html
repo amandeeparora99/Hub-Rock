@@ -107,7 +107,7 @@
                                 <div *ngFor="let repteEsborrany of userReptesEsborrany; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                     <div class="card" [routerLink]="['/repte/', repteEsborrany.idrepte, 'editar-esborrany']">
                                         <!--routerLink="/repte/{{repte.idrepte}}"-->
-                                        <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/testpic4.jpg" alt="Card image cap">
+                                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.url_photo_main + ')'}" alt="Card image cap"></div>
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
                                                 <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
@@ -135,7 +135,7 @@
                                                 <button *ngFor="let participants of repteEsborrany.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                                     'tag-blue': participants.participants_name == 'Empreses',
                                                     'tag-orange': participants.participants_name == 'Estudiants',
-                                                    'tag-purple': participants.participants_name == 'Públic general'}">
+                                                    'tag-purple': participants.participants_name == 'Experts'}">
                                                 {{participants.participants_name}}
                                                 </button>
                                             </div>
@@ -161,7 +161,7 @@
 
                             <div *ngFor="let repte of userReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="card" routerLink="/repte/{{repte.idrepte}}" [ngClass]="{'repte-pendent-revisio' : repte.estat_idestat == 2, 'repte-rebutjat' : repte.estat_idestat == 4}">
-                                    <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                                    <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
                                             <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
@@ -186,7 +186,7 @@
                                             <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                                 'tag-blue': participants.participants_name == 'Empreses',
                                                 'tag-orange': participants.participants_name == 'Estudiants',
-                                                'tag-purple': participants.participants_name == 'Públic general'}">
+                                                'tag-purple': participants.participants_name == 'Experts'}">
                                             {{participants.participants_name}}
                                             </button>
                                         </div>

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<section id="hubrock-repte-banner" *ngIf="repteExists && repte && repte.url_photo_main" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
+<section id="hubrock-repte-banner" *ngIf="repte && repteExists" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
 </section>
 
 <div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
@@ -56,7 +56,7 @@
 
                     <div class="d-flex align-items-center minwidth-190">
                         <img class="participateimgCat" src="../../assets/illustrations/Win2.png" alt="">
-                        <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}€</h1>
+                        <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}</h1>
                     </div>
 
                 </div>
@@ -316,7 +316,7 @@
 
                     <div class="forumBody" *ngFor="let forumPost of forum; let i = index">
 
-                        <div class="forumContent" (click)="carregarRespostes(forumPost.id);">
+                        <div class="forumContent firstTopic" [ngClass]="{'cpointer': forumPost.comments > 0}" (click)="carregarRespostes(forumPost.id, forumPost.comments);">
                             <div class="row d-flex align-items-center mb-4">
                                 <img [src]="fileStorageUrl + forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
@@ -332,21 +332,31 @@
                             <div class="row comentariText mb-3">
                                 <p>{{forumPost.text}}</p>
                             </div>
-                            <div class="row d-flex comentariButtons">
-                                <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
-                                <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
-                                    <img [src]="forumPost.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
-                                    {{forumPost.like_count}} M'agrada</button>
-                            </div>
+                            <div class="row d-flex comentariButtons justify-content-between">
+                                <div>
+                                    <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
+                                    && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
+                                    <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar
+                                </button>
+                                    <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
+                                    <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes_B.png'" height="25px" class="mr-2 ml-0 align-self-center">
+                                    {{forumPost.like_count}} M'agrada
+                                </button>
 
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <p class="commentsLength mb-0">{{forumPost.comments}} RESPOSTES</p>
+                                </div>
+                            </div>
                             <div class="row d-flex justify-content-end" *ngIf="returnTrue(forumPost.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                                <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" [id]="'resposta'+forumPost.id" style="height: 70px;"></textarea>
-                                <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, 0)">Envia</button>
+                                <textarea #respostaForum click-stop-propagation placeholder="Resposta..." class="form-control mt-4" [id]="'resposta'+forumPost.id" style="height: 70px;"></textarea>
+                                <button click-stop-propagation type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, 0); respostaForum.value = ''">Envia</button>
                             </div>
                         </div>
 
+
                         <div *ngIf="objectRespostes['forumParent'+forumPost.id]">
-                            <hr>
+                            <hr class="mb-5">
 
                             <div class="forumContent answer" *ngFor="let resposta of objectRespostes['forumParent'+forumPost.id]; let i = index">
                                 <div class="row d-flex align-items-center mb-4">
@@ -365,22 +375,23 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(resposta.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(resposta.id)">
+                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
                                     <button type="button" class="btn forumButton" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
-                                        <img [src]="resposta.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
+                                        <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes_B.png'" height="25px" class="mr-2 ml-0 align-self-center">
                                         {{resposta.like_count}} M'agrada
                                     </button>
                                 </div>
 
                                 <div class="row d-flex justify-content-end" *ngIf="returnTrue(resposta.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                                     <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                    <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id)">Envia</button>
+                                    <button type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
                                 </div>
 
 
                                 <!-- IF TE RESPOSTES, ENSENYELES AQUI, ABANS DE SEGUIR AMB EL LOOP DE LES ALTRES RESPOSTES. EL CONTESTAR EL QUE FARÀ ÉS CONTESTAR AL PARENT, NO CADA UN DELS FILLS! -->
 
-                                <div class="margintop60" *ngFor="let answer of resposta.childs; let j = index">
+                                <div class="margintop30" *ngFor="let answer of resposta.childs; let j = index">
                                     <div class="row d-flex align-items-center mb-4">
                                         <img [src]="fileStorageUrl + answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
@@ -397,16 +408,17 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(answer.id)"><img src="https://dummyimage.com/58/000/fff" width="33px" height="25px" class="mr-2 ml-0">Contestar</button>
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(answer.id)">
+                                            <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
                                         <button type="button" class="btn forumButton" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
-                                            <img [src]="answer.like_user_count == 0 ? 'https://dummyimage.com/58/000/fff' : 'https://dummyimage.com/58/ab1dab/fff'" width="33px" height="25px" class="mr-2 ml-0">
+                                            <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes_B.png'" height="25px" class="mr-2 ml-0 align-self-center">
                                             {{answer.like_count}} M'agrada
                                         </button>
                                     </div>
 
                                     <div class="row d-flex justify-content-end" *ngIf="returnTrue(answer.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
                                         <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                        <button type="button" class="btn" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id)">Envia</button>
+                                        <button type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
                                     </div>
                                 </div>
 
@@ -591,4 +603,4 @@
 
 </section>
 
-<app-footer></app-footer>
+<app-footer *ngIf="repte"></app-footer>

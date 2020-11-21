@@ -391,45 +391,44 @@ export class RepteComponent implements OnInit {
 
   }
 
-  carregarRespostes(idMissatgePare) {
+  carregarRespostes(idMissatgePare, numRespostes) {
 
     //Falta fer el get sense auth en cas que sigui user sense login
     if (!this.objectRespostes["forumParent" + idMissatgePare]) {
-      if (this.httpCommunication.loggedIn()) {
-        this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
-          .pipe(first())
-          .subscribe(
-            data => {
-              if (data.code == '1') {
-                let variableName = "forumParent" + idMissatgePare;
-                this.objectRespostes[variableName] = data.rows;
-                console.log("RESPOSTES:", this.objectRespostes[variableName])
-              } else {
-                console.log("Forum ERROR")
+      if(numRespostes > 0){
+        if (this.httpCommunication.loggedIn()) {
+          this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
+            .pipe(first())
+            .subscribe(
+              data => {
+                if (data.code == '1') {
+                  let variableName = "forumParent" + idMissatgePare;
+                  this.objectRespostes[variableName] = data.rows;
+                  console.log("RESPOSTES:", this.objectRespostes[variableName])
+                } else {
+                  console.log("Forum ERROR")
+                }
               }
-            },
-            error => {
-              //this.error = error;
-              //this.loading = false;
-            });
+            );
+        }
+        else {
+          this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
+            .pipe(first())
+            .subscribe(
+              data => {
+                if (data.code == '1') {
+                  let variableName = "forumParent" + idMissatgePare;
+                  this.objectRespostes[variableName] = data.rows;
+                  console.log("RESPOSTES:", this.objectRespostes[variableName])
+                } else {
+                  console.log("Forum ERROR")
+                }
+              }
+            );
+        }
       }
-      else {
-        this.subscriptionHttp3$ = this.httpCommunication.getForumRespostes(idMissatgePare)
-          .pipe(first())
-          .subscribe(
-            data => {
-              if (data.code == '1') {
-                let variableName = "forumParent" + idMissatgePare;
-                this.objectRespostes[variableName] = data.rows;
-                console.log("RESPOSTES:", this.objectRespostes[variableName])
-              } else {
-                console.log("Forum ERROR")
-              }
-            },
-            error => {
-              //this.error = error;
-              //this.loading = false;
-            });
+      else{
+        console.log("No té respostes my friend")
       }
 
     }
@@ -564,6 +563,7 @@ export class RepteComponent implements OnInit {
           }
         );
     }
+    
 
   }
 }

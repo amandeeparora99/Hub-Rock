@@ -978,35 +978,36 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
 
     if (arraySplit[0] == 'fotoPremi') {
-      delete this.objectFotosPreview[fotoName]
-      delete this.objectFotos[fotoName]
+      this.objectFotosPreview[fotoName] = '';
+      this.objectFotos[fotoName] = '';
     }
     else if (arraySplit[0] == 'fotoSolucio') {
-      delete this.objectSolucionsPreview[fotoName]
-      delete this.objectSolucions[fotoName]
+      this.objectSolucionsPreview[fotoName] = '';
+      this.objectSolucions[fotoName] = '';
     }
     else if (arraySplit[0] == 'fotoPartner') {
       (<FormArray>this.repteForm.get('partnerArray')).at(arraySplit[1]).patchValue({
         logoPartner: null
       })
 
-      delete this.objectPartnersPreview[fotoName]
-      delete this.objectPartners[fotoName]
-      this.logValidationErrors()
+      this.objectPartnersPreview[fotoName] = '';
+      this.objectPartners[fotoName] = '';
 
+      this.logValidationErrors()
     }
     else if (arraySplit[0] == 'fotoJurat') {
+
       (<FormArray>this.repteForm.get('juratArray')).at(arraySplit[1]).patchValue({
         fotoJurat: null
       })
 
-      delete this.objectJuratsPreview[fotoName]
-      delete this.objectJurats[fotoName]
-      this.logValidationErrors()
+      this.objectJuratsPreview[fotoName] = '';
+      this.objectJurats[fotoName] = '';
 
+      this.logValidationErrors()
     } else {
-      delete this.fotosRepte[fotoName]
-      delete this.fotosReptePreview[fotoName]
+      this.fotosRepte[fotoName] = '';
+      this.fotosReptePreview[fotoName] = '';
     }
 
   }

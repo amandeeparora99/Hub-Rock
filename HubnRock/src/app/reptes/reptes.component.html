@@ -20,13 +20,14 @@
                         <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px"
                                 src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
                     </div>
-                    <input id="searchbar" type="text" class="form-control" placeholder="Busca per paraules clau, nom d’empresa…" (input)="onSearchChange($event.target.value)">
+                    <input #cercaValue id="searchbar" type="text" class="form-control" placeholder="Busca per paraules clau, nom d’empresa…" (input)="onSearchChange($event.target.value)">
                 </div>
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses"
+                        (change)="toggleEmpreses($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEmpreses">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
@@ -35,7 +36,8 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups"
+                        (change)="toggleStartups($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchStartups">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
@@ -44,7 +46,8 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants"
+                        (change)="toggleEstudiants($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEstudiants">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
@@ -53,7 +56,8 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts"
+                        (change)="toggleExperts($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchExperts">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
@@ -61,7 +65,6 @@
                         </div>
                     </label>
                 </div>
-
 
             </div>
 
@@ -83,7 +86,7 @@
 
                 <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                        <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
                                 <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
@@ -139,7 +142,7 @@
 
                     <div *ngFor="let repte of reptesProces; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
                                     <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
@@ -164,7 +167,7 @@
                                     <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                             'tag-blue': participants.participants_name == 'Empreses',
                                             'tag-orange': participants.participants_name == 'Estudiants',
-                                            'tag-purple': participants.participants_name == 'Públic general'}">
+                                            'tag-purple': participants.participants_name == 'Experts'}">
                                     {{participants.participants_name}}
                                     </button>
                                 </div>
@@ -197,7 +200,7 @@
 
                     <div *ngFor="let repte of reptesTancats; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
                                     <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
@@ -222,7 +225,7 @@
                                     <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                             'tag-blue': participants.participants_name == 'Empreses',
                                             'tag-orange': participants.participants_name == 'Estudiants',
-                                            'tag-purple': participants.participants_name == 'Públic general'}">
+                                            'tag-purple': participants.participants_name == 'Experts'}">
                                     {{participants.participants_name}}
                                     </button>
                                 </div>
@@ -253,11 +256,11 @@
                 <ng-container *ngIf="reptesCerca.length">
                     <div *ngFor="let repte of reptesCerca; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                            <img class="card-img-top" width="350px" height="211px" src="../../assets/testpics/Banner_PackEco.jpg" alt="Card image cap">
+                            <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
                                     <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
-                                    <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
+                                    <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>
                                 <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
@@ -278,7 +281,7 @@
                                     <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
                                             'tag-blue': participants.participants_name == 'Empreses',
                                             'tag-orange': participants.participants_name == 'Estudiants',
-                                            'tag-purple': participants.participants_name == 'Públic general'}">
+                                            'tag-purple': participants.participants_name == 'Experts'}">
                                     {{participants.participants_name}}
                                     </button>
                                 </div>
