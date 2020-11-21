@@ -40,6 +40,11 @@ export class ReptesComponent implements OnInit {
   subscriptionHttp4$: Subscription;
   // subscriptionHttp5$: Subscription;
 
+  empresesChecked: Boolean = false;
+  startupsChecked: Boolean = false;
+  estudiantsChecked: Boolean = false;
+  expertsChecked: Boolean = false;
+
   constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
@@ -155,19 +160,62 @@ export class ReptesComponent implements OnInit {
   }
 
   getReptesSearch(string, pagina, elements) {
-    this.subscriptionHttp4$ = this.httpCommunication.getReptesSearch(string, pagina, elements)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log(data.rows);
-          if (data.code == "1") {
-            this.reptesCerca = data.rows;
+    if(this.empresesChecked || this.startupsChecked || this.estudiantsChecked || this.expertsChecked){
+      if(string != ''){
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByName(string, this.empresesChecked, this.startupsChecked,
+          this.estudiantsChecked, this.expertsChecked, 1, 100)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data.rows);
+            if (data.code == "1") {
+              this.searching = 1;
+              this.reptesCerca = [];
+              this.reptesCerca = data.rows;
+            }
           }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
-        });
+        );
+      }
+      else{
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByTipus(this.empresesChecked, this.startupsChecked,
+          this.estudiantsChecked, this.expertsChecked, 1, 100)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data.rows);
+            if (data.code == "1") {
+              this.searching = 1;
+              this.reptesCerca = [];
+              this.reptesCerca = data.rows;
+            }
+          }
+        );
+      }
+    }
+
+    else{
+      if(string.length > 2) {
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByName(string, this.empresesChecked, this.startupsChecked, this.estudiantsChecked,
+          this.expertsChecked, pagina, elements)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data.rows);
+            if (data.code == "1") {
+              this.searching = 1;
+              this.reptesCerca = [];
+              this.reptesCerca = data.rows;
+            }
+          }
+        );
+      }
+      else {
+        this.reptesCerca = [];
+        this.searching = 0;
+      }
+      
+    }
+    
   }
 
   onSearchChange(searchValue: string): void {
@@ -177,61 +225,19 @@ export class ReptesComponent implements OnInit {
       this.reptesCerca = [];
       this.getReptesSearch(searchValue, 1, 10);
     }
-    else {
-      this.searching = 0;
+    else{
+      if(this.empresesChecked || this.startupsChecked || this.estudiantsChecked || this.expertsChecked){
+        this.searching = 1;
+        this.reptesCerca = [];
+        this.getReptesSearch(searchValue, 1, 100);
+      }
+      else{
+        this.searching = 0;
+      }
+      
     }
   }
 
-
-
-  //AIXO JA NO HO NECESITEM I THINK
-  // getReptesReptesPage(pagina, elements) {
-  //   this.subscriptionHttp$ = this.httpCommunication.getAllValidReptes(pagina, elements)
-  //     .pipe(first())
-  //     .subscribe(
-  //       data => {
-  //         console.log(data.rows);
-  //         if (data.code == "1") {
-  //           this.allReptes = data.rows;
-  //           this.sortReptes();
-  //         }
-  //       },
-  //       error => {
-  //         //this.error = error;
-  //         //this.loading = false;
-  //       });
-  // }
-
-
-  //AIXO TAMPOC HO NECESSITEM
-  // sortReptes(){
-  //   console.log("hola")
-  //   this.allReptes.forEach(repte => {
-  //     var currentDate = new Date();
-  //     var givenDate = new Date(repte.data_inici);
-  //     var givenFinalDate = new Date(repte.data_final);
-
-  //     if(givenDate > currentDate){
-  //       this.reptesOberts.push(repte);
-  //     }
-  //     else if(givenDate <= currentDate && givenFinalDate > currentDate){
-  //       this.reptesProces.push(repte);
-  //     }
-  //     else{
-  //       this.reptesTancats.push(repte);
-  //     }
-  //   })
-
-  //   this.reptesOberts.forEach(element => {
-  //     console.log("Obert, comença dia: " + element.data_inici);
-  //   });
-  //   this.reptesProces.forEach(element => {
-  //     console.log("Proces, comença dia: " + element.data_inici);
-  //   });
-  //   this.reptesTancats.forEach(element => {
-  //     console.log("Tancat, comença dia: " + element.data_inici);
-  //   });
-  // }
   ngOnDestroy() {
     this.subscriptionHttp1$?.unsubscribe()
     this.subscriptionHttp2$?.unsubscribe()
@@ -300,4 +306,50 @@ export class ReptesComponent implements OnInit {
 
     }
   }
+
+  toggleEmpreses(event, cerca) {
+    if (event.target.checked) {
+      this.empresesChecked = true;
+    }
+    else {
+      this.empresesChecked = false;
+    }
+    
+    this.getReptesSearch(cerca, 1, 100);
+  }
+
+  toggleStartups(event, cerca) {
+    if (event.target.checked) {
+      this.startupsChecked = true;
+    }
+    else {
+      this.startupsChecked = false;
+    }
+    
+    this.getReptesSearch(cerca, 1, 100);
+  }
+
+  toggleEstudiants(event, cerca) {
+    if (event.target.checked) {
+      this.estudiantsChecked = true;
+    }
+    else {
+      this.estudiantsChecked = false;
+    }
+    
+    this.getReptesSearch(cerca, 1, 100);
+  }
+
+  toggleExperts(event, cerca) {
+    if (event.target.checked) {
+      this.expertsChecked = true;
+    }
+    else {
+      this.expertsChecked = false;
+    }
+    
+    this.getReptesSearch(cerca, 1, 100);
+  }
+
+
 }
