@@ -264,8 +264,8 @@ export class HttpCommunicationService {
       }));
   }
 
-  editPersonalProfile(idUser, form): Observable<any> {
-    return this.http.post<any>(environment.api + `/user/edit/${idUser}`, form)
+  editPersonalProfile(form): Observable<any> {
+    return this.http.post<any>(environment.api + `/user/editProfile`, form)
       .pipe(map(data => {
 
         return data;

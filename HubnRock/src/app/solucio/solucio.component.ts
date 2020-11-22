@@ -165,8 +165,13 @@ export class SolucioComponent implements OnInit {
       var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
       var match = url.match(regExp);
 
-      safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
-      return safeUrl
+      if (match) {
+        safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
+        return safeUrl
+      } else {
+        return false;
+      }
+
     }
 
   }

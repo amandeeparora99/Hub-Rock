@@ -17,7 +17,7 @@ import { User } from '../user';
 export class EditarRepteComponent implements OnInit {
 
 
-  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService, 
+  constructor(private router: Router, private aRouter: ActivatedRoute, private fb: FormBuilder, private httpClient: HttpCommunicationService,
     public datepipe: DatePipe, public toastr: ToastrService) { }
 
   hasUnsavedData(): boolean {
@@ -93,8 +93,8 @@ export class EditarRepteComponent implements OnInit {
       'required': 'És un camp requerit',
     },
     'videoSolucio': {
-      'maxlength': 'Enllaç massa llarg',
-      'minlength': 'Enllaç massa curt'
+      'pattern': 'No és un enllaç de Youtube vàlid',
+
     },
     'checkboxGroup': {
       'requireCheckboxesToBeChecked': 'Selecciona almenys una categoria!'
@@ -269,6 +269,8 @@ export class EditarRepteComponent implements OnInit {
                 }
               }
 
+              var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+
               this.repteForm = this.fb.group({
                 nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
                 descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
@@ -280,7 +282,7 @@ export class EditarRepteComponent implements OnInit {
                 fotoRepresentativa2: ['', []],
                 fotoRepresentativa3: ['', []],
                 pdf: [''],
-                videoSolucio: ['', [Validators.minLength(3), Validators.maxLength(255)]], //validador custom youtube format
+                videoSolucio: ['', [Validators.pattern(regExp)]], //validador custom youtube format
                 checkboxGroup: this.fb.group({
                   empresesCheckbox: [participantsEmpresa],
                   startupsCheckbox: [participantsStartups],
@@ -456,6 +458,8 @@ export class EditarRepteComponent implements OnInit {
                         reader.onload = (event: any) => {
                           this.objectPartnersPreview[fotoPartnerName] = reader.result
                         }
+                        this.logValidationErrors()
+
                       })
                   }
                 }
@@ -492,6 +496,8 @@ export class EditarRepteComponent implements OnInit {
                         reader.onload = (event: any) => {
                           this.objectJuratsPreview[fotoJuratName] = reader.result
                         }
+                        this.logValidationErrors()
+
                       })
                   }
                 }
@@ -661,6 +667,7 @@ export class EditarRepteComponent implements OnInit {
 
 
   logValidationErrors(group: FormGroup = this.repteForm): void {
+    console.log('LOG VALIDATION CRIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
 
@@ -684,12 +691,15 @@ export class EditarRepteComponent implements OnInit {
 
         if (abstractControl == this.repteForm.get('partnerArray')) {
 
+          let partnerArrayCounter = 0;
+
           for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
             if (control instanceof FormGroup) {
+              console.log('LOGO JURAT VALUE', this.objectPartners)
 
               if (control.controls.nomPartner.value ||
                 control.controls.breuDescripcioPartner.value ||
-                control.controls.logoPartner.value) {
+                this.objectPartners['fotoPartner' + partnerArrayCounter]) {
 
                 control.controls.nomPartner.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
                 control.controls.nomPartner.updateValueAndValidity({ emitEvent: false })
@@ -721,17 +731,19 @@ export class EditarRepteComponent implements OnInit {
 
               }
             }
+            partnerArrayCounter++;
           }
 
-        }
-        else if (abstractControl == this.repteForm.get('juratArray')) {
+        } else if (abstractControl == this.repteForm.get('juratArray')) {
+
+          let juratArrayCounter = 0;
 
           for (let control of (<FormArray>this.repteForm.get('juratArray')).controls) {
             if (control instanceof FormGroup) {
 
               if (control.controls.nomCognomsJurat.value ||
                 control.controls.biografiaJurat.value ||
-                control.controls.fotoJurat.value) {
+                this.objectJurats['fotoJurat' + juratArrayCounter]) {
 
                 control.controls.nomCognomsJurat.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
                 control.controls.nomCognomsJurat.updateValueAndValidity({ emitEvent: false })
@@ -763,6 +775,7 @@ export class EditarRepteComponent implements OnInit {
 
               }
             }
+            juratArrayCounter++;
           }
         }
       }
@@ -814,21 +827,26 @@ export class EditarRepteComponent implements OnInit {
 
   onPdfSelected(event) {
     if (event.target.files) {
+      let validSize = true;
       let totalSize = 0;
 
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
+
         totalSize += element.size
+
+        if (element.size > 1000000) {
+          validSize = false;
+
+        }
       }
 
-      if (totalSize < 15728640) {
+      if (validSize && totalSize < 15728640) {
         this.pdfArray = event.target.files
-
       } else {
+        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
         this.pdfArray = null;
-        alert('Supera el límit de 15MB')
       }
-
     }
   }
 
@@ -838,86 +856,112 @@ export class EditarRepteComponent implements OnInit {
 
   onFileRepteFoto(event) {
     if (event.target.files) {
+      if (event.target.files[0].size < 1000000) {
+        const inputName = event.target.name;
 
-      const inputName = event.target.name;
+        this.fotosRepte[inputName] = event.target.files[0]
 
-      this.fotosRepte[inputName] = event.target.files[0]
+        console.log(this.fotosRepte)
 
-      console.log(this.fotosRepte)
-
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.fotosReptePreview[inputName] = reader.result
-        console.log(this.fotosReptePreview)
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.fotosReptePreview[inputName] = reader.result
+          console.log(this.fotosReptePreview)
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
     }
   }
 
   onFileSelected(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectFotos[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectFotos[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectFotosPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectFotosPreview[inputName] = reader.result
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
     }
-    console.log(this.objectFotosPreview)
+
   }
 
   onFileSelectedSolucio(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectSolucions[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectSolucions[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectSolucionsPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectSolucionsPreview[inputName] = reader.result
+        }
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectSolucionsPreview)
   }
 
   onFileSelectedPartner(event, index?) {
     if (event.target.files) {
-      console.log('file PARTNER pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectPartners[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('file PARTNER pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectPartners[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectPartnersPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectPartnersPreview[inputName] = reader.result
+        }
+        this.logValidationErrors()
+
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectPartnersPreview)
   }
 
   onFileSelectedJurat(event, index?) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
-      let inputName = event.target.name;
-      this.objectJurats[inputName] = event.target.files[0]
+      if (event.target.files[0].size < 1000000) {
+        console.log('fiel pujat', event.target.files[0])
+        let inputName = event.target.name;
+        this.objectJurats[inputName] = event.target.files[0]
 
-      console.log(inputName, index)
+        console.log(inputName, index)
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0])
-      reader.onload = (event: any) => {
-        this.objectJuratsPreview[inputName] = reader.result
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0])
+        reader.onload = (event: any) => {
+          this.objectJuratsPreview[inputName] = reader.result
+        }
+        this.logValidationErrors()
+
+      } else {
+        alert('L\'arxiu supera el límit de 1MB')
       }
+
     }
     console.log(this.objectJuratsPreview)
   }
@@ -929,31 +973,36 @@ export class EditarRepteComponent implements OnInit {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
 
     if (arraySplit[0] == 'fotoPremi') {
-      delete this.objectFotosPreview[fotoName]
-      delete this.objectFotos[fotoName]
+      this.objectFotosPreview[fotoName] = '';
+      this.objectFotos[fotoName] = '';
     }
     else if (arraySplit[0] == 'fotoSolucio') {
-      delete this.objectSolucionsPreview[fotoName]
-      delete this.objectSolucions[fotoName]
+      this.objectSolucionsPreview[fotoName] = '';
+      this.objectSolucions[fotoName] = '';
     }
     else if (arraySplit[0] == 'fotoPartner') {
       (<FormArray>this.repteForm.get('partnerArray')).at(arraySplit[1]).patchValue({
         logoPartner: null
       })
 
-      delete this.objectPartnersPreview[fotoName]
-      delete this.objectPartners[fotoName]
+      this.objectPartnersPreview[fotoName] = '';
+      this.objectPartners[fotoName] = '';
+
+      this.logValidationErrors()
     }
     else if (arraySplit[0] == 'fotoJurat') {
+
       (<FormArray>this.repteForm.get('juratArray')).at(arraySplit[1]).patchValue({
         fotoJurat: null
       })
 
-      delete this.objectJuratsPreview[fotoName]
-      delete this.objectJurats[fotoName]
+      this.objectJuratsPreview[fotoName] = '';
+      this.objectJurats[fotoName] = '';
+
+      this.logValidationErrors()
     } else {
-      delete this.fotosRepte[fotoName]
-      delete this.fotosReptePreview[fotoName]
+      this.fotosRepte[fotoName] = '';
+      this.fotosReptePreview[fotoName] = '';
     }
 
   }
@@ -976,10 +1025,14 @@ export class EditarRepteComponent implements OnInit {
     else if (arraySplit[0] == 'fotoPartner') {
       this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
       this.loopObjectFotosPartner(number, arraySplit[0]);
+      this.logValidationErrors()
+
     }
     else if (arraySplit[0] == 'fotoJurat') {
       this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
       this.loopObjectFotosJurat(number, arraySplit[0]);
+      this.logValidationErrors()
+
     }
 
 
@@ -1482,30 +1535,35 @@ export class EditarRepteComponent implements OnInit {
       this.logValidationErrorsUntouched()
 
     } else {
-      this.formDone = true;
+      let confirmWindow = confirm('Està segur que vol actualitzar aquest repte?')
 
-      if (this.formErrors.campsErronis) {
-        this.formErrors.campsErronis = '';
+      if (confirmWindow == true) {
+        this.formDone = true;
+
+        if (this.formErrors.campsErronis) {
+          this.formErrors.campsErronis = '';
+        }
+
+        let formData: any = this.appendRepte();
+
+        for (var value of formData.values()) {
+          console.log(value);
+        }
+
+        this.subscriptionHttp1$ = this.httpClient.editRepte(this.idRepte, formData)
+          .pipe(first())
+          .subscribe(
+            data => {
+              if (data.code == 1) {
+                window.scrollTo(0, 0)
+                this.toastr.success('Repte desat com a esborrany', 'Desat')
+                this.success = true;
+                this.enviat = true;
+              }
+
+            });
       }
 
-      let formData: any = this.appendRepte();
-
-      for (var value of formData.values()) {
-        console.log(value);
-      }
-
-      this.subscriptionHttp1$ = this.httpClient.editRepte(this.idRepte, formData)
-        .pipe(first())
-        .subscribe(
-          data => {
-            if (data.code == 1) {
-              window.scrollTo(0, 0)
-              this.toastr.success('Repte desat com a esborrany', 'Desat')
-              this.success = true;
-              this.enviat = true;
-            }
-
-          });
     }
   }
 
@@ -1761,12 +1819,17 @@ function dateShorterThanToday(control: AbstractControl): { [key: string]: any } 
   let date = new Date(control.value);
   let currentDate = new Date();
 
-  if (date > currentDate || dateString(date) == dateString(currentDate)) {
+  if (control.value) {
+    if (date > currentDate) {
+      return null;
+    }
+    else {
+      return { dateShorterThanToday: true }
+    }
+  } else {
     return null;
   }
-  else {
-    return { dataInici: true }
-  }
+
 }
 
 

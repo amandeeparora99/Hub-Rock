@@ -1,6 +1,5 @@
 <app-header></app-header>
-<section id="hubrock-repte-banner" *ngIf="repte"
-    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
+<section id="hubrock-repte-banner" *ngIf="repte && repteExists" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
 </section>
 
 <div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
@@ -11,11 +10,10 @@
     </div>
 </div>
 
-<section id="hubrock-repte-info" *ngIf="repteExists">
+<section id="hubrock-repte-info" *ngIf="repteExists && repte">
     <div class="container">
         <div class="d-flex align-items-center owner mb-3">
-            <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile" 
-                alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+            <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
             <h3 *ngIf="repte" class="repteowner mb-0" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</h3>
         </div>
 
@@ -132,8 +130,11 @@
                     <div class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
-                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="repte.url_video">
+                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="getYoutubeUrl(repte.url_video)">
                     <iframe width="660" height="370" [src]="getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="!getYoutubeUrl(repte.url_video)">
+                    No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid
                 </div>
 
 
@@ -228,8 +229,7 @@
 
                 <div class="text-premis row d-flex justify-content-start" *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" 
-                            class="align-self-start tematicaImg" *ngIf="i % 2 == 0"></div>
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="i % 2 == 0"></div>
                         <!--Si el numero es parell -> text esquerre-->
 
                         <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0">
@@ -248,8 +248,7 @@
                                     src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button> -->
                         </div>
 
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" 
-                            class="align-self-start tematicaImg" *ngIf="i % 2 != 0"></div>
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="i % 2 != 0"></div>
                     </div>
 
                 </div>
@@ -335,16 +334,15 @@
                             </div>
                             <div class="row d-flex comentariButtons justify-content-between">
                                 <div>
-                                <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
-                                    && isUserLoggedIn()" type="button" class="btn forumButton" 
-                                    (click)="contestar(forumPost.id)">
+                                    <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
+                                    && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
                                     <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar
                                 </button>
-                                <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
+                                    <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id); likePostChange(i, forumPost.like_user_count)">
                                     <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes_B.png'" height="25px" class="mr-2 ml-0 align-self-center">
                                     {{forumPost.like_count}} M'agrada
                                 </button>
-                            
+
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <p class="commentsLength mb-0">{{forumPost.comments}} RESPOSTES</p>
@@ -356,7 +354,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div *ngIf="objectRespostes['forumParent'+forumPost.id]">
                             <hr class="mb-5">
 
@@ -443,19 +441,20 @@
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">
                         <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
-                            <div class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                            <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                 <div class="card-body">
                                     <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte', solucio.idrepte]" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
+                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     <div class="row">
                                         <div class="col-auto pr-0">
-                                            <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
+                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                         </div>
-                                        <div class="col m-auto solucio-footer text-overflow-1">
-                                            {{repte.user.nom_empresa || repte.user.nom_rockstar}}
+                                        <div class="col m-auto text-overflow-1">
+                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="!solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
+                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}</a>
                                         </div>
                                     </div>
                                 </div>

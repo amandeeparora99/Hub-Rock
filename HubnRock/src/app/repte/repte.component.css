@@ -497,6 +497,8 @@ img {
     border-radius: 14px;
     height: 250px;
     border: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 #propostes .card-footer {
@@ -606,7 +608,7 @@ img {
 .forumbutton {
     letter-spacing: -0.25px;
     color: #020e7d;
-    background-color:#f7f7f7;
+    background-color: #f7f7f7;
     padding-left: 30px;
     max-width: 793px;
     font-weight: bold;
@@ -627,7 +629,8 @@ img {
     letter-spacing: -0.22px;
     color: #020e7d;
 }
-.forumPostName:hover{
+
+.forumPostName:hover {
     color: #00e292;
     cursor: pointer;
 }
@@ -764,7 +767,8 @@ img {
     background-position: center;
 }
 
-.owner img, .owner .repteowner{
+.owner img,
+.owner .repteowner {
     cursor: pointer;
 }
 
@@ -785,11 +789,27 @@ img {
 }
 
 .solucionsbuscadesImg {
-    margin-top: 26px; 
+    margin-top: 26px;
     margin-bottom: 16px;
     min-width: 89px;
     min-height: 89px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.username:hover {
+    color: #00e292 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#propostes .card-subtitle a {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+    font-family: 'WorkSans-Regular';
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }

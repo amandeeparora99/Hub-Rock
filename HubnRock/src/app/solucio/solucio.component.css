@@ -68,6 +68,13 @@
     margin-bottom: 100px;
 }
 
+#solucio-body h1 {
+    font-family: 'WorkSans-Bold';
+    font-size: 34px;
+    letter-spacing: -0.47px;
+    color: #000000;
+}
+
 #solucio-body p {
     font-weight: normal;
     font-stretch: normal;
@@ -86,6 +93,14 @@
 }
 
 .equip {
+    border-radius: 19px;
+    background-color: #020e7d;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 77px;
+}
+
+.no-equip {
     border-radius: 19px;
     background-color: #020e7d;
     color: white;

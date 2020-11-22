@@ -267,7 +267,7 @@ export class RepteComponent implements OnInit {
   }
 
   deleteRepte() {
-    let confirmWindow = confirm('Esta segur que vol eliminar aquest repte?')
+    let confirmWindow = confirm('Està segur que vol eliminar aquest repte?')
 
     if (confirmWindow == true) {
       if (this.idRepte && this.canDelete()) {
@@ -360,10 +360,13 @@ export class RepteComponent implements OnInit {
       var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
       var match = url.match(regExp);
 
-      safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
-      return safeUrl
+      if (match) {
+        safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + match[2]);
+        return safeUrl
+      } else {
+        return false
+      }
     }
-
   }
 
   switchTextArea(topicPostMsg) {

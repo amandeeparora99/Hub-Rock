@@ -27,7 +27,9 @@ export class RegisterComponent implements OnInit {
       'maxlength': 'Massa llarg'
     },
     'nomResponsable': {
-      'required': 'Introdueix un nom del responsable'
+      'required': 'Introdueix un nom del responsable',
+      'minlength': 'Massa curt',
+      'maxlength': 'Massa llarg'
     },
     'nomCorreu': {
       'required': 'Introdueix un correu',
@@ -67,8 +69,8 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerForm = this.fb.group({
-      nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-      nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      nomEmpresa: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      nomResponsable: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
         nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
@@ -108,18 +110,27 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNextStep() {
+    window.scrollTo(0, 0)
+
     this.register = 1;
 
     const nomEmpresa = this.registerForm.get('nomEmpresa');
     const nifEmpresa = this.registerForm.get('nomNifEmpresa');
 
     if (this.accountType == 'empresa') {
-      nomEmpresa.setValidators(Validators.required);
+      nomEmpresa.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
       nifEmpresa.setValidators(Validators.required);
+
+      nomEmpresa.updateValueAndValidity()
+      nifEmpresa.updateValueAndValidity()
     }
     else if (this.accountType == 'rockstar') {
       nomEmpresa.clearValidators();
       nifEmpresa.clearValidators();
+
+      nomEmpresa.updateValueAndValidity()
+      nifEmpresa.updateValueAndValidity()
+
     }
 
   }
@@ -129,13 +140,21 @@ export class RegisterComponent implements OnInit {
     const nifControl = this.registerForm.get('nomNifEmpresa');
     if (event.target.value == "rockstar") {
       nifControl.clearValidators();
+
+      nifControl.updateValueAndValidity()
+
     }
     else {
       nifControl.setValidators(Validators.required);
+
+      nifControl.updateValueAndValidity()
+
     }
   }
 
   stepBack() {
+    window.scrollTo(0, 0)
+
     this.register = 0;
     this.accountType = 'empresa';
     this.registerForm.reset();
