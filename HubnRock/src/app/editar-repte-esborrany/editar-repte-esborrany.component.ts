@@ -280,7 +280,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
                 descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
                 fotoPortada: ['',
-                  []
+                  [Validators.required]
                 ],
                 fotoRepresentativa1: ['', []],
                 fotoRepresentativa2: ['', []],
@@ -567,6 +567,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoPortada = reader.result
                   }
+                  this.logValidationErrors()
                 })
             }
 
@@ -582,6 +583,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa1 = reader.result
                   }
+                  this.logValidationErrors()
                 })
             }
 
@@ -597,6 +599,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa2 = reader.result
                   }
+                  this.logValidationErrors()
                 })
             }
 
@@ -612,6 +615,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa3 = reader.result
                   }
+                  this.logValidationErrors()
                 })
             }
 
@@ -678,6 +682,14 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
+      if (!this.fotosRepte.fotoPortada) {
+        this.repteForm.get('fotoPortada').setValidators([Validators.required])
+        this.repteForm.get('fotoPortada').updateValueAndValidity({ emitEvent: false })
+      } else {
+        this.repteForm.get('fotoPortada').clearValidators()
+        this.repteForm.get('fotoPortada').updateValueAndValidity({ emitEvent: false })
+      }
+
       if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
@@ -715,8 +727,13 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
 
 
-                control.controls.logoPartner.setValidators([Validators.required])
-                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                if (!this.objectPartners['fotoPartner' + partnerArrayCounter]) {
+                  control.controls.logoPartner.setValidators([Validators.required])
+                  control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                } else {
+                  control.controls.logoPartner.clearValidators()
+                  control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                }
 
                 control.updateValueAndValidity({ emitEvent: false });
               }
@@ -758,8 +775,13 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
                 control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
 
 
-                control.controls.fotoJurat.setValidators([Validators.required])
-                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                if (!this.objectJurats['fotoJurat' + juratArrayCounter]) {
+                  control.controls.fotoJurat.setValidators([Validators.required])
+                  control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                } else {
+                  control.controls.fotoJurat.clearValidators()
+                  control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                }
 
                 control.updateValueAndValidity({ emitEvent: false });
 
@@ -1009,6 +1031,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       this.fotosRepte[fotoName] = '';
       this.fotosReptePreview[fotoName] = '';
     }
+    this.logValidationErrors()
 
   }
 
@@ -1041,7 +1064,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     }
 
 
-
+    this.logValidationErrors()
   }
 
   addPremiToObject(inputName) {

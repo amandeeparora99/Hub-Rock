@@ -276,7 +276,7 @@ export class EditarRepteComponent implements OnInit {
                 descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
                 descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
                 fotoPortada: ['',
-                  []
+                  [Validators.required]
                 ],
                 fotoRepresentativa1: ['', []],
                 fotoRepresentativa2: ['', []],
@@ -447,6 +447,10 @@ export class EditarRepteComponent implements OnInit {
                   this.addPremiToObject(fotoPartnerName)
 
                   if (this.repte.partners[i].partner_url_logo) {
+
+                    // (<FormGroup>(<FormGroup>this.repteForm.controls.partnerArray).controls[i]).controls.logoPartner.clearValidators();
+                    // (<FormGroup>(<FormGroup>this.repteForm.controls.partnerArray).controls[i]).controls.logoPartner.updateValueAndValidity({ emitEvent: false });
+
                     fetch(this.fileStorageUrl + this.repte.partners[i].partner_url_logo)
                       .then(res => res.blob()) // Gets the response and returns it as a blob
                       .then(blob => {
@@ -485,6 +489,10 @@ export class EditarRepteComponent implements OnInit {
                   this.addPremiToObject(fotoJuratName)
 
                   if (this.repte.jurats[i].jurat_url_photo) {
+
+                    // (<FormGroup>(<FormGroup>this.repteForm.controls.juratArray).controls[i]).controls.fotoJurat.clearValidators();
+                    // (<FormGroup>(<FormGroup>this.repteForm.controls.juratArray).controls[i]).controls.fotoJurat.updateValueAndValidity({ emitEvent: false });
+
                     fetch(this.fileStorageUrl + this.repte.jurats[i].jurat_url_photo)
                       .then(res => res.blob()) // Gets the response and returns it as a blob
                       .then(blob => {
@@ -561,6 +569,7 @@ export class EditarRepteComponent implements OnInit {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoPortada = reader.result
                   }
+                  this.logValidationErrors()
                 })
             }
 
@@ -576,6 +585,8 @@ export class EditarRepteComponent implements OnInit {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa1 = reader.result
                   }
+                  this.logValidationErrors()
+
                 })
             }
 
@@ -591,6 +602,8 @@ export class EditarRepteComponent implements OnInit {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa2 = reader.result
                   }
+                  this.logValidationErrors()
+
                 })
             }
 
@@ -606,6 +619,8 @@ export class EditarRepteComponent implements OnInit {
                   reader.onload = (event: any) => {
                     this.fotosReptePreview.fotoRepresentativa3 = reader.result
                   }
+                  this.logValidationErrors()
+
                 })
             }
 
@@ -672,6 +687,16 @@ export class EditarRepteComponent implements OnInit {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
+      console.log('hi puto hi ha foto portada o no?', this.fotosRepte.fotoPortada)
+
+      if (!this.fotosRepte.fotoPortada) {
+        this.repteForm.get('fotoPortada').setValidators([Validators.required])
+        this.repteForm.get('fotoPortada').updateValueAndValidity({ emitEvent: false })
+      } else {
+        this.repteForm.get('fotoPortada').clearValidators()
+        this.repteForm.get('fotoPortada').updateValueAndValidity({ emitEvent: false })
+      }
+
       if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
@@ -696,11 +721,11 @@ export class EditarRepteComponent implements OnInit {
           for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
             if (control instanceof FormGroup) {
               console.log('LOGO JURAT VALUE', this.objectPartners)
+              console.log('AKFJÑLASJDFÑLKAJSDFÑASJFÑALDSJFÑLAJSD JODER', this.objectPartners['fotoPartner' + partnerArrayCounter])
 
               if (control.controls.nomPartner.value ||
                 control.controls.breuDescripcioPartner.value ||
                 this.objectPartners['fotoPartner' + partnerArrayCounter]) {
-
                 control.controls.nomPartner.setValidators([Validators.required, Validators.maxLength(255), Validators.minLength(3)])
                 control.controls.nomPartner.updateValueAndValidity({ emitEvent: false })
 
@@ -708,9 +733,13 @@ export class EditarRepteComponent implements OnInit {
                 control.controls.breuDescripcioPartner.setValidators([Validators.required, Validators.maxLength(900), Validators.minLength(3)])
                 control.controls.breuDescripcioPartner.updateValueAndValidity({ emitEvent: false })
 
-
-                control.controls.logoPartner.setValidators([Validators.required])
-                control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                if (!this.objectPartners['fotoPartner' + partnerArrayCounter]) {
+                  control.controls.logoPartner.setValidators([Validators.required])
+                  control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                } else {
+                  control.controls.logoPartner.clearValidators()
+                  control.controls.logoPartner.updateValueAndValidity({ emitEvent: false })
+                }
 
                 control.updateValueAndValidity({ emitEvent: false });
               }
@@ -752,9 +781,13 @@ export class EditarRepteComponent implements OnInit {
                 control.controls.biografiaJurat.setValidators([Validators.required, Validators.maxLength(900), Validators.minLength(3)])
                 control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
 
-
-                control.controls.fotoJurat.setValidators([Validators.required])
-                control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                if (!this.objectJurats['fotoJurat' + juratArrayCounter]) {
+                  control.controls.fotoJurat.setValidators([Validators.required])
+                  control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                } else {
+                  control.controls.fotoJurat.clearValidators()
+                  control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
+                }
 
                 control.updateValueAndValidity({ emitEvent: false });
 
@@ -1004,7 +1037,7 @@ export class EditarRepteComponent implements OnInit {
       this.fotosRepte[fotoName] = '';
       this.fotosReptePreview[fotoName] = '';
     }
-
+    this.logValidationErrors()
   }
 
   eliminarFotoArray(fotoName) {
@@ -1035,6 +1068,7 @@ export class EditarRepteComponent implements OnInit {
 
     }
 
+    this.logValidationErrors()
 
   }
 
