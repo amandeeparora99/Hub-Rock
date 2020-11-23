@@ -232,6 +232,7 @@ export class ReptesComponent implements OnInit {
         this.getReptesSearch(searchValue, 1, 100);
       }
       else{
+        this.reptesCerca = [];
         this.searching = 0;
       }
       

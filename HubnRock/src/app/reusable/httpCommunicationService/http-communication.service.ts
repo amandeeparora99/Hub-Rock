@@ -441,10 +441,10 @@ export class HttpCommunicationService {
   getReptesSearchByName(cerca, empreses, startups, estudiants, experts, page, elements): Observable<any> {
     if(empreses || startups || estudiants || experts){
       var body = new HttpParams()
-      .set('tipus_empresa[0]', empreses ? '1' : '0')
-      .set('tipus_empresa[1]', startups ? '2' : '0')
-      .set('tipus_empresa[2]', estudiants ? '3' : '0')
-      .set('tipus_empresa[3]', experts ? '4' : '0')
+      .set(empreses ? 'tipus_empresa[0]' : '', empreses ? '1' : '0')
+      .set(startups ? 'tipus_empresa[1]' : '', startups ? '2' : '0')
+      .set(estudiants ? 'tipus_empresa[2]' : '', estudiants ? '3' : '0')
+      .set(experts ? 'tipus_empresa[3]' : '', experts ? '4' : '0')
 
       return this.http.post<any>(environment.api + `/repte/getByNameByTipusEmpresa/${cerca}/${page}/${elements}`,
       body.toString(),
@@ -460,7 +460,6 @@ export class HttpCommunicationService {
     }
     else{
       return this.http.post<any>(environment.api + `/repte/getByNameByTipusEmpresa/${cerca}/${page}/${elements}`,
-      body.toString(),
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -477,10 +476,10 @@ export class HttpCommunicationService {
   getReptesSearchByTipus(empreses, startups, estudiants, experts, page, elements): Observable<any> {
     
     var body = new HttpParams()
-      .set('tipus_empresa[0]', empreses ? '1' : '0')
-      .set('tipus_empresa[1]', startups ? '2' : '0')
-      .set('tipus_empresa[2]', estudiants ? '3' : '0')
-      .set('tipus_empresa[3]', experts ? '4' : '0')
+      .set(empreses ? 'tipus_empresa[0]' : '', empreses ? '1' : '0')
+      .set(startups ? 'tipus_empresa[1]' : '', startups ? '2' : '0')
+      .set(estudiants ? 'tipus_empresa[2]' : '', estudiants ? '3' : '0')
+      .set(experts ? 'tipus_empresa[3]' : '', experts ? '4' : '0')
 
     return this.http.post<any>(environment.api + `/repte/getByTipusEmpresa/${page}/${elements}`,
     body.toString(),
