@@ -42,11 +42,11 @@ import { CanEditSolucioGuard } from './can-edit-solucio.guard';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'registre', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'reptes', component: ReptesComponent },
-  { path: 'restore', component: RestorePasswordComponent },
-  { path: 'homepage', component: HomepageComponent },
+  // { path: 'restore', component: RestorePasswordComponent },
+  { path: 'inici', component: HomepageComponent },
   { path: 'repte/:id', component: RepteComponent, canActivate: [RepteCanViewGuard] },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard, CanParticipateRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id', component: SolucioComponent, canActivate: [SolucioCanViewGuard] },

@@ -27,7 +27,7 @@ export class OwnSolucioGuard implements CanActivate {
           if (data.row.solucio_user_iduser == idCurrentUser && data.row.solucio_estat_idestat != 1) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 

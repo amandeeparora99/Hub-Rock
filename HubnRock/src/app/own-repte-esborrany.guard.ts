@@ -27,12 +27,12 @@ export class OwnRepteEsborranyGuard implements CanActivate {
           if (idCurrentUser && data.row.user_iduser == idCurrentUser && data.row.estat_idestat == 1) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
           return false;
         }
       }));

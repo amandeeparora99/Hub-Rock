@@ -27,12 +27,12 @@ export class OwnSolucioEsborranyGuard implements CanActivate {
           if (idCurrentUser && data.row.solucio_user_iduser == idCurrentUser && data.row.solucio_estat_idestat == 1) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
           return false;
         }
       }));

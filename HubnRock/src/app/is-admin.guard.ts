@@ -23,12 +23,12 @@ export class IsAdminGuard implements CanActivate {
           if (data.row.role_idrole == 1) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
 
           return false;
         }

@@ -32,7 +32,7 @@ export class RepteCanViewGuard implements CanActivate {
           } else if (data.row.estat_idestat != 3 && idCurrentUser && idCurrentUser == data.row.user_iduser) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             alert('No és possible visualitzar aquest repte perquè no és vàlid')
             return false;
           }

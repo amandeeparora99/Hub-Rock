@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.httpCommunication.loggedIn()) {
-      this.router.navigate(["/homepage"]);
+      this.router.navigate(["/"]);
     }
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
           data => {
             console.log(data);
             if (data.code == 302) {
-              this.router.navigate(["/homepage"]);
+              this.router.navigate(["/"]);
 
             }
             else if (data.code == 534) {

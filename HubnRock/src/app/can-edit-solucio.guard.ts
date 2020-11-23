@@ -32,14 +32,14 @@ export class CanEditSolucioGuard implements CanActivate {
               console.log('retorno true')
               return true;
             } else {
-              this.router.navigate(['/homepage'])
+              this.router.navigate(['/'])
               console.log('retorno false')
 
               return false;
             }
           }
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
           return false;
         }
       }));

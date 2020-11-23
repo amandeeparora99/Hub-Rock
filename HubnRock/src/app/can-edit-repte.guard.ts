@@ -26,12 +26,12 @@ export class CanEditRepteGuard implements CanActivate {
           if (data.row.estat_idestat != 3) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
           return false;
         }
       }));

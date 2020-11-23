@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/']);
     }
     else if (page == 2) {
-      this.router.navigate(['/register']);
+      this.router.navigate(['/registre']);
     }
     else if (page == 3) {
       this.router.navigate(['/login']);

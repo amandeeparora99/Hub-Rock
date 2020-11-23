@@ -27,7 +27,7 @@ export class OwnRepteGuard implements CanActivate {
           if (data.row.user_iduser == idCurrentUser && data.row.estat_idestat != 1 && data.row.estat_idestat != 3 ) {
             return true;
           } else {
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
           }
 

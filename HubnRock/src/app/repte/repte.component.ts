@@ -188,10 +188,6 @@ export class RepteComponent implements OnInit {
             this.repteExists = false;
             // this.router.navigate(['/page-not-found'])
           }
-        },
-        error => {
-          //this.error = error;
-          //this.loading = false;
         });
   }
 

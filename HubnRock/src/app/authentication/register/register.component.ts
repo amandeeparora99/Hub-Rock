@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.httpCommunication.loggedIn()) {
-      this.router.navigate(["/homepage"]);
+      this.router.navigate(["/"]);
     }
 
     this.registerForm = this.fb.group({
@@ -181,7 +181,7 @@ export class RegisterComponent implements OnInit {
                   console.log(data);
                   if (data.code == "1") {
 
-                    this.router.navigate(["/homepage"]);
+                    this.router.navigate(["/"]);
 
                   }
                   else if (data.code == 534) {
@@ -212,7 +212,7 @@ export class RegisterComponent implements OnInit {
                   console.log(data);
                   if (data.code == "1") {
 
-                    this.router.navigate(["/homepage"]);
+                    this.router.navigate(["/"]);
 
                   }
                   else if (data.code == 534) {

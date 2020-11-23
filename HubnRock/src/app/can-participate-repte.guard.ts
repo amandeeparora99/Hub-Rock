@@ -25,7 +25,7 @@ export class CanParticipateRepteGuard implements CanActivate {
           // només si està en procès i és vàlid
           if (data.row.estat_idestat != 3) {
 
-            this.router.navigate(['/homepage'])
+            this.router.navigate(['/'])
             return false;
 
           } else {
@@ -37,14 +37,14 @@ export class CanParticipateRepteGuard implements CanActivate {
             if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
               return true;
             } else {
-              this.router.navigate(['/homepage'])
+              this.router.navigate(['/'])
               return false;
             }
           }
 
 
         } else {
-          this.router.navigate(['/homepage'])
+          this.router.navigate(['/'])
           return false;
         }
       }));
