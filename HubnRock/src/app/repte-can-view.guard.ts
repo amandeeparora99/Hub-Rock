@@ -3,13 +3,15 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepteCanViewGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -32,8 +34,9 @@ export class RepteCanViewGuard implements CanActivate {
           } else if (data.row.estat_idestat != 3 && idCurrentUser && idCurrentUser == data.row.user_iduser) {
             return true;
           } else {
+            this.toastr.warning('Aquest repte no és vàlid', 'Accés denegat')
             this.router.navigate(['/'])
-            alert('No és possible visualitzar aquest repte perquè no és vàlid')
+
             return false;
           }
 

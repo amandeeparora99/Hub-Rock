@@ -32,7 +32,11 @@ export class HeaderComponent implements OnInit {
 
   userLogout() {
     this._httpService.logout();
-    window.location.reload();
+    this.router.navigate(['/'])
+      .then(() => {
+        window.location.reload();
+      });
+
   }
 
   headerRedirect(page: number) {

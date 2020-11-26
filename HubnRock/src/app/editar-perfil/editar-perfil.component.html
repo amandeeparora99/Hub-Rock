@@ -3,7 +3,7 @@
 
 <!-- EDIT USER FORM -->
 
-<section id="register-empresa-section" *ngIf="!success">
+<section id="register-empresa-section">
 
     <div id="register-container">
 
@@ -101,7 +101,8 @@
 
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.bio}">
                     <label for="InputBio">Sobre tu:</label>
-                    <input formControlName="bio" type="text" class="form-control" id="InputBio" (blur)="logValidationErrors()">
+                    <textarea formControlName="bio" type="text" class="form-control" id="InputBio" (blur)="logValidationErrors()"></textarea>
+
                     <span class="help-block" *ngIf="formErrors.bio">
                         {{formErrors.bio}}
                     </span>
@@ -172,14 +173,13 @@
                   </label>
                 </div>
 
-                <div *ngIf="pdfArray" class="mb-3">
+                <div *ngIf="pdfArray.length" class="mb-3">
                     <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                     <span class="ml-3" *ngIf="currentUser && currentUser.userType == 1">Currículum {{usuariObject.nom_rockstar}}</span>
                     <span class="ml-3" *ngIf="currentUser && currentUser.userType == 0">Presentació {{usuariObject.nom_empresa}}</span>
-
                 </div>
 
-                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
                     <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
 
@@ -194,7 +194,7 @@
 
 </section>
 
-<section id="repteSuccess" *ngIf="success">
+<!-- <section id="repteSuccess" *ngIf="success">
     <div class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
         <h1 class="text-center">Perfil Actualitzat</h1>
         <div class="paragraph-container">
@@ -204,6 +204,6 @@
             <button *ngIf="idUsuari" class="btn btn-primary btn-manage" [routerLink]="['/perfil/', idUsuari]">TORNA AL PERFIL</button>
         </div>
     </div>
-</section>
+</section> -->
 
 <app-footer></app-footer>

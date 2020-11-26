@@ -88,7 +88,7 @@
                             <span class="ml-3">{{pdf.name}}</span>
                         </div>
 
-                        <div *ngIf="pdfArray" class="text-center elimina-link mt-3 mb-2">
+                        <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3 mb-2">
                             <a (click)="resetPdfArray()">Esborra l'arxiu seleccionat</a>
                         </div>
 

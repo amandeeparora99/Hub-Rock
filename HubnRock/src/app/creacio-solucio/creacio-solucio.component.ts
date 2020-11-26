@@ -34,7 +34,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   private idRepte;
   repte;
-  pdfArray;
+  pdfArray = [];
   solucioForm: FormGroup;
   radioValue;
   currentTab: number; // Current tab is set to be the first tab (0)
@@ -324,32 +324,28 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      let validSize = true;
-      let totalSize = 0;
+      let pdfCleared = false;
 
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
 
-        totalSize += element.size
-
-        if (element.size > 1000000) {
-          validSize = false;
-
+        if (element.size < 1000000) {
+          if (!pdfCleared) {
+            this.pdfArray = []
+            pdfCleared = true;
+          }
+          
+          this.pdfArray.push(element);
+        } else {
+          alert('L\'arxiu supera el límit de 1MB')
         }
       }
-
-      if (validSize && totalSize < 15728640) {
-        this.pdfArray = event.target.files
-      } else {
-        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
-        this.pdfArray = null;
-      }
     }
+    console.log(this.pdfArray)
   }
 
-
   resetPdfArray() {
-    this.pdfArray = null;
+    this.pdfArray = [];
   }
 
   onSubmit() {
@@ -578,7 +574,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
     }
 
-    if (this.pdfArray) {
+    if (this.pdfArray.length) {
       for (let index = 0; index < this.pdfArray.length; index++) {
         const file = this.pdfArray[index];
 
