@@ -97,9 +97,9 @@
                 <div id="empresa-reptes" class="tab-pane fade">
                     <!-- ESBORRANYS -->
                     <div *ngIf="isOwnUser">
-                        <div *ngIf="userReptesEsborrany && userReptesEsborrany.length < 1">No hi ha creat cap esborrany</div>
                         <h1 class="reptestitle">Esborranys</h1>
-                        <p class="small-letter">Fes clic sobre un repte per seguir creant-lo</p>
+                        <p class="small-letter" *ngIf="userReptesEsborrany && userReptesEsborrany.length > 0">Fes clic sobre un repte per seguir creant-lo</p>
+                        <div *ngIf="userReptesEsborrany && userReptesEsborrany.length < 1" class="no-elements text-center">No hi ha creat cap esborrany</div>
 
                         <div class="row d-flex mt-5 flex-column align-items-center esborranys-mb">
                             <div class="row w-100">
@@ -155,8 +155,9 @@
                     <!-- RETPES PUBLICATS -->
                     <h1 class="reptestitle">Reptes publicats</h1>
 
-                    <div *ngIf="userReptes && userReptes.length < 1">No hi ha creat cap repte</div>
-                    <div *ngIf="userReptes && userReptes.length > 0" class="row d-flex flex-column align-items-center mt-5">
+                    <div *ngIf="userReptes && userReptes.length < 1" class="no-elements text-center">No hi ha creat cap repte</div>
+                    <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+
                         <div class="row w-100">
 
                             <div *ngFor="let repte of userReptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
@@ -184,11 +185,11 @@
                                         </div>
                                         <div class="tags">
                                             <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
-                                                'tag-blue': participants.participants_name == 'Empreses',
-                                                'tag-orange': participants.participants_name == 'Estudiants',
-                                                'tag-purple': participants.participants_name == 'Experts'}">
-                                            {{participants.participants_name}}
-                                            </button>
+                                                    'tag-blue': participants.participants_name == 'Empreses',
+                                                    'tag-orange': participants.participants_name == 'Estudiants',
+                                                    'tag-purple': participants.participants_name == 'Experts'}">
+                                                {{participants.participants_name}}
+                                                </button>
                                         </div>
                                     </div>
                                     <div *ngIf="repte.estat_idestat != 3" class="card-footer">
@@ -204,6 +205,7 @@
                         </div>
 
 
+
                     </div>
 
 
@@ -215,8 +217,11 @@
                 <div id="empresa-solucions" class="tab-pane fade">
                     <div *ngIf="isOwnUser">
                         <h1 class="reptestitle">Esborranys</h1>
-                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1" style="margin-bottom: 90px;">No hi ha creat cap esborrany</div>
-                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length >= 1" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+
+                        <p class="small-letter" *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length > 0">Fes clic sobre una solució per seguir creant-lo</p>
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1" class="no-elements text-center">No hi ha creat cap esborrany</div>
+
+                        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
                                 <div *ngFor="let solucioEsborrany of userSolucionsEsborrany" class="col-md-4 col-sm-6">
                                     <div click-stop-propagation class="card solucio-esborrany p-2" [routerLink]="['/solucio/', solucioEsborrany.idsolucio_proposada, 'editar-esborrany']">
@@ -242,8 +247,9 @@
 
 
                     <h1 class="reptestitle">Solucions enviades</h1>
-                    <div *ngIf="userSolucions && userSolucions.length < 1" style="margin-bottom: 90px;">No hi ha creada cap solució</div>
-                    <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+                    <div *ngIf="userSolucions && userSolucions.length < 1" class="no-elements text-center">No hi ha creada cap solució</div>
+                    <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
                                 <div class="card solucio-enviat p-2" click-stop-propagation [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
@@ -373,8 +379,11 @@
                 <!-- TABS SOLUCIONS -->
                 <div id="usuari-solucions" class="tab-pane fade">
                     <div *ngIf="isOwnUser">
-                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1">No hi ha creat cap esborrany</div>
                         <h1 class="reptestitle">Esborranys</h1>
+
+                        <p class="small-letter" *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length > 0">Fes clic sobre una solució per seguir creant-lo</p>
+                        <div *ngIf="userSolucionsEsborrany && userSolucionsEsborrany.length < 1" class="no-elements text-center">No hi ha creat cap esborrany</div>
+
 
                         <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                             <div class="row w-100">
@@ -400,8 +409,8 @@
 
 
                     <h1 class="reptestitle">Solucions enviades</h1>
-                    <div *ngIf="userSolucions && userSolucions.length < 1">No hi ha creada cap solució</div>
-                    <div *ngIf="userSolucions && userSolucions.length > 0" class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
+                    <div *ngIf="userSolucions && userSolucions.length < 1" class="no-elements text-center">No hi ha creada cap solució</div>
+                    <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
                         <div class="row w-100">
                             <div *ngFor="let solucio of userSolucions" class="col-md-4 col-sm-6">
                                 <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">

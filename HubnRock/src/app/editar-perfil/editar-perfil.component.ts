@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -25,7 +25,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   formDone = false;
   success = false;
 
-  pdfArray;
+  pdfArray = [];
+  pdfChanged = false;
 
   fotoProfile;
   fotoProfilePreview;
@@ -128,7 +129,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   }
 
-  constructor(public toastr: ToastrService, private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private aRouter: ActivatedRoute) { }
+  constructor(private router: Router, public toastr: ToastrService, private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private aRouter: ActivatedRoute) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -232,10 +233,14 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             inputFacebook: this.usuariObject.xarxes_facebook,
           })
 
+          console.log('jfsadkljflañksdjf', this.pdfArray)
+
           //PATCH RECURSOS
           if (this.usuariObject.cv_path) {
-            this.pdfArray = this.usuariObject.cv_path
-            console.log(this.pdfArray)
+            console.log('jfsadkljflañksdjf', this.pdfArray)
+
+            this.pdfArray[0] = this.usuariObject.cv_path
+            console.log('jfsadkljflañksdjf', this.pdfArray)
           }
 
           //PATCH FOTO PERFIL
@@ -319,40 +324,46 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      let validSize = true;
-      let totalSize = 0;
+      let pdfCleared = false;
 
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
 
-        totalSize += element.size
+        if (element.size < 1000000) {
+          if (!pdfCleared) {
+            this.pdfArray = []
+            pdfCleared = true;
+          }
 
-        if (element.size > 1000000) {
-          validSize = false;
-
+          this.pdfArray.push(element);
+          this.pdfChanged = true;
+        } else {
+          alert('L\'arxiu supera el límit de 1MB')
         }
       }
-
-      if (validSize && totalSize < 15728640) {
-        this.pdfArray = event.target.files
-      } else {
-        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
-        this.pdfArray = null;
-      }
     }
+    console.log(this.pdfArray)
   }
 
   resetPdfArray() {
-    this.pdfArray = null;
+    this.pdfArray = [];
   }
 
   onSubmit() {
     if (this.editUserForm.invalid) {
       this.logValidationErrorsUntouched()
     } else {
-      let confirmWindow = confirm('Està segur que vol actualitzar el seu perfil personal?')
+      let confirmString: string;
 
-      if (confirmWindow == true) {
+      if (this.userIsRockstar) {
+        confirmString = "Està segur que vol actualitzar el seu perfil personal?"
+      } else {
+        confirmString = "Està segur que vol modificar el seu perfil d'empresa?"
+      }
+
+      let confirmWindow = confirm(confirmString)
+
+      if (confirmWindow) {
         this.formDone = true;
 
         if (this.fotoProfile != this.currentFotoProfile) {
@@ -374,7 +385,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
               if (data.code == 1) {
                 window.scrollTo(0, 0)
                 this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
-                this.success = true;
+                this.router.navigate([`/perfil/${this.idUsuari}`])
+                // this.success = true;
                 console.log(data);
               }
             }
@@ -425,8 +437,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if (this.editUserForm.get('nomResponsable').value) {
         formData.append('nom_responsable', this.editUserForm.get('nomResponsable').value);
       }
-      if (this.pdfArray) {
-        if (this.editUserForm.get('pdfFile').value) {
+      if (this.pdfArray.length) {
+        if (this.pdfChanged) {
           formData.append(`cv_path`, this.pdfArray[0]);
           console.log('araaaaay', this.pdfArray)
         }
@@ -484,8 +496,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         formData.append('nom_rockstar', this.editUserForm.get('nomRockstar').value);
       }
 
-      if (this.pdfArray) {
-        if (this.editUserForm.get('pdfFile').value) {
+      if (this.pdfArray.length) {
+        if (this.pdfChanged) {
           formData.append(`cv_path`, this.pdfArray[0]);
           console.log('araaaaay', this.pdfArray)
         }

@@ -28,21 +28,20 @@
     </div>
     <hr>
     <form *ngIf="repteForm" id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
-        <div *ngIf="formErrors.campsErronis" class="row is-invalid">
+        <div class="row">
+            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteRepte()">ELIMINA EL REPTE</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">EDITA EL REPTE</button></div>
+        </div>
+        <div *ngIf="formErrors.campsErronis" class="row is-invalid mt-2">
             <div class="col">
                 <span class="help-block">
                     {{formErrors.campsErronis}}
                 </span>
             </div>
         </div>
-        <div class="row actionbtns">
-            <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteRepte()">ELIMINA EL REPTE</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">EDITA EL REPTE</button></div>
-        </div>
-
-        <div class="container" style="max-width: 730px">
+        <div class="actionbtns container" style="max-width: 730px">
 
             <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="formpagetitle">Informació general</h1>
@@ -464,7 +463,7 @@
                     <span class="ml-3" *ngIf="!pdf.name">{{pdf.recurs_nom}}</span>
                 </div>
 
-                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
                     <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
             </div>
@@ -630,7 +629,7 @@
                         </div>
 
                         <div *ngIf="i == (repteForm.get('juratArray').length - 1)" class="text-center afegeix-link mt-4 mb-4">
-                            <a (click)="addJuratButtonClick(); addPremiToObject('fotoJurat'+ i)">+ Afegeix unaltre jurat</a>
+                            <a (click)="addJuratButtonClick(); addPremiToObject('fotoJurat'+ i)">+ Afegeix un altre jurat</a>
                         </div>
                     </div>
                 </div>
@@ -655,6 +654,8 @@
                                     <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>
                                 </div>
                             </div>
+                            <hr class="mt-1" style="margin-bottom: 30px;">
+
                         </div>
 
                         <div class="form-group regularFont" [ngClass]="{'is-invalid' : (pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').invalid && checkUntouched)}">
@@ -686,7 +687,7 @@
                     </div>
                 </div>
                 <div class="text-center afegeix-link mt-4 mb-4">
-                    <a (click)="addPreguntaButtonClick()">+ Afegeix unaltre
+                    <a (click)="addPreguntaButtonClick()">+ Afegeix una altra
                         pregunta</a>
                 </div>
 

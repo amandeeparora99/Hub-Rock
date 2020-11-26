@@ -60,7 +60,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   formDone = false;
 
-  pdfArray;
+  pdfArray = [];
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -480,31 +480,28 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      let validSize = true;
-      let totalSize = 0;
+      let pdfCleared = false;
 
       for (let index = 0; index < event.target.files.length; index++) {
         const element = event.target.files[index];
 
-        totalSize += element.size
+        if (element.size < 1000000) {
+          if (!pdfCleared) {
+            this.pdfArray = []
+            pdfCleared = true;
+          }
 
-        if (element.size > 1000000) {
-          validSize = false;
-
+          this.pdfArray.push(element);
+        } else {
+          alert('L\'arxiu supera el límit de 1MB')
         }
       }
-
-      if (validSize && totalSize < 15728640) {
-        this.pdfArray = event.target.files
-      } else {
-        alert('Un dels arxius pujats supera el límit de 1MB o la suma dels arxius és major de 15MB')
-        this.pdfArray = null;
-      }
     }
+    console.log(this.pdfArray)
   }
 
   resetPdfArray() {
-    this.pdfArray = null;
+    this.pdfArray = [];
   }
 
   onFileRepteFoto(event) {
@@ -1076,7 +1073,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     }
 
     //APPENDING RECURSOS
-    if (this.pdfArray) {
+    if (this.pdfArray.length) {
       for (let index = 0; index < this.pdfArray.length; index++) {
         const file = this.pdfArray[index];
 

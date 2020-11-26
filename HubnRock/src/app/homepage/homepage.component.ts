@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit {
   usuariObject;
   // currentUserImage: File;
 
-  pdfArray;
+  pdfArray = [];
   fotoPerfilPreview;
   fotoPerfil;
 
@@ -174,23 +174,28 @@ export class HomepageComponent implements OnInit {
 
   onPdfSelected(event) {
     if (event.target.files) {
-      let totalSize = 0;
+      let pdfCleared = false;
 
-      totalSize = event.target.files[0].size;
+      for (let index = 0; index < event.target.files.length; index++) {
+        const element = event.target.files[index];
 
-      if (totalSize < 15728640) {
-        this.pdfArray = event.target.files
+        if (element.size < 1000000) {
+          if (!pdfCleared) {
+            this.pdfArray = []
+            pdfCleared = true;
+          }
 
-      } else {
-        this.pdfArray = null;
-        confirm('Supera el límit de 15MB')
+          this.pdfArray.push(element);
+        } else {
+          alert('L\'arxiu supera el límit de 1MB')
+        }
       }
-
     }
+    console.log(this.pdfArray)
   }
 
   resetPdfArray() {
-    this.pdfArray = null;
+    this.pdfArray = [];
   }
 
   confirmQuit() {
@@ -242,7 +247,7 @@ export class HomepageComponent implements OnInit {
       if (this.userForm.get('inputFacebook').value) {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
       }
-      if (this.pdfArray) {
+      if (this.pdfArray.length) {
         formData.append(`cv_path`, this.pdfArray[0]);
         // formData.append(`recurs_url_fitxer[${index}]`, file);
       }
@@ -294,7 +299,7 @@ export class HomepageComponent implements OnInit {
         formData.append('xarxes_facebook', this.userForm.get('inputFacebook').value);
       }
 
-      if (this.pdfArray) {
+      if (this.pdfArray.length) {
         formData.append(`cv_path`, this.pdfArray[0]);
         // formData.append(`recurs_url_fitxer[${index}]`, file);
       }

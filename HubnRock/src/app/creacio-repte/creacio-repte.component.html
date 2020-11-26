@@ -28,14 +28,7 @@
     </div>
     <hr>
     <form id="regForm" [formGroup]="repteForm" (ngSubmit)="onRepteSubmit()">
-        <div *ngIf="formErrors.campsErronis" class="row is-invalid">
-            <div class="col">
-                <span class="help-block">
-                    {{formErrors.campsErronis}}
-                </span>
-            </div>
-        </div>
-        <div class="row actionbtns">
+        <div class="row">
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" type="button" (click)="desaBorrador()">DESA COM A ESBORRANY</button>
             </div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
@@ -43,7 +36,14 @@
             <!-- <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="repteForm.invalid" type="submit">ENVIA LA SOLUCIÓ</button></div> -->
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA EL REPTE</button></div>
         </div>
-        <div class="container" style="max-width: 730px">
+        <div *ngIf="formErrors.campsErronis" class=" mt-2 row is-invalid">
+            <div class="col">
+                <span class="help-block">
+                    {{formErrors.campsErronis}}
+                </span>
+            </div>
+        </div>
+        <div class="container actionbtns" style="max-width: 730px">
 
             <div class="tab" [hidden]="currentTab != 0">
                 <h1 class="formpagetitle">Informació general</h1>
@@ -463,7 +463,7 @@
                     <span class="ml-3">{{pdf.name}}</span>
                 </div>
 
-                <div *ngIf="pdfArray" class="text-center elimina-link mt-3">
+                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
                     <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
             </div>
@@ -655,6 +655,7 @@
                                     <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>
                                 </div>
                             </div>
+                            <hr class="mt-1" style="margin-bottom: 30px;">
                         </div>
 
                         <div class="form-group regularFont" [ngClass]="{'is-invalid' : (pregunta.get('pregunta').invalid && pregunta.get('pregunta').touched) || (pregunta.get('pregunta').invalid && checkUntouched)}">
@@ -686,7 +687,7 @@
                     </div>
                 </div>
                 <div class="text-center afegeix-link mt-4 mb-4">
-                    <a (click)="addPreguntaButtonClick()">+ Afegeix unaltre
+                    <a (click)="addPreguntaButtonClick()">+ Afegeix una altra
                         pregunta</a>
                 </div>
 
