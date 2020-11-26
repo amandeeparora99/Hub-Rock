@@ -97,8 +97,8 @@
                     <div class="image-upload d-flex justify-content-center align-items-center">
                         <label *ngIf="!fotosReptePreview.fotoPortada" for="InputFotoPortada" class="pointer mb-0">
                             <div class="row d-flex flex-column justify-content-center">
-                                <img src="https://dummyimage.com/61x61/00e293/000000"
-                                    class="rounded-circle align-self-center" />
+                                <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
+                                    class="align-self-center" />
                                 <p class="mb-0">Afegeix foto</p>
                             </div>
                         </label>
@@ -131,7 +131,7 @@
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label *ngIf="!fotosReptePreview.fotoRepresentativa1" for="InputFotoRepresentativa1" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000" class="rounded-circle align-self-center" />
+                                        <img src="../../../assets/simpleicons/Add_Pic.png" width="61px" class="align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
@@ -146,7 +146,7 @@
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label *ngIf="!fotosReptePreview.fotoRepresentativa2" for="InputFotoRepresentativa2" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000" class="rounded-circle align-self-center" />
+                                        <img src="../../../assets/simpleicons/Add_Pic.png" width="61px" class="align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
@@ -162,7 +162,7 @@
                             <div class="image-upload d-flex justify-content-center align-items-center">
                                 <label *ngIf="!fotosReptePreview.fotoRepresentativa3" for="InputFotoRepresentativa3" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000" class="rounded-circle align-self-center" />
+                                        <img src="../../../assets/simpleicons/Add_Pic.png" width="61px" class="align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
@@ -199,7 +199,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputEmpreses" formControlName="empresesCheckbox" checked>
                             <label class="form-check-label" for="InputEmpreses">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" src="../../../assets/illustrations/Company.png">
+                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.empresesCheckbox ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'">
                                     <p class="checkboxtitle">Empreses</p>
                                 </div>
                             </label>
@@ -208,7 +208,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputStartups" formControlName="startupsCheckbox">
                             <label class="form-check-label" for="InputStartups">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" src="../../assets/illustrations/Startup.png">
+                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.startupsCheckbox ? '../../../assets/illustrations/Startup.png' : '../../../assets/illustrations/Startup_BW.png'">
                                     <p class="checkboxtitle">Startups</p>
                                 </div>
                             </label>
@@ -217,7 +217,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputEstudiants" formControlName="estudiantsCheckbox">
                             <label class="form-check-label" for="InputEstudiants">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" src="../../../assets/illustrations/Student.png">
+                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.estudiantsCheckbox ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'">
                                     <p class="checkboxtitle">Estudiants</p>
                                 </div>
                             </label>
@@ -226,7 +226,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputExperts" formControlName="expertsCheckbox">
                             <label class="form-check-label" for="InputExperts">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" src="../../../assets/illustrations/Experts.png">
+                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.expertsCheckbox ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'">
                                     <p class="checkboxtitle">Experts</p>
                                 </div>
                             </label>
@@ -292,7 +292,7 @@
                             <div class="d-flex justify-content-between">
                                 <label class="mb-0 mr-3">Premi {{i+1}}</label>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('premiArray').length > 1">
-                                    <a (click)="removePremiButtonClick(i); eliminarFotoArray('fotoPremi' + i)">- Elimina aquest premi</a>
+                                    <a (click)="eliminarFotoArray('fotoPremi' + i, i)">- Elimina aquest premi</a>
                                 </div>
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">
@@ -354,8 +354,8 @@
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
                                 <label *ngIf="!getInterpolationCondition('fotoPremi', i)" [attr.for]="'InputFotoPremi' + i" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
-                                            class="rounded-circle align-self-center" />
+                                        <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
+                                            class="align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
@@ -381,7 +381,7 @@
                             <div class="d-flex justify-content-between">
                                 <label class="mb-0 mr-3">Solució {{i+1}}</label>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('solucioArray').length > 1">
-                                    <a (click)="removeSolucioButtonClick(i); eliminarFotoArray('fotoSolucio' + i)">- Elimina aquesta solució</a>
+                                    <a (click)="eliminarFotoArray('fotoSolucio' + i, i)">- Elimina aquesta solució</a>
                                 </div>
                             </div>
                             <hr class="mt-1" style="margin-bottom: 30px;">
@@ -427,8 +427,8 @@
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
                                 <label *ngIf="!getInterpolationCondition('fotoSolucio', i)" [attr.for]="'InputFotoSolucio' + i " class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
-                                        <img src="https://dummyimage.com/61x61/00e293/000000"
-                                            class="rounded-circle align-self-center" />
+                                        <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
+                                            class="align-self-center" />
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
@@ -480,7 +480,7 @@
                                     <span class="opcional-text">(Opcional)</span><br>
                                 </div>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('partnerArray').length > 1">
-                                    <a (click)="removePartnerButtonClick(i); eliminarFotoArray('fotoPartner' + i)">- Elimina aquest partner</a>
+                                    <a (click)="eliminarFotoArray('fotoPartner' + i, i)">- Elimina aquest partner</a>
                                 </div>
                             </div>
                             <label class="additional-info" for="InputNomPartner">Si el repte es fa en col·laboració amb
@@ -528,8 +528,8 @@
                                 <div class="image-upload d-flex justify-content-center align-items-center">
                                     <label *ngIf="!getInterpolationCondition('fotoPartner', i)" [attr.for]="'InputLogoPartner' + i" class="pointer mb-0">
                                         <div class="row d-flex flex-column justify-content-center">
-                                            <img src="https://dummyimage.com/61x61/00e293/000000"
-                                                class="rounded-circle align-self-center" />
+                                            <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
+                                                class="align-self-center" />
                                             <p class="mb-0">Afegeix foto</p>
                                         </div>
                                     </label>
@@ -566,7 +566,7 @@
                                     <span class="opcional-text">(Opcional)</span><br>
                                 </div>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('juratArray').length > 1">
-                                    <a (click)="removeJuratButtonClick(i); eliminarFotoArray('fotoJurat' + i)">- Elimina aquest jurat</a>
+                                    <a (click)="eliminarFotoArray('fotoJurat' + i, i)">- Elimina aquest jurat</a>
                                 </div>
                             </div>
                             <label class="additional-info" for="InputNomCognomsJurat">Qui serà el jurat del
@@ -613,8 +613,8 @@
                                 <div class="image-upload d-flex justify-content-center align-items-center">
                                     <label *ngIf="!getInterpolationCondition('fotoJurat', i)" [attr.for]="'fotoJurat' + i" class="pointer mb-0">
                                         <div class="row d-flex flex-column justify-content-center">
-                                            <img src="https://dummyimage.com/61x61/00e293/000000"
-                                                class="rounded-circle align-self-center" />
+                                            <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
+                                                class="align-self-center" />
                                             <p class="mb-0">Afegeix foto</p>
                                         </div>
                                     </label>

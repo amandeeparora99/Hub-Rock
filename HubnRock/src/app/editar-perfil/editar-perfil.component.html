@@ -12,37 +12,41 @@
             <h1 id="register-title" class="text-center">Edita el teu perfil</h1>
 
             <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
-                <div class="row mb-2">
-                    <div class="col-md-6" *ngIf="fotoProfilePreview">
-                        <img height="300px" width="300px" class="rounded-circle" [src]="fotoProfilePreview" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row"><label for="profilePicture">Foto de perfil</label></div>
-                        <hr>
-                        <div class="row"><input formControlName="fotoPerfil" type="file" accept="image/*" id="profilePicture" (change)="onFileSelected($event)"></div>
-                        <div class="row">
-                            <div class="text-center elimina-link" *ngIf="fotoProfilePreview != currentFotoProfilePreview">
+                <div class="mb-1">
+                    
+                    <div class="col-md-12">
+                        <div class="row d-flex flex-column">
+                            <label for="profilePicture">Foto de perfil</label>
+                            <div style="background-color: black; height: 1px; width: 100%;"></div>
+                        </div>
+
+                        <div class="col-md-6 mt-4 mb-4" *ngIf="fotoProfilePreview">
+                            <img height="300px" width="300px" class="rounded-circle" [src]="fotoProfilePreview" alt="">
+                        </div>
+                        <div class="row d-flex align-items-start">
+                            <input class="inputFotoPerfil" formControlName="fotoPerfil" type="file" accept="image/*" id="profilePicture" (change)="onFileSelected($event)">
+                            <div class="text-center elimina-link mt-0" *ngIf="fotoProfilePreview != currentFotoProfilePreview">
                                 <a (click)="eliminarFoto()">- Elimina aquesta foto</a>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
+                <div *ngIf="!userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
                     <label for="InputNom">Nom empresa</label>
                     <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomEmpresa">
                         {{formErrors.nomEmpresa}}
                     </span>
                 </div>
-                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomRockstar}">
+                <div *ngIf="userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.nomRockstar}">
                     <label for="InputNomRockstar">Nom</label>
                     <input formControlName="nomRockstar" type="text" class="form-control" id="InputNomRockstar" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomRockstar">
                         {{formErrors.nomRockstar}}
                     </span>
                 </div>
-                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
+                <div *ngIf="!userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
                     <label for="InputRealName">Nom responsable</label>
                     <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomResponsable">
@@ -75,7 +79,7 @@
                     </div>
                 </div> -->
 
-                <div *ngIf="!userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.nifEmpresa}">
+                <div *ngIf="!userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.nifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
                     <input formControlName="nifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nifEmpresa">
@@ -83,7 +87,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.ocupacio}">
+                <div *ngIf="userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.ocupacio}">
                     <label for="InputOcupacio">Ocupació</label>
                     <input formControlName="ocupacio" type="text" class="form-control" id="InputOcupacio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.ocupacio">
@@ -91,7 +95,7 @@
                     </span>
                 </div>
 
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.ubicacio}">
+                <div class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.ubicacio}">
                     <label for="InputUbicacio">Ubicació</label>
                     <input formControlName="ubicacio" type="text" class="form-control" id="InputUbicacio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.ubicacio">
@@ -99,7 +103,7 @@
                     </span>
                 </div>
 
-                <div class="form-group" [ngClass]="{'is-invalid' : formErrors.bio}">
+                <div class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.bio}">
                     <label for="InputBio">Sobre tu:</label>
                     <input formControlName="bio" type="text" class="form-control" id="InputBio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.bio">
@@ -107,12 +111,12 @@
                     </span>
                 </div>
 
-                <label for="inputTags" class="col-form-label" *ngIf="userIsRockstar">Habilitats:</label>
-                <label for="inputTags" class="col-form-label" *ngIf="!userIsRockstar">Serveis:</label>
+                <label for="inputTags" class="col-form-label pt-0" *ngIf="userIsRockstar">Habilitats:</label>
+                <label for="inputTags" class="col-form-label pt-0" *ngIf="!userIsRockstar">Serveis:</label>
 
                 <input (keydown.enter)="addTagSubmit(inputValue)" formControlName="inputTags" class="form-control" id="inputTags" type="text" placeholder="Disseny, tecnologia..." (input)="onSearchChange($event.target.value)" [(ngModel)]="inputValue">
 
-                <div class="form-group d-flex mt-2">
+                <div class="form-group d-flex mt-2 mb-4">
                     <div class="d-flex align-items-center userTag mr-2" *ngFor="let tag of tags; let i = index">
                         <p class="m-0 pl-2">{{tag}}</p>
                         <div class="input-group-append">
@@ -129,7 +133,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="userIsRockstar" class="form-group" [ngClass]="{'is-invalid' : formErrors.educacio}">
+                <div *ngIf="userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.educacio}">
                     <label for="InputEducacio">Educació</label>
                     <input formControlName="educacio" type="text" class="form-control" id="InputEducacio" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.educacio">
@@ -137,24 +141,24 @@
                     </span>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row mb-3">
                     <div class="form-group col-md-6">
                         <label for="inputLinkedin">LinkedIn</label>
-                        <input formControlName="inputLinkedIn" type="text" class="form-control" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
+                        <input formControlName="inputLinkedIn" type="text" class="form-control socialLinks" id="inputLinkedin" placeholder="https://www.linkedin.com/in/">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputTwitter">Twitter</label>
-                        <input formControlName="inputTwitter" type="text" class="form-control" id="inputTwitter" placeholder="https://twitter.com/">
+                        <input formControlName="inputTwitter" type="text" class="form-control socialLinks" id="inputTwitter" placeholder="https://twitter.com/">
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row mb-3">
                     <div class="form-group col-md-6">
                         <label for="inputInstagram">Instagram</label>
-                        <input formControlName="inputInstagram" type="text" class="form-control" id="inputInstagram" placeholder="https://www.instagram.com/">
+                        <input formControlName="inputInstagram" type="text" class="form-control socialLinks" id="inputInstagram" placeholder="https://www.instagram.com/">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputFacebook">Facebook</label>
-                        <input formControlName="inputFacebook" type="text" class="form-control" id="inputFacebook" placeholder="https://www.facebook.com/">
+                        <input formControlName="inputFacebook" type="text" class="form-control socialLinks" id="inputFacebook" placeholder="https://www.facebook.com/">
                     </div>
                 </div>
 

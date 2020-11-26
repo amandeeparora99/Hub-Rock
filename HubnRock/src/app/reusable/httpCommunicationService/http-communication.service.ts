@@ -144,6 +144,13 @@ export class HttpCommunicationService {
     }));
   }
 
+  validateAccount(encrypt_string): Observable<any> {
+    return this.http.get<any>(environment.api + `/register/${encrypt_string}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
   getRepte(repte_id): Observable<any> {
     return this.http.get<any>(environment.api + '/repte/get/' + repte_id)
       .pipe(map(data => {

@@ -1,6 +1,5 @@
 <app-header></app-header>
 
-
 <section id="hubrock-reptes">
     <div id="bannerimg">
         <div id="banner" class="w-100 d-flex align-items-center">
@@ -74,67 +73,11 @@
 
 </section>
 
-
-<section id="hubrock-reptesoberts" *ngIf="searching == 0">
-    <div class="container">
-        <h1 class="text-center reptestitle">Reptes oberts</h1>
-        <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte obert</p>
-
-        <div class="d-flex">
-
-            <div class="row w-100">
-
-                <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="card" routerLink="/repte/{{repte.idrepte}}">
-                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
-                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
-                            </div>
-                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
-                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                            <div class="card-title d-flex align-items-center">
-                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                <div class="d-flex align-items-center">
-                                    <div *ngFor="let premi of repte.premis; let i = index">
-                                        <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
-                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-title d-flex">
-                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
-                                <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
-                            </div>
-                            <div class="tags">
-                                <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
-                                                'tag-blue': participants.participants_name == 'Empreses',
-                                                'tag-orange': participants.participants_name == 'Estudiants',
-                                                'tag-purple': participants.participants_name == 'Experts'}">
-                                    {{participants.participants_name}}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div *ngIf="!obertsNoMore" class="text-center">
-            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
-        </div>
-
-
-
-    </div>
-</section>
-
 <section id="hubrock-reptesproces" *ngIf="searching == 0">
     <div class="container">
-        <h1 class="text-center reptestitle">Reptes en procés</h1>
+        <h1 class="text-center reptestitle">Reptes en curs</h1>
 
-        <p *ngIf="!reptesProces.length" class="text-center what-text">No hi ha cap repte en procés</p>
+        <p *ngIf="!reptesProces.length" class="text-center what-text">No hi ha cap repte en curs</p>
 
         <div class="d-flex">
             <div class="row w-100">
@@ -183,6 +126,61 @@
         <div *ngIf="!procesNoMore" class="text-center">
             <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreProces()">VEURE MÉS</button>
         </div>
+
+    </div>
+
+</section>
+
+<section id="hubrock-reptesoberts" *ngIf="searching == 0">
+    <div class="container">
+        <h1 class="text-center reptestitle">Reptes futurs</h1>
+        <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte futur</p>
+
+        <div class="d-flex">
+
+            <div class="row w-100">
+
+                <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
+                        <div class="card-body fitxa-repte">
+                            <div class="card-title d-flex">
+                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
+                            </div>
+                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                            <div class="card-title d-flex align-items-center">
+                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                <div class="d-flex align-items-center">
+                                    <div *ngFor="let premi of repte.premis; let i = index">
+                                        <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title d-flex">
+                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
+                                <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
+                            </div>
+                            <div class="tags">
+                                <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                                'tag-blue': participants.participants_name == 'Empreses',
+                                                'tag-orange': participants.participants_name == 'Estudiants',
+                                                'tag-purple': participants.participants_name == 'Experts'}">
+                                    {{participants.participants_name}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="!obertsNoMore" class="text-center">
+            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
+        </div>
+
 
 
     </div>

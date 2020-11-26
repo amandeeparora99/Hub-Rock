@@ -165,9 +165,11 @@ export class HomepageComponent implements OnInit {
   }
 
   eliminarFoto() {
-    this.fotoPerfilPreview = null;
-    this.fotoPerfil = null;
-
+    let confirmWindow = confirm('Estàs segur que vols eliminar aquesta foto?')
+    if (confirmWindow == true) {
+      this.fotoPerfilPreview = null;
+      this.fotoPerfil = null;
+    }
   }
 
   onPdfSelected(event) {

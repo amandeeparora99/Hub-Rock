@@ -244,7 +244,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     })
   }
   removeMemberButtonClick(membreGroupIndex: number): void {
-    (<FormArray>this.solucioForm.get('membreArray')).removeAt(membreGroupIndex)
+    let confirmWindow = confirm('Estàs segur que vols eliminar aquest membre?')
+    if (confirmWindow == true) {
+      (<FormArray>this.solucioForm.get('membreArray')).removeAt(membreGroupIndex)
+    }
   }
 
   addMemberButtonClick(): void {

@@ -645,7 +645,7 @@ img {
     color: #7b7b7b;
 }
 
-.forumbutton:hover {
+.forumbutton:hover:enabled {
     background-color: #020e7d;
     color: white;
 }

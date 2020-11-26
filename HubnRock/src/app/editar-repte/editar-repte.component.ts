@@ -1006,22 +1006,33 @@ export class EditarRepteComponent implements OnInit {
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
 
     if (arraySplit[0] == 'fotoPremi') {
-      this.objectFotosPreview[fotoName] = '';
-      this.objectFotos[fotoName] = '';
+      let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
+
+      if (confirmWindow == true) {
+        this.objectFotosPreview[fotoName] = '';
+        this.objectFotos[fotoName] = '';
+      }
     }
     else if (arraySplit[0] == 'fotoSolucio') {
-      this.objectSolucionsPreview[fotoName] = '';
-      this.objectSolucions[fotoName] = '';
+      let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
+
+      if (confirmWindow == true) {
+        this.objectSolucionsPreview[fotoName] = '';
+        this.objectSolucions[fotoName] = '';
+      }
     }
     else if (arraySplit[0] == 'fotoPartner') {
       (<FormArray>this.repteForm.get('partnerArray')).at(arraySplit[1]).patchValue({
         logoPartner: null
       })
 
-      this.objectPartnersPreview[fotoName] = '';
-      this.objectPartners[fotoName] = '';
+      let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
 
-      this.logValidationErrors()
+      if (confirmWindow == true) {
+        this.objectPartnersPreview[fotoName] = '';
+        this.objectPartners[fotoName] = '';
+        this.logValidationErrors()
+      }
     }
     else if (arraySplit[0] == 'fotoJurat') {
 
@@ -1029,18 +1040,27 @@ export class EditarRepteComponent implements OnInit {
         fotoJurat: null
       })
 
-      this.objectJuratsPreview[fotoName] = '';
-      this.objectJurats[fotoName] = '';
+      let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
 
-      this.logValidationErrors()
+      if (confirmWindow == true) {
+        this.objectJuratsPreview[fotoName] = '';
+        this.objectJurats[fotoName] = '';
+        this.logValidationErrors()
+      }
+
     } else {
-      this.fotosRepte[fotoName] = '';
-      this.fotosReptePreview[fotoName] = '';
+      let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
+
+      if (confirmWindow == true) {
+        this.fotosRepte[fotoName] = '';
+        this.fotosReptePreview[fotoName] = '';
+      }
     }
+
     this.logValidationErrors()
   }
 
-  eliminarFotoArray(fotoName) {
+  eliminarFotoArray(fotoName, i) {
     let str = fotoName;
 
     //Separem el nom de foto
@@ -1048,23 +1068,43 @@ export class EditarRepteComponent implements OnInit {
     let number = Number(arraySplit[1]);  //0
 
     if (arraySplit[0] == 'fotoPremi') {
-      this.loopObjectFotosPreview(number, arraySplit[0]);
-      this.loopObjectFotos(number, arraySplit[0]);
+
+      let confirmWindow = confirm('Estàs segur que vols eliminar aquests premi?')
+      if (confirmWindow == true) {
+        this.loopObjectFotosPreview(number, arraySplit[0]);
+        this.loopObjectFotos(number, arraySplit[0]);
+        this.removePremiButtonClick(i);
+      }
     }
     else if (arraySplit[0] == 'fotoSolucio') {
-      this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
-      this.loopObjectFotosSolucio(number, arraySplit[0]);
+
+      let confirmWindow = confirm('Estàs segur que vols eliminar aquesta solució?')
+      if (confirmWindow == true) {
+        this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
+        this.loopObjectFotosSolucio(number, arraySplit[0]);
+        this.removeSolucioButtonClick(i);
+      }
     }
     else if (arraySplit[0] == 'fotoPartner') {
-      this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
-      this.loopObjectFotosPartner(number, arraySplit[0]);
-      this.logValidationErrors()
+
+      let confirmWindow = confirm('Estàs segur que vols eliminar aquest partner?')
+      if (confirmWindow == true) {
+        this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
+        this.loopObjectFotosPartner(number, arraySplit[0]);
+        this.removePartnerButtonClick(i);
+        this.logValidationErrors();
+      }
 
     }
     else if (arraySplit[0] == 'fotoJurat') {
-      this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
-      this.loopObjectFotosJurat(number, arraySplit[0]);
-      this.logValidationErrors()
+
+      let confirmWindow = confirm('Estàs segur que vols eliminar aquest jurat?')
+      if (confirmWindow == true) {
+        this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
+        this.loopObjectFotosJurat(number, arraySplit[0]);
+        this.removeJuratButtonClick(i);
+        this.logValidationErrors()
+      }
 
     }
 

@@ -22,6 +22,8 @@ export class RepteComponent implements OnInit {
   public fileStorageUrl = environment.api + '/image/';
   public idRepte = null;
   public repte = null;
+  public topicPost;
+  public buttonDisabled: Boolean = false;
 
   public forum = null;
   public forumRespostes = null;
@@ -365,26 +367,36 @@ export class RepteComponent implements OnInit {
     }
   }
 
-  switchTextArea(topicPostMsg) {
+  switchTextArea() {
     if (!this.textAreaOn) {
       this.textAreaOn = true;
       this.forumButtonText = '+ Publica'
+      this.buttonDisabled = true;
     }
     else {
-      console.log("ENVIANT FORUM")
-      console.log(topicPostMsg)
-      this.subscriptionHttp6$ = this.httpCommunication.postTopic(this.idRepte, topicPostMsg)
+      this.subscriptionHttp6$ = this.httpCommunication.postTopic(this.idRepte, this.topicPost)
         .pipe(first())
         .subscribe(
           data => {
             console.log(data);
             if (data.code == 1) {
-              this.toastr.success('Missatge enviat correctament', 'Enviat')
+              this.topicPost = '';
+              this.toastr.success('Missatge enviat correctament', 'Enviat');
+              this.getRepteForum(this.idRepte, 1, 10);
             }
           }
         );
     }
 
+  }
+
+  onSearchChange(searchValue: string): void {
+    if(searchValue == ''){
+      this.buttonDisabled = true;
+    }
+    else {
+      this.buttonDisabled = false;
+    }
   }
 
   carregarRespostes(idMissatgePare, numRespostes) {
@@ -441,6 +453,7 @@ export class RepteComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
+            this.getRepteForum(this.idRepte, 1, 10);
           }
         );
     }
@@ -449,7 +462,7 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            this.getRepteForum(this.idRepte, 1, 10);
           }
         );
     }

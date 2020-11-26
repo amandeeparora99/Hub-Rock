@@ -531,8 +531,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   }
 
   eliminarFoto() {
-    this.fotoProfilePreview = this.currentFotoProfilePreview;
-    this.fotoProfile = this.currentFotoProfile;
+    let confirmWindow = confirm('Estàs segur que vols eliminar aquesta foto?')
+    if (confirmWindow == true) {
+      this.fotoProfilePreview = this.currentFotoProfilePreview;
+      this.fotoProfile = this.currentFotoProfile;
+    }
   }
 
   deleteTag(tagName) {

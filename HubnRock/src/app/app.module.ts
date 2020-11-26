@@ -31,6 +31,7 @@ import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/edit
 import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { ValidateAccountComponent } from './validate-account/validate-account.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ToastrModule } from "ngx-toastr";
     SpinnerComponent,
     EditarSolucioEsborranyComponent,
     ClickStopPropagationDirective,
+    ValidateAccountComponent,
   ],
   imports: [
     BrowserModule,
