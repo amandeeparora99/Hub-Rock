@@ -120,6 +120,13 @@
     min-height: 211px;
 }
 
+.cardProfileImg {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 25px;
+}
+
 /** Social */
 
 .socialLinks::placeholder{

@@ -164,7 +164,9 @@
                             <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
+                                     [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    </div>
                                     <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                 </div>
                                 <h5 class="card-title titol-repte">{{repte.nom}}</h5>

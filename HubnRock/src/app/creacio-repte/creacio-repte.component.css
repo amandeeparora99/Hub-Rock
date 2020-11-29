@@ -56,6 +56,13 @@ textarea#InputBreuDescripcio {
     border: solid 1px #b6b6b6;
 }
 
+.fotoPortadaCss {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
 .image-upload p {
     font-size: 18px;
     letter-spacing: -0.45px;

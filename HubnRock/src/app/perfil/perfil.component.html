@@ -15,7 +15,9 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <img height="214px" width="214px" class="rounded-circle" [src]="fileStorageUrl + usuariObject.url_photo_profile" alt="">
+                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 profileImgBig"
+                                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + usuariObject.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{usuariObject.user_iduser}}">
+                            </div>
                         </div>
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
@@ -110,8 +112,9 @@
                                         <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.url_photo_main + ')'}" alt="Card image cap"></div>
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
-                                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
-                                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repteEsborrany.user_iduser}}">{{repteEsborrany.user.nom_empresa}}</p>
+                                                <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
+                                                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
+                                                </div><p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repteEsborrany.user_iduser}}">{{repteEsborrany.user.nom_empresa}}</p>
                                             </div>
                                             <h5 class="card-title titol-repte">{{repteEsborrany.nom}}</h5>
                                             <p *ngIf="!repteEsborrany.descripcio_short" class="card-text desc-repte">Sense descripció breu</p>
@@ -165,7 +168,9 @@
                                     <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
-                                            <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
+                                                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                            </div>
                                             <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                         </div>
                                         <h5 class="card-title titol-repte">{{repte.nom}}</h5>

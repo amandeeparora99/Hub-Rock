@@ -2,6 +2,13 @@
     font-family: 'WorkSans-Regular';
 }
 
+.fotoPortadaCss {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
 #editarRepte{
     margin-top: 70px;
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
@@ -30,6 +31,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
   checkUntouched = false;
 
+  public fileStorageUrl = environment.api + '/image/';
   currentUser: User;
   idRepteEsborrany;
 
