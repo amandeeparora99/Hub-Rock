@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-editar-solucio',
@@ -14,7 +16,7 @@ import { User } from '../user';
 })
 export class EditarSolucioComponent implements OnInit, HasUnsavedData {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
+  constructor(public toastr: ToastrService, private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -540,6 +542,8 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
 
                 this.success = true;
                 this.enviat = true;
+
+                this.toastr.success('Solució enviada correctament!', 'Enviat')
                 console.log(data);
               }
             });
@@ -632,6 +636,8 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
           if (data.code == 1) {
             this.success = true;
             this.eliminat = true;
+            this.toastr.success('Solució eliminada correctament', 'Eliminat')
+
           }
 
         });

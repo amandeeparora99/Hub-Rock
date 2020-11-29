@@ -39,6 +39,14 @@ textarea#InputBreuDescripcio {
     margin-top: 110px;
 }
 
+.bottom-navigation-mb {
+    margin-bottom: 90px;
+}
+
+.bottom-navigation-mt {
+    margin-top: 90px;
+}
+
 .btn-eliminar-esborrany {
     width: 100%;
     border-radius: 8px;

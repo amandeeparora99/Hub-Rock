@@ -5,6 +5,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 import { first } from 'rxjs/operators';
 import { User } from '../user';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
@@ -15,7 +16,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class SolucioComponent implements OnInit {
 
-  constructor(private sanitizer: DomSanitizer, public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
+  constructor(public toastr: ToastrService, private sanitizer: DomSanitizer, public router: Router, public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
 
   public fileStorageUrl = environment.api + '/image/';
   public idSolucio;
@@ -148,6 +149,7 @@ export class SolucioComponent implements OnInit {
           .subscribe(data => {
             if (data.code == 1) {
               if (this.currentUser) {
+                this.toastr.success('Solució eliminada correctament', 'Eliminat');
                 this.router.navigate([`/perfil/${this.currentUser.idUser}`])
               }
             }

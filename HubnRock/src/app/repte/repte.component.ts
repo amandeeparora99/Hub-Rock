@@ -7,7 +7,6 @@ import { User } from '../user';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-// import { ClickStopPropagationDirective } from '../click-stop-propagation.directive';
 
 @Component({
   selector: 'app-repte',
@@ -274,6 +273,7 @@ export class RepteComponent implements OnInit {
           .subscribe(data => {
             if (data.code == 1) {
               if (this.currentUser) {
+                this.toastr.success('Repte eliminat correctament', 'Eliminat');
                 this.router.navigate([`/perfil/${this.currentUser.idUser}`])
               }
             }
@@ -391,7 +391,7 @@ export class RepteComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    if(searchValue == ''){
+    if (searchValue == '') {
       this.buttonDisabled = true;
     }
     else {
@@ -403,7 +403,7 @@ export class RepteComponent implements OnInit {
 
     //Falta fer el get sense auth en cas que sigui user sense login
     if (!this.objectRespostes["forumParent" + idMissatgePare]) {
-      if(numRespostes > 0){
+      if (numRespostes > 0) {
         if (this.httpCommunication.loggedIn()) {
           this.subscriptionHttp3$ = this.httpCommunication.getForumRespostesLogin(idMissatgePare)
             .pipe(first())
@@ -435,7 +435,7 @@ export class RepteComponent implements OnInit {
             );
         }
       }
-      else{
+      else {
         console.log("No té respostes my friend")
       }
 
@@ -572,7 +572,7 @@ export class RepteComponent implements OnInit {
           }
         );
     }
-    
+
 
   }
 }

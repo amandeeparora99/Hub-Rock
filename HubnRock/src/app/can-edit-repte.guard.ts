@@ -3,12 +3,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanEditRepteGuard implements CanActivate {
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -23,9 +24,18 @@ export class CanEditRepteGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.estat_idestat != 3) {
+          if (data.row.estat_idestat == 2) {
             return true;
+          } else if (data.row.estat_idestat == 1) {
+            this.toastr.warning('El repte és un esborrany', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
+          } else if (data.row.estat_idestat == 3) {
+            this.toastr.warning('El repte ja ha sigut acceptat per un administrador', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
           } else {
+            this.toastr.warning('El repte no es pot editar', 'Accés denegat');
             this.router.navigate(['/'])
             return false;
           }

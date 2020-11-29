@@ -3,12 +3,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanEditSolucioGuard implements CanActivate {
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -23,21 +24,34 @@ export class CanEditSolucioGuard implements CanActivate {
       map(data => {
         if (data.code == 1) {
           let solucio = data.row;
-          if (solucio.data_inici && solucio.data_final) {
-            let dateIniciRepte = new Date(solucio.data_inici);
-            let dateFinalRepte = new Date(solucio.data_final);
-            let currentDate = new Date();
 
+          let dateIniciRepte = new Date(solucio.data_inici);
+          let dateFinalRepte = new Date(solucio.data_final);
+          let currentDate = new Date();
+
+          if (solucio.solucio_estat_idestat == 3) {
             if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
-              console.log('retorno true')
+
               return true;
             } else {
+              this.toastr.warning('El repte no està en procés', 'Accés denegat');
               this.router.navigate(['/'])
-              console.log('retorno false')
 
               return false;
             }
+          } else if (solucio.solucio_estat_idestat == 1) {
+            this.toastr.warning('La solució és un esborrany', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
+
+          } else {
+            this.toastr.warning('La solució no es pot editar', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
           }
+
+
+
         } else {
           this.router.navigate(['/'])
           return false;

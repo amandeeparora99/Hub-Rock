@@ -3,13 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IsAdminGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -23,13 +24,13 @@ export class IsAdminGuard implements CanActivate {
           if (data.row.role_idrole == 1) {
             return true;
           } else {
+            this.toastr.warning('No tens permisos d\'administrador', 'Accés denegat');
             this.router.navigate(['/'])
             return false;
           }
 
         } else {
           this.router.navigate(['/'])
-
           return false;
         }
       }));

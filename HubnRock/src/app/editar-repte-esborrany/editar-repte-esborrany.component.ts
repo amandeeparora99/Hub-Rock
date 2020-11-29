@@ -832,6 +832,11 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     this.currentTab = this.currentTab + n;
   }
 
+  nextPrevBottom(n) {
+    this.currentTab = this.currentTab + n;
+    window.scrollTo(0, 0)
+  }
+
   changeRadio(value) {
     this.radioValue = value;
 
@@ -1073,7 +1078,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       if (confirmWindow == true) {
         this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
         this.loopObjectFotosSolucio(number, arraySplit[0]);
-        this.removeSolucioButtonClick(i); 
+        this.removeSolucioButtonClick(i);
       }
     }
     else if (arraySplit[0] == 'fotoPartner') {
@@ -1093,7 +1098,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       if (confirmWindow == true) {
         this.loopObjectFotosPreviewJurat(number, arraySplit[0]);
         this.loopObjectFotosJurat(number, arraySplit[0]);
-        this.removeJuratButtonClick(i); 
+        this.removeJuratButtonClick(i);
         this.logValidationErrors()
       }
     }
@@ -1518,7 +1523,6 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   }
 
   desaBorrador() {
-
     if (!this.repteForm.get('nomRepte').value) {
 
       if (!this.formErrors.nomRepte) {
@@ -1571,7 +1575,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
               window.scrollTo(0, 0)
               // this.success = true;
               // this.actualitzat = true;
-              this.toastr.success('Repte desat com a esborrany', 'Desat')
+              this.toastr.success('Esborrany actualitzat', 'Desat')
               // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
               // this.router.navigate([`/perfil/${currentUserId}`])
             }
@@ -1585,6 +1589,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
 
   onRepteSubmit() {
+    window.scrollTo(0, 0)
+
     this.checkUntouched = true;
     console.log(this.repteForm.get('checkboxGroup'))
     if (!this.repteForm.valid) {
@@ -1639,6 +1645,9 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
                 this.success = true;
                 this.enviat = true;
+
+                this.toastr.success('Repte enviat per revisar!', 'Enviat')
+
               }
 
             });
@@ -1661,6 +1670,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
               this.success = true;
               this.eliminat = true;
+
+              this.toastr.success('Esborrany eliminat correctament', 'Eliminat')
             }
 
           });

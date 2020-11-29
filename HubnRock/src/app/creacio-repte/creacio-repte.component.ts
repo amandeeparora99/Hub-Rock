@@ -457,6 +457,11 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     this.currentTab = this.currentTab + n;
   }
 
+  nextPrevBottom(n) {
+    this.currentTab = this.currentTab + n;
+    window.scrollTo(0, 0)
+  }
+
   changeRadio(value) {
     this.radioValue = value;
 
@@ -648,7 +653,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         this.logValidationErrors()
       }
 
-      
+
     }
     else if (arraySplit[0] == 'fotoJurat') {
 
@@ -664,7 +669,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         this.logValidationErrors()
       }
 
-      
+
 
     } else {
       let confirmWindow = confirm('Estàs segur que vol eliminar aquesta foto?')
@@ -680,7 +685,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   eliminarFotoArray(fotoName, i) {
     let str = fotoName;
-    
+
     //Separem el nom de foto
     let arraySplit = str.split(/([0-9]+)/)  //fotoPremi
     let number = Number(arraySplit[1]);  //0
@@ -699,7 +704,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       if (confirmWindow == true) {
         this.loopObjectFotosPreviewSolucio(number, arraySplit[0]);
         this.loopObjectFotosSolucio(number, arraySplit[0]);
-        this.removeSolucioButtonClick(i); 
+        this.removeSolucioButtonClick(i);
       }
 
     }
@@ -708,7 +713,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       if (confirmWindow == true) {
         this.loopObjectFotosPreviewPartner(number, arraySplit[0]);
         this.loopObjectFotosPartner(number, arraySplit[0]);
-        this.removePartnerButtonClick(i); 
+        this.removePartnerButtonClick(i);
         this.logValidationErrors()
       }
     }
@@ -1103,6 +1108,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
 
   desaBorrador() {
+    window.scrollTo(0, 0)
 
     if (!this.repteForm.get('nomRepte').value) {
 
@@ -1169,6 +1175,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
   onRepteSubmit() {
+    window.scrollTo(0, 0)
+
     console.log(this.repteForm.get('datesGroup').valid)
 
     this.checkUntouched = true;

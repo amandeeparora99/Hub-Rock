@@ -3,13 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OwnRepteGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -24,14 +25,16 @@ export class OwnRepteGuard implements CanActivate {
       map(data => {
         if (data.code == '1') {
 
-          if (data.row.user_iduser == idCurrentUser && data.row.estat_idestat != 1 && data.row.estat_idestat != 3 ) {
+          if (data.row.user_iduser == idCurrentUser) {
             return true;
           } else {
+            this.toastr.warning('No ets el propietari d\'aquest repte', 'Accés denegat');
             this.router.navigate(['/'])
             return false;
           }
 
         } else {
+          this.router.navigate(['/'])
           return false;
         }
       }));

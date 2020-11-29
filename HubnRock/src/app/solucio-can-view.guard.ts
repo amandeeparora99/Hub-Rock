@@ -3,13 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolucioCanViewGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -33,12 +34,14 @@ export class SolucioCanViewGuard implements CanActivate {
           } else if (data.row.solucio_estat_idestat != 3 && idCurrentUser && data.row.solucio_user_iduser == idCurrentUser) {
             return true;
           } else {
+            this.toastr.warning('La solució no és vàlida', 'Accés denegat')
             this.router.navigate(['/'])
             return false;
           }
 
         } else {
-          return true;
+          this.router.navigate(['/'])
+          return false;
         }
       }));
   }
