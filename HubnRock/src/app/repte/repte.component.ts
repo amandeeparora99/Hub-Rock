@@ -234,6 +234,53 @@ export class RepteComponent implements OnInit {
     }
   }
 
+  forumDateToText(dateString){
+    let split = dateString.split('/')
+    let month;
+
+    switch(split[1]){
+      case '01':
+        month = 'Gener'
+        break;
+      case '02':
+        month = 'Febrer'
+        break;
+      case '03':
+        month = 'Març'
+        break;
+      case '04':
+        month = 'Abril'
+        break;
+      case '05':
+        month = 'Maig'
+        break;
+      case '06':
+        month = 'Juny'
+        break;
+      case '07':
+        month = 'Juliol'
+        break;
+      case '08':
+        month = 'Agost'
+        break;
+      case '09':
+        month = 'Setembre'
+        break;
+      case '10':
+        month = 'Octubre'
+        break;
+      case '11':
+        month = 'Novembre'
+        break;
+      case '12':
+        month = 'Desembre'
+        break;
+    }
+
+    return split[0] + ' ' + month + ', ' + split[2]
+    
+  }
+
   seeMoreSolucionsProposades() {
     this.currentSolucionsProposadesPage = this.currentSolucionsProposadesPage + 1;
     this.getSolucionsProposades(this.currentSolucionsProposadesPage, this.elements)

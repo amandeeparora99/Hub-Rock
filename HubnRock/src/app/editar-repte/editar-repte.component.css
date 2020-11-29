@@ -2,6 +2,10 @@
     font-family: 'WorkSans-Regular';
 }
 
+#editarRepte{
+    margin-top: 70px;
+}
+
 .is-invalid input,
 .is-invalid textarea {
     border: 1px solid red;

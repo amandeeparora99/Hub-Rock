@@ -320,12 +320,12 @@
                             <div class="row d-flex align-items-center mb-4">
                                 <img [src]="fileStorageUrl + forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
-                                    <div class="row">
-                                        <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
+                                    <div class="row d-flex align-items-center">
+                                        <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
                                         <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                     </div>
                                     <div class="row">
-                                        <p class="m-0 forumPostDate">{{forumPost.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                        <p class="m-0 forumPostDate">{{forumDateToText(forumPost.creation_date | date: 'dd/MM/yyyy')}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -362,16 +362,16 @@
                                 <div class="row d-flex align-items-center mb-4">
                                     <img [src]="fileStorageUrl + resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
-                                        <div class="row">
-                                            <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
+                                        <div class="row d-flex align-items-center">
+                                            <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
                                             <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                         </div>
                                         <div class="row">
-                                            <p class="m-0 forumPostDate">{{resposta.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                            <p class="m-0 forumPostDate">{{forumDateToText(resposta.creation_date | date: 'dd/MM/yyyy')}}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row comentariText mb-3">
+                                <div class="row comentariText mb-0">
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
@@ -395,16 +395,16 @@
                                     <div class="row d-flex align-items-center mb-4">
                                         <img [src]="fileStorageUrl + answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
-                                            <div class="row">
-                                                <p class="m-0 mr-3 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
+                                            <div class="row d-flex align-items-center">
+                                                <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
                                                 <button *ngIf="repte.user_iduser == answer.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                             </div>
                                             <div class="row">
-                                                <p class="m-0 forumPostDate">{{answer.creation_date | date: 'dd/MM/yyyy'}}</p>
+                                                <p class="m-0 forumPostDate">{{forumDateToText(answer.creation_date | date: 'dd/MM/yyyy')}}</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row comentariText mb-3">
+                                    <div class="row comentariText mb-0">
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">

@@ -11,7 +11,12 @@
     </div>
 
     <div class="container">
+
         <div id="toolbar" class="row d-flex justify-content-between">
+
+            <div class="row col-md-12 col-sm-12 col-xs-12 justify-content-end mb-1">
+                <h1>Filtrar per:</h1>
+            </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="input-group mb-3 test">
@@ -29,7 +34,8 @@
                         (change)="toggleEmpreses($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEmpreses">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
+                            <img [src]="empresesChecked ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Empreses</p>
                         </div>
                     </label>
@@ -39,7 +45,8 @@
                         (change)="toggleStartups($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchStartups">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
+                            <img [src]="startupsChecked ? '../../../assets/illustrations/Startups.png' : '../../../assets/illustrations/Startups_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Startups</p>
                         </div>
                     </label>
@@ -49,7 +56,8 @@
                         (change)="toggleEstudiants($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEstudiants">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
+                            <img [src]="estudiantsChecked ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Estudiants</p>
                         </div>
                     </label>
@@ -59,7 +67,8 @@
                         (change)="toggleExperts($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchExperts">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
+                            <img [src]="expertsChecked ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Experts</p>
                         </div>
                     </label>

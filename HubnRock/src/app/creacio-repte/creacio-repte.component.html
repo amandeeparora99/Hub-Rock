@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="container" *ngIf="!success">
+<div id="creacioRepte" class="container" *ngIf="!success">
     <h1 id="pagetitle" class="text-center">El teu repte</h1>
     <div class="text-center steps-mt max-width-1110">
         <div class="row d-flex justify-content-between">
@@ -208,7 +208,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputStartups" formControlName="startupsCheckbox">
                             <label class="form-check-label" for="InputStartups">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.startupsCheckbox ? '../../../assets/illustrations/Startup.png' : '../../../assets/illustrations/Startup_BW.png'">
+                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.startupsCheckbox ? '../../../assets/illustrations/Startups.png' : '../../../assets/illustrations/Startups_BW.png'">
                                     <p class="checkboxtitle">Startups</p>
                                 </div>
                             </label>
@@ -731,7 +731,7 @@
         <h1 class="text-center">Enhorabona</h1>
         <div class="paragraph-container">
             <p class="text-center">El repte s'ha enviat correctament.</p>
-            <p class="text-center">Un administrador revisarà el repte i decidirà si és apte per ser publicat.</p>
+            <p class="text-center">Un administrador revisarà el repte i ens posarem en contacte amb vosaltres en els pròxims dies.</p>
         </div>
         <div class="text-center">
             <button *ngIf="idRepte" class="btn btn-primary btn-manage" [routerLink]="['/repte/', idRepte]">VEURE EL REPTE</button>
