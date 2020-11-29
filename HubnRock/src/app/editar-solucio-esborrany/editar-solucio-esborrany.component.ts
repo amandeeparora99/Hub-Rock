@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-solucio-esborrany',
@@ -13,7 +14,7 @@ import { User } from '../user';
 })
 export class EditarSolucioEsborranyComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
+  constructor(public toastr: ToastrService, private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -559,6 +560,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
                 this.success = true;
                 this.enviat = true;
+                this.toastr.success('Solució enviada correctament!', 'Enviat')
               }
             });
       }
@@ -631,6 +633,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
           data => {
             if (data.code == '1') {
               window.scrollTo(0, 0)
+              this.toastr.success('Esborrany actualitzat', 'Desat')
 
               // this.success = true;
               // this.actualitzat = true;
@@ -655,6 +658,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
               this.success = true;
               this.eliminat = true;
+              this.toastr.success('Esborrany eliminat correctament', 'Eliminat')
             }
 
           });

@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -15,7 +17,7 @@ import { User } from '../user';
 })
 export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
 
-  constructor(private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
+  constructor(public toastr: ToastrService, private fb: FormBuilder, private httpClient: HttpCommunicationService, private aRouter: ActivatedRoute, private router: Router) { }
 
   hasUnsavedData(): boolean {
     if (this.formDone) {
@@ -337,7 +339,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
             this.pdfArray = []
             pdfCleared = true;
           }
-          
+
           this.pdfArray.push(element);
         } else {
           alert('L\'arxiu supera el límit de 1MB')
@@ -426,6 +428,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
                 this.idSolucioCreada = data.lastId;
                 this.success = true;
 
+                this.toastr.success('Solució enviada correctament!', 'Enviat')
                 console.log(data);
               }
 
@@ -504,6 +507,8 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
               this.idSolucioEsborrany = data.lastId;
               this.success = true;
               this.borradorEnviat = true;
+
+              this.toastr.success('Solució desada com a esborrany', 'Desat')
             }
           });
     }

@@ -838,6 +838,11 @@ export class EditarRepteComponent implements OnInit {
     this.currentTab = this.currentTab + n;
   }
 
+  nextPrevBottom(n) {
+    this.currentTab = this.currentTab + n;
+    window.scrollTo(0, 0)
+  }
+
   changeRadio(value) {
     this.radioValue = value;
 
@@ -1593,6 +1598,8 @@ export class EditarRepteComponent implements OnInit {
 
 
   onRepteSubmit() {
+    window.scrollTo(0, 0)
+
     this.checkUntouched = true;
     console.log(this.repteForm.get('checkboxGroup'))
     if (!this.repteForm.valid) {
@@ -1629,7 +1636,7 @@ export class EditarRepteComponent implements OnInit {
             data => {
               if (data.code == 1) {
                 window.scrollTo(0, 0)
-                this.toastr.success('Repte desat com a esborrany', 'Desat')
+                this.toastr.success('Repte actualitzat i enviat per revisar!', 'Enviat')
                 this.success = true;
                 this.enviat = true;
               }
@@ -1648,6 +1655,8 @@ export class EditarRepteComponent implements OnInit {
           if (data.code == 1) {
             this.success = true;
             this.eliminat = true;
+            this.toastr.success('Repte eliminat correctament', 'Eliminat')
+
           }
 
         });

@@ -3,13 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanParticipateRepteGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -24,7 +25,7 @@ export class CanParticipateRepteGuard implements CanActivate {
 
           // només si està en procès i és vàlid
           if (data.row.estat_idestat != 3) {
-
+            this.toastr.warning('El repte no és vàlid', 'Accés denegat');
             this.router.navigate(['/'])
             return false;
 
@@ -37,6 +38,7 @@ export class CanParticipateRepteGuard implements CanActivate {
             if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
               return true;
             } else {
+              this.toastr.warning('El repte no està en procés', 'Accés denegat');
               this.router.navigate(['/'])
               return false;
             }

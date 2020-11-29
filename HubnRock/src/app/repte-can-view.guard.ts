@@ -34,14 +34,15 @@ export class RepteCanViewGuard implements CanActivate {
           } else if (data.row.estat_idestat != 3 && idCurrentUser && idCurrentUser == data.row.user_iduser) {
             return true;
           } else {
-            this.toastr.warning('Aquest repte no és vàlid', 'Accés denegat')
+            this.toastr.warning('El repte no és vàlid', 'Accés denegat')
             this.router.navigate(['/'])
 
             return false;
           }
 
         } else {
-          return true;
+          this.router.navigate(['/'])
+          return false;
         }
       }));
   }

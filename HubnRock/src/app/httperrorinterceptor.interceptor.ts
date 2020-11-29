@@ -8,11 +8,12 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { SpinnerService } from './spinner/spinner.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class HttperrorinterceptorInterceptor implements HttpInterceptor {
 
-  constructor(private spinnerService: SpinnerService) { }
+  constructor(public toastr: ToastrService, private spinnerService: SpinnerService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
@@ -27,9 +28,13 @@ export class HttperrorinterceptorInterceptor implements HttpInterceptor {
             errorMessage = `Error de client: ${error.error.message} Refresca la pàgina o torna a provar-ho més tard`;
           } else {
             // server-side error
-            errorMessage = `Error del servidor Code: ${error.status}\nMessage: ${error.message} Refresca la pàgina o torna a provar-ho més tard`;
+            errorMessage = 'Error del servidor, Codi: ' + error.status + ' </br> Missatge: ' + error.message + ' </br> Refresca la pàgina o torna a provar-ho més tard';
           }
-          window.alert(errorMessage);
+          this.toastr.error(errorMessage, 'Error', {
+            timeOut: 5000,
+            enableHtml: true
+          });
+
           return throwError(errorMessage);
         })
       )

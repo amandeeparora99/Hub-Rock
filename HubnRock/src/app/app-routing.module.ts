@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 
 //COMPONENTS
 import { AppComponent } from './app.component';
@@ -39,7 +39,6 @@ import { SolucioCanViewGuard } from './solucio-can-view.guard';
 import { RepteCanViewGuard } from './repte-can-view.guard';
 import { OwnSolucioEsborranyGuard } from './own-solucio-esborrany.guard';
 import { CanEditSolucioGuard } from './can-edit-solucio.guard';
-
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class OwnUserGuard implements CanActivate {
 
 
-  constructor(private router: Router) {
+  constructor(public toastr: ToastrService, private router: Router) {
 
   }
 
@@ -23,6 +24,7 @@ export class OwnUserGuard implements CanActivate {
     if (idUser == idCurrentUser) {
       return true;
     } else {
+      this.toastr.warning('No és el teu perfil', 'Accés denegat');
       this.router.navigate(['/'])
       return false;
     }

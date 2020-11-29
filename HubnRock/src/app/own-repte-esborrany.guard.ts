@@ -3,13 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OwnRepteEsborranyGuard implements CanActivate {
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(public toastr: ToastrService, private _httpService: HttpCommunicationService, private router: Router) {
 
   }
 
@@ -26,7 +27,16 @@ export class OwnRepteEsborranyGuard implements CanActivate {
 
           if (idCurrentUser && data.row.user_iduser == idCurrentUser && data.row.estat_idestat == 1) {
             return true;
+          } else if (idCurrentUser != data.row.user_iduser) {
+            this.toastr.warning('No ets el propietari d\'aquest repte', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
+          } else if (data.row.estat_idestat != 1) {
+            this.toastr.warning('El repte no és un esborrany', 'Accés denegat');
+            this.router.navigate(['/'])
+            return false;
           } else {
+            this.toastr.warning('El repte no es pot editar', 'Accés denegat');
             this.router.navigate(['/'])
             return false;
           }
