@@ -17,6 +17,12 @@
     letter-spacing: -0.9px;
     background-color: white;
     color: #020e7d;
+    transition: 0.3s;
+}
+
+#btn-editar:hover {
+    background-color: #020e7d;
+    color: white;
 }
 
 #btn-crear {
@@ -29,6 +35,12 @@
     letter-spacing: -0.9px;
     background-color: #00e292;
     color: #020e7d;
+    transition: 0.3s;
+}
+
+#btn-crear:hover {
+    background-color: #020e7d;
+    color: white;
 }
 
 #perfil-nom {

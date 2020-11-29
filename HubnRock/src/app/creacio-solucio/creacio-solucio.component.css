@@ -2,6 +2,10 @@
     font-family: 'WorkSans-Regular';
 }
 
+#creacioSolucio {
+    margin-top: 70px;
+}
+
 label {
     font-size: 20px;
     letter-spacing: -0.5px;

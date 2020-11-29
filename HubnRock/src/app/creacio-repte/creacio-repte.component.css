@@ -2,6 +2,10 @@
     font-family: 'WorkSans-Regular';
 }
 
+#creacioRepte{
+    margin-top: 70px;
+}
+
 .is-invalid input,
 .is-invalid textarea {
     border: 1px solid red;

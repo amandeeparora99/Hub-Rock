@@ -396,15 +396,15 @@ export class PerfilComponent implements OnInit {
       }
       else if (dateInici < currentDate && dateFinal > currentDate) {
         let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-        return "Tenca en " + days + " dies";
+        return "Tanca en " + days + " dies";
       }
       else {
         let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
         if (days > 30) {
-          return "Tencat fa mesos";
+          return "Tancat";
         }
         else {
-          return "Tencat fa " + days + " dies";
+          return "Tancat fa " + days + " dies";
         }
 
       }
