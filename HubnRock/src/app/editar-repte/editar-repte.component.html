@@ -236,6 +236,7 @@
                     </span>
 
                 </div>
+                <button type="button" (click)="checkboxvalues()">asfasdf</button>
 
                 <div class="form-group">
                     <label class="mb-0 mr-3">Individual o en equip?</label>
@@ -450,6 +451,16 @@
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
                 <p>Puja documents PDF relacionats amb el repte</p>
+
+
+                <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
+                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                    <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
+                    <div style="display:inline; float:right;" class="elimina-link">
+                        <a (click)="deletePdf(i)">Esborra els arxius seleccionats</a>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <label class="afegeix-link">
                         <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
@@ -457,15 +468,6 @@
                     </label>
                 </div>
 
-                <div *ngFor="let pdf of pdfArray" class="mb-3">
-                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                    <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
-                    <span class="ml-3" *ngIf="!pdf.name">{{pdf.recurs_nom}}</span>
-                </div>
-
-                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
-                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
-                </div>
             </div>
             <div class="tab" [hidden]="currentTab != 2">
                 <!--POSAR EL MB 110PX AL CSS MES TARD!-->

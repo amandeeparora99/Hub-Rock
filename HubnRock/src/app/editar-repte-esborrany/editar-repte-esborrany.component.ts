@@ -1358,7 +1358,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       formData.append('data_final', finalDate)
     }
 
-    formData.append('participants[empreses]', (this.repteForm.get('checkboxGroup').value.empresesCheckbox))
+    formData.append('participants[empreses]', this.repteForm.get('checkboxGroup').value.empresesCheckbox)
     formData.append('participants[startups]', this.repteForm.get('checkboxGroup').value.startupsCheckbox)
     formData.append('participants[estudiants]', this.repteForm.get('checkboxGroup').value.estudiantsCheckbox)
     formData.append('participants[experts]', this.repteForm.get('checkboxGroup').value.expertsCheckbox)
