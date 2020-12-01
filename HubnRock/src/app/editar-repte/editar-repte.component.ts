@@ -702,7 +702,6 @@ export class EditarRepteComponent implements OnInit {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
-      console.log('hi puto hi ha foto portada o no?', this.fotosRepte.fotoPortada)
 
       if (!this.fotosRepte.fotoPortada) {
         this.repteForm.get('fotoPortada').setValidators([Validators.required])

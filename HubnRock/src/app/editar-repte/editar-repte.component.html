@@ -454,10 +454,14 @@
 
 
                 <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
-                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                    <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
-                    <div style="display:inline; float:right;" class="elimina-link">
-                        <a (click)="deletePdf(i)">Esborra els arxius seleccionats</a>
+                    <div class="d-flex justify-content-between">
+                        <div style="display:inline" class="d-flex align-items-center">
+                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
+                        </div>
+                        <div style="display:inline" class="elimina-link d-flex align-items-center">
+                            <a (click)="deletePdf(i)">Esborra els arxius seleccionats</a>
+                        </div>
                     </div>
                 </div>
 
