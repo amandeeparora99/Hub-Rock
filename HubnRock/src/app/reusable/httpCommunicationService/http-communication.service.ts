@@ -107,6 +107,7 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
+        console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -133,6 +134,7 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
+        console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -144,12 +146,41 @@ export class HttpCommunicationService {
     }));
   }
 
+  // Recover password, validate register:
+  
   validateAccount(encrypt_string): Observable<any> {
-    return this.http.get<any>(environment.api + `/register/${encrypt_string}`)
+    return this.http.get<any>(environment.api + `/activate/${encrypt_string}`)
       .pipe(map(data => {
         return data;
       }));
   }
+
+  sendRecoverLink(email): Observable<any> {
+    const body = new HttpParams()
+      .set('email', email)
+
+    return this.http.post<any>(environment.api + '/forgetPassword/sendEmail',
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    );
+  }
+
+  recoverPassword(encrypt_string, password): Observable<any> {
+    const body = new HttpParams()
+      .set('password', password)
+
+    return this.http.post<any>(environment.api + `/forgetPassword/sendPassword/${encrypt_string}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    );
+  }
+
 
   getRepte(repte_id): Observable<any> {
     return this.http.get<any>(environment.api + '/repte/get/' + repte_id)

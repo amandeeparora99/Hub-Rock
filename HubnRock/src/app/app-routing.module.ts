@@ -23,6 +23,8 @@ import { SolucioComponent } from './solucio/solucio.component';
 import { EditarRepteComponent } from './editar-repte/editar-repte.component';
 import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/editar-solucio-esborrany.component';
 import { ValidateAccountComponent } from "./validate-account/validate-account.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { RecoverPasswordComponent } from "./recover-password/recover-password.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -59,6 +61,8 @@ const routes: Routes = [
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: 'validate-account/:token', component: ValidateAccountComponent },
+  { path: 'recover-password/:token', component: RecoverPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },

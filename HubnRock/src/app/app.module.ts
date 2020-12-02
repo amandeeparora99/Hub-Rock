@@ -32,6 +32,8 @@ import { ClickStopPropagationDirective } from './click-stop-propagation.directiv
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { ValidateAccountComponent } from './validate-account/validate-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { ValidateAccountComponent } from './validate-account/validate-account.co
     EditarSolucioEsborranyComponent,
     ClickStopPropagationDirective,
     ValidateAccountComponent,
+    ForgotPasswordComponent,
+    RecoverPasswordComponent,
   ],
   imports: [
     BrowserModule,
