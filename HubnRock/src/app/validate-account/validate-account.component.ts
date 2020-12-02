@@ -20,16 +20,17 @@ export class ValidateAccountComponent implements OnInit {
     console.log("BONDIA PAVOS")
     this.token = this.aRouter.snapshot.params.token;
     console.log(this.token)
-    // this.subscriptionHttp$ = this.httpCommunication.validateAccount(this.token)
-    //   .pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       if (data.code == '1') {
-            
-    //       } else {
-            
-    //       }
-    //   });
+    this.subscriptionHttp$ = this.httpCommunication.validateAccount(this.token)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data)
+          if (data.code == '1') {
+            console.log("FUNCIONA")
+          } else {
+            console.log("NO FUNCIONA")
+          }
+      });
   }
 
 }
