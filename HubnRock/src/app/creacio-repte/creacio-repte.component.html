@@ -103,8 +103,7 @@
                             </div>
                         </label>
                         <input accept="image/*" formControlName="fotoPortada" id="InputFotoPortada" name="fotoPortada" (change)="onFileRepteFoto($event)" type="file" (blur)="logValidationErrors()" />
-                        <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoPortada"
-                        [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoPortada + ')'}"></div>
+                        <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoPortada" [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoPortada + ')'}"></div>
                     </div>
                     <span class="help-block" *ngIf="formErrors.fotoPortada">
                         {{formErrors.fotoPortada}}
@@ -136,8 +135,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa1"
-                                    [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa1 + ')'}">
+                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa1" [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa1 + ')'}">
                                 </div>
                                 <input accept="image/*" formControlName="fotoRepresentativa1" id="InputFotoRepresentativa1" type="file" name="fotoRepresentativa1" (change)="onFileRepteFoto($event)" #inputFile/>
                             </div>
@@ -153,8 +151,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa2"
-                                    [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa2 + ')'}">
+                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa2" [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa2 + ')'}">
                                 </div>
                                 <input accept="image/*" formControlName="fotoRepresentativa2" id="InputFotoRepresentativa2" type="file" name="fotoRepresentativa2" (change)="onFileRepteFoto($event)" />
                             </div>
@@ -170,8 +167,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa3"
-                                    [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa3 + ')'}"></div>
+                                <div class="image-upload fotoPortadaCss" *ngIf="fotosReptePreview.fotoRepresentativa3" [ngStyle]="{'background-image': 'url(' + fotosReptePreview.fotoRepresentativa3 + ')'}"></div>
                                 <input accept="image/*" formControlName="fotoRepresentativa3" id="InputFotoRepresentativa3" type="file" name="fotoRepresentativa3" (change)="onFileRepteFoto($event)" />
                             </div>
                             <div class="text-center elimina-link" *ngIf="fotosReptePreview.fotoRepresentativa3">
@@ -364,8 +360,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoPremi', i)"
-                                    [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoPremi',i) + ')'}"></div>
+                                <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoPremi', i)" [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoPremi',i) + ')'}"></div>
                                 <!-- <img class="image-upload" *ngIf="getInterpolationCondition('fotoPremi', i)" width="100%" height="100%" [src]="getObjectProperty('fotoPremi',i)" alt="your image" /> -->
 
                                 <input accept="image/*" formControlName="fotoPremi" [attr.name]="'fotoPremi'+ i" (change)="onFileSelected($event, i)" [id]="'InputFotoPremi' + i" type="file" />
@@ -439,8 +434,7 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoSolucio', i)"
-                                    [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoSolucio',i) + ')'}"></div>
+                                <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoSolucio', i)" [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoSolucio',i) + ')'}"></div>
                                 <!-- <img class="image-upload" *ngIf="getInterpolationCondition('fotoSolucio', i)" width="100%" height="100%" [src]="getObjectProperty('fotoSolucio',i)" alt="your image" /> -->
                                 <input accept="image/*" formControlName="fotoSolucio" [attr.name]="'fotoSolucio'+ i" (change)="onFileSelectedSolucio($event, i)" [id]="'InputFotoSolucio'+i" type="file" />
                             </div>
@@ -459,20 +453,24 @@
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
                 <p>Puja documents PDF relacionats amb el repte</p>
+
+                <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <div style="display:inline" class="d-flex align-items-center">
+                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
+                        </div>
+                        <div style="display:inline" class="elimina-link d-flex align-items-center">
+                            <a (click)="deletePdf(i)">Esborra l'arxiu seleccionat</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <label class="afegeix-link">
                         <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
                         <a>+ Afegeix PDFs</a>
                     </label>
-                </div>
-
-                <div *ngFor="let pdf of pdfArray" class="mb-3">
-                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                    <span class="ml-3">{{pdf.name}}</span>
-                </div>
-
-                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
-                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
                 </div>
             </div>
             <div class="tab" [hidden]="currentTab != 2">
@@ -542,8 +540,7 @@
                                         </div>
                                     </label>
                                     <!-- <img class="image-upload" *ngIf="getInterpolationCondition('fotoPartner', i)" width="100%" height="100%" [src]="getObjectProperty('fotoPartner',i)" alt="your image" /> -->
-                                    <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoPartner', i)"
-                                    [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoPartner',i) + ')'}"></div>
+                                    <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoPartner', i)" [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoPartner',i) + ')'}"></div>
                                     <input accept="image/*" formControlName="logoPartner" [attr.name]="'fotoPartner'+ i" (change)="onFileSelectedPartner($event, i)" [id]="'InputLogoPartner'+i" type="file" />
                                 </div>
                                 <span class="help-block" *ngIf="(partner.get('logoPartner').errors?.required && partner.get('logoPartner').touched) || (partner.get('logoPartner').errors?.required && checkUntouched)">
@@ -628,8 +625,7 @@
                                         </div>
                                     </label>
                                     <!-- <img class="image-upload" *ngIf="getInterpolationCondition('fotoJurat', i)" width="100%" height="100%" [src]="getObjectProperty('fotoJurat',i)" alt="your image" /> -->
-                                    <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoJurat', i)"
-                                    [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoJurat',i) + ')'}"></div>
+                                    <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoJurat', i)" [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoJurat',i) + ')'}"></div>
                                     <input accept="image/*" formControlName="fotoJurat" [attr.name]="'fotoJurat'+ i" (change)="onFileSelectedJurat($event, i)" [id]="'fotoJurat' + i" type="file" />
                                 </div>
                                 <span class="help-block" *ngIf="(jurat.get('fotoJurat').errors?.required && jurat.get('fotoJurat').touched) || (jurat.get('fotoJurat').errors?.required && checkUntouched)">

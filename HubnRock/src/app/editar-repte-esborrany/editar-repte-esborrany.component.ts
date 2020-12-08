@@ -70,7 +70,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   checkUntouched = false;
 
   pdfArray = [];
-  pdfChanged = false;
+  totalRecursosSize = 0;
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
@@ -357,8 +357,18 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
               //PATCH RECURSOS
               if (this.repte.recursos.length) {
-                this.pdfArray = this.repte.recursos
-                console.log(this.pdfArray)
+                this.repte.recursos.forEach(recurs => {
+                  console.log('REEEEEEEEEEEEEECUUUUUUUUUUUUUUUUUUUUUUURS', recurs);
+                  fetch(this.fileStorageUrl + recurs.recurs_url_fitxer, {
+                    headers: { 'Content-Type': 'application/pdf' }
+                  })
+                    .then(response => response.blob()).then(blob => {
+                      let file = new File([blob], recurs.recurs_nom);
+                      this.pdfArray.push(file);
+                      this.totalRecursosSize += file.size;
+                    });
+                  console.log('this.array my friend', this.pdfArray)
+                });
               }
 
               //PATCH PREMIS
@@ -859,30 +869,37 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
   }
 
   onPdfSelected(event) {
+    console.log('total recursos size', this.totalRecursosSize);
+    const maxRecursosSize = 10485760;
+    let duplicateFile = false;
     if (event.target.files) {
-      let pdfCleared = false;
-
       for (let index = 0; index < event.target.files.length; index++) {
-        const element = event.target.files[index];
-
-        if (element.size < 1000000) {
-          if (!pdfCleared) {
-            this.pdfArray = []
-            pdfCleared = true;
+        duplicateFile = false;
+        this.pdfArray.forEach(element => {
+          if (element.name == event.target.files[index].name && element.size == event.target.files[index].size) {
+            duplicateFile = true;
           }
+        });
 
-          this.pdfArray.push(element);
-          this.pdfChanged = true;
-        } else {
-          alert('L\'arxiu supera el límit de 1MB')
+        if (!duplicateFile) {
+          if (this.totalRecursosSize + event.target.files[index].size < maxRecursosSize) {
+            this.pdfArray.push(event.target.files[index])
+            this.totalRecursosSize += event.target.files[index].size
+          }
+          else {
+            alert('Els recursos no poden superar el límit de 10MB')
+          }
         }
-      }
+      } // let pdfCleared=f alse; // for (let index=0 ; index < event.target.files.length; index++) { // const element=e vent.target.files[index]; // if (element.size < 1000000) { // if (!pdfCleared) { // this.pdfArray=[] // pdfCleared=t rue; // } // this.pdfArray.push(element); // this.pdfChanged=t rue; // } else { // alert( 'L\'arxiu supera el límit de 1MB ')
+      //   }
+      // }
     }
     console.log(this.pdfArray)
   }
 
-  resetPdfArray() {
-    this.pdfArray = [];
+  deletePdf(index) {
+    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+    this.pdfArray.splice(index, 1)
   }
 
   onFileRepteFoto(event) {
@@ -1483,13 +1500,10 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
     //APPENDING RECURSOS
     if (this.pdfArray.length) {
       for (let index = 0; index < this.pdfArray.length; index++) {
-        if (this.pdfChanged) {
+        const file = this.pdfArray[index];
 
-          const file = this.pdfArray[index];
-
-          formData.append(`recurs_nom[${index}]`, file.name);
-          formData.append(`recurs_url_fitxer[${index}]`, file);
-        }
+        formData.append(`recurs_nom[${index}]`, file.name);
+        formData.append(`recurs_url_fitxer[${index}]`, file);
       }
     }
 

@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-editar-solucio-esborrany',
@@ -23,6 +24,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       return this.solucioForm.dirty;
     }
   }
+  public fileStorageUrl = environment.api + '/image/';
 
   currentUser: User;
 
@@ -35,7 +37,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   solucio;
 
   pdfArray = [];
-  pdfChanged = false;
+  totalRecursosSize = 0;
 
   solucioForm: FormGroup;
   radioValue;
@@ -206,8 +208,18 @@ export class EditarSolucioEsborranyComponent implements OnInit {
                     })
 
                     if (this.solucio.recursos.length) {
-                      this.pdfArray = this.solucio.recursos
-                      console.log(this.pdfArray)
+                      this.solucio.recursos.forEach(recurs => {
+                        console.log('REEEEEEEEEEEEEECUUUUUUUUUUUUUUUUUUUUUUURS', recurs);
+                        fetch(this.fileStorageUrl + recurs.recurs_solucio_url_file, {
+                          headers: { 'Content-Type': 'application/pdf' }
+                        })
+                          .then(response => response.blob()).then(blob => {
+                            let file = new File([blob], recurs.recurs_solucio_nom);
+                            this.pdfArray.push(file);
+                            this.totalRecursosSize += file.size;
+                          });
+                        console.log('this.array my friend', this.pdfArray)
+                      });
                     }
 
                     if (this.solucio.solucio_proposada_individual_equip == '0') {
@@ -442,30 +454,37 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   onPdfSelected(event) {
+    console.log('total recursos size', this.totalRecursosSize);
+    const maxRecursosSize = 10485760;
+    let duplicateFile = false;
     if (event.target.files) {
-      let pdfCleared = false;
-
       for (let index = 0; index < event.target.files.length; index++) {
-        const element = event.target.files[index];
-
-        if (element.size < 1000000) {
-          if (!pdfCleared) {
-            this.pdfArray = []
-            pdfCleared = true;
+        duplicateFile = false;
+        this.pdfArray.forEach(element => {
+          if (element.name == event.target.files[index].name && element.size == event.target.files[index].size) {
+            duplicateFile = true;
           }
+        });
 
-          this.pdfArray.push(element);
-          this.pdfChanged = true;
-        } else {
-          alert('L\'arxiu supera el límit de 1MB')
+        if (!duplicateFile) {
+          if (this.totalRecursosSize + event.target.files[index].size < maxRecursosSize) {
+            this.pdfArray.push(event.target.files[index])
+            this.totalRecursosSize += event.target.files[index].size
+          }
+          else {
+            alert('Els recursos no poden superar el límit de 10MB')
+          }
         }
-      }
+      } // let pdfCleared=f alse; // for (let index=0 ; index < event.target.files.length; index++) { // const element=e vent.target.files[index]; // if (element.size < 1000000) { // if (!pdfCleared) { // this.pdfArray=[] // pdfCleared=t rue; // } // this.pdfArray.push(element); // this.pdfChanged=t rue; // } else { // alert( 'L\'arxiu supera el límit de 1MB ')
+      //   }
+      // }
     }
     console.log(this.pdfArray)
   }
 
-  resetPdfArray() {
-    this.pdfArray = [];
+  deletePdf(index) {
+    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+    this.pdfArray.splice(index, 1)
   }
 
   onSubmit() {
@@ -741,14 +760,10 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
     if (this.pdfArray.length) {
       for (let index = 0; index < this.pdfArray.length; index++) {
-        if (this.pdfChanged) {
+        const file = this.pdfArray[index];
 
-          const file = this.pdfArray[index];
-
-          formData.append(`recurs_solucio_nom[${index}]`, file.name);
-          formData.append(`recurs_solucio_url_file[${index}]`, file);
-        }
-
+        formData.append(`recurs_solucio_nom[${index}]`, file.name);
+        formData.append(`recurs_solucio_url_file[${index}]`, file);
       }
     }
 

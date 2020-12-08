@@ -100,21 +100,23 @@
                         Els documents han d’estar en format PDF. </label>
                 </div>
                 <hr class="mt-2 mb-5">
+                <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <div style="display:inline" class="d-flex align-items-center">
+                            <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+                            <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
+                        </div>
+                        <div style="display:inline" class="elimina-link d-flex align-items-center">
+                            <a (click)="deletePdf(i)">Esborra l'arxiu seleccionat</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <label class="afegeix-link">
-                    <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
-                    <a>+ Afegeix PDFs</a>
-                  </label>
-                </div>
-
-                <div *ngFor="let pdf of pdfArray" class="mb-3">
-                    <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-                    <span class="ml-3" *ngIf="pdf.name">{{pdf.name}}</span>
-                    <span class="ml-3" *ngIf="!pdf.name">{{pdf.recurs_solucio_nom}}</span>
-                </div>
-
-                <div *ngIf="pdfArray.length" class="text-center elimina-link mt-3">
-                    <a (click)="resetPdfArray()">Esborra els arxius seleccionats</a>
+                        <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
+                        <a>+ Afegeix PDFs</a>
+                    </label>
                 </div>
 
             </div>
