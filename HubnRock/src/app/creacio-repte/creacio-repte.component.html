@@ -732,7 +732,7 @@
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == 0" (click)="nextPrevBottom(-1)" type="button">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == numberOfTabs" (click)="nextPrevBottom(1)" type="button">SEGÜENT PAS</button></div>
             <!-- <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="repteForm.invalid" type="submit">ENVIA LA SOLUCIÓ</button></div> -->
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA EL REPTE</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs" type="submit">ENVIA A REVISIÓ</button></div>
         </div>
     </form>
 </div>
