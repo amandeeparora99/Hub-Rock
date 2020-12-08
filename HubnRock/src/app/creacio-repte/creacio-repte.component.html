@@ -4,22 +4,22 @@
     <h1 id="pagetitle" class="text-center">El teu repte</h1>
     <div class="text-center steps-mt max-width-1110">
         <div class="row d-flex justify-content-between">
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(0)">
                 <span class="step" [ngClass]="{'active' : currentTab == 0}">1</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 0}">Informació
                     general</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(1)">
                 <span class="step" [ngClass]="{'active' : currentTab == 1}">2</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 1}">Solucions
                     buscades</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(2)">
                 <span class="step" [ngClass]="{'active' : currentTab == 2}">3</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 2}">Partners i
                     jurat</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(3)">
                 <span class="step" [ngClass]="{'active' : currentTab == 3}">4</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 3}">Preguntes
                     freqüents</span>
@@ -34,7 +34,7 @@
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
             <!-- <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="repteForm.invalid" type="submit">ENVIA LA SOLUCIÓ</button></div> -->
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">ENVIA EL REPTE</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs" type="submit">ENVIA A REVISIÓ</button></div>
         </div>
         <div *ngIf="formErrors.campsErronis" class=" mt-2 row is-invalid">
             <div class="col">
@@ -452,7 +452,18 @@
 
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
-                <p>Puja documents PDF relacionats amb el repte</p>
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <p>Puja documents PDF relacionats amb el repte</p>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end">
+                        <label class="afegeix-link d-flex align-items-center">
+                            <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
+                            <a>+ Afegeix PDFs</a>
+                        </label>
+                    </div>
+                </div>
+                
 
                 <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
                     <div class="d-flex justify-content-between">

@@ -186,9 +186,9 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     this.currentTab = 0;
     this.radioValue = 'equip';
 
-    this.subscriptionForm$ = this.solucioForm.valueChanges.subscribe(value => {
-      this.logValidationErrors(this.solucioForm)
-    });
+    // this.subscriptionForm$ = this.solucioForm.valueChanges.subscribe(value => {
+    //   this.logValidationErrors(this.solucioForm)
+    // });
   }
 
 
@@ -248,6 +248,11 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       // }
     })
   }
+
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
+  }
+  
   removeMemberButtonClick(membreGroupIndex: number): void {
     let confirmWindow = confirm('Estàs segur que vols eliminar aquest membre?')
     if (confirmWindow == true) {

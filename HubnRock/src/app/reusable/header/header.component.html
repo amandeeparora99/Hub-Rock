@@ -2,9 +2,9 @@
     <img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png">
     <nav class="nav-links">
         <li><a (click)="headerRedirect(4)" class="font-weight-bold hubrock-border-right">Veure reptes oberts</a></li>
-        <li *ngIf="!userLoggedIn()"><a (click)="headerRedirect(2)">Dona't d'alta</a></li>
-        <li *ngIf="!userLoggedIn()"><a (click)="headerRedirect(3)">Entra</a></li>
-        <li *ngIf="userLoggedIn()"><a (click)="userProfile()">{{currentUser.email}}</a></li>
-        <li *ngIf="userLoggedIn()" class="elimina-link"><a (click)="userLogout()">Sortir</a></li>
+        <li *ngIf="!userLogged"><a (click)="headerRedirect(2)">Dona't d'alta</a></li>
+        <li *ngIf="!userLogged"><a (click)="headerRedirect(3)">Entra</a></li>
+        <li *ngIf="userLogged"><a (click)="userProfile()">{{currentUserObject.nom}}</a></li>
+        <li *ngIf="userLogged" class="elimina-link"><a (click)="userLogout()">Sortir</a></li>
     </nav>
 </header>

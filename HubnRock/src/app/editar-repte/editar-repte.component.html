@@ -4,22 +4,22 @@
     <h1 id="pagetitle" class="text-center">El teu repte</h1>
     <div class="text-center steps-mt max-width-1110">
         <div class="row d-flex justify-content-between">
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(0)">
                 <span class="step" [ngClass]="{'active' : currentTab == 0}">1</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 0}">Informació
                     general</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(1)">
                 <span class="step" [ngClass]="{'active' : currentTab == 1}">2</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 1}">Solucions
                     buscades</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(2)">
                 <span class="step" [ngClass]="{'active' : currentTab == 2}">3</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 2}">Partners i
                     jurat</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-3">
+            <div class="col-md-3 col-sm-3 col-3 pointer" (click)="changeCurrentTab(3)">
                 <span class="step" [ngClass]="{'active' : currentTab == 3}">4</span>
                 <span class="step-text" style="display:block" [ngClass]="{'active' : currentTab == 3}">Preguntes
                     freqüents</span>
@@ -32,7 +32,7 @@
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteRepte()">ELIMINA EL REPTE</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == 0" (click)="nextPrev(-1)" type="button">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)" type="button">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">EDITA EL REPTE</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs" type="submit">ENVIA A REVISIÓ</button></div>
         </div>
         <div *ngIf="formErrors.campsErronis" class="row is-invalid mt-2">
             <div class="col">
@@ -726,7 +726,7 @@
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteRepte()">ELIMINA EL REPTE</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == 0" (click)="nextPrevBottom(-1)" type="button">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-manage" [disabled]="currentTab == numberOfTabs" (click)="nextPrevBottom(1)" type="button">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit">EDITA EL REPTE</button></div>
+            <div class="col-md-3 col-sm-6"><button class="btn btn-primary btn-submit" type="submit" [disabled]="currentTab != numberOfTabs">ENVIA A REVISIÓ</button></div>
         </div>
     </form>
 </div>

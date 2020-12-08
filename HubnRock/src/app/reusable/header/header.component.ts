@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpCommunicationService } from '../httpCommunicationService/http-communication.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { User } from 'src/app/user';
 
 @Component({
   selector: 'app-header',
@@ -10,22 +11,31 @@ import { first } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
 
+  public currentUserObject: User;
   public currentUser;
+  public userLogged: Boolean = false;
 
   constructor(private _httpService: HttpCommunicationService, private router: Router) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
+    this.userLoggedIn();
+    this._httpService.currentUser.subscribe(
+      data => {
+        this.currentUserObject = data;
+        console.log(this.currentUserObject)
+      }
+    );
 
   }
 
-  userLoggedIn(): boolean {
+  userLoggedIn() {
     if (this._httpService.loggedIn()) {
       this.currentUser = JSON.parse(this._httpService.getCurrentUser());
-      return true
+      this.userLogged = true;
     } else {
-      return false
+      this.userLogged = false; 
     }
 
   }

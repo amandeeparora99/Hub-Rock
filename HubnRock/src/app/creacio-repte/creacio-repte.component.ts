@@ -40,6 +40,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   radioToSValue = 'hubandrock';
   currentTab: number = 0; // Current tab is set to be the first tab (0)
   numberOfTabs = 3; //0 + 1 = 2 tabs
+  partnersBlur: Boolean = false;
 
   fotosReptePreview: any = {};
   fotosRepte: any = {};
@@ -265,11 +266,14 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
     });
 
-    this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
-      this.logValidationErrors(this.repteForm)
-    });
+    // this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {
+    //   this.logValidationErrors(this.repteForm)
+    // });
   }
 
+  partnersBlurchange(){
+    this.partnersBlur = true;
+  }
 
   getInterpolationCondition(name, i) {
     let stringInterpolation: string = name + i
@@ -1233,6 +1237,27 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
             });
       }
+    }
+  }
+
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
+
+    if(this.currentTab != 0){
+      console.log("COMPROVACIO NOVA")
+      console.log(this.repteForm.get('nomRepte').valid)
+      console.log(this.repteForm.get('descripcioBreuRepte').valid)
+      console.log(this.repteForm.get('descripcioDetalladaRepte').valid)
+      console.log(this.repteForm.get('fotoPortada').valid)
+      console.log(this.repteForm.get('videoSolucio').valid)
+      console.log(this.repteForm.get('checkboxGroup').valid)
+      console.log(this.repteForm.get('limitParticipants').valid)
+      console.log(this.repteForm.get('dataInici').valid)
+      console.log(this.repteForm.get('dataFinalitzacio').valid)
+      console.log(this.repteForm.get('nomRepte').valid)
+      console.log(this.repteForm.get('nomRepte').valid)
+      console.log(this.repteForm.get('nomRepte').valid)
+
     }
   }
 

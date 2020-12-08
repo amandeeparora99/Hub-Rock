@@ -685,6 +685,10 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
   }
 
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
+  }
+  
   appendRepte(): FormData {
     const formData = new FormData();
 

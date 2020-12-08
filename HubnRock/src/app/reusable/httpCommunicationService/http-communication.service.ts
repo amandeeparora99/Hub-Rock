@@ -28,16 +28,28 @@ export class HttpCommunicationService {
 
   saveCurrentUserLocalStorage(token, idUser, email) {
 
+    console.log("SAVE NOSQQ")
 
 
     this.getUser(idUser).pipe(first())
       .subscribe(
         data => {
           if (data.code == '1') {
+
             localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
+            let nomE;
+            if (data.row.empresa_rockstar == 0) {
+              nomE = data.row.nom_empresa
+            }
+            else {
+              nomE = data.row.nom_rockstar
+            }
+            console.log("ESTA FENT CANVIS JAKNDLAKDJNIJKSNDF")
             this.currentUserSubject.next({
+
               token: token,
               idUser: idUser,
+              nom: nomE,
               email: email,
               userType: data.row.empresa_rockstar,
               firstLogin: data.row.first_login
@@ -75,6 +87,11 @@ export class HttpCommunicationService {
   }
 
   loggedIn() {
+    if (localStorage.getItem('currentUser')) {
+      let a = JSON.parse(localStorage.getItem('currentUser'))
+      this.saveCurrentUserLocalStorage(a.token, a.idUser, a.email);
+    }
+
     return !!localStorage.getItem('currentUser');
   }
 
@@ -147,7 +164,7 @@ export class HttpCommunicationService {
   }
 
   // Recover password, validate register:
-  
+
   validateAccount(encrypt_string): Observable<any> {
     return this.http.get<any>(environment.api + `/activate/${encrypt_string}`)
       .pipe(map(data => {
@@ -347,16 +364,16 @@ export class HttpCommunicationService {
   }
 
   sendHelp(message, topicId, messageParentId): Observable<any> {
-    if(messageParentId == ''){
+    if (messageParentId == '') {
       var body = new HttpParams()
-      .set('message', message)
-      .set('topicId', topicId)
+        .set('message', message)
+        .set('topicId', topicId)
     }
-    else{
+    else {
       var body = new HttpParams()
-      .set('message', message)
-      .set('topicId', topicId)
-      .set('messageParentId', messageParentId)
+        .set('message', message)
+        .set('topicId', topicId)
+        .set('messageParentId', messageParentId)
     }
     return this.http.post<any>(environment.api + '/forumData/message',
       body.toString(),
@@ -477,42 +494,42 @@ export class HttpCommunicationService {
   }
 
   getReptesSearchByName(cerca, empreses, startups, estudiants, experts, page, elements): Observable<any> {
-    if(empreses || startups || estudiants || experts){
+    if (empreses || startups || estudiants || experts) {
       var body = new HttpParams()
-      .set(empreses ? 'tipus_empresa[0]' : '', empreses ? '1' : '0')
-      .set(startups ? 'tipus_empresa[1]' : '', startups ? '2' : '0')
-      .set(estudiants ? 'tipus_empresa[2]' : '', estudiants ? '3' : '0')
-      .set(experts ? 'tipus_empresa[3]' : '', experts ? '4' : '0')
+        .set(empreses ? 'tipus_empresa[0]' : '', empreses ? '1' : '0')
+        .set(startups ? 'tipus_empresa[1]' : '', startups ? '2' : '0')
+        .set(estudiants ? 'tipus_empresa[2]' : '', estudiants ? '3' : '0')
+        .set(experts ? 'tipus_empresa[3]' : '', experts ? '4' : '0')
 
       return this.http.post<any>(environment.api + `/repte/getByNameByTipusEmpresa/${cerca}/${page}/${elements}`,
-      body.toString(),
-      {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/x-www-form-urlencoded')
-      }
+        body.toString(),
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+        }
       ).pipe(map(data => {
         if (data.code == '1') {
           return data;
         }
       }));
     }
-    else{
+    else {
       return this.http.post<any>(environment.api + `/repte/getByNameByTipusEmpresa/${cerca}/${page}/${elements}`,
-      {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/x-www-form-urlencoded')
-      }
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+        }
       ).pipe(map(data => {
         if (data.code == '1') {
           return data;
         }
       }));
     }
-    
+
   }
 
   getReptesSearchByTipus(empreses, startups, estudiants, experts, page, elements): Observable<any> {
-    
+
     var body = new HttpParams()
       .set(empreses ? 'tipus_empresa[0]' : '', empreses ? '1' : '0')
       .set(startups ? 'tipus_empresa[1]' : '', startups ? '2' : '0')
@@ -520,18 +537,18 @@ export class HttpCommunicationService {
       .set(experts ? 'tipus_empresa[3]' : '', experts ? '4' : '0')
 
     return this.http.post<any>(environment.api + `/repte/getByTipusEmpresa/${page}/${elements}`,
-    body.toString(),
-    {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    }
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
     ).pipe(map(data => {
       if (data.code == '1') {
         return data;
       }
     }));
-    
-    
+
+
   }
 
   getReptesByUser(page, elements) {

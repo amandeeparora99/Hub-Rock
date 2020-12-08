@@ -297,7 +297,7 @@
             <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
-                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()">
+                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && userLogged">
                     <div class="row d-flex justify-content-center postForumDiv">
                         <textarea [(ngModel)]="topicPost" (input)="onSearchChange($event.target.value)" class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
                         <div class="inputForum" *ngIf="!textAreaOn">
@@ -335,7 +335,7 @@
                             <div class="row d-flex comentariButtons justify-content-between">
                                 <div>
                                     <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
-                                    && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
+                                    && userLogged" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
                                     <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar
                                 </button>
                                     <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id);">
@@ -375,7 +375,7 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(resposta.id)">
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && userLogged" type="button" class="btn forumButton" (click)="contestar(resposta.id)">
                                         <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
                                     <button type="button" class="btn forumButton" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
                                         <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'" height="25px" class="mr-2 ml-0 align-self-center">
@@ -408,7 +408,7 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && isUserLoggedIn()" type="button" class="btn forumButton" (click)="contestar(answer.id)">
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && userLogged" type="button" class="btn forumButton" (click)="contestar(answer.id)">
                                             <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
                                         <button type="button" class="btn forumButton" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
                                             <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'" height="25px" class="mr-2 ml-0 align-self-center">

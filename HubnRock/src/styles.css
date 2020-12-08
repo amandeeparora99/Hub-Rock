@@ -97,6 +97,10 @@
     pointer-events: none;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 
 /* Max 2 linies descripcions dels cards */
 

@@ -7,12 +7,12 @@
     <p id="reptetitle" class="text-center" *ngIf="solucio">Repte "{{solucio.nom}}"</p>
     <div style="max-width:500px" class="container text-center steps-mt">
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12 pointer" (click)="changeCurrentTab(0)">
                 <span class="step" [ngClass]="{'active' : currentTab == 0}">1</span>
                 <span class="step-text" [ngClass]="{'active' : currentTab == 0}" style="display:block">Informació
                     general</span>
             </div>
-            <div class="col-md-6 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12 pointer" (click)="changeCurrentTab(1)">
                 <span class="step" [ngClass]="{'active' : currentTab == 1}">2</span>
                 <span class="step-text" [ngClass]="{'active' : currentTab == 1}" style="display:block">L'equip</span>
             </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit">ENVIA LA SOLUCIÓ</button></div>
+            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs">ENVIA LA SOLUCIÓ</button></div>
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-eliminar-esborrany" (click)="deleteSolucio()">ELIMINA L'ESBORRANY</button></div>

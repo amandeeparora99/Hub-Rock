@@ -1324,6 +1324,10 @@ export class EditarRepteComponent implements OnInit {
 
   }
 
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
+  }
+
   checkboxvalues() {
     console.log("CHECKBOXES")
     console.log(this.repteForm.get('checkboxGroup').value)

@@ -33,6 +33,7 @@ export class RepteComponent implements OnInit {
   public repteExists = true;
   videoUrl;
   public currentUser: User;
+  public userLogged: Boolean = false;
 
   public textAreaOn: Boolean = false;
   public forumButtonText = '+ Fes una publicació';
@@ -234,11 +235,11 @@ export class RepteComponent implements OnInit {
     }
   }
 
-  forumDateToText(dateString){
+  forumDateToText(dateString) {
     let split = dateString.split('/')
     let month;
 
-    switch(split[1]){
+    switch (split[1]) {
       case '01':
         month = 'Gener'
         break;
@@ -278,7 +279,7 @@ export class RepteComponent implements OnInit {
     }
 
     return split[0] + ' ' + month + ', ' + split[2]
-    
+
   }
 
   seeMoreSolucionsProposades() {
@@ -590,7 +591,11 @@ export class RepteComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    return this.httpCommunication.loggedIn();
+    if (this.httpCommunication.loggedIn()) {
+      this.userLogged = true;
+    } else {
+      this.userLogged = false;
+    }
   }
 
   sendMessage(message, topicId, messageParentId) {

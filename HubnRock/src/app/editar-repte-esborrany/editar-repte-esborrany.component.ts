@@ -849,7 +849,10 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   changeRadio(value) {
     this.radioValue = value;
+  }
 
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
   }
 
   changeRadioToS(value) {

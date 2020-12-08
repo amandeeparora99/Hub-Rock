@@ -648,6 +648,10 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
   //   }
   // }
 
+  changeCurrentTab(tabNumber) {
+    this.currentTab = tabNumber;
+  }
+
   deleteSolucio() {
     this.subscriptionHttp1$ = this.httpClient.deleteSolucio(this.idSolucio)
       .pipe(first())
