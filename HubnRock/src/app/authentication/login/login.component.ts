@@ -4,6 +4,7 @@ import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationServ
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
     'password': ''
   };
 
-  constructor(private httpCommunication: HttpCommunicationService, private fb: FormBuilder, private router: Router) { }
+  constructor(private httpCommunication: HttpCommunicationService, private fb: FormBuilder, private router: Router, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (this.httpCommunication.loggedIn()) {
@@ -114,7 +115,11 @@ export class LoginComponent implements OnInit {
             console.log(data);
             if (data.code == 302) {
               this.router.navigate(["/"]);
-
+            }
+            else if (data.code == 303) {
+              this.toastr.warning('Revisa el correu i valida el compte', 'Compte no verificat', {
+                timeOut: 2000,
+              })
             }
             else if (data.code == 534) {
 
