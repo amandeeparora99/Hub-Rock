@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -11,7 +12,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class ValidateAccountComponent implements OnInit {
 
-  constructor(public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService) { }
+  constructor(public aRouter: ActivatedRoute, private router: Router, public httpCommunication: HttpCommunicationService, public toastr: ToastrService) { }
 
   public token;
   subscriptionHttp$: Subscription
@@ -26,9 +27,11 @@ export class ValidateAccountComponent implements OnInit {
         data => {
           console.log(data)
           if (data.code == '1') {
-            console.log("FUNCIONA")
+            this.router.navigate(["/login"]);
           } else {
-            console.log("NO FUNCIONA")
+            this.toastr.error('Error de servidor', 'Error', {
+              timeOut: 2000,
+            })
           }
       });
   }

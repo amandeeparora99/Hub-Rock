@@ -443,11 +443,13 @@
                             <span class="help-block" *ngIf="(solucio.get('fotoSolucio').errors?.required && solucio.get('fotoSolucio').touched) || (solucio.get('fotoSolucio').errors?.required && checkUntouched)">
                                 És un camp requerit
                             </span>
+
+                            <div *ngIf="i == (repteForm.get('solucioArray').length - 1)" class="text-center afegeix-link">
+                                <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
+                            </div>
                         </div>
 
-                        <div *ngIf="i == (repteForm.get('solucioArray').length - 1)" class="text-center afegeix-link">
-                            <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
-                        </div>
+                        
                     </div>
                 </div>
 

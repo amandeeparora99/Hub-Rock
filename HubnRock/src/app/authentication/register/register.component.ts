@@ -4,6 +4,7 @@ import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationServ
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -66,7 +67,7 @@ export class RegisterComponent implements OnInit {
     'nomNifEmpresa': ''
   }
 
-  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private router: Router) { }
+  constructor(private fb: FormBuilder, private httpCommunication: HttpCommunicationService, private router: Router, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (this.httpCommunication.loggedIn()) {
@@ -192,9 +193,10 @@ export class RegisterComponent implements OnInit {
                 data => {
                   console.log(data);
                   if (data.code == "1") {
-
-                    this.router.navigate(["/"]);
-
+                    this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
+                      timeOut: 2000,
+                    });
+                    this.router.navigate(["/login"])
                   }
                   else if (data.code == 534) {
                     this.registerForm.controls['password'].setErrors({ 'password': true });
@@ -223,9 +225,10 @@ export class RegisterComponent implements OnInit {
                 data => {
                   console.log(data);
                   if (data.code == "1") {
-
-                    this.router.navigate(["/"]);
-
+                    this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
+                      timeOut: 2000,
+                    });
+                    this.router.navigate(["/login"]);
                   }
                   else if (data.code == 534) {
                     this.registerForm.controls['password'].setErrors({ 'password': true });

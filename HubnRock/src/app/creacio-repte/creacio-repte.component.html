@@ -442,28 +442,18 @@
                             <span class="help-block" *ngIf="(solucio.get('fotoSolucio').errors?.required && solucio.get('fotoSolucio').touched) || (solucio.get('fotoSolucio').errors?.required && checkUntouched)">
                                 És un camp requerit
                             </span>
+
+                            <div *ngIf="i == (repteForm.get('solucioArray').length - 1)" class="text-center afegeix-link">
+                                <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
+                            </div>
                         </div>
 
-                        <div *ngIf="i == (repteForm.get('solucioArray').length - 1)" class="text-center afegeix-link">
-                            <a (click)="addSolucioButtonClick(); addPremiToObject('fotoSolucio'+ i)">+ Afegeix una altra solució</a>
-                        </div>
                     </div>
                 </div>
 
                 <div class="separator hubrockformgrup"></div>
                 <h1 class="formpagetitle mb-1">Altres recursos</h1>
-                <div class="row d-flex justify-content-between align-items-center">
-                    <div class="col-md-8 d-flex align-items-center">
-                        <p>Puja documents PDF relacionats amb el repte</p>
-                    </div>
-                    <div class="col-md-4 d-flex justify-content-end">
-                        <label class="afegeix-link d-flex align-items-center">
-                            <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
-                            <a>+ Afegeix PDFs</a>
-                        </label>
-                    </div>
-                </div>
-                
+                <p>Puja documents PDF relacionats amb el repte</p>
 
                 <div *ngFor="let pdf of pdfArray; let i = index" class="mb-3">
                     <div class="d-flex justify-content-between">
