@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sobre-hubandrock',
-  templateUrl: './sobre-hubandrock.component.html',
-  styleUrls: ['./sobre-hubandrock.component.css']
+  selector: 'app-per-empreses',
+  templateUrl: './per-empreses.component.html',
+  styleUrls: ['./per-empreses.component.css']
 })
-export class SobreHubandrockComponent implements OnInit {
+export class PerEmpresesComponent implements OnInit {
 
   private textArray = [
     `Atraure talent Atraure talent Atraure talent Atraure talent

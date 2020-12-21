@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SobreHubandrockComponent } from './sobre-hubandrock.component';
+import { PerStartupsComponent } from './per-startups.component';
 
-describe('SobreHubandrockComponent', () => {
-  let component: SobreHubandrockComponent;
-  let fixture: ComponentFixture<SobreHubandrockComponent>;
+describe('PerStartupsComponent', () => {
+  let component: PerStartupsComponent;
+  let fixture: ComponentFixture<PerStartupsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SobreHubandrockComponent ]
+      declarations: [ PerStartupsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SobreHubandrockComponent);
+    fixture = TestBed.createComponent(PerStartupsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
