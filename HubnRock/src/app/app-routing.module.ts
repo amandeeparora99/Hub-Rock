@@ -25,6 +25,7 @@ import { EditarSolucioEsborranyComponent } from './editar-solucio-esborrany/edit
 import { ValidateAccountComponent } from "./validate-account/validate-account.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { RecoverPasswordComponent } from "./recover-password/recover-password.component";
+import { SobreHubandrockComponent } from "./sobre-hubandrock/sobre-hubandrock.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: 'validate-account/:token', component: ValidateAccountComponent },
   { path: 'recover-password/:token', component: RecoverPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'sobre-hubandrock', component: SobreHubandrockComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },

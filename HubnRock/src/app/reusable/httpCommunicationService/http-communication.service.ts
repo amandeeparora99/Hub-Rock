@@ -95,6 +95,11 @@ export class HttpCommunicationService {
     return !!localStorage.getItem('currentUser');
   }
 
+  isLoggedIn() {
+  
+    return !!localStorage.getItem('currentUser');
+  }  
+
   getCurrentUser() {
     return localStorage.getItem('currentUser');
   }

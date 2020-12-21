@@ -34,6 +34,7 @@ import { ToastrModule } from "ngx-toastr";
 import { ValidateAccountComponent } from './validate-account/validate-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { SobreHubandrockComponent } from './sobre-hubandrock/sobre-hubandrock.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     ValidateAccountComponent,
     ForgotPasswordComponent,
     RecoverPasswordComponent,
+    SobreHubandrockComponent,
   ],
   imports: [
     BrowserModule,
