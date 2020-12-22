@@ -27,6 +27,7 @@ import { ForgotPasswordComponent } from "./forgot-password/forgot-password.compo
 import { RecoverPasswordComponent } from "./recover-password/recover-password.component";
 import { PerEmpresesComponent } from "./per-empreses/per-empreses.component";
 import { PerStartupsComponent } from "./per-startups/per-startups.component";
+import { FaqComponent } from "./faq/faq.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'per-empreses', component: PerEmpresesComponent },
   { path: 'per-startups', component: PerStartupsComponent },
+  { path: 'faq', component: FaqComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },

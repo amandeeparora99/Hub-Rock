@@ -1,0 +1,32 @@
+<app-header></app-header>
+<section id="main-title-section">
+    <div class="d-flex flex-column align-items-center">
+        <div class="main-h1">
+            <h1>Preguntes freqüents</h1>
+            <p>Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions </p>
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+</section>
+
+<section id="faq"><br>
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default" *ngFor="let pregunta of questions; let i = index">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <button class="btn btn-link accordionbutton" data-toggle="collapse" [attr.href]="'#resposta' + i">{{pregunta.faq_pregunta}}</button>
+                    </h4>
+                </div>
+                <div [id]="'resposta' + i" class="accordionbody panel-collapse collapse in">
+                    <div class="panel-body">
+                        {{pregunta.faq_resposta}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<app-footer></app-footer>

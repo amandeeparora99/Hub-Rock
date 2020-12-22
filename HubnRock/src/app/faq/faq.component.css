@@ -1,0 +1,82 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+img {
+    width: 100%;
+}
+
+.hr-style {
+    max-width: 416px;
+    border: solid 1px #020e7d;
+    margin-bottom: 67px;
+}
+
+
+/* MAIN TITLE */
+
+#main-title-section {
+    margin-top: 110px;
+    margin-bottom: 44px;
+}
+
+#main-title-section .main-h1 {
+    text-align: center;
+    max-width: 765px;
+    margin-bottom: 62px;
+}
+
+#main-title-section h1 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.83;
+    margin-bottom: 33px;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 108px;
+    background-color: #020e7d;
+}
+
+
+/* FAQ TABS */
+
+#faq {
+    margin-bottom: 145px;
+}
+
+#faq .container {
+    max-width: 1110px;
+}
+
+.accordionbutton {
+    background-color: #d2f5e8;
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border-radius: 8px;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    font-family: 'WorkSans-Bold';
+    text-decoration: none;
+}
+
+.accordionbutton:focus {
+    box-shadow: none;
+}
+
+.accordionbody .panel-body {
+    padding-top: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 45px;
+    font-size: 14px;
+    letter-spacing: -0.23px;
+}

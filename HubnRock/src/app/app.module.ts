@@ -36,6 +36,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { PerEmpresesComponent } from './per-empreses/per-empreses.component';
 import { PerStartupsComponent } from './per-startups/per-startups.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { PerStartupsComponent } from './per-startups/per-startups.component';
     RecoverPasswordComponent,
     PerEmpresesComponent,
     PerStartupsComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
