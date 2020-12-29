@@ -28,6 +28,7 @@ import { RecoverPasswordComponent } from "./recover-password/recover-password.co
 import { PerEmpresesComponent } from "./per-empreses/per-empreses.component";
 import { PerStartupsComponent } from "./per-startups/per-startups.component";
 import { FaqComponent } from "./faq/faq.component";
+import { SobreHubandrockComponent } from "./sobre-hubandrock/sobre-hubandrock.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -69,6 +70,7 @@ const routes: Routes = [
   { path: 'per-empreses', component: PerEmpresesComponent },
   { path: 'per-startups', component: PerStartupsComponent },
   { path: 'faq', component: FaqComponent },
+  { path: 'sobre-hubandrock', component: SobreHubandrockComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },

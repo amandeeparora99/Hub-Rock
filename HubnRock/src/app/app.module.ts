@@ -37,6 +37,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { PerEmpresesComponent } from './per-empreses/per-empreses.component';
 import { PerStartupsComponent } from './per-startups/per-startups.component';
 import { FaqComponent } from './faq/faq.component';
+import { SobreHubandrockComponent } from './sobre-hubandrock/sobre-hubandrock.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { FaqComponent } from './faq/faq.component';
     PerEmpresesComponent,
     PerStartupsComponent,
     FaqComponent,
+    SobreHubandrockComponent,
   ],
   imports: [
     BrowserModule,
