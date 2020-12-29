@@ -1,0 +1,281 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+img {
+    width: 100%;
+}
+
+.hr-style {
+    max-width: 416px;
+    border: solid 1px #020e7d;
+    margin-bottom: 67px;
+}
+
+
+/* MAIN TITLE */
+
+#main-title-section {
+    margin-top: 110px;
+    margin-bottom: 126px;
+}
+
+#main-title-section .main-h1 {
+    text-align: center;
+    max-width: 559px;
+    margin-bottom: 53px;
+}
+
+#main-title-section h1 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.83;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 108px;
+    background-color: #020e7d;
+}
+
+
+/* ACCELERA LA INNOVACIÓ */
+
+#accelera-innovacio-section {
+    margin-bottom: 50px;
+}
+
+#accelera-innovacio-section .container {
+    max-width: 1110px;
+}
+
+#accelera-innovacio-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#accelera-innovacio-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#accelera-innovacio-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* CONECTA AMB EMPRESES */
+
+#connecta-empreses-section {
+    margin-bottom: 115px;
+}
+
+#connecta-empreses-section .container {
+    max-width: 1110px;
+}
+
+#connecta-empreses-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#connecta-empreses-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#connecta-empreses-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* SERVEIS CAMBRA */
+
+#serveis-cambra-section {
+    margin-bottom: 115px;
+}
+
+#serveis-cambra-section .serveis-cambra-h3 {
+    text-align: center;
+    max-width: 451px;
+    margin-bottom: 72px;
+}
+
+#serveis-cambra-section .serveis-cambra-h3 h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#serveis-cambra-section .container {
+    max-width: 1110px;
+}
+
+#serveis-cambra-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#serveis-cambra-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* BENEFICIS EMPRESES */
+
+#beneficis-section {
+    margin-bottom: 115px;
+}
+
+#beneficis-section .beneficis-title {
+    max-width: 636px;
+    height: 145px;
+    border-radius: 11px;
+    border: solid 1px #020e7d;
+    margin-bottom: 52px;
+    text-align: center;
+}
+
+#beneficis-section .beneficis-text {
+    text-align: center;
+    max-width: 545px;
+    margin-bottom: 65px;
+}
+
+#beneficis-section .beneficis-title h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 0;
+    margin-right: 69px;
+    margin-left: 69px;
+}
+
+.beneficis-tabs {
+    cursor: pointer;
+    height: 242px;
+    border-radius: 16px;
+    border: solid 1px #d2d2d2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.beneficis-tabs:hover {
+    box-shadow: 0 2px 6px 4px rgba(224, 224, 224, 0.5);
+}
+
+.beneficis-tabs-row {
+    margin-bottom: 30px;
+}
+
+.tab-content {
+    padding: 43px 19px 52px 33px;
+    border-radius: 19px;
+    box-shadow: 0 2px 6px 8px rgba(240, 240, 240, 0.5);
+    border: solid 1px rgba(224, 224, 224, 0.5);
+    background-color: #ffffff;
+}
+
+#beneficis-section .container {
+    max-width: 1110px;
+}
+
+#beneficis-section img {
+    margin-top: 29px;
+    margin-bottom: 27px;
+    width: auto;
+    /* margin-bottom: 27px; */
+}
+
+.beneficis-tabs-text {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.23;
+    letter-spacing: -1.38px;
+    text-align: center;
+    color: #280091;
+}
+
+.active {
+    box-shadow: 0 2px 6px 4px rgba(224, 224, 224, 0.5);
+    border: solid 1px #020e7d;
+}
+
+
+/* TIPUS REPTES */
+
+#tipus-reptes-section {
+    margin-bottom: 80px;
+}
+
+#tipus-reptes-section .tipus-reptes-title {
+    max-width: 636px;
+    height: 145px;
+    border-radius: 11px;
+    border: solid 1px #020e7d;
+    margin-bottom: 52px;
+    text-align: center;
+}
+
+#tipus-reptes-section .tipus-reptes-text {
+    text-align: center;
+    max-width: 545px;
+    margin-bottom: 65px;
+}
+
+#tipus-reptes-section .tipus-reptes-title h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 0;
+    margin-right: 69px;
+    margin-left: 69px;
+}
+
+#tipus-reptes-section .categories {
+    max-width: 1110px;
+}
+
+.who-image {
+    margin-bottom: 50px;
+}
+
+.who-title {
+    font-size: 22px;
+    font-family: 'WorkSans-Bold';
+    letter-spacing: -0.91px;
+    color: #020e7d;
+}
+
+.who-text {
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.58px;
+    font-size: 14px;
+}

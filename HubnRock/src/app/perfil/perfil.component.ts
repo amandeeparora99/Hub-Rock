@@ -70,10 +70,9 @@ export class PerfilComponent implements OnInit {
 
           this.usuariObject = data.row;
           this.usuariExists = true;
+          if (this.httpClient.isLoggedIn()) {
 
-          if (this.httpClient.loggedIn()) {
-
-            this.subscriptionCurrentUser$ = this.httpClient.currentUser.subscribe(
+            this.subscriptionCurrentUser$ = this.httpClient.currentUser.pipe(first()).subscribe(
               data => {
 
                 let currentUser = data;
@@ -303,9 +302,11 @@ export class PerfilComponent implements OnInit {
             }
 
             for (let index = 0; index < data.rows.length; index++) {
+
               const repte = data.rows[index];
 
               this.userReptes.push(repte)
+
 
               if (index < 5) {
                 this.reptesNoMore = true;
@@ -392,7 +393,14 @@ export class PerfilComponent implements OnInit {
 
       if (dateInici > currentDate) {
         let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-        return "Inicia en " + days + " dies";
+
+        if (days > 0) {
+          return "Inicia en " + days + " dies";
+        }
+        else {
+          return "Comença demà!"
+        }
+
       }
       else if (dateInici < currentDate && dateFinal > currentDate) {
         let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
@@ -403,14 +411,24 @@ export class PerfilComponent implements OnInit {
         if (days > 30) {
           return "Tancat";
         }
-        else {
-          return "Tancat fa " + days + " dies";
+        else if (dateInici < currentDate && dateFinal > currentDate) {
+          let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+          return "Tanca en " + days + " dies";
         }
+        else {
+          let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+          if (days > 30) {
+            return "Tancat";
+          }
+          else {
+            return "Tancat fa " + days + " dies";
+          }
 
+        }
       }
+
+
     }
-
-
   }
 
 }

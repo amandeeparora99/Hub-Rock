@@ -23,8 +23,12 @@ export class HeaderComponent implements OnInit {
     this.userLoggedIn();
     this._httpService.currentUser.subscribe(
       data => {
+        if (this.userLogged == false) {
+          this.userLoggedIn()
+        }
+        
         this.currentUserObject = data;
-        console.log(this.currentUserObject)
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHH')
       }
     );
 
@@ -35,7 +39,7 @@ export class HeaderComponent implements OnInit {
       this.currentUser = JSON.parse(this._httpService.getCurrentUser());
       this.userLogged = true;
     } else {
-      this.userLogged = false; 
+      this.userLogged = false;
     }
 
   }

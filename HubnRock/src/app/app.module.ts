@@ -34,6 +34,10 @@ import { ToastrModule } from "ngx-toastr";
 import { ValidateAccountComponent } from './validate-account/validate-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { PerEmpresesComponent } from './per-empreses/per-empreses.component';
+import { PerStartupsComponent } from './per-startups/per-startups.component';
+import { FaqComponent } from './faq/faq.component';
+import { SobreHubandrockComponent } from './sobre-hubandrock/sobre-hubandrock.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +63,10 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     ValidateAccountComponent,
     ForgotPasswordComponent,
     RecoverPasswordComponent,
+    PerEmpresesComponent,
+    PerStartupsComponent,
+    FaqComponent,
+    SobreHubandrockComponent,
   ],
   imports: [
     BrowserModule,

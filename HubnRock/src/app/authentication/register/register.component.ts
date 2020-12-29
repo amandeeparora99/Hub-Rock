@@ -23,12 +23,17 @@ export class RegisterComponent implements OnInit {
 
   validationMessages = {
     'nomEmpresa': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'És un camp requerit',
+      'minlength': 'Massa curt',
+      'maxlength': 'Massa llarg'
+    },
+    'cognom': {
+      'required': 'És un camp requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'nomResponsable': {
-      'required': 'Introdueix un nom del responsable',
+      'required': 'És un camp requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
@@ -71,6 +76,7 @@ export class RegisterComponent implements OnInit {
 
     this.registerForm = this.fb.group({
       nomEmpresa: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      cognom: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       nomResponsable: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
@@ -117,20 +123,26 @@ export class RegisterComponent implements OnInit {
 
     const nomEmpresa = this.registerForm.get('nomEmpresa');
     const nifEmpresa = this.registerForm.get('nomNifEmpresa');
+    const cognom = this.registerForm.get('cognom');
 
     if (this.accountType == 'empresa') {
       nomEmpresa.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
       nifEmpresa.setValidators(Validators.required);
+      cognom.clearValidators()
 
       nomEmpresa.updateValueAndValidity()
       nifEmpresa.updateValueAndValidity()
+      cognom.updateValueAndValidity()
     }
     else if (this.accountType == 'rockstar') {
       nomEmpresa.clearValidators();
       nifEmpresa.clearValidators();
+      cognom.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
 
       nomEmpresa.updateValueAndValidity()
       nifEmpresa.updateValueAndValidity()
+      cognom.updateValueAndValidity()
+
 
     }
 

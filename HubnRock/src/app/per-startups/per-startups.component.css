@@ -1,0 +1,135 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+img {
+    width: 100%;
+}
+
+.hr-style {
+    max-width: 416px;
+    border: solid 1px #020e7d;
+    margin-bottom: 67px;
+}
+
+
+/* MAIN TITLE */
+
+#main-title-section {
+    margin-top: 110px;
+    margin-bottom: 126px;
+}
+
+#main-title-section .main-h1 {
+    text-align: center;
+    margin-bottom: 53px;
+}
+
+#main-title-section h1 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.83;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 108px;
+    background-color: #020e7d;
+}
+
+
+/* COLABORA AMB EMPRESES */
+
+#colabora-empreses-section {
+    margin-bottom: 162px;
+}
+
+#colabora-empreses-section .container {
+    max-width: 1110px;
+}
+
+#colabora-empreses-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#colabora-empreses-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#colabora-empreses-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* CREIXER CLIENTS */
+
+#creixer-clients-section {
+    margin-bottom: 240px;
+}
+
+#creixer-clients-section .container {
+    max-width: 1110px;
+}
+
+#creixer-clients-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#creixer-clients-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#creixer-clients-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* CREIXER CLIENTS */
+
+#atrau-talent-section {
+    margin-bottom: 206px;
+}
+
+#atrau-talent-section .container {
+    max-width: 1110px;
+}
+
+#atrau-talent-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#atrau-talent-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#atrau-talent-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}

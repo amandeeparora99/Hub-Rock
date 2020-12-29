@@ -13,7 +13,12 @@
     </div>
 
     <div class="container">
+
         <div id="toolbar" class="row d-flex justify-content-between">
+
+            <div class="row col-md-12 col-sm-12 col-xs-12 justify-content-end mb-1">
+                <h1>Filtrar per:</h1>
+            </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="input-group mb-3 test">
@@ -30,7 +35,8 @@
                     <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses" (change)="toggleEmpreses($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEmpreses">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
+                            <img [src]="empresesChecked ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Empreses</p>
                         </div>
                     </label>
@@ -39,7 +45,8 @@
                     <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups" (change)="toggleStartups($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchStartups">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
+                            <img [src]="startupsChecked ? '../../../assets/illustrations/Startups.png' : '../../../assets/illustrations/Startups_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Startups</p>
                         </div>
                     </label>
@@ -48,7 +55,8 @@
                     <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants" (change)="toggleEstudiants($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEstudiants">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
+                            <img [src]="estudiantsChecked ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Estudiants</p>
                         </div>
                     </label>
@@ -57,7 +65,8 @@
                     <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts" (change)="toggleExperts($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchExperts">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
+                            <img [src]="expertsChecked ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'"
+                             width="40px" height="40px">
                             <p class="checkboxtitle">Experts</p>
                         </div>
                     </label>
@@ -82,85 +91,9 @@
     </div>
 </div>
 
-
-<section id="hubrock-reptesoberts" *ngIf="searching == 0">
-    <div class="container">
-        <h1 class="text-center reptestitle">Reptes oberts</h1>
-        <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte obert</p>
-
-        <div class="d-flex">
-
-            <div class="row w-100">
-
-                <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="card" routerLink="/repte/{{repte.idrepte}}" [ngClass]="{'bg-success' : repte.estat_idestat == 3, 'bg-warning' : repte.estat_idestat == 2, 'eliminat' : repte.estat_idestat == 5, 'bg-danger' : repte.estat_idestat == 4}">
-                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
-                        <div class="card-body fitxa-repte">
-                            <div class="card-title d-flex">
-                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
-                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
-                            </div>
-                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
-                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
-                            <div class="card-title d-flex align-items-center">
-                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
-                                <div class="d-flex align-items-center">
-                                    <div *ngFor="let premi of repte.premis; let i = index">
-                                        <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
-                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-title d-flex">
-                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
-                                <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
-                            </div>
-                            <div class="tags">
-                                <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
-                                                'tag-blue': participants.participants_name == 'Empreses',
-                                                'tag-orange': participants.participants_name == 'Estudiants',
-                                                'tag-purple': participants.participants_name == 'Experts'}">
-                                    {{participants.participants_name}}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row no-gutters" *ngIf="!canValidateRepte(repte.data_inici)">
-                        <p>No es pot validar el repte perquè ja ha passat la data d'inici</p>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4">
-                            <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
-                                Acceptar
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
-                                Rebutjar
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
-                                Eliminar
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div *ngIf="!obertsNoMore" class="text-center">
-            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
-        </div>
-
-
-
-    </div>
-</section>
-
 <section id="hubrock-reptesproces" *ngIf="searching == 0">
     <div class="container">
-        <h1 class="text-center reptestitle">Reptes en procés</h1>
+        <h1 class="text-center reptestitle">Reptes en curs</h1>
 
         <p *ngIf="!reptesProces.length" class="text-center what-text">No hi ha cap repte en procés</p>
 
@@ -235,6 +168,83 @@
 
     </div>
 </section>
+
+<section id="hubrock-reptesoberts" *ngIf="searching == 0">
+    <div class="container">
+        <h1 class="text-center reptestitle">Reptes futurs</h1>
+        <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte obert</p>
+
+        <div class="d-flex">
+
+            <div class="row w-100">
+
+                <div *ngFor="let repte of reptesOberts; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="card" routerLink="/repte/{{repte.idrepte}}" [ngClass]="{'bg-success' : repte.estat_idestat == 3, 'bg-warning' : repte.estat_idestat == 2, 'eliminat' : repte.estat_idestat == 5, 'bg-danger' : repte.estat_idestat == 4}">
+                        <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
+                        <div class="card-body fitxa-repte">
+                            <div class="card-title d-flex">
+                                <img click-stop-propagation class="rounded-circle mr-2 mt-0 align-self-center" width="25px" src="../../assets/logos/udgLogo.png" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
+                            </div>
+                            <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                            <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                            <div class="card-title d-flex align-items-center">
+                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                <div class="d-flex align-items-center">
+                                    <div *ngFor="let premi of repte.premis; let i = index">
+                                        <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-title d-flex">
+                                <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
+                                <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
+                            </div>
+                            <div class="tags">
+                                <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'Startups',
+                                                'tag-blue': participants.participants_name == 'Empreses',
+                                                'tag-orange': participants.participants_name == 'Estudiants',
+                                                'tag-purple': participants.participants_name == 'Experts'}">
+                                    {{participants.participants_name}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-gutters" *ngIf="!canValidateRepte(repte.data_inici)">
+                        <p>No es pot validar el repte perquè ja ha passat la data d'inici</p>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4">
+                            <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
+                                Acceptar
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
+                                Rebutjar
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
+                                Eliminar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="!obertsNoMore" class="text-center">
+            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreOberts()">VEURE MÉS</button>
+        </div>
+
+
+
+    </div>
+</section>
+
+
 
 <section id="hubrock-reptestancats" *ngIf="searching == 0">
     <div class="container">

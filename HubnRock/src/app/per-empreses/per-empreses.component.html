@@ -1,0 +1,179 @@
+<app-header></app-header>
+<section id="main-title-section">
+    <div class="d-flex flex-column align-items-center">
+        <div class="main-h1">
+            <h1>Potència la innovació a la teva empresa</h1>
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+</section>
+
+<section id="accelera-innovacio-section" class="d-flex justify-content-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                <h3>Accelera la innovació a través de col·laboracions</h3>
+                <p>
+                    Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera
+                    la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions
+                </p>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img src="https://dummyimage.com/476x391/000/fff" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="connecta-empreses-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center order-2 order-md-1">
+                <img src="https://dummyimage.com/429x615/000/fff" alt="">
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center order-1 order-md-2">
+                <h3>Connecta amb altres empreses, startups, experts i estudiants</h3>
+                <p>
+                    Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera
+                    la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="serveis-cambra-section">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="serveis-cambra-h3">
+            <h3>Beneficia’t dels serveis de la Cambra de Comerç</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <p>
+                    Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera
+                    la innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions
+                </p>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img src="https://dummyimage.com/476x391/000/fff" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="hr-style">
+
+<section id="beneficis-section">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="beneficis-title d-flex justify-content-center align-items-center">
+            <h3>Beneficis per a la teva empresa</h3>
+        </div>
+        <div class="beneficis-text d-flex justify-content-center">
+            <p>
+                Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de
+            </p>
+        </div>
+        <div class="row beneficis-tabs-row">
+            <div class="col-md-3">
+                <div class="beneficis-tabs" (click)="changeTextToShow(0)" [ngClass]="{'active' : activeTab == 0}">
+                    <img src="https://dummyimage.com/100x100/000/fff" alt="">
+                    <p class="beneficis-tabs-text">Atraure talent</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="beneficis-tabs" (click)="changeTextToShow(1)" [ngClass]="{'active' : activeTab == 1}">
+                    <img src="https://dummyimage.com/100x100/000/fff" alt="">
+                    <p class="beneficis-tabs-text">Gestió de la innovació</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="beneficis-tabs" (click)="changeTextToShow(2)" [ngClass]="{'active' : activeTab ==2}">
+                    <img src="https://dummyimage.com/100x100/000/fff" alt="">
+                    <p class="beneficis-tabs-text">Marketing i communicació</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="beneficis-tabs" (click)="changeTextToShow(3)" [ngClass]="{'active' : activeTab == 3}">
+                    <img src="https://dummyimage.com/100x100/000/fff" alt="">
+                    <p class="beneficis-tabs-text">Gestió del canvi</p>
+                </div>
+            </div>
+        </div>
+        <div class="container w-100 tab-content">
+            {{textToShow}}
+        </div>
+
+    </div>
+</section>
+
+<hr class="hr-style">
+
+<section id="tipus-reptes-section">
+    <div class="container categories">
+        <div class="container tipus-reptes-title d-flex justify-content-center align-items-center">
+            <h3>Quins tipus de reptes pots crear?</h3>
+        </div>
+        <div class="container tipus-reptes-text d-flex justify-content-center">
+            <p>
+                Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació a través de Accelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera la innovació
+                a través de
+            </p>
+        </div>
+
+        <div class="row no-gutters d-flex flex-wrap">
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Company.png" alt="160x160"></div>
+                <div class="row no-gutters who-title mb-4">Empreses</div>
+                <div class="row no-gutters">
+                    <div>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text"> Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Startup.png" alt="160x160"></div>
+                <div class="row no-gutters who-title mb-4">Startups</div>
+                <div class="row no-gutters">
+                    <div>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text"> Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Student.png" alt="160x160"></div>
+                <div class="row no-gutters who-title mb-4">Estudiants</div>
+                <div class="row no-gutters">
+                    <div>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text"> Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Experts.png" alt="160x160"></div>
+                <div class="row no-gutters who-title mb-4">Experts</div>
+                <div class="row no-gutters">
+                    <div>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text"> Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                        <p class="who-text">Lorem ipsum lorem ipsum</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

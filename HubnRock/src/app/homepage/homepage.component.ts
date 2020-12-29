@@ -41,6 +41,7 @@ export class HomepageComponent implements OnInit {
 
     this.httpCommunication.currentUser.subscribe(
       data => {
+        console.log('ENTREM A FUCKING CURENT USER')
         this.currentUser = data;
         if (this.currentUser) {
           this.userIsRockstar = this.currentUser.userType;

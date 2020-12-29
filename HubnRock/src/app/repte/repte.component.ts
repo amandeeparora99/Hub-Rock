@@ -56,6 +56,10 @@ export class RepteComponent implements OnInit {
 
     this.httpCommunication.currentUser.subscribe(
       data => {
+        if (this.userLogged == false) {
+          this.isUserLoggedIn()
+        }
+        
         this.currentUser = data;
       }
     );

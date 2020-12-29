@@ -95,6 +95,11 @@ export class HttpCommunicationService {
     return !!localStorage.getItem('currentUser');
   }
 
+  isLoggedIn() {
+  
+    return !!localStorage.getItem('currentUser');
+  }  
+
   getCurrentUser() {
     return localStorage.getItem('currentUser');
   }
@@ -128,7 +133,7 @@ export class HttpCommunicationService {
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
+        // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
 
 
         return data;
@@ -155,7 +160,7 @@ export class HttpCommunicationService {
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
+        // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
 
 
         return data;
