@@ -4,11 +4,25 @@
     font-size: 16px;
 }
 
+.navbar {
+    padding: 0;
+}
+
+.hrheaderlinks li {
+    cursor: pointer;
+}
+
 #hubrock-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 26px 10%;
+    padding: 21px 10%;
+}
+
+#hubrock-header a {
+    font-family: 'WorkSans-Regular';
+    color: #020e7d;
+}
+
+#hubrock-header li a:hover {
+    color: #00e292;
 }
 
 #hubrock-header #logo {
@@ -41,6 +55,19 @@
 }
 
 .elimina-link a {
-    color: #e74c3c;
+    color: #e74c3c!important;
     cursor: pointer;
+}
+.elimina-link a:hover {
+    color: #f7c1bb!important;
+}
+
+@media (max-width: 768px) {
+    .headerSeparator {
+        display: none;
+    }
+    .nav-first-item {
+        margin-top: 20px;
+    }
+
 }

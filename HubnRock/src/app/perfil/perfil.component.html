@@ -266,7 +266,9 @@
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank">
+                                                    <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
+                                                </a>
                                             </div>
                                             <div class="col m-auto text-overflow-1">
                                                 <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
