@@ -142,11 +142,12 @@ export class HttpCommunicationService {
 
   }
 
-  registerRockstar(email, password, nom_rockstar): Observable<any> {
+  registerRockstar(email, password, nom_rockstar, cognom_rockstar): Observable<any> {
     const body = new HttpParams()
       .set('email', email)
       .set('password', password)
       .set('nom_rockstar', nom_rockstar)
+      .set('cognom_rockstar', cognom_rockstar)
 
     return this.http.post<any>(environment.api + '/user/shortRegisterRockstar',
       body.toString(),

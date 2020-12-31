@@ -218,7 +218,7 @@ export class RegisterComponent implements OnInit {
             this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
               this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
               this.registerForm.controls.nomResponsable.value,
-
+              this.registerForm.controls.cognom.value,
             )
               .pipe(first())
               .subscribe(

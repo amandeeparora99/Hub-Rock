@@ -443,6 +443,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
           console.log('araaaaay', this.pdfArray)
         }
 
+      } else {
+        formData.append('cv_path_delete', '')
       }
 
       if (this.tags.length) {
@@ -501,6 +503,8 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
           formData.append(`cv_path`, this.pdfArray[0]);
           console.log('araaaaay', this.pdfArray)
         }
+      } else {
+        formData.append('cv_path_delete', '')
       }
 
       if (this.tags.length) {

@@ -1420,6 +1420,9 @@ export class EditarRepteComponent implements OnInit {
         if (this.repteForm.get('premiArray').value[i].fotoPremi) {
           formData.append(`premi_url_photo[${i}]`, this.objectFotos[premiFotoName]);
         }
+      } else {
+        formData.append(`premi_url_photo_delete[${i}]`, '');
+
       }
     }
 
@@ -1446,6 +1449,9 @@ export class EditarRepteComponent implements OnInit {
         if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
           formData.append(`solucio_url_photo[${i}]`, this.objectSolucions[solucioFotoName]);
         }
+      } else {
+        formData.append(`solucio_url_photo_delete[${i}]`, '');
+
       }
     }
 
@@ -1472,6 +1478,9 @@ export class EditarRepteComponent implements OnInit {
         if (this.repteForm.get('partnerArray').value[i].logoPartner) {
           formData.append(`partner_url_logo[${i}]`, this.objectPartners[partnerFotoName]);
         }
+      } else {
+        formData.append(`partner_url_logo_delete[${i}]`, '');
+
       }
     }
 
@@ -1498,6 +1507,9 @@ export class EditarRepteComponent implements OnInit {
         if (this.repteForm.get('juratArray').value[i].fotoJurat) {
           formData.append(`jurat_url_photo[${i}]`, this.objectJurats[juratFotoName]);
         }
+      } else {
+        formData.append(`jurat_url_photo_delete[${i}]`, '');
+
       }
     }
 
@@ -1519,7 +1531,10 @@ export class EditarRepteComponent implements OnInit {
         formData.append(`recurs_nom[${index}]`, file.name);
         formData.append(`recurs_url_fitxer[${index}]`, file);
       }
-    }
+    } 
+    // else {
+    //   formData.append(`recurs_url_fitxer_delete`, '');
+    // }
 
     //APPENDING FOTOS REPTE
     if (this.fotosRepte.fotoPortada) {
@@ -1532,18 +1547,27 @@ export class EditarRepteComponent implements OnInit {
       if (this.repteForm.get('fotoRepresentativa1').value) {
         formData.append(`url_photo_1`, this.fotosRepte.fotoRepresentativa1);
       }
+    } else {
+      formData.append(`url_photo_1_delete`, '');
+
     }
 
     if (this.fotosRepte.fotoRepresentativa2) {
       if (this.repteForm.get('fotoRepresentativa2').value) {
         formData.append(`url_photo_2`, this.fotosRepte.fotoRepresentativa2);
       }
+    } else {
+      formData.append(`url_photo_2_delete`, '');
+
     }
 
     if (this.fotosRepte.fotoRepresentativa3) {
       if (this.repteForm.get('fotoRepresentativa3').value) {
         formData.append(`url_photo_3`, this.fotosRepte.fotoRepresentativa3);
       }
+    } else {
+      formData.append(`url_photo_3_delete`, '');
+
     }
 
 
