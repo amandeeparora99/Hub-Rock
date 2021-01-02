@@ -23,25 +23,25 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-auto col-img">
-                <img src="https://dummyimage.com/403x512/000/fff" alt="">
+                <img [src]="imageToShow" alt="">
             </div>
             <div class="col-md-6 col-tabs">
-                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap">
-                    <div class="col-md-auto col-sm-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
+                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap" (click)="changeImageToShow(0)" [ngClass]="{'active' : activeTab == 0}">
+                    <div class="col-md-auto col-sm-auto w-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
                     <div class="col-md-8 col-sm-8 d-flex flex-column justify-content-center">
                         <h4>Atraure talent</h4>
                         <p class="mb-0">Accelera la innovació a través de col·laboracions </p>
                     </div>
                 </div>
-                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap">
-                    <div class="col-md-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
+                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap" (click)="changeImageToShow(1)" [ngClass]="{'active' : activeTab == 1}">
+                    <div class="col-md-auto w-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
                     <div class="col-md-8 d-flex flex-column justify-content-center">
                         <h4>Atraure talent</h4>
                         <p class="mb-0">Accelera la innovació a través de col·laboracions </p>
                     </div>
                 </div>
-                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap">
-                    <div class="col-md-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
+                <div class="row crea-repte-tabs align-items-center justify-content-center flex-nowrap" (click)="changeImageToShow(2)" [ngClass]="{'active' : activeTab == 2}">
+                    <div class="col-md-auto w-auto"><img src="../../assets/simpleicons/Attract Talent.png" width="80px" height="80px" alt=""></div>
                     <div class="col-md-8 d-flex flex-column justify-content-center">
                         <h4>Atraure talent</h4>
                         <p class="mb-0">Accelera la innovació a través de col·laboracions </p>
@@ -50,6 +50,105 @@
             </div>
         </div>
 
+    </div>
+</section>
+
+<section id="connectem-empreses-section" class="d-flex justify-content-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center order-2 order-md-1">
+                <img src="https://dummyimage.com/443x321/000/fff">
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-center justify-content-center order-1 order-md-2">
+                <h3>Connectem empreses, startups, estudiants per impulsar la innovació</h3>
+                <p>
+                    Accelera la innovació a través de col·laboracions Accelera l a innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions Accelera la innovació a través de col·laboracions Accelera
+                    l a innovació a través de col·laboracions Accelera la innovació a través de col·laboracionsAccelera la innovació a través de col·laboracions
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="plataforma-puntera-section">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="plataforma-h2">
+            <h2>Una plataforma puntera al teu servei</h2>
+        </div>
+        <div class="row plataforma-tabs-row">
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <div class="container">
+                        <p class="plataforma-tabs-text">Activa i gestiona la innovació</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <p class="plataforma-tabs-text">Comunica l’impacte positiu de la teva empresa</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <p class="plataforma-tabs-text">Connecta amb empreses i professionals</p>
+                </div>
+            </div>
+        </div>
+        <div class="row plataforma-tabs-row">
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <p class="plataforma-tabs-text">T’oferim la màxima seguretat</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <p class="plataforma-tabs-text">Fàcil accés desde mòbils</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="plataforma-tabs">
+                    <img src="https://dummyimage.com/85x85/000/fff" alt="">
+                    <div class="container">
+                        <p class="plataforma-tabs-text">Fem millores constants i afegim noves funcionalitats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="descobreix-beneficis-section">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="descobreix-h2">
+            <h2>Descobreix més beneficis de Hub & Rock</h2>
+        </div>
+        <div class="row no-gutters d-flex flex-wrap w-100">
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Company.png" alt="160x160"></div>
+                <div class="row no-gutters mb-4"><a class="who-title" href="#">Per empreses</a></div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Startup.png" alt="160x160"></div>
+                <div class="row no-gutters mb-4"><a class="who-title" href="#">Per startups</a></div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Student.png" alt="160x160"></div>
+                <div class="row no-gutters mb-4"><a class="who-title" href="#">Per estudiants</a></div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center mb-5">
+                <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Experts.png" alt="160x160"></div>
+                <div class="row no-gutters mb-4"><a class="who-title" href="#">Per experts</a></div>
+            </div>
+        </div>
     </div>
 </section>
 <app-footer></app-footer>

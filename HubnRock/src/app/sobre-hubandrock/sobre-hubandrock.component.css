@@ -45,7 +45,7 @@ img {
 /* CREA REPTES SECTION */
 
 #crea-repte-section {
-    margin-bottom: 108px;
+    margin-bottom: 192px;
 }
 
 .crea-repte-titol {
@@ -68,7 +68,7 @@ img {
 
 .crea-repte-tabs {
     cursor: pointer;
-    height: 120px;
+    min-height: 120px;
     border-radius: 16px;
     border: solid 1px #d2d2d2;
     margin: 20px auto 20px auto;
@@ -104,4 +104,144 @@ img {
 
 .crea-repte-tabs img {
     width: auto;
+}
+
+.active {
+    box-shadow: 0 2px 6px 4px rgba(224, 224, 224, 0.5);
+    border: solid 1px #020e7d;
+}
+
+
+/* CONNECTEM EMPRESES SECTION */
+
+#connectem-empreses-section {
+    margin-bottom: 223px;
+}
+
+#connectem-empreses-section .container {
+    max-width: 1110px;
+}
+
+#connectem-empreses-section .container .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#connectem-empreses-section .container .row h3 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 0.89;
+    letter-spacing: -1.91px;
+    color: #180087;
+    margin-bottom: 30px;
+}
+
+#connectem-empreses-section .container .row p {
+    line-height: 1.41;
+    letter-spacing: -0.9px;
+    color: #000000;
+}
+
+
+/* PLATAFORMA PUNTERA SECTION */
+
+#plataforma-puntera-section {
+    margin-bottom: 190px;
+}
+
+#plataforma-puntera-section .plataforma-h2 {
+    text-align: center;
+    max-width: 825px;
+    margin-bottom: 100px;
+}
+
+#plataforma-puntera-section h2 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.83;
+    margin-bottom: 33px;
+}
+
+#plataforma-puntera-section .container {
+    max-width: 1110px;
+}
+
+.plataforma-tabs {
+    min-height: 242px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px 4px rgba(224, 224, 224, 0.5);
+}
+
+
+/* .plataforma-tabs-row {
+    margin-bottom: 30px;
+} */
+
+#plataforma-puntera-section .container {
+    max-width: 1110px;
+}
+
+#plataforma-puntera-section img {
+    margin-top: 29px;
+    margin-bottom: 27px;
+    width: auto;
+    /* margin-bottom: 27px; */
+}
+
+.plataforma-tabs-text {
+    font-size: 24px;
+    letter-spacing: -1.27px;
+    text-align: center;
+    color: #000000;
+}
+
+
+/* DESCOBREIX BENEFICIS SECTION */
+
+#descobreix-beneficis-section {
+    margin-bottom: 190px;
+}
+
+#descobreix-beneficis-section .descobreix-h2 {
+    text-align: center;
+    max-width: 825px;
+    margin-bottom: 100px;
+}
+
+#descobreix-beneficis-section h2 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.83;
+    margin-bottom: 33px;
+}
+
+#descobreix-beneficis-section .container {
+    max-width: 1110px;
+}
+
+.who-image {
+    margin-bottom: 50px;
+}
+
+.who-title {
+    font-size: 22px;
+    line-height: normal;
+    letter-spacing: -0.91px;
+    text-align: center;
+    color: #020e7d;
+}
+
+.who-title:hover {
+    color: #00e292;
+    text-decoration: none;
 }

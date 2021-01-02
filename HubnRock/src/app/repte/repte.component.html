@@ -454,7 +454,7 @@
                                         </div>
                                         <div class="col m-auto text-overflow-1">
                                             <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="!solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
-                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}</a>
+                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}} {{solucio.user.cognom_rockstar}}</a>
                                         </div>
                                     </div>
                                 </div>

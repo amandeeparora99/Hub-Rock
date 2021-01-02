@@ -252,7 +252,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;
   }
-  
+
   removeMemberButtonClick(membreGroupIndex: number): void {
     let confirmWindow = confirm('Estàs segur que vols eliminar aquest membre?')
     if (confirmWindow == true) {
@@ -365,8 +365,13 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   deletePdf(index) {
-    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
-    this.pdfArray.splice(index, 1)
+    let confirmWindow = confirm('Estàs segur que vol eliminar aquest pdf?')
+
+    if (confirmWindow == true) {
+      this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+      this.pdfArray.splice(index, 1)
+    }
+
   }
 
   onSubmit() {

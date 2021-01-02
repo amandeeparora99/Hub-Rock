@@ -56,6 +56,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     'nomRockstar': {
       'required': 'Introdueix un nom del responsable'
     },
+    'cognom': {
+      'required': 'És un camp requerit',
+      'minlength': 'Massa curt',
+      'maxlength': 'Massa llarg'
+    },
     // 'nomCorreu': {
     //   'required': 'Introdueix un correu',
     //   'email': 'Introdueix un correu vàlid'
@@ -145,6 +150,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomRockstar: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      cognom: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
       // nomCorreu: ['', [Validators.required, Validators.email]],
       // contrasenyaGroup: this.fb.group({
       // nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
@@ -184,6 +190,9 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
           } else {
             this.editUserForm.get('nomRockstar').clearValidators()
             this.editUserForm.get('nomRockstar').updateValueAndValidity()
+
+            this.editUserForm.get('cognom').clearValidators()
+            this.editUserForm.get('cognom').updateValueAndValidity()
           }
         }
       }
@@ -220,6 +229,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
           this.editUserForm.patchValue({
             nomEmpresa: this.usuariObject.nom_empresa,
             nomRockstar: this.usuariObject.nom_rockstar,
+            cognom: this.usuariObject.cognom_rockstar,
             nomResponsable: this.usuariObject.nom_responsable,
             nifEmpresa: this.usuariObject.nif_empresa,
             ocupacio: this.usuariObject.ocupacio,
@@ -346,7 +356,12 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   }
 
   resetPdfArray() {
-    this.pdfArray = [];
+    let confirmWindow = confirm('Estàs segur que vol eliminar els pdf?')
+
+    if(confirmWindow == true){
+         this.pdfArray = [];
+    }
+ 
   }
 
   onSubmit() {
@@ -496,6 +511,10 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
       if (this.editUserForm.get('nomRockstar').value) {
         formData.append('nom_rockstar', this.editUserForm.get('nomRockstar').value);
+      }
+
+      if (this.editUserForm.get('cognom').value) {
+        formData.append('cognom_rockstar', this.editUserForm.get('cognom').value);
       }
 
       if (this.pdfArray.length) {

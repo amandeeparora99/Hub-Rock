@@ -65,7 +65,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   pdfArray = [];
   totalRecursosSize = 0;
-  
+
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
 
@@ -271,7 +271,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     // });
   }
 
-  partnersBlurchange(){
+  partnersBlurchange() {
     this.partnersBlur = true;
   }
 
@@ -520,8 +520,13 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
 
   deletePdf(index) {
-    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
-    this.pdfArray.splice(index, 1)
+    let confirmWindow = confirm('Estàs segur que vol eliminar aquest pdf?')
+
+    if (confirmWindow == true) {
+      this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+      this.pdfArray.splice(index, 1)
+    }
+
   }
 
   onFileRepteFoto(event) {
@@ -1243,7 +1248,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;
 
-    if(this.currentTab != 0){
+    if (this.currentTab != 0) {
       console.log("COMPROVACIO NOVA")
       console.log(this.repteForm.get('nomRepte').valid)
       console.log(this.repteForm.get('descripcioBreuRepte').valid)

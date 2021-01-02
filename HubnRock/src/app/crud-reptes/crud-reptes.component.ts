@@ -163,7 +163,7 @@ export class CrudReptesComponent implements OnInit {
   getReptesSearch(string, pagina, elements) {
     if (this.empresesChecked || this.startupsChecked || this.estudiantsChecked || this.expertsChecked) {
       if (string != '') {
-        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByName(string, this.empresesChecked, this.startupsChecked,
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByNameAdmin(string, this.empresesChecked, this.startupsChecked,
           this.estudiantsChecked, this.expertsChecked, 1, 100)
           .pipe(first())
           .subscribe(
@@ -178,7 +178,7 @@ export class CrudReptesComponent implements OnInit {
           );
       }
       else {
-        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByTipus(this.empresesChecked, this.startupsChecked,
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByTipusAdmin(this.empresesChecked, this.startupsChecked,
           this.estudiantsChecked, this.expertsChecked, 1, 100)
           .pipe(first())
           .subscribe(
@@ -196,7 +196,7 @@ export class CrudReptesComponent implements OnInit {
 
     else {
       if (string.length > 2) {
-        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByName(string, this.empresesChecked, this.startupsChecked, this.estudiantsChecked,
+        this.subscriptionHttp4$ = this.httpCommunication.getReptesSearchByNameAdmin(string, this.empresesChecked, this.startupsChecked, this.estudiantsChecked,
           this.expertsChecked, pagina, elements)
           .pipe(first())
           .subscribe(

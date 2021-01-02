@@ -196,7 +196,12 @@ export class HomepageComponent implements OnInit {
   }
 
   resetPdfArray() {
-    this.pdfArray = [];
+    let confirmWindow = confirm('Estàs segur que vol eliminar els pdf?')
+
+    if (confirmWindow == true) {
+      this.pdfArray = [];
+    }
+
   }
 
   confirmQuit() {

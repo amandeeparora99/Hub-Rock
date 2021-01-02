@@ -15,8 +15,7 @@
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-md-auto mr-4">
-                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 profileImgBig"
-                                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + usuariObject.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{usuariObject.user_iduser}}">
+                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 profileImgBig" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + usuariObject.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{usuariObject.user_iduser}}">
                             </div>
                         </div>
                         <div class="col-md col-mt">
@@ -112,9 +111,9 @@
                                         <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.url_photo_main + ')'}" alt="Card image cap"></div>
                                         <div class="card-body fitxa-repte">
                                             <div class="card-title d-flex">
-                                                <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
-                                                </div><p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repteEsborrany.user_iduser}}">{{repteEsborrany.user.nom_empresa}}</p>
+                                                <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repteEsborrany.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repteEsborrany.user_iduser}}">
+                                                </div>
+                                                <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repteEsborrany.user_iduser}}">{{repteEsborrany.user.nom_empresa}}</p>
                                             </div>
                                             <h5 class="card-title titol-repte">{{repteEsborrany.nom}}</h5>
                                             <p *ngIf="!repteEsborrany.descripcio_short" class="card-text desc-repte">Sense descripció breu</p>
@@ -168,8 +167,7 @@
                                     <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                                     <div class="card-body fitxa-repte">
                                         <div class="card-title d-flex">
-                                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                            <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                             </div>
                                             <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                         </div>
@@ -300,7 +298,7 @@
                         <div class="col-md col-mt">
                             <div class="row no-gutters">
                                 <div class="col-md-auto col-mr">
-                                    <h4 id="perfil-nom">{{usuariObject.nom_rockstar}}</h4>
+                                    <h4 id="perfil-nom">{{usuariObject.nom_rockstar}} {{usuariObject.cognom_rockstar}}</h4>
                                 </div>
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary" *ngIf="isOwnUser" (click)="routeEditProfile()">EDITAR PERFIL</button>
@@ -430,7 +428,7 @@
                                                 <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                             </div>
                                             <div class="col m-auto text-overflow-1">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}</a>
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}} {{solucio.user.cognom_rockstar}}</a>
                                             </div>
                                         </div>
                                     </div>

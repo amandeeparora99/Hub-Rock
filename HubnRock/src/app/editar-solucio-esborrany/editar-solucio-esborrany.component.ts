@@ -483,8 +483,13 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   deletePdf(index) {
-    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
-    this.pdfArray.splice(index, 1)
+    let confirmWindow = confirm('Estàs segur que vol eliminar aquest pdf?')
+
+    if (confirmWindow == true) {
+      this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+      this.pdfArray.splice(index, 1)
+    }
+
   }
 
   onSubmit() {
@@ -688,7 +693,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;
   }
-  
+
   appendRepte(): FormData {
     const formData = new FormData();
 

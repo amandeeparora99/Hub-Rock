@@ -13,7 +13,7 @@
 
             <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
                 <div class="mb-1">
-                    
+
                     <div class="col-md-12">
                         <div class="row d-flex flex-column">
                             <label for="profilePicture">Foto de perfil</label>
@@ -44,6 +44,13 @@
                     <input formControlName="nomRockstar" type="text" class="form-control" id="InputNomRockstar" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomRockstar">
                         {{formErrors.nomRockstar}}
+                    </span>
+                </div>
+                <div *ngIf="userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.cognom}">
+                    <label for="InputCognom">Cognom</label>
+                    <input formControlName="cognom" type="text" class="form-control" id="InputCognom" (blur)="logValidationErrors()">
+                    <span class="help-block" *ngIf="formErrors.cognom">
+                        {{formErrors.cognom}}
                     </span>
                 </div>
                 <div *ngIf="!userIsRockstar" class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">

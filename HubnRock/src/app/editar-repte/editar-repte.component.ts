@@ -904,8 +904,13 @@ export class EditarRepteComponent implements OnInit {
   }
 
   deletePdf(index) {
-    this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
-    this.pdfArray.splice(index, 1)
+    let confirmWindow = confirm('Estàs segur que vol eliminar aquest pdf?')
+
+    if (confirmWindow == true) {
+      this.totalRecursosSize = this.totalRecursosSize - this.pdfArray[index].size;
+      this.pdfArray.splice(index, 1)
+    }
+
   }
 
   onFileRepteFoto(event) {
@@ -1531,7 +1536,7 @@ export class EditarRepteComponent implements OnInit {
         formData.append(`recurs_nom[${index}]`, file.name);
         formData.append(`recurs_url_fitxer[${index}]`, file);
       }
-    } 
+    }
     // else {
     //   formData.append(`recurs_url_fitxer_delete`, '');
     // }
