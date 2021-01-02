@@ -1,4 +1,4 @@
-<header id="hubrock-header">
+<!-- <header id="hubrock-header">
     <img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png">
     <nav class="nav-links">
         <li><a (click)="headerRedirect(4)" class="font-weight-bold hubrock-border-right">Veure reptes oberts</a></li>
@@ -7,4 +7,35 @@
         <li *ngIf="userLogged && currentUserObject"><a (click)="userProfile()">{{currentUserObject.nom}} {{currentUserObject.cognom}}</a></li>
         <li *ngIf="userLogged" class="elimina-link"><a (click)="userLogout()">Sortir</a></li>
     </nav>
-</header>
+</header> -->
+<div id="hubrock-header" class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav hrheaderlinks">
+                <li class="nav-item nav-first-item">
+                    <a (click)="headerRedirect(4)" class="nav-link font-weight-bold mr-3">Veure reptes oberts<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="headerSeparator">
+                    <a class="nav-link mr-3">|</a>
+                </li>
+                <li *ngIf="!userLogged" class="nav-item">
+                    <a (click)="headerRedirect(2)" class="nav-link mr-3">Dona't d'alta</a>
+                </li>
+                <li *ngIf="!userLogged" class="nav-item">
+                    <a (click)="headerRedirect(3)" class="nav-link">Entra</a>
+                </li>
+                <li *ngIf="userLogged && currentUserObject" class="nav-item">
+                    <a (click)="userProfile()" class="nav-link mr-3">{{currentUserObject.nom}}</a>
+                </li>
+                <li *ngIf="userLogged" class="elimina-link nav-item">
+                    <a (click)="userLogout()" class="nav-link">Sortir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
