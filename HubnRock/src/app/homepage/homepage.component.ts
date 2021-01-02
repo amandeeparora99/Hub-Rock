@@ -90,6 +90,10 @@ export class HomepageComponent implements OnInit {
     document.getElementById("openModalButton").click();
   }
 
+  obrirTest() {
+    document.getElementById("openCreaRepte").click();
+  }
+
   getAllReptesHomepage() {
     this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(1, 10)
       .pipe(first())

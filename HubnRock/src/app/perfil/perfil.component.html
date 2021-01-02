@@ -78,17 +78,16 @@
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre nosaltres</h5>
                             <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
-                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el nostre perfil de Hub & Rock! Aqui podràs veure informació sobre els nostres serveis, presentació amb un descarregable i molt més. Fins i tot podràs veure els nostres reptes i solucions enviades!
-                            </p>
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">-</p>
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Els nostres serveis</h5>
-                            <p class="card-text" *ngIf="!usuariObject.serveis.length">Serveis sense definir</p>
+                            <p class="card-text" *ngIf="!usuariObject.serveis.length">-</p>
                             <p *ngFor="let servei of usuariObject.serveis" class="p-border mr-4">{{servei.servei_nom}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Presentació empresa</h5>
-                            <p class="card-text" *ngIf="!usuariObject.cv_path">Aquesta empresa no ha compartit la seva presentació</p>
+                            <p class="card-text" *ngIf="!usuariObject.cv_path">-</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                             <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-empresa">Presentació {{usuariObject.nom_empresa}}</a>
                         </div>
@@ -356,27 +355,27 @@
                         <div class="mb-5 mt-3">
                             <h5 class="card-title">Sobre mi</h5>
                             <p class="card-text" *ngIf="usuariObject.bio || usuariObject.bio != ''">{{usuariObject.bio}}</p>
-                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">Hola! Aquest és el meu perfil de Hub & Rock! Aqui podràs veure la informació sobre les meves habilitats, presentació amb un descarregable i molt més. Fins i tot podràs veure les meves solucions enviades!</p>
+                            <p class="card-text" *ngIf="!usuariObject.bio || usuariObject.bio == ''">-</p>
 
                         </div>
                         <div class="p-border-mb">
                             <h5 class="card-title">Habilitats</h5>
-                            <p class="card-text" *ngIf="!usuariObject.habilitats.length">Habilitats sense definir</p>
+                            <p class="card-text" *ngIf="!usuariObject.habilitats.length">-</p>
                             <p *ngFor="let habilitat of usuariObject.habilitats" class="p-border mr-4">{{habilitat.habilitat_nom}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Experiència</h5>
-                            <p class="card-text" *ngIf="!usuariObject.experiencia">Experiència sense definir</p>
+                            <p class="card-text" *ngIf="!usuariObject.experiencia">-</p>
                             <p class="card-text">{{usuariObject.experiencia}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">Educació</h5>
-                            <p class="card-text" *ngIf="!usuariObject.educacio">Educació sense definir</p>
+                            <p class="card-text" *ngIf="!usuariObject.educacio">-</p>
                             <p class="card-text">{{usuariObject.educacio}}</p>
                         </div>
                         <div class="mb-5">
                             <h5 class="card-title">CV</h5>
-                            <p class="card-text" *ngIf="!usuariObject.cv_path">Aquest usuari no ha compartit el CV</p>
+                            <p class="card-text" *ngIf="!usuariObject.cv_path">-</p>
                             <img *ngIf="usuariObject.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                             <a target="_blank" [href]="fileStorageUrl + usuariObject.cv_path" download *ngIf="usuariObject.cv_path" class="link-perfil-usuari">Currículum {{usuariObject.nom_rockstar}}</a>
                         </div>

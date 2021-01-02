@@ -87,8 +87,10 @@
     color: #fff;
 }
 .btn-style:hover{
-    -webkit-transform: scale(1.1);
-    background: #020e7d;
+    /* -webkit-transform: scale(1.1);
+    background: #020e7d; */
+    transform: translate3d(0, -5px, 0);
+    -webkit-transform: translate3d(0, -5px, 0);
 }
 
 /* Els tags dels reptes no són botons */
