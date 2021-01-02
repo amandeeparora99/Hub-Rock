@@ -118,13 +118,38 @@
             </div>
             <div class="modal-footer">
                 <a type="button" data-dismiss="modal" (click)="confirmQuit()">Saltar aquest procés</a>
-                <button type="button" class="btn btn-primary desar" data-dismiss="modal" (click)="onSubmit()">Desar</button>
+                <button type="button" class="btn btn-primary desar btn-style" data-dismiss="modal" (click)="onSubmit()">Desar</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- //FORMULARI DEL FIRST LOGIN -->
+
+<!-- Button trigger modal -->
+<button id="openCreaRepte" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" [hidden]="true">Large modal</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal-body-custom">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="font-size: 20px" aria-hidden="true">&times;</span>
+                </button>
+                <p style="margin: 30px 20px 20px; line-height: normal;" class="text-center">
+                    Només les empreses poden crear reptes. Si ets empresa, dona't d'alta o entra al teu compte i comença a crear el repte.
+                </p>
+                <div class="d-flex justify-content-center">
+                    <button style="min-width: 200px;" type="button" class="btn btn-primary what-btn mb-3" data-dismiss="modal">Ok</button>
+                </div>
+                <div class="d-flex justify-content-center mb-2">
+                    <a class="beneficisEmpreses mb-3" href="/per-empreses">Beneficis per empreses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- BANNER -->
 <section id="banner-section">
@@ -141,7 +166,9 @@
                 <div class="row max-width-button d-flex justify-content-between no-gutters">
                     <button id="veure-reptes" class="btn btn-primary btn-style" routerLink='/reptes'>VEURE REPTES OBERTS</button>
                     <!-- <li *ngFor="let employee of employees$ | async">{{employee.name}}</li> -->
-                    <button id="crear-repte" class="btn btn-primary btn-style" routerLink='/creacio-repte' *ngIf="currentUser && !currentUser.userType">CREA EL TEU REPTE</button>
+                    <button id="crear-repte" class="btn btn-primary btn-style crear-repte-btn" routerLink='/creacio-repte' *ngIf="currentUser && !currentUser.userType">CREA EL TEU REPTE</button>
+                    <button id="crear-repte-rockstar" class="btn btn-primary btn-style crear-repte-btn" *ngIf="currentUser && currentUser.userType" (click)="obrirTest()">CREA EL TEU REPTE</button>
+                    <button id="crear-repte-noLogin" class="btn btn-primary btn-style crear-repte-btn" *ngIf="!currentUser" routerLink='/login'>CREA EL TEU REPTE</button>
                 </div>
             </div>
         </div>
@@ -217,14 +244,14 @@
         <div class="container">
             <div class="row no-gutters">
                 <div id="what-image-col" class="col-md-7 mb-3">
-                    <img class="imatge-responsive" src="../../assets/illustrations/Ilustració1.png" alt="635x444">
+                    <img class="imatge-responsive align-self-center" src="../../assets/illustrations/Ilustració1.png" alt="635x444">
                 </div>
                 <div id="what-desc-col" class="col-md-4">
                     <h2 id="what-title">Què és <br> Hub & Rock?</h2>
                     <p class="what-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
                         specimen book.
                     </p>
-                    <button id="what-btn" class="btn btn-primary">SABER MÉS</button>
+                    <a href="/sobre-hubandrock"><button class="btn btn-primary what-btn">SABER MÉS</button></a>
                     <div class="row no-gutters">
                         <img class="imatge-responsive logoCambra align-self-center" src="../../assets/logos/logoCambra.png" alt="Logo Cambra">
                         <p id="what-small-letter" class="col">Un projecte de la Cambra de Comerç de Girona</p>
@@ -255,7 +282,7 @@
                         </div>
                     </div>
                     <div class="row no-gutters">
-                        <button class="btn btn-primary who-btn">SABER MÉS</button>
+                        <button class="btn btn-primary who-btn what-btn">SABER MÉS</button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center">
@@ -270,7 +297,7 @@
                         </div>
                     </div>
                     <div class="row no-gutters">
-                        <button class="btn btn-primary who-btn">SABER MÉS</button>
+                        <button class="btn btn-primary who-btn what-btn">SABER MÉS</button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center">
@@ -285,7 +312,7 @@
                         </div>
                     </div>
                     <div class="row no-gutters">
-                        <button class="btn btn-primary who-btn">SABER MÉS</button>
+                        <button class="btn btn-primary who-btn what-btn">SABER MÉS</button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center">
@@ -300,7 +327,7 @@
                         </div>
                     </div>
                     <div class="row no-gutters">
-                        <button class="btn btn-primary who-btn">SABER MÉS</button>
+                        <button class="btn btn-primary who-btn what-btn">SABER MÉS</button>
                     </div>
                 </div>
             </div>

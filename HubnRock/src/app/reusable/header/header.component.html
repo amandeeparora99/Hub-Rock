@@ -8,6 +8,30 @@
         <li *ngIf="userLogged" class="elimina-link"><a (click)="userLogout()">Sortir</a></li>
     </nav>
 </header> -->
+<button id="openCreaRepte" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" [hidden]="true">Large modal</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body modal-body-custom">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="font-size: 20px" aria-hidden="true">&times;</span>
+                </button>
+                <p style="margin: 30px 20px 20px; line-height: normal;" class="text-center">
+                    Només les empreses poden crear reptes. Si ets empresa, dona't d'alta o entra al teu compte i comença a crear el repte.
+                </p>
+                <div class="d-flex justify-content-center">
+                    <button style="min-width: 200px;" type="button" class="btn btn-primary what-btn mb-3" data-dismiss="modal">Ok</button>
+                </div>
+                <div class="d-flex justify-content-center mb-2">
+                    <a class="beneficisEmpreses mb-3" href="/per-empreses">Beneficis per empreses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="hubrock-header" class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-light">
         <a class="navbar-brand"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
@@ -19,6 +43,11 @@
             <ul class="navbar-nav hrheaderlinks">
                 <li class="nav-item nav-first-item">
                     <a (click)="headerRedirect(4)" class="nav-link font-weight-bold mr-3">Veure reptes oberts<span class="sr-only">(current)</span></a>
+                </li>
+                <li>
+                    <a *ngIf="currentUser && !currentUser.userType" href="/creacio-repte" class="nav-link font-weight-bold mr-3">Crea un repte</a>
+                    <a *ngIf="currentUser && currentUser.userType" (click)="obrirTest()" class="nav-link font-weight-bold mr-3">Crea un repte</a>
+                    <a *ngIf="!currentUser" routerLink='/login' class="nav-link font-weight-bold mr-3">Crea un repte</a>
                 </li>
                 <li class="headerSeparator">
                     <a class="nav-link mr-3">|</a>

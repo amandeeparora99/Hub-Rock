@@ -71,6 +71,9 @@ export class HeaderComponent implements OnInit {
 
   userProfile() {
     this.router.navigate(['/perfil/', this.currentUser.idUser])
+  }
 
+  obrirTest() {
+    document.getElementById("openCreaRepte").click();
   }
 }

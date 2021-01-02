@@ -29,7 +29,7 @@
     max-width: 597px;
 }
 
-#crear-repte {
+.crear-repte-btn {
     width: 277px;
     height: 55px;
     font-size: 17px;
@@ -134,7 +134,7 @@
     margin-bottom: 34px;
 }
 
-#what-btn {
+.what-btn {
     color: #000000;
     font-size: 17px;
     letter-spacing: -0.9px;
@@ -146,6 +146,12 @@
     width: 206px;
     height: 40px;
     margin-bottom: 28px;
+    transition: 0.3s;
+}
+
+.what-btn:hover {
+    background-color: #020e7d;
+    color: white;
 }
 
 #what-small-letter {
@@ -424,4 +430,31 @@ input {
 
 .image-upload>input {
     display: none;
+}
+
+.beneficisEmpreses {
+    display: inline-block;
+    color: #020e7d;
+    font-size: 16px;
+    text-decoration: none;
+}
+.beneficisEmpreses:hover{
+    cursor: pointer;
+}
+
+.beneficisEmpreses::after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    background: #020e7d;
+    transition: 300ms;
+}
+
+.beneficisEmpreses:hover::after {
+    width: 100%;
+}
+
+.modal-body-custom {
+    padding: 1rem;
 }
