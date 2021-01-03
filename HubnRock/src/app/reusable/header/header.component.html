@@ -42,24 +42,24 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav hrheaderlinks">
                 <li class="nav-item nav-first-item">
-                    <a (click)="headerRedirect(4)" class="nav-link font-weight-bold mr-3">Veure reptes oberts<span class="sr-only">(current)</span></a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' (click)="headerRedirect(4)" class="nav-link mr-3">Veure reptes oberts</a>
                 </li>
                 <li>
-                    <a *ngIf="currentUser && !currentUser.userType" href="/creacio-repte" class="nav-link font-weight-bold mr-3">Crea un repte</a>
-                    <a *ngIf="currentUser && currentUser.userType" (click)="obrirTest()" class="nav-link font-weight-bold mr-3">Crea un repte</a>
-                    <a *ngIf="!currentUser" routerLink='/login' class="nav-link font-weight-bold mr-3">Crea un repte</a>
+                    <a *ngIf="currentUser && !currentUser.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}'  href="/creacio-repte" class="nav-link mr-3">Crea un repte</a>
+                    <a *ngIf="currentUser && currentUser.userType" (click)="obrirTest()" class="nav-link mr-3">Crea un repte</a>
+                    <a *ngIf="!currentUser" href='/login' class="nav-link mr-3">Crea un repte</a>
                 </li>
                 <li class="headerSeparator">
                     <a class="nav-link mr-3">|</a>
                 </li>
                 <li *ngIf="!userLogged" class="nav-item">
-                    <a (click)="headerRedirect(2)" class="nav-link mr-3">Dona't d'alta</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/registre",0)}' (click)="headerRedirect(2)" class="nav-link mr-3">Dona't d'alta</a>
                 </li>
                 <li *ngIf="!userLogged" class="nav-item">
-                    <a (click)="headerRedirect(3)" class="nav-link">Entra</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/login",0)}' (click)="headerRedirect(3)" class="nav-link">Entra</a>
                 </li>
                 <li *ngIf="userLogged && currentUserObject" class="nav-item">
-                    <a (click)="userProfile()" class="nav-link mr-3">{{currentUserObject.nom}}</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/perfil/",currentUserObject.idUser)}' (click)="userProfile()" class="nav-link mr-3">{{currentUserObject.nom}}</a>
                 </li>
                 <li *ngIf="userLogged" class="elimina-link nav-item">
                     <a (click)="userLogout()" class="nav-link">Sortir</a>

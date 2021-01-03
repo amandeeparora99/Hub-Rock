@@ -48,6 +48,10 @@
     color: #00e292;
     text-decoration-line: none;
 }
+.nav-item a.actiu:hover {
+    color: #00e292;
+    text-decoration: underline;
+}
 
 .hubrock-border-right {
     padding-right: 40px;
@@ -121,4 +125,9 @@
 .what-btn:hover {
     background-color: #020e7d;
     color: white;
+}
+
+.actiu {
+    font-weight: bold;
+    text-decoration: underline;
 }

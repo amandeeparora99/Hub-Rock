@@ -107,7 +107,7 @@ img {
 /* CREIXER CLIENTS */
 
 #atrau-talent-section {
-    margin-bottom: 206px;
+    margin-bottom: 100px;
 }
 
 #atrau-talent-section .container {
@@ -132,4 +132,23 @@ img {
     line-height: 1.41;
     letter-spacing: -0.9px;
     color: #000000;
+}
+
+#veure-reptes {
+    background-color: #00e292;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    color: #000000;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+    border-radius: 8px;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 78px;
+}
+
+#veure-reptes-section {
+    margin-bottom: 60px;
 }

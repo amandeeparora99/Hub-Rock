@@ -373,10 +373,10 @@ export class RepteComponent implements OnInit {
       else {
         let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
         if (days > 30) {
-          return "Tancat fa mesos";
+          return "Finalitzat";
         }
         else {
-          return "Tancat fa " + days + " dies";
+          return "Finalitzat";
         }
 
       }

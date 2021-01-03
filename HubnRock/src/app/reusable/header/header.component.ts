@@ -69,6 +69,25 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  currentPathMatch(path, idUser){
+    if(idUser == 0){
+      if(path == this.router.url) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else{
+      if(path + idUser == this.router.url) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
   userProfile() {
     this.router.navigate(['/perfil/', this.currentUser.idUser])
   }
