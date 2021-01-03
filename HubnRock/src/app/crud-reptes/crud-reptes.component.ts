@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crud-reptes',
@@ -46,7 +47,7 @@ export class CrudReptesComponent implements OnInit {
   estudiantsChecked: Boolean = false;
   expertsChecked: Boolean = false;
 
-  constructor(private httpCommunication: HttpCommunicationService, private router: Router) { }
+  constructor(private toastr: ToastrService,private httpCommunication: HttpCommunicationService, private router: Router) { }
 
   ngOnInit(): void {
     //this.getReptesReptesPage(this.paginaActual, this.elements);
@@ -262,6 +263,7 @@ export class CrudReptesComponent implements OnInit {
             .subscribe(
               data => {
                 if (data.code == '1') {
+                  this.toastr.success('S\'ha validat el repte correctament', 'Estat modificat');
                   window.location.reload();
                 }
               },

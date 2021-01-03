@@ -18,11 +18,13 @@ export class RepteCanViewGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     let idRepte;
     let idCurrentUser;
+    let userRole = null;
 
     idRepte = route.paramMap.get('id');
 
     if (this._httpService.loggedIn()) {
       idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
+      userRole = JSON.parse(localStorage.getItem('currentUser')).userRole;
     }
 
     return this._httpService.getRepte(idRepte).pipe(
@@ -32,6 +34,8 @@ export class RepteCanViewGuard implements CanActivate {
           if (data.row.estat_idestat == 3) {
             return true;
           } else if (data.row.estat_idestat != 3 && idCurrentUser && idCurrentUser == data.row.user_iduser) {
+            return true;
+          } else if (userRole != null && userRole == 1) {
             return true;
           } else {
             this.toastr.warning('El repte no és vàlid', 'Accés denegat')
