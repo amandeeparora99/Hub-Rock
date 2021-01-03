@@ -173,9 +173,9 @@
                         *ngFor="let soluciobuscada of repte.solucions; let i = index">
                         <div class="card">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <div class="rounded-circle solucionsbuscadesImg"
-                                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}">
-                                </div>
+                                <div *ngIf="soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"></div>
+                                <img *ngIf="!soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" src="../../assets/logos/default-solucio-image.jpg">
+
                             </div>
                             <div class="card-body solucio-info text-center">
                                 <h5 class="card-title">{{soluciobuscada.solucio_nom}}</h5>
@@ -271,8 +271,8 @@
                 <div class="text-premis row d-flex justify-content-start"
                     *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
-                            class="align-self-start tematicaImg" *ngIf="i % 2 == 0"></div>
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="(i % 2 == 0) && (soluciobuscada.solucio_url_photo)"></div>
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg" *ngIf="(i % 2 == 0) && (!soluciobuscada.solucio_url_photo)">
                         <!--Si el numero es parell -> text esquerre-->
 
                         <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0">
@@ -291,8 +291,8 @@
                                     src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button> -->
                         </div>
 
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
-                            class="align-self-start tematicaImg" *ngIf="i % 2 != 0"></div>
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="(i % 2 != 0) && (soluciobuscada.solucio_url_photo)"></div>
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg" *ngIf="(i % 2 != 0) && (!soluciobuscada.solucio_url_photo)">
                     </div>
 
                 </div>
@@ -304,8 +304,8 @@
                 <div id="altresrecursos" class="row">
                     <h1 class="tematicatitle">Altres recursos</h1>
                 </div>
-
                 <div id="altresrecursosfiles" class="row d-flex flex-column">
+                    <div class="text-center" *ngIf="!repte.recursos.length">No hi ha recursos adjuntats</div>
                     <div *ngFor="let recurs of repte.recursos" class="d-flex align-items-center">
                         <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                         <a target="_blank" [href]="fileStorageUrl + recurs.recurs_url_fitxer"

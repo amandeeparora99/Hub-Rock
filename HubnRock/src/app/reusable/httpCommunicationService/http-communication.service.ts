@@ -36,7 +36,7 @@ export class HttpCommunicationService {
         data => {
           if (data.code == '1') {
 
-            localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
+            localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar, "userRole": data.row.role_idrole }));
             let nomE;
             if (data.row.empresa_rockstar == 0) {
               nomE = data.row.nom_empresa

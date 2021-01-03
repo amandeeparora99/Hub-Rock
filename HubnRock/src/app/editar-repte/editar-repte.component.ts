@@ -1449,8 +1449,8 @@ export class EditarRepteComponent implements OnInit {
       }
 
       let solucioFotoName = 'fotoSolucio' + i;
-
-      if (this.objectSolucions[solucioFotoName]) {
+      console.log('putaaaaaaa', this.objectSolucions[solucioFotoName])
+      if (this.objectSolucions[solucioFotoName] && this.objectSolucions[solucioFotoName] != undefined) {
         if (this.repteForm.get('solucioArray').value[i].fotoSolucio) {
           formData.append(`solucio_url_photo[${i}]`, this.objectSolucions[solucioFotoName]);
         }
