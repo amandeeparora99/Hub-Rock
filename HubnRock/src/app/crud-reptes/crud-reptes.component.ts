@@ -302,6 +302,20 @@ export class CrudReptesComponent implements OnInit {
 
   }
 
+  premiCurt(text){
+    var string = text;
+    var length = 7;
+    var trimmedString = string.substring(0, length);
+
+    if(text.length > 7){
+      return trimmedString+"...";
+    }
+    else{
+      return string;
+    }
+    
+  }
+
 
   returnDaydddMMMyyy(day) {
     if (day) {

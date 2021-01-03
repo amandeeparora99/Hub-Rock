@@ -263,7 +263,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
         this.addPreguntaFormGroup(),
       ]),
 
-      customTOS: ['', [Validators.maxLength(5000), Validators.minLength(3)]],
+      customTOS: ['', [Validators.maxLength(9000), Validators.minLength(3)]],
     });
 
     // this.subscriptionForm$ = this.repteForm.valueChanges.subscribe((data) => {

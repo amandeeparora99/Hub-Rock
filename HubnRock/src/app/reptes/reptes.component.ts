@@ -262,6 +262,20 @@ export class ReptesComponent implements OnInit {
 
   }
 
+  premiCurt(text){
+    var string = text;
+    var length = 7;
+    var trimmedString = string.substring(0, length);
+
+    if(text.length > 7){
+      return trimmedString+"...";
+    }
+    else{
+      return string;
+    }
+    
+  }
+
   diesRestants(data_inici, data_final) {
     if (data_final && data_inici) {
       let dateInici = new Date(data_inici);

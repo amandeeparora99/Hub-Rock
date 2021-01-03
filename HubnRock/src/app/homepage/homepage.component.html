@@ -202,8 +202,8 @@
                                     <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
                                     <div class="d-flex align-items-center">
                                         <div *ngFor="let premi of repte.premis; let i = index">
-                                            <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
-                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
+                                            <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
+                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
                                         </div>
                                     </div>
                                 </div>

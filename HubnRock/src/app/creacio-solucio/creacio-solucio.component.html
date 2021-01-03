@@ -188,7 +188,7 @@
     </form>
 </div>
 <section id="solucioSuccess" *ngIf="success">
-    <div *ngIf="!borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+    <div *ngIf="!borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 85vh;">
         <h1 class="text-center">Enhorabona</h1>
         <div class="paragraph-container">
             <p class="text-center">La teva solució s’ha enviat correctament.</p>
@@ -198,7 +198,7 @@
             <button *ngIf="idSolucioCreada" class="btn btn-primary btn-manage" [routerLink]="['/solucio/', idSolucioCreada]">VEURE LA SOLUCIO</button>
         </div>
     </div>
-    <div *ngIf="borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 100vh;">
+    <div *ngIf="borradorEnviat" class="container d-flex flex-column justify-content-center" style="max-width:775px; height: 85vh;">
         <div class="paragraph-container">
             <h1 class="text-center">Solució desada</h1>
             <p class="text-center">L'esborrany s'ha desat correctament.</p>
