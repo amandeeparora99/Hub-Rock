@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class SobreHubandrockComponent implements OnInit {
 
   private imagesArray = [
-    `https://dummyimage.com/403x512/000/fff`,
-    `https://dummyimage.com/403x513/000/fff`,
-    `https://dummyimage.com/403x514/000/fff`,
+    `../../assets/testpics/1.png`,
+    `../../assets/testpics/2.png`,
+    `../../assets/testpics/3.png`,
   ]
   public imageToShow;
   public activeTab;

@@ -41,6 +41,10 @@
     color: white;
 }
 
+.nav-links li {
+    margin-bottom: 4px;
+}
+
 #hubrock-footer input[type=text] {
     max-width: 285px;
     background-color: #020e7d;
