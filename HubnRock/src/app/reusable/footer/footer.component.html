@@ -1,4 +1,28 @@
 <footer id="hubrock-footer">
+    <button id="openCreaRepte" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" [hidden]="true">Large modal</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body modal-body-custom">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="font-size: 20px" aria-hidden="true">&times;</span>
+                    </button>
+                    <p style="margin: 30px 20px 20px; line-height: normal;" class="text-center">
+                        Només les empreses poden crear reptes. Si ets empresa, dona't d'alta o entra al teu compte i comença a crear el repte.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <button style="min-width: 200px;" type="button" class="btn btn-primary what-btn mb-3" data-dismiss="modal">Ok</button>
+                    </div>
+                    <div class="d-flex justify-content-center mb-2">
+                        <a class="beneficisEmpreses mb-3" href="/per-empreses">Beneficis per empreses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-between">
 
         <!-- row 1 -->
@@ -10,7 +34,11 @@
         <div class="col-md-2 col-sm-6 col-xs-12">
             <h1 class="footer-heading">Ets empresa?</h1>
             <ul class="nav-links">
-                <li><a href="/">Crea un repte</a></li>
+                <li>
+                    <a *ngIf="currentUser && !currentUser.userType" href="/creacio-repte">Crea un repte</a>
+                    <a *ngIf="currentUser && currentUser.userType" (click)="obrirTest()" style="cursor: pointer;">Crea un repte</a>
+                    <a *ngIf="!currentUser" href="/login">Crea un repte</a>
+                </li>
                 <li><a href="/per-empreses">Beneficis per empreses</a></li>
                 <li><a href="/per-startups">Beneficis per startups</a></li>
             </ul>
