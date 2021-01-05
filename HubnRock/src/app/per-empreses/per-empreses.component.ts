@@ -8,18 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class PerEmpresesComponent implements OnInit {
 
   private textArray = [
-    `Atraure talent Atraure talent Atraure talent Atraure talent
-    Atraure talent Atraure talent Atraure talent Atraure talent
-    Atraure talent Atraure talent Atraure talent Atraure talent`,
-    `Gestió de la innovació Gestió de la innovació  Gestió de la innovació 
-    Gestió de la innovació Gestió de la innovació Gestió de la innovació 
-    Gestió de la innovació Gestió de la innovació Gestió de la innovació `,
-    `Marketing i comunicació Marketing i comunicació Marketing i comunicació 
-    Marketing i comunicació Marketing i comunicació Marketing i comunicació 
-    Marketing i comunicació Marketing i comunicació Marketing i comunicació `,
-    `Gestió del canvi Gestió del canvi Gestió del canvi Gestió del canvi 
-    Gestió del canvi Gestió del canvi Gestió del canvi Gestió del canvi 
-    Gestió del canvi Gestió del canvi Gestió del canvi Gestió del canvi `,
+    `A través dels teus reptes d’innovació atrauràs el millor talent local, amb qui podràs col·laborar a curt i llarg termini, i inclòs podrà formar part del vostre equip. `,
+    `Hub & Rock et permet descobrir noves tecnologies i serveis, i la nostra comunitat et recolzarà en el disseny, desenvolupament i implementació de solucions innovadores. `,
+    `Dóna a conèixer els valors i la missió de la teva empresa i comunica eficaçment tot el que esteu assolint. `,
+    `Amplia i millora els productes i serveis de la teva empresa a través de reptes d’innovació, accelerant el procés de creació i implementació i reduïnt els riscos. `,
   ]
   public textToShow;
   public activeTab;

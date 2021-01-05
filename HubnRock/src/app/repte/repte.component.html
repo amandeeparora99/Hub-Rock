@@ -171,7 +171,7 @@
 
                     <div class="col-md-3 col-sm-6 col-xs-12"
                         *ngFor="let soluciobuscada of repte.solucions; let i = index">
-                        <div class="card">
+                        <div class="card" style="transition: 0.3s;">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
                                 <div *ngIf="soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"></div>
                                 <img *ngIf="!soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" src="../../assets/logos/default-solucio-image.jpg">
@@ -223,7 +223,7 @@
                             una galería de textos y los mezcló de tal manera que logró hacer un libro de textos
                             especimen. No sólo sobrevivió 500 años.
                         </p>
-                        <a href="#">SABER MÉS</a>
+                        <!-- <a href="#">SABER MÉS</a> -->
                     </div>
 
 
