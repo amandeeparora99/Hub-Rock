@@ -53,22 +53,6 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  headerRedirect(page: number) {
-    if (page == 1) {
-      this.router.navigate(['/']);
-    }
-    else if (page == 2) {
-      this.router.navigate(['/registre']);
-    }
-    else if (page == 3) {
-      this.router.navigate(['/login']);
-    }
-    else if (page == 4) {
-      this.router.navigate(['/reptes']);
-    }
-
-  }
-
   currentPathMatch(path, idUser){
     if(idUser == 0){
       if(path == this.router.url) {

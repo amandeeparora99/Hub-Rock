@@ -139,3 +139,45 @@
     color: rgb(185, 185, 185);
 }
 
+/** TOOLTIPS */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+}
+.tooltip .tiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #020e7d;
+    color: white    ;
+    text-align: center;
+    border-radius: 3px;
+    padding: 6px 0;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.tooltip .tiptext::after {
+    content: "";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+}
+.tooltip:hover .tiptext {
+    visibility: visible;
+}
+
+/** TOP */
+
+.tooltip.top .tiptext{
+    margin-left: -100px;
+    bottom: 150%;
+    left: 50%;
+}
+.tooltip.top .tiptext::after{
+    margin-left: -5px;
+    top: 100%;
+    left: 50%;
+    border-color: #020e7d transparent transparent transparent;
+}

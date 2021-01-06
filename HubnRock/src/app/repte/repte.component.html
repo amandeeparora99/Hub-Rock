@@ -26,10 +26,21 @@
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
-                <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="currentUser && canParticipate()"
-                    [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE</button>
-                <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="!currentUser && canParticipate()"
-                    routerLink="/login">PARTICIPA AL REPTE</button>
+
+                <div [ngClass]="{'tooltip top': !repteEnProces()}">
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="currentUser && canParticipate()"
+                        [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE
+                    </button>
+                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                </div>
+                    
+                <div [ngClass]="{'tooltip top': !repteEnProces()}">
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="!currentUser && canParticipate()"
+                        routerLink="/login">PARTICIPA AL REPTE
+                    </button>
+                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                </div>
+
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()"
                     [routerLink]="['/repte/', idRepte, 'editar-repte']">EDITA EL REPTE</button>
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA
@@ -49,11 +60,11 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-end align-items-end">
+                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-end align-items-start">
                         <!--EN MOVIL NO HA DESTAR AL FINAL-->
                         <div class="d-flex justify-content-between align-items-start info-div">
 
-                            <div class="d-flex align-items-center minwidth-190">
+                            <div class="d-flex align-items-center col-md-4">
                                 <img class="participateimgCat align-self-center"
                                     src="../../assets/illustrations/Community.png" alt="">
                                 <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
@@ -61,7 +72,7 @@
                                 </h1>
                             </div>
 
-                            <div class="d-flex minwidth-190">
+                            <div class="d-flex col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
                                 <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici | date:'dd-MM-yyyy'}}<br>({{diesRestants(repte.data_inici,
                                     repte.data_final)}})</h1>
@@ -69,9 +80,9 @@
                                     repte.data_final)}})</h1>
                             </div>
 
-                            <div class="d-flex align-items-center minwidth-190">
+                            <div class="d-flex align-items-center col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Win2.png" alt="">
-                                <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}</h1>
+                                <h1>{{premiCurt(repte.premis[repte.premis.length - 1].premi_dotacio)}}</h1>
                             </div>
 
                         </div>
@@ -740,8 +751,9 @@
 
                 <div class="row d-flex justify-content-start align-items-center partner-container"
                     *ngFor="let partner of repte.partners; let i = index">
-                    <img [src]="fileStorageUrl + partner.partner_url_logo" width="250px" alt="Partner image"
+                    <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + partner.partner_url_logo + ')'}" alt="Partner image"
                         class="rounded-circle partnerimg">
+                    </div>
                     <div class="partner-info">
                         <h3 class="partner-name">{{partner.partner_nom}}</h3>
                         <p>{{partner.partner_descripcio}}</p>

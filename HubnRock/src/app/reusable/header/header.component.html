@@ -34,7 +34,7 @@
 
 <div id="hubrock-header" class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
+        <a class="navbar-brand" href="/"><img id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,7 +42,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav hrheaderlinks">
                 <li class="nav-item nav-first-item">
-                    <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' (click)="headerRedirect(4)" class="nav-link mr-3">Veure reptes oberts</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' href="/reptes" class="nav-link mr-3">Veure reptes oberts</a>
                 </li>
                 <li>
                     <a *ngIf="currentUser && !currentUser.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}'  href="/creacio-repte" class="nav-link mr-3">Crea un repte</a>
@@ -53,10 +53,10 @@
                     <a class="nav-link mr-3">|</a>
                 </li>
                 <li *ngIf="!userLogged" class="nav-item">
-                    <a [ngClass]='{"actiu" : currentPathMatch("/registre",0)}' (click)="headerRedirect(2)" class="nav-link mr-3">Dona't d'alta</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/registre",0)}' href="/registre" class="nav-link mr-3">Dona't d'alta</a>
                 </li>
                 <li *ngIf="!userLogged" class="nav-item">
-                    <a [ngClass]='{"actiu" : currentPathMatch("/login",0)}' (click)="headerRedirect(3)" class="nav-link">Entra</a>
+                    <a [ngClass]='{"actiu" : currentPathMatch("/login",0)}' href="/login" class="nav-link">Entra</a>
                 </li>
                 <li *ngIf="userLogged && currentUserObject" class="nav-item">
                     <a [ngClass]='{"actiu" : currentPathMatch("/perfil/",currentUserObject.idUser)}' (click)="userProfile()" class="nav-link mr-3">{{currentUserObject.nom}}</a>

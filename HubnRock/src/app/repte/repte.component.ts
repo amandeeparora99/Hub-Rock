@@ -128,6 +128,20 @@ export class RepteComponent implements OnInit {
     }
   }
 
+  premiCurt(text){
+    var string = text;
+    var length = 15;
+    var trimmedString = string.substring(0, length);
+
+    if(text.length > 7){
+      return trimmedString+"...";
+    }
+    else{
+      return string;
+    }
+    
+  }
+
   beforeDateInici(): Boolean {
     // comprovar que el repte encara no esta en proces
     let dateIniciRepte = new Date(this.repte.data_inici);
@@ -233,6 +247,7 @@ export class RepteComponent implements OnInit {
           });
     }
   }
+  
 
   forumDateToText(dateString) {
     let split = dateString.split('/')

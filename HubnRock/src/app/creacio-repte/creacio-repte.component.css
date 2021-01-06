@@ -333,3 +333,16 @@ input[type="checkbox"]:checked+label {
     margin-top: 70px;
     margin-bottom: 70px;
 }
+
+.tooltip .tiptext::after {
+    display: none;
+}
+
+.tooltip .tiptext {
+    width: 200px;
+}
+
+.tooltip.top .tiptext {
+    margin-left: 0;
+    right: 0;
+}
