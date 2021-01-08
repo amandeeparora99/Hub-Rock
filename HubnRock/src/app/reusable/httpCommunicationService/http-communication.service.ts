@@ -27,6 +27,7 @@ export class HttpCommunicationService {
   }
 
   saveCurrentUserLocalStorage(token, idUser, email) {
+    console.log('es crida save current', idUser, token, email)
 
     console.log("SAVE NOSQQ")
 
@@ -35,8 +36,9 @@ export class HttpCommunicationService {
       .subscribe(
         data => {
           if (data.code == '1') {
+            console.log('retorna luser correctament')
 
-            localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar, "userRole": data.row.role_idrole }));
+            localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
             let nomE;
             if (data.row.empresa_rockstar == 0) {
               nomE = data.row.nom_empresa
@@ -53,7 +55,8 @@ export class HttpCommunicationService {
               cognom: data.row.cognom_rockstar,
               email: email,
               userType: data.row.empresa_rockstar,
-              firstLogin: data.row.first_login
+              firstLogin: data.row.first_login,
+              userRole: data.row.role_idrole
             });
           }
         },
@@ -86,18 +89,12 @@ export class HttpCommunicationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
-
-  loggedIn() {
-    if (localStorage.getItem('currentUser')) {
-      let a = JSON.parse(localStorage.getItem('currentUser'))
-      this.saveCurrentUserLocalStorage(a.token, a.idUser, a.email);
-    }
-
+  
+  isLoggedIn() {
     return !!localStorage.getItem('currentUser');
   }
 
-  isLoggedIn() {
-
+  loggedIn() {
     return !!localStorage.getItem('currentUser');
   }
 
@@ -313,6 +310,8 @@ export class HttpCommunicationService {
   editShortUser(form): Observable<any> {
     return this.http.post<any>(environment.api + '/user/shortEdit', form)
       .pipe(map(data => {
+        let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
+        this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
 
         return data;
       }));
@@ -329,6 +328,8 @@ export class HttpCommunicationService {
   editPersonalProfile(form): Observable<any> {
     return this.http.post<any>(environment.api + `/user/editProfile`, form)
       .pipe(map(data => {
+        let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
+        this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
 
         return data;
       }));

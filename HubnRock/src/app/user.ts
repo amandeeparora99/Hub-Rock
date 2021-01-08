@@ -5,5 +5,6 @@ export interface User {
     cognom: String,
     email: String,
     userType: Boolean,
-    firstLogin: Boolean
+    firstLogin: Boolean,
+    userRole: Boolean
 }

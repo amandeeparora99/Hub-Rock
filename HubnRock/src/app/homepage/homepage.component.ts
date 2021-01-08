@@ -23,7 +23,6 @@ export class HomepageComponent implements OnInit {
   userIsRockstar: Boolean;
   inputValue;
   success = false;
-  usuariObject;
   // currentUserImage: File;
 
   pdfArray = [];
@@ -43,27 +42,7 @@ export class HomepageComponent implements OnInit {
       data => {
         console.log('ENTREM A FUCKING CURENT USER')
         this.currentUser = data;
-        if (this.currentUser) {
-          this.userIsRockstar = this.currentUser.userType;
-          this.subscriptionHttp$ = this.httpCommunication.getUser(this.currentUser.idUser)
-            .pipe(first())
-            .subscribe(
-              data => {
-                if (data.code == "1") {
-                  this.usuariObject = data.row;
-
-                  // fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
-                  //   .then(res => res.blob()) // Gets the response and returns it as a blob
-                  //   .then(blob => {
-                  //     this.currentUserImage = new File([blob], 'image');
-                  //   })
-                }
-              });
-          if (this.currentUser.firstLogin) {
-            this.openModal();
-            this.changeUserFirstLogin();
-          }
-        }
+        this.userIsRockstar = this.currentUser.userType;
       }
     );
 
@@ -92,20 +71,6 @@ export class HomepageComponent implements OnInit {
 
   obrirTest() {
     document.getElementById("openCreaRepte").click();
-  }
-
-  premiCurt(text){
-    var string = text;
-    var length = 7;
-    var trimmedString = string.substring(0, length);
-
-    if(text.length > 7){
-      return trimmedString+"...";
-    }
-    else{
-      return string;
-    }
-    
   }
 
   getAllReptesHomepage() {

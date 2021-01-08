@@ -191,8 +191,7 @@
                             <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                     [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                     </div>
                                     <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                 </div>
@@ -202,8 +201,8 @@
                                     <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
                                     <div class="d-flex align-items-center">
                                         <div *ngFor="let premi of repte.premis; let i = index">
-                                            <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
-                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
+                                            <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premi.premi_dotacio}}€ /&nbsp;</p>
+                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premi.premi_dotacio}}€</p>
                                         </div>
                                     </div>
                                 </div>
@@ -248,8 +247,7 @@
                 </div>
                 <div id="what-desc-col" class="col-md-4">
                     <h2 id="what-title">Què és <br> Hub & Rock?</h2>
-                    <p class="what-text">Hub & Rock és una plataforma d’innovació oberta que té com a objectiu connectar empreses, startups, 
-                        estudiants i experts per trobar solucions a reptes empresarials i reptes que ajuden a millorar la societat. 
+                    <p class="what-text">Hub & Rock és una plataforma d’innovació oberta que té com a objectiu connectar empreses, startups, estudiants i experts per trobar solucions a reptes empresarials i reptes que ajuden a millorar la societat.
                     </p>
                     <a href="/sobre-hubandrock"><button class="btn btn-primary what-btn">SABER MÉS</button></a>
                     <div class="row no-gutters">
@@ -289,7 +287,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center">
                     <div class="row no-gutters"><img class="who-image" src="../../assets/illustrations/Startup.png" alt="160x160"></div>

@@ -33,7 +33,6 @@ export class RepteComponent implements OnInit {
   public repteExists = true;
   videoUrl;
   public currentUser: User;
-  public userLogged: Boolean = false;
 
   public textAreaOn: Boolean = false;
   public forumButtonText = '+ Fes una publicació';
@@ -56,10 +55,6 @@ export class RepteComponent implements OnInit {
 
     this.httpCommunication.currentUser.subscribe(
       data => {
-        if (this.userLogged == false) {
-          this.isUserLoggedIn()
-        }
-        
         this.currentUser = data;
       }
     );
@@ -74,13 +69,18 @@ export class RepteComponent implements OnInit {
 
   canParticipate(): Boolean {
     // només si està en procès i és vàlid
-    if (this.repte) {
+    if (this.currentUser && this.repte) {
       if (!this.isValid()) {
         return false;
       } else {
-        return true;
+        if (this.repteEnProces()) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
+
   }
 
   canEdit(): Boolean {
@@ -126,20 +126,6 @@ export class RepteComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  premiCurt(text){
-    var string = text;
-    var length = 15;
-    var trimmedString = string.substring(0, length);
-
-    if(text.length > 7){
-      return trimmedString+"...";
-    }
-    else{
-      return string;
-    }
-    
   }
 
   beforeDateInici(): Boolean {
@@ -247,7 +233,6 @@ export class RepteComponent implements OnInit {
           });
     }
   }
-  
 
   forumDateToText(dateString) {
     let split = dateString.split('/')
@@ -364,24 +349,6 @@ export class RepteComponent implements OnInit {
     else if (idparticipants == 4) {
       return '../../assets/illustrations/Experts.png';
     }
-  }
-
-  dIbiggerThanTodayDate(data_inici, comparator){
-    let dateInici = new Date(data_inici);
-    let currentDate = new Date();
-
-    if(comparator == 'bigger'){
-      if(dateInici > currentDate){
-        return true;
-      }
-    }
-    else{
-      if(dateInici < currentDate || dateInici == currentDate){
-        return true;
-      }
-    }
-
-    return false;
   }
 
   diesRestants(data_inici, data_final) {
@@ -622,13 +589,6 @@ export class RepteComponent implements OnInit {
     }
   }
 
-  isUserLoggedIn() {
-    if (this.httpCommunication.loggedIn()) {
-      this.userLogged = true;
-    } else {
-      this.userLogged = false;
-    }
-  }
 
   sendMessage(message, topicId, messageParentId) {
 

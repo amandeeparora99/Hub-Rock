@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'HubnRock';
+
+  constructor(private _httpService: HttpCommunicationService) {
+  }
 
   onActivate(event) {
     // let scrollToTop = window.setInterval(() => {
@@ -21,6 +25,13 @@ export class AppComponent {
 
   }
 
+  ngOnInit() {
+
+    if (localStorage.getItem('currentUser')) {
+      let currentUserStored = JSON.parse(localStorage.getItem('currentUser'))
+      this._httpService.saveCurrentUserLocalStorage(currentUserStored.token, currentUserStored.idUser, currentUserStored.email);
+    }
+  }
   // onActivate(e) {
   //   if (e.constructor.name)==="login"{ // for example
   //           window.scroll(0,0);
