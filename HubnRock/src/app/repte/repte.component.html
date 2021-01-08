@@ -14,7 +14,8 @@
     <div class="container">
         <div class="d-flex align-items-center owner mb-3">
             <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
-            <h3 *ngIf="repte" class="repteowner mb-0" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</h3>
+            <h3 *ngIf="repte" class="repteowner mb-0" routerLink="/perfil/{{repte.user_iduser}}">
+                {{repte.user.nom_empresa}}</h3>
         </div>
 
         <div id="repte-infobox" class="row d-flex justify-content-between" *ngIf="repte">
@@ -23,9 +24,22 @@
                 <p class="reptedesc">{{repte.descripcio_short}}</p>
             </div>
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
-                <button class="btn hubrock-btn" type="button" *ngIf="canParticipate()" [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE</button>
+
+                <div [ngClass]="{'tooltip top': !repteEnProces()}">
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="currentUser && canParticipate()" [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE
+                    </button>
+                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                </div>
+
+                <div [ngClass]="{'tooltip top': !repteEnProces()}">
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="!currentUser && canParticipate()" routerLink="/login">PARTICIPA AL REPTE
+                    </button>
+                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                </div>
+
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()" [routerLink]="['/repte/', idRepte, 'editar-repte']">EDITA EL REPTE</button>
-                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA
+                    EL REPTE</button>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <h3 class="whocanparticipate">Qui pot participar?</h3>
@@ -38,25 +52,28 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-end align-items-end">
+                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-end align-items-start">
                         <!--EN MOVIL NO HA DESTAR AL FINAL-->
                         <div class="d-flex justify-content-between align-items-start info-div">
 
-                            <div class="d-flex align-items-center minwidth-190">
+                            <div class="d-flex align-items-center col-md-4">
                                 <img class="participateimgCat align-self-center" src="../../assets/illustrations/Community.png" alt="">
                                 <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
                                 <h1 *ngIf="repte.individual_equip != 0">2 - {{repte.limit_participants}}<br> persones
                                 </h1>
                             </div>
 
-                            <div class="d-flex minwidth-190">
+                            <div class="d-flex col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
-                                <h1>{{repte.data_inici | date:'shortDate'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})</h1>
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici | date:'dd-MM-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                </h1>
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'smaller')">{{repte.data_final | date:'dd-MM-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                </h1>
                             </div>
 
-                            <div class="d-flex align-items-center minwidth-190">
+                            <div class="d-flex align-items-center col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Win2.png" alt="">
-                                <h1>{{repte.premis[repte.premis.length - 1].premi_dotacio}}</h1>
+                                <h1>{{premiCurt(repte.premis[repte.premis.length - 1].premi_dotacio)}}</h1>
                             </div>
 
                         </div>
@@ -70,7 +87,7 @@
 </section>
 
 <section id="infobox" *ngIf="repteExists">
-    <div class="container infobox-container">
+    <div class="container infobox-container" *ngIf="repte">
 
         <!-- Nav pills -->
         <ul id="tabs" class="nav nav-pills nav-justified" role="tablist">
@@ -104,12 +121,12 @@
                     <p class="mb-0">FAQ</p>
                 </div>
             </li>
-            <li class="nav-item">
+            <li *ngIf="repte.jurats[0].jurat_nom != ''" class="nav-item">
                 <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#jurat">
                     <p class="mb-0">Jurat</p>
                 </div>
             </li>
-            <li class="nav-item">
+            <li *ngIf="repte.partners[0].partner_nom != ''" class="nav-item">
                 <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#partners">
                     <p class="mb-0">Partners</p>
                 </div>
@@ -129,8 +146,8 @@
                 </div>
 
                 <div id="fotosSobreElRepte" class="row d-flex justify-content-between">
-                    <div class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
-                    <div class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
+                    <div *ngIf="repte.url_photo_1" class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
+                    <div *ngIf="repte.url_photo_2" class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
                 <div id="videorepte" class="row d-flex justify-content-center" *ngIf="getYoutubeUrl(repte.url_video)">
@@ -146,7 +163,7 @@
                 <div id="solucionsbuscades" class="row d-flex justify-content-center">
 
                     <div class="col-md-3 col-sm-6 col-xs-12" *ngFor="let soluciobuscada of repte.solucions; let i = index">
-                        <div class="card">
+                        <div class="card" style="transition: 0.3s;">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
                                 <div *ngIf="soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"></div>
                                 <img *ngIf="!soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" src="../../assets/logos/default-solucio-image.jpg">
@@ -154,7 +171,7 @@
                             </div>
                             <div class="card-body solucio-info text-center">
                                 <h5 class="card-title">{{soluciobuscada.solucio_nom}}</h5>
-                                <p class="card-text">{{soluciobuscada.solucio_descripcio}}</p>
+                                <p class="card-text limitText">{{soluciobuscada.solucio_descripcio}}</p>
                             </div>
                         </div>
                     </div>
@@ -193,7 +210,7 @@
                             Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
                             una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
                         </p>
-                        <a href="#">SABER MÉS</a>
+                        <!-- <a href="#">SABER MÉS</a> -->
                     </div>
 
 
@@ -204,7 +221,7 @@
 
                 <ul class="nav nav-pills d-flex justify-content-center" id="premis-tab" role="tablist">
                     <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
-                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home" aria-selected="true">{{i+1}}<br>Premi</a>
+                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home" aria-selected="true">{{premi.premi_nom}}</a>
                     </li>
                 </ul>
 
@@ -212,10 +229,11 @@
                 <div class="tab-content" id="premis-tabContent">
                     <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-premis row d-flex justify-content-start">
-                            <div class="premiImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}"></div>
+                            <div class="premiImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}">
+                            </div>
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
-                                <p>{{i + 1}} premi</p>
+                                <p>{{premi.premi_nom}}</p>
                                 <h1 class="pricetitle">{{premi.premi_dotacio}}</h1>
                                 <p>{{premi.premi_descripcio}}</p>
                             </div>
@@ -328,11 +346,13 @@
                                 <img [src]="fileStorageUrl + forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
                                     <div class="row d-flex align-items-center">
-                                        <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_responsable}}</p>
+                                        <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_rockstar + " " + forumPost.cognom_rockstar}}
+                                        </p>
                                         <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                     </div>
                                     <div class="row">
-                                        <p class="m-0 forumPostDate">{{forumDateToText(forumPost.creation_date | date: 'dd/MM/yyyy')}}</p>
+                                        <p class="m-0 forumPostDate">{{forumDateToText(forumPost.creation_date | date: 'dd/MM/yyyy')}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -343,13 +363,24 @@
                                 <div>
                                     <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
                                     && currentUser" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
-                                    <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar
-                                </button>
-                                    <button click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id);">
-                                    <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'" height="25px" class="mr-2 ml-0 align-self-center">
-                                    {{forumPost.like_count}} M'agrada
-                                </button>
-
+                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                            class="mr-2 ml-0 align-self-center">Contestar
+                                    </button>
+                                    <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
+                                    && !currentUser" type="button" class="btn forumButton" routerLink="/login">
+                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                            class="mr-2 ml-0 align-self-center">Contestar
+                                    </button>
+                                    <button *ngIf="currentUser" click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id);">
+                                        <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                            height="25px" class="mr-2 ml-0 align-self-center">
+                                        {{forumPost.like_count}} M'agrada
+                                    </button>
+                                    <button *ngIf="!currentUser" click-stop-propagation type="button" class="btn forumButton" routerLink="/login">
+                                        <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                            height="25px" class="mr-2 ml-0 align-self-center">
+                                        {{forumPost.like_count}} M'agrada
+                                    </button>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <p class="commentsLength mb-0">{{forumPost.comments}} RESPOSTES</p>
@@ -370,7 +401,8 @@
                                     <img [src]="fileStorageUrl + resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
                                         <div class="row d-flex align-items-center">
-                                            <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">{{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_responsable}}</p>
+                                            <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">
+                                                {{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_rockstar + " " + resposta.cognom_rockstar}}</p>
                                             <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                         </div>
                                         <div class="row">
@@ -383,9 +415,21 @@
                                 </div>
                                 <div class="row d-flex comentariButtons">
                                     <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser" type="button" class="btn forumButton" (click)="contestar(resposta.id)">
-                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
-                                    <button type="button" class="btn forumButton" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
-                                        <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'" height="25px" class="mr-2 ml-0 align-self-center">
+                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                            class="mr-2 ml-0 align-self-center">Contestar
+                                    </button>
+                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser" type="button" class="btn forumButton" routerLink="/login">
+                                        <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                        class="mr-2 ml-0 align-self-center">Contestar
+                                    </button>
+                                    <button type="button" class="btn forumButton" *ngIf="currentUser" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
+                                        <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                            height="25px" class="mr-2 ml-0 align-self-center">
+                                        {{resposta.like_count}} M'agrada
+                                    </button>
+                                    <button type="button" class="btn forumButton" *ngIf="!currentUser" routerLink="/login">
+                                        <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                            height="25px" class="mr-2 ml-0 align-self-center">
                                         {{resposta.like_count}} M'agrada
                                     </button>
                                 </div>
@@ -403,7 +447,8 @@
                                         <img [src]="fileStorageUrl + answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
                                             <div class="row d-flex align-items-center">
-                                                <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">{{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_responsable}}</p>
+                                                <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">
+                                                    {{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_rockstar + " " + answer.cognom_rockstar}}</p>
                                                 <button *ngIf="repte.user_iduser == answer.user_iduser" type="button" class="commentRank">Creador del repte</button>
                                             </div>
                                             <div class="row">
@@ -416,9 +461,19 @@
                                     </div>
                                     <div class="row d-flex comentariButtons">
                                         <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser" type="button" class="btn forumButton" (click)="contestar(answer.id)">
-                                            <img src="../../assets/simpleicons/Comment_B.png" height="25px" class="mr-2 ml-0 align-self-center">Contestar</button>
-                                        <button type="button" class="btn forumButton" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
-                                            <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'" height="25px" class="mr-2 ml-0 align-self-center">
+                                            <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                                class="mr-2 ml-0 align-self-center">Contestar</button>
+                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser" type="button" class="btn forumButton" routerLink="/login">
+                                            <img src="../../assets/simpleicons/Comment_B.png" height="25px"
+                                                class="mr-2 ml-0 align-self-center">Contestar</button>
+                                        <button type="button" class="btn forumButton" *ngIf="currentUser" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
+                                            <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                                height="25px" class="mr-2 ml-0 align-self-center">
+                                            {{answer.like_count}} M'agrada
+                                        </button>
+                                        <button type="button" class="btn forumButton" *ngIf="!currentUser" routerLink="/login">
+                                            <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
+                                                height="25px" class="mr-2 ml-0 align-self-center">
                                             {{answer.like_count}} M'agrada
                                         </button>
                                     </div>
@@ -461,7 +516,8 @@
                                         </div>
                                         <div class="col m-auto text-overflow-1">
                                             <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="!solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
-                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}} {{solucio.user.cognom_rockstar}}</a>
+                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}
+                                                {{solucio.user.cognom_rockstar}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -551,7 +607,8 @@
                 <h1 class="tabtitle text-center">Preguntes freqüents</h1>
 
                 <div class="d-flex justify-content-center">
-                    <p class="maxwidth-540 text-center">En aquest apartat es resoldran els dubtes freqüents sobre el repte.</p>
+                    <p class="maxwidth-540 text-center">En aquest apartat es resoldran els dubtes freqüents sobre el repte.
+                    </p>
                 </div>
 
 
@@ -597,7 +654,8 @@
                 </div>
 
                 <div class="row d-flex justify-content-start align-items-center partner-container" *ngFor="let partner of repte.partners; let i = index">
-                    <img [src]="fileStorageUrl + partner.partner_url_logo" width="250px" alt="Partner image" class="rounded-circle partnerimg">
+                    <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + partner.partner_url_logo + ')'}" alt="Partner image" class="rounded-circle partnerimg">
+                    </div>
                     <div class="partner-info">
                         <h3 class="partner-name">{{partner.partner_nom}}</h3>
                         <p>{{partner.partner_descripcio}}</p>

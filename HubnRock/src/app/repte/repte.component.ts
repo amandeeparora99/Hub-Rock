@@ -54,7 +54,7 @@ export class RepteComponent implements OnInit {
   ngOnInit(): void {
 
     this.httpCommunication.currentUser.subscribe(
-      data => {
+      data => {        
         this.currentUser = data;
       }
     );
@@ -69,18 +69,13 @@ export class RepteComponent implements OnInit {
 
   canParticipate(): Boolean {
     // només si està en procès i és vàlid
-    if (this.currentUser && this.repte) {
+    if (this.repte) {
       if (!this.isValid()) {
         return false;
       } else {
-        if (this.repteEnProces()) {
-          return true;
-        } else {
-          return false;
-        }
+        return true;
       }
     }
-
   }
 
   canEdit(): Boolean {
@@ -126,6 +121,20 @@ export class RepteComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  premiCurt(text){
+    var string = text;
+    var length = 15;
+    var trimmedString = string.substring(0, length);
+
+    if(text.length > 7){
+      return trimmedString+"...";
+    }
+    else{
+      return string;
+    }
+    
   }
 
   beforeDateInici(): Boolean {
@@ -233,6 +242,7 @@ export class RepteComponent implements OnInit {
           });
     }
   }
+  
 
   forumDateToText(dateString) {
     let split = dateString.split('/')
@@ -349,6 +359,24 @@ export class RepteComponent implements OnInit {
     else if (idparticipants == 4) {
       return '../../assets/illustrations/Experts.png';
     }
+  }
+
+  dIbiggerThanTodayDate(data_inici, comparator){
+    let dateInici = new Date(data_inici);
+    let currentDate = new Date();
+
+    if(comparator == 'bigger'){
+      if(dateInici > currentDate){
+        return true;
+      }
+    }
+    else{
+      if(dateInici < currentDate || dateInici == currentDate){
+        return true;
+      }
+    }
+
+    return false;
   }
 
   diesRestants(data_inici, data_final) {
@@ -588,7 +616,6 @@ export class RepteComponent implements OnInit {
       return false;
     }
   }
-
 
   sendMessage(message, topicId, messageParentId) {
 
