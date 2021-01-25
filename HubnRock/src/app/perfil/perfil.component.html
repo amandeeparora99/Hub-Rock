@@ -122,8 +122,8 @@
                                                 <div class="d-flex align-items-center">
                                                     <p *ngIf="!repteEsborrany.premis.length" class="m-0">Premis sense definir</p>
                                                     <div *ngFor="let premi of repteEsborrany.premis; let i = index">
-                                                        <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
-                                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
+                                                        <p class="m-0" *ngIf="i+1 != repteEsborrany.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
+                                                        <p class="m-0" *ngIf="i+1 == repteEsborrany.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
                                                     </div>
                                                 </div>
                                             </div>

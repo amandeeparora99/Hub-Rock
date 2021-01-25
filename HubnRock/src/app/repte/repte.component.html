@@ -506,7 +506,7 @@
                             <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                 <div class="card-body">
                                     <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
+                                    <h6 class="card-subtitle mb-5 text-overflow">{{solucio.solucio_proposada_descripcio_short}}</h6>
 
                                 </div>
                                 <div class="card-footer bg-transparent">

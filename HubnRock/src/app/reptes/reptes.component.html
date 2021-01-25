@@ -30,8 +30,7 @@
 
             <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses"
-                        (change)="toggleEmpreses($event, cercaValue.value)">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses" (change)="toggleEmpreses($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEmpreses">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img [src]="empresesChecked ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'"
@@ -41,8 +40,7 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups"
-                        (change)="toggleStartups($event, cercaValue.value)">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups" (change)="toggleStartups($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchStartups">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img [src]="startupsChecked ? '../../../assets/illustrations/Startups.png' : '../../../assets/illustrations/Startups_BW.png'"
@@ -52,8 +50,7 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants"
-                        (change)="toggleEstudiants($event, cercaValue.value)">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants" (change)="toggleEstudiants($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchEstudiants">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img [src]="estudiantsChecked ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'"
@@ -63,8 +60,7 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts"
-                        (change)="toggleExperts($event, cercaValue.value)">
+                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts" (change)="toggleExperts($event, cercaValue.value)">
                     <label class="form-check-label" for="SearchExperts">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             <img [src]="expertsChecked ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'"
@@ -88,7 +84,7 @@
 
         <p *ngIf="!reptesProces.length" class="text-center what-text">No hi ha cap repte en curs</p>
 
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
             <div class="row w-100">
                 <ng-container *ngIf="reptesProces.length">
 
@@ -97,8 +93,7 @@
                             <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                     [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                     </div>
                                     <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                 </div>
@@ -147,7 +142,7 @@
         <h1 class="text-center reptestitle">Reptes futurs</h1>
         <p *ngIf="!reptesOberts.length" class="text-center what-text">No hi ha cap repte futur</p>
 
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
 
             <div class="row w-100">
 
@@ -156,8 +151,7 @@
                         <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                         <div class="card-body fitxa-repte">
                             <div class="card-title d-flex">
-                                <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                 </div>
                                 <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                             </div>
@@ -168,7 +162,7 @@
                                 <div class="d-flex align-items-center">
                                     <div *ngFor="let premi of repte.premis; let i = index">
                                         <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
-                                            <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
+                                        <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +199,7 @@
 
         <p *ngIf="!reptesTancats.length" class="text-center what-text">No hi ha cap repte tancat</p>
 
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
             <div class="row w-100">
                 <ng-container *ngIf="reptesTancats.length">
 
@@ -214,8 +208,7 @@
                             <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                        [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.user.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                     </div>
                                     <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.user.nom_empresa}}</p>
                                 </div>
@@ -272,8 +265,7 @@
                             <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
                             <div class="card-body fitxa-repte">
                                 <div class="card-title d-flex">
-                                    <div *ngIf="repte.url_photo_profile" click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg"
-                                        [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                    <div *ngIf="repte.url_photo_profile" click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
                                     </div>
                                     <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.nom_empresa}}</p>
                                 </div>

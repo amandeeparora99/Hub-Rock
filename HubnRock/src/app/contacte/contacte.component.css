@@ -1,0 +1,168 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+img {
+    width: 100%;
+}
+
+.hr-style {
+    max-width: 416px;
+    border: solid 1px #020e7d;
+    margin-bottom: 67px;
+}
+
+
+/* MAIN TITLE */
+
+#main-title-section {
+    margin-top: 110px;
+    margin-bottom: 44px;
+}
+
+#main-title-section .main-h1 {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 825px;
+}
+
+#main-title-section h1 {
+    font-family: 'WorkSans-Regular';
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -3.18px;
+    color: #130084;
+    line-height: 0.93;
+    margin-bottom: 33px;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 108px;
+    background-color: #020e7d;
+}
+
+
+/* FORM */
+
+#form {
+    margin-bottom: 100px;
+}
+
+.mt-110 {
+    margin-top: 110px;
+}
+
+.input-spacing {
+    margin-bottom: 42px;
+}
+
+input.input-for-text {
+    height: 55px;
+}
+
+.has-errors input {
+    border: 1px solid red;
+}
+
+.has-errors label {
+    color: red;
+}
+
+.has-errors span {
+    color: red;
+}
+
+input,
+textarea {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+}
+
+label {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    font-family: 'WorkSans-Bold';
+}
+
+textarea#InputMissatge {
+    height: 224px;
+}
+
+textarea {
+    height: 230px;
+    box-sizing: border-box;
+    border: 1px solid #b6b6b6;
+    border-radius: 10px;
+    resize: none;
+    padding: 12px 20px;
+}
+
+::placeholder {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+    color: #b6b6b6;
+}
+
+.opcional-text {
+    color: #7b7b7b;
+    letter-spacing: -0.38px;
+    font-size: 15px;
+}
+
+.submitBtn {
+    width: 206px;
+    height: 40px;
+    border-radius: 8px;
+    border: solid 2px #020e7d;
+    color: #000000;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.9px;
+    text-align: center;
+    line-height: 20px;
+    background-color: white;
+    margin-top: 25px;
+}
+
+
+/* FAQ BANNER */
+
+#faqBanner {
+    background-color: #bfecdc;
+}
+
+#faqBanner .container {
+    max-width: 1110px;
+    height: 100%;
+}
+
+.banner-text {
+    font-size: 30px;
+    letter-spacing: -1.59px;
+    color: #000000;
+}
+
+.banner-text span {
+    font-size: 30px;
+    letter-spacing: -1.59px;
+    color: #000000;
+    font-family: 'WorkSans-Bold';
+}
+
+.faqBtn {
+    max-width: 303px;
+    height: 55px;
+    border-radius: 8px;
+    line-height: 27px;
+    background-color: #00e292;
+    font-weight: 600;
+    letter-spacing: -0.9px;
+    text-align: center;
+    color: #000000;
+    font-size: 17px;
+    border: none;
+    padding-right: 20px;
+    padding-left: 20px;
+}

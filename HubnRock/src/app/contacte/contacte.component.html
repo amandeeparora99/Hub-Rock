@@ -1,0 +1,57 @@
+<app-header></app-header>
+<section id="main-title-section">
+    <div class="d-flex flex-column align-items-center">
+        <div class="container main-h1">
+            <h1>Contacta amb nosaltres</h1>
+            <p>Si tens qualsevol dubte sobre Hub & Rock o necessites ajuda per crear el teu repte, no dubtis en contactar-nos. Un membre del nostre equip et contestarà el més aviat possible. </p>
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+</section>
+
+<section id="form">
+    <form id="contacteForm" [formGroup]="contacteForm" (ngSubmit)="onSubmit()">
+        <div class="container mt-110" style="max-width: 731px;">
+            <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomICognom}">
+                <label for="InputNomCognom">Nom i cognoms</label>
+                <input type="text" formControlName="nomICognom" class="form-control input-for-text" id="InputNomCognom" (blur)="logValidationErrors()">
+                <!-- <span class="help-block" *ngIf="formErrors.nomSolucio">{{formErrors.nomSolucio}}</span> -->
+            </div>
+            <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomEmpresa}">
+                <label for="InputEmpresa" class="mb-0 mr-3">Nom de l'empresa</label><span class="opcional-text">(Opcional)</span><br>
+                <input type="text" formControlName="nomEmpresa" class="form-control input-for-text" id="InputEmpresa" (blur)="logValidationErrors()">
+                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+            </div>
+            <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.correuContacte}">
+                <label for="InputCorreu" class="mb-0">Correu de contacte</label><br>
+                <input type="text" formControlName="correuContacte" class="form-control input-for-text" id="InputCorreu" (blur)="logValidationErrors()">
+                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+            </div>
+            <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.missatge}">
+                <label for="InputMissatge" class="mb-0">Missatge</label><br>
+                <textarea type="text" formControlName="missatge" class="form-control" id="InputMissatge" (blur)="logValidationErrors()"></textarea>
+                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary submitBtn" type="submit">ENVIAR MISSATGE</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section id="faqBanner">
+    <div class="w-100 banner">
+        <div class="container">
+            <div class="row pb-5 pt-5">
+                <div class="col-md-8">
+                    <p class="banner-text"><span>Tens preguntes? </span>Te les contestem a la nostra secció de preguntes freqüents</p>
+                </div>
+                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                    <button class="btn btn-primary faqBtn" type="button" routerLink="/faq">VEURE PREGUNTES FREQÜENTS</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

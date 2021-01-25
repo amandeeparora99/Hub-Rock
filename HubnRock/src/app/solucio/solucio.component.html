@@ -6,101 +6,108 @@
         <button class="btn btn-primary btn-manage" type="button" routerLink='/'>TORNA A L'INICI</button>
     </div>
 </div>
-<section *ngIf="solucio" id="hubrock-solucio">
-    <div id="bannerimg">
-        <div id="banner" class="container d-flex align-items-center">
-            <div class="container d-flex flex-column">
-                <h1 class="title text-center">{{solucio.solucio_proposada_nom}}</h1>
-                <p class="subtitle text-center">{{solucio.solucio_proposada_nom_equip}}</p>
+<section *ngIf="solucioExists">
+    <section *ngIf="solucio" id="hubrock-solucio">
+        <div class="container">
+            <div id="bannerimg">
+                <div id="banner" class="container d-flex align-items-center">
+                    <div class="container d-flex flex-column">
+                        <h1 class="title text-center">{{solucio.solucio_proposada_nom}}</h1>
+                        <p class="subtitle text-center">{{solucio.solucio_proposada_nom_equip}}</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container d-flex flex-column align-items-end mt-5">
-        <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany() && idSolucio" [routerLink]="['/solucio/', idSolucio, 'editar-solucio']">EDITA LA SOLUCIÓ</button>
-        <button class=" btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button>
 
-    </div>
-</section>
+        <div class="container d-flex flex-column align-items-end mt-5">
+            <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany() && idSolucio" [routerLink]="['/solucio/', idSolucio, 'editar-solucio']">EDITA LA SOLUCIÓ</button>
+            <button class=" btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button>
 
-<section *ngIf="solucio" id="solucio-body">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                <div class="bigtitle">
-                    <div class="row">
-                        <h1>SOBRE LA SOLUCIÓ</h1>
-                    </div>
-                </div>
+        </div>
+    </section>
 
-                <div class="soluciosection">
-                    <div class="row">
-                        <h2>Resum solució</h2>
-                    </div>
-                    <div class="row">
-                        <div class="hrcustom">
+    <section *ngIf="solucio" id="solucio-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <div class="container">
+
+                        <div class="bigtitle">
+                            <div class="row">
+                                <h1>SOBRE LA SOLUCIÓ</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <p>{{solucio.solucio_proposada_descripcio_short}}</p>
-                    </div>
-                </div>
 
-                <div class="soluciosection">
-                    <div class="row">
-                        <h2>Quin problema soluciona?</h2>
-                    </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                        <div class="soluciosection">
+                            <div class="row">
+                                <h2>Resum solució</h2>
+                            </div>
+                            <div class="row">
+                                <div class="hrcustom">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p>{{solucio.solucio_proposada_descripcio_short}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <p>{{solucio.solucio_proposada_problema}}</p>
-                    </div>
-                </div>
 
-                <div class="soluciosection">
-                    <div class="row">
-                        <h2>Descripció detallada</h2>
-                    </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                        <div class="soluciosection">
+                            <div class="row">
+                                <h2>Quin problema soluciona?</h2>
+                            </div>
+                            <div class="row">
+                                <div class="hrcustom">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p>{{solucio.solucio_proposada_problema}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <p>{{solucio.solucio_proposada_descripcio_long}}</p>
-                    </div>
-                </div>
 
-                <div class="soluciosection">
-                    <div class="row">
-                        <h2>Per què és una solució innovadora?</h2>
-                    </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                        <div class="soluciosection">
+                            <div class="row">
+                                <h2>Descripció detallada</h2>
+                            </div>
+                            <div class="row">
+                                <div class="hrcustom">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p>{{solucio.solucio_proposada_descripcio_long}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <p>{{solucio.solucio_proposada_perque_innovacio}}</p>
-                    </div>
-                </div>
 
-                <div class="soluciosection">
-                    <div class="row">
-                        <h2>En quina fase de desenvolupament es troba?</h2>
-                    </div>
-                    <div class="row">
-                        <div class="hrcustom">
+                        <div class="soluciosection">
+                            <div class="row">
+                                <h2>Per què és una solució innovadora?</h2>
+                            </div>
+                            <div class="row">
+                                <div class="hrcustom">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p>{{solucio.solucio_proposada_perque_innovacio}}</p>
+                            </div>
                         </div>
+
+                        <div class="soluciosection">
+                            <div class="row">
+                                <h2>En quina fase de desenvolupament es troba?</h2>
+                            </div>
+                            <div class="row">
+                                <div class="hrcustom">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p>{{solucio.solucio_proposada_fase_desenvolupament}}</p>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="row">
-                        <p>{{solucio.solucio_proposada_fase_desenvolupament}}</p>
-                    </div>
+
                 </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-5">
 
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="container">
                     <div class="bigtitle">
                         <h1>L'EQUIP</h1>
                     </div>
@@ -151,24 +158,29 @@
                     <div *ngIf="!solucio.recursos.length">
                         Aquesta solució no té arxius adjuntats
                     </div>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container">
+                    <div class="bigtitle">
+                        <h1>VÍDEOS</h1>
+                    </div>
+                    <div *ngIf="getYoutubeUrl(solucio.solucio_proposada_video)" class="iframe-container">
+                        <iframe class="mb-3 iframe" width="1130" height="634" [src]="getYoutubeUrl(solucio.solucio_proposada_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
 
             </div>
-        </div>
-
-        <div class="row">
-            <div class="bigtitle">
-                <h1>VÍDEOS</h1>
-            </div>
-            <div *ngIf="getYoutubeUrl(solucio.solucio_proposada_video)">
-                <iframe class="mb-3" width="1130" height="634" [src]="getYoutubeUrl(solucio.solucio_proposada_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="row" *ngIf="!getYoutubeUrl(solucio.solucio_proposada_video)">
+                No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid
             </div>
         </div>
-        <div class="row" *ngIf="!getYoutubeUrl(solucio.solucio_proposada_video)">
-            No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid
-        </div>
-    </div>
+    </section>
 </section>
+
 
 
 <app-footer></app-footer>
