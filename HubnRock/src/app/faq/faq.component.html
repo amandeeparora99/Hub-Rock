@@ -20,7 +20,7 @@
                 </div>
                 <div [id]="'resposta' + i" class="accordionbody panel-collapse collapse in">
                     <div class="panel-body">
-                        {{pregunta.faq_resposta}}
+                        <div [innerHTML]="pregunta.faq_resposta"></div>
                     </div>
                 </div>
             </div>

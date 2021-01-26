@@ -72,11 +72,17 @@ img {
     box-shadow: none;
 }
 
-.accordionbody .panel-body {
+.accordionbody .panel-body div {
     padding-top: 25px;
     margin-left: 15px;
     margin-right: 15px;
     padding-bottom: 45px;
     font-size: 14px;
     letter-spacing: -0.23px;
+}
+
+.contactlink{
+    text-decoration: underline;
+    font-weight: bold;
+    color:#020e7d;
 }
