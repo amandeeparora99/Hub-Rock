@@ -46,6 +46,7 @@ import { SolucioCanViewGuard } from './solucio-can-view.guard';
 import { RepteCanViewGuard } from './repte-can-view.guard';
 import { OwnSolucioEsborranyGuard } from './own-solucio-esborrany.guard';
 import { CanEditSolucioGuard } from './can-edit-solucio.guard';
+import { MapesComponent } from './mapes/mapes.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -70,6 +71,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'per-empreses', component: PerEmpresesComponent },
   { path: 'per-startups', component: PerStartupsComponent },
+  { path: 'mapes', component: MapesComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'sobre-hubandrock', component: SobreHubandrockComponent },
   { path: 'contactar', component: ContacteComponent },

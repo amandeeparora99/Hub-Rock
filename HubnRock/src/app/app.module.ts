@@ -39,6 +39,8 @@ import { PerStartupsComponent } from './per-startups/per-startups.component';
 import { FaqComponent } from './faq/faq.component';
 import { SobreHubandrockComponent } from './sobre-hubandrock/sobre-hubandrock.component';
 import { ContacteComponent } from './contacte/contacte.component';
+import { MapesComponent } from './mapes/mapes.component';
+import { AgmCoreModule } from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { ContacteComponent } from './contacte/contacte.component';
     FaqComponent,
     SobreHubandrockComponent,
     ContacteComponent,
+    MapesComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,9 @@ import { ContacteComponent } from './contacte/contacte.component';
       progressBar: true,
       progressAnimation: 'increasing',
       preventDuplicates: true
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAVihtGC3jXgn2HGLVawwCEy-K9Nwxfbq8'
     })
   ],
   providers: [HttpCommunicationService, DatePipe, AuthGuard,

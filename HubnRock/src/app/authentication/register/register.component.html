@@ -61,7 +61,8 @@
 
         <div class="container">
 
-            <h1 id="register-title" class="text-center">Dona't d'alta</h1>
+            <h1 *ngIf="accountType == 'empresa'" class="text-center register-title">Crea el perfil de la teva empresa</h1>
+            <h1 *ngIf="accountType == 'rockstar'" class="text-center register-title">Crea el teu perfil de “rockstar”</h1>
 
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
@@ -118,6 +119,67 @@
                         {{formErrors.nomNifEmpresa}}
                     </span>
                 </div>
+
+                <div class="form-group" *ngIf="accountType == 'empresa'"><!--[ngClass]="{'is-invalid' : formErrors.nomCorreu}" -->
+                    <label for="InputAdreca" class="mb-0">Adreça empresa</label>
+                    <p class="mb-2">Introdueix la teva adreça i selecciona una de les opcions que apareixen</p>
+                    <input class="form-control" id="InputAdreca" (blur)="logValidationErrors()">
+                    <!-- <span class="help-block" *ngIf="formErrors.nomCorreu">
+                        {{formErrors.nomCorreu}}
+                    </span> -->
+                </div>
+
+                <div class="form-group mb20px" *ngIf="accountType == 'empresa'">
+                    <label for="InputAdreca" class="mb-0">En quina indústria opera l’empresa?</label>
+                    <p>Pots seleccionar més d’una indústria</p>
+                    <div id="industriesbox">
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox" autocomplete="off">disseny</label>
+                        </div>
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox" autocomplete="off">disseny</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb90px" *ngIf="accountType == 'empresa'">
+                    <label>Amb quin d’aquests perfils t’identifiques més?</label>
+                    <div class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center active">
+                            <input type="radio" name="Empresa" id="tipusEmpresa" autocomplete="off" checked>
+                            <img src="../../../assets/illustrations/Empreses.png" style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Empresa
+                        </label>
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center">
+                            <input type="radio" name="Startup" id="tipusStartup" autocomplete="off">
+                            <img src="../../../assets/illustrations/Startups.png" style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Startup
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="accountType == 'empresa'">
+                    <div class="row d-flex align-items-center flex-column termsconditions">
+                        <div class="form-check row">
+                            <input class="form-check-input" type="checkbox" value="" id="acceptoTermesiCondicions">
+                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a>Termes i condicions</a> de Hub & Rock</label>
+                        </div>
+                        <div class="form-check row">
+                            <input class="form-check-input" type="checkbox" value="" id="acceptoPoliticaPrivacitat">
+                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a>Política de privacitat</a> de Hub & Rock</label>
+                        </div>
+                    </div>
+                    
+                </div>
+
                 <div class="text-center">
                     <button type="submit" id="btn-login" [disabled]="registerForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
                 </div>

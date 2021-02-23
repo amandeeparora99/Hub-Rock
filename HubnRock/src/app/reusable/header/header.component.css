@@ -13,7 +13,7 @@
 }
 
 #hubrock-header {
-    padding: 21px 10%;
+    padding: 21px 5% 5px;
 }
 
 #hubrock-header a {
@@ -25,9 +25,14 @@
     color: #00e292;
 }
 
-#hubrock-header #logo {
+/* #hubrock-header #logo {
     max-width: 145px;
     max-height: 48px;
+    cursor: pointer;
+} */
+#hubrock-header #logo {
+    max-width: 121px;
+    max-height: 40px;
     cursor: pointer;
 }
 
@@ -73,8 +78,69 @@
     .nav-first-item {
         margin-top: 20px;
     }
-
+    /* #navbarSearch, #navbarSearch input{
+        min-width: 100%;
+    }
+    .mobile-column {
+        flex-direction: column;
+    } */
 }
+
+/* @media (min-width: 769px) and (max-width: 991.98px) {
+    #mr240px {
+        margin-right: 4%;
+    }
+    #navbarSearch input{
+        min-width: 500px;
+    }
+} */
+
+#navbarSearch input{
+    height: 40px;
+    border-radius: 8px;
+    border: solid 1px #000000;
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .w-custom{
+        width: 20vw;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    #navbarSearch input{
+        min-width: 300px;
+    }
+    .w-custom{
+        width: 30vw;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1499.98px) {
+    #navbarSearch input{
+        min-width: 30vw;
+    }
+    .w-custom{
+        width: 35vw;
+    }
+}
+
+@media (min-width: 1500px) {
+    #navbarSearch input{
+        min-width: 35vw;
+    }
+    .justify-content-start-mobile {
+        justify-content: center;
+    }
+    .mlautow100{
+        margin-left: auto;
+        width: 100%;
+    }
+    .w-custom{
+        width: 40vw;
+    }
+}
+.w-40{
+    width: 40%;
+}
+
 
 .beneficisEmpreses {
     display: inline-block;
