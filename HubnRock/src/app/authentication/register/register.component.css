@@ -176,7 +176,7 @@ input[name="myradio"] {
     font-family: 'WorkSans-Regular'!important;
     letter-spacing: -0.66px;
     font-weight: normal;
-    min-width: 97px;
+    width: 30%;
 }
 .buttonsidentifica .btn {
     width: 49%;
@@ -206,7 +206,7 @@ input[name="myradio"] {
     color: #020e7d;
 }
 .mb20px{
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 .mb90px{
     margin-bottom: 90px;

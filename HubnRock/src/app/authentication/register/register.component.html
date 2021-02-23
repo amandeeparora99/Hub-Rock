@@ -124,30 +124,75 @@
                     <label for="InputAdreca" class="mb-0">Adreça empresa</label>
                     <p class="mb-2">Introdueix la teva adreça i selecciona una de les opcions que apareixen</p>
                     <input class="form-control" id="InputAdreca" (blur)="logValidationErrors()">
+
                     <!-- <span class="help-block" *ngIf="formErrors.nomCorreu">
                         {{formErrors.nomCorreu}}
                     </span> -->
                 </div>
 
-                <div class="form-group mb20px" *ngIf="accountType == 'empresa'">
+                <div style="margin-top: 30px;" class="form-group mb20px" *ngIf="accountType == 'empresa'">
                     <label for="InputAdreca" class="mb-0">En quina indústria opera l’empresa?</label>
                     <p>Pots seleccionar més d’una indústria</p>
+                    <label for="InputAdreca" style="margin-bottom: 15px;">Sector TIC</label>
                     <div id="industriesbox">
                         <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox" autocomplete="off">disseny</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Big Data</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Biotecnologia</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Blockchain</label>
                         </div>
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">disseny</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox" autocomplete="off">tecnologia</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox" autocomplete="off">disseny</label>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Ciberseguretat</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Desenvolupament de software</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Fabricació de hardware</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Impressió 3D</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Intel·ligència artificial</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Mobilitat</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Realitat virtual i augmentada</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">UX / UI</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Xarxes i telecomunicacions</label>
+                        </div>
+
+                        <hr style="margin-top: 30px;">
+                        <label style="margin-bottom: 15px;" for="InputAdreca">Sector TIC</label>
+
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Activitats financeres i assegurances</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Administració pública</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Agricultura i alimentació</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Arquitectura i construcció</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Art, cultura i oci</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Assessories i gestories</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Comerç</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Educació</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Energia i aigua</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Extracció i transformació de minerals</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Investigació i desenvolupament</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Hosteleria i restauració</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Indústries manufactureres</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Indústries transformadores dels metalls</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Publicitat i marketing</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Recursos humans</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Salut</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Sostenibilitat i medi ambient</label>
+                        </div>
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Transport i logística</label>
+                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Turisme</label>
+                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Veterinària</label>
                         </div>
                     </div>
                 </div>
