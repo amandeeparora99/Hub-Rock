@@ -44,13 +44,13 @@
                 <li class="nav-item nav-first-item">
                     <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' (click)="headerRedirect(4)" class="nav-link mr-3">Veure reptes oberts</a>
                 </li>
-                <li class="nav-item nav-first-item">
-                    <a [ngClass]='{"actiu" : currentPathMatch("/mapes",0)}' (click)="headerRedirect(5)" class="nav-link mr-3">Directori mapes</a>
-                </li>
                 <li>
                     <a *ngIf="currentUserObject && !currentUserObject.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}' href="/creacio-repte" class="nav-link mr-3">Crea un repte</a>
                     <a *ngIf="currentUserObject && currentUserObject.userType" (click)="obrirTest()" class="nav-link mr-3">Crea un repte</a>
                     <a *ngIf="!currentUserObject" href='/login' class="nav-link mr-3">Crea un repte</a>
+                </li>
+                <li class="nav-item nav-first-item">
+                    <a [ngClass]='{"actiu" : currentPathMatch("/mapes",0)}' (click)="headerRedirect(5)" class="nav-link mr-3">Mapa tecnològic</a>
                 </li>
                 <li class="headerSeparator">
                     <a class="nav-link mr-3">|</a>
