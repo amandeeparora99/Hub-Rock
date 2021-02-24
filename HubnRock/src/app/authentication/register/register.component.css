@@ -157,6 +157,7 @@ input[name="myradio"] {
 }
 #industriesbox .mr25 {
     margin-right: 20px;
+    margin-bottom:5px;
 }
 #industriesbox .btn-group-toggle .industria{
     background-color: white;

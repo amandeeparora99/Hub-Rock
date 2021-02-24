@@ -66,6 +66,9 @@ export class HeaderComponent implements OnInit {
     else if (page == 4) {
       this.router.navigate(['/reptes']);
     }
+    else if (page == 5) {
+      this.router.navigate(['/mapes']);
+    }
 
   }
 

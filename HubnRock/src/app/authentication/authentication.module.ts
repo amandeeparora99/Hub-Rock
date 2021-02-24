@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { RestorePasswordComponent } from './restorePassword/restore-password.component';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
     CommonModule,
     ReusableModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     HttpCommunicationService

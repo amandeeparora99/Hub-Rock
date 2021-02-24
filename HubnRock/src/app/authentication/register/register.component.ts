@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { HttpCommunicationService } from 'src/app/reusable/httpCommunicationService/http-communication.service';
 import { first } from 'rxjs/operators';
@@ -12,14 +12,200 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
+  @ViewChild('googleInput') googleInput: ElementRef;
+
   registerForm: FormGroup;
   accountType: string = 'empresa';
   register: number = 0;
 
+  termesChecked = false;
+  politicaChecked = false;
+
+  latUser: any = 0;
+  lngUser: any = 0;
+
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
+
+  tipusEmpresaSelected = 'empresa';
+  selectedItemsList = [];
+  checkedIDs = [];
+
+  checkboxesIndustriaList = [
+    {
+      id: '1',
+      label: 'Big Data',
+      isChecked: false
+    },
+    {
+      id: '2',
+      label: 'Biotecnologia',
+      isChecked: false
+    },
+    {
+      id: '3',
+      label: 'Blockchain',
+      isChecked: false
+    },
+    {
+      id: '4',
+      label: 'Ciberseguretat',
+      isChecked: false
+    },
+    {
+      id: '5',
+      label: 'Desenvolupament de software',
+      isChecked: false
+    },
+    {
+      id: '6',
+      label: 'Fabricació de hardware',
+      isChecked: false
+    },
+    {
+      id: '7',
+      label: 'Impressió 3D',
+      isChecked: false
+    },
+    {
+      id: '8',
+      label: 'Intel·ligència artificial',
+      isChecked: false
+    },
+    {
+      id: '9',
+      label: 'Mobilitat',
+      isChecked: false
+    },
+    {
+      id: '10',
+      label: 'Realitat virtual i augmentada',
+      isChecked: false
+    },
+    {
+      id: '11',
+      label: 'UX / UI',
+      isChecked: false
+    },
+    {
+      id: '12',
+      label: 'Xarxes i telecomunicacions',
+      isChecked: false
+    },
+    {
+      id: '13',
+      label: 'Activitats financeres i assegurances',
+      isChecked: false
+    },
+    {
+      id: '14',
+      label: 'Administració pública',
+      isChecked: false
+    },
+    {
+      id: '15',
+      label: 'Agricultura i alimentació',
+      isChecked: false
+    },
+    {
+      id: '16',
+      label: 'Arquitectura i construcció',
+      isChecked: false
+    },
+    {
+      id: '17',
+      label: 'Art, cultura i oci',
+      isChecked: false
+    },
+    {
+      id: '18',
+      label: 'Assessories i gestories',
+      isChecked: false
+    },
+    {
+      id: '19',
+      label: 'Comerç',
+      isChecked: false
+    },
+    {
+      id: '20',
+      label: 'Educació',
+      isChecked: false
+    },
+    {
+      id: '21',
+      label: 'Energia i aigua',
+      isChecked: false
+    },
+    {
+      id: '22',
+      label: 'Extracció i transformació de minerals',
+      isChecked: false
+    },
+    {
+      id: '23',
+      label: 'Investigació i desenvolupament',
+      isChecked: false
+    },
+    {
+      id: '24',
+      label: 'Hosteleria i restauració',
+      isChecked: false
+    },
+    {
+      id: '25',
+      label: 'Indústries manufactureres',
+      isChecked: false
+    },
+    {
+      id: '26',
+      label: 'Indústries transformadores dels metalls',
+      isChecked: false
+    },
+    {
+      id: '27',
+      label: 'Publicitat i marketing',
+      isChecked: false
+    },
+    {
+      id: '28',
+      label: 'Recursos humans',
+      isChecked: false
+    },
+    {
+      id: '29',
+      label: 'Salut',
+      isChecked: false
+    },
+    {
+      id: '30',
+      label: 'Sostenibilitat i medi ambient',
+      isChecked: false
+    },
+    {
+      id: '31',
+      label: 'Transport i logística',
+      isChecked: false
+    },
+    {
+      id: '32',
+      label: 'Turisme',
+      isChecked: false
+    },
+    {
+      id: '33',
+      label: 'Veterinària',
+      isChecked: false
+    },
+    {
+      id: '34',
+      label: 'Altres',
+      isChecked: false
+    },
+
+  ]
 
   validationMessages = {
     'nomEmpresa': {
@@ -75,9 +261,9 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerForm = this.fb.group({
-      nomEmpresa: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
-      cognom: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
-      nomResponsable: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      cognom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
         nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
@@ -90,6 +276,66 @@ export class RegisterComponent implements OnInit {
     this.subscriptionForm$ = this.registerForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.registerForm)
     });
+
+    this.fetchSelectedItems()
+    this.fetchCheckedIDs()
+    console.log("OBJECTS:", this.selectedItemsList)
+    console.log("Array of IDs:", this.checkedIDs)
+  }
+
+  showGoogleAdresses() {
+    console.log("funkamo o que")
+    console.log(this.googleInput.nativeElement)
+
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete(this.googleInput.nativeElement), {
+      types: ['geocode'],
+      componentRestrictions: {
+        country: "ES"
+      }
+    };
+    let context = this;
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var near_place = autocomplete.getPlace();
+      let place = autocomplete.getPlace();
+      context.latUser = place.geometry.location.lat();
+      context.lngUser = place.geometry.location.lng();
+      console.log("LATITUD:", context.latUser);
+      console.log("LONGITUD:", context.lngUser);
+
+    });
+
+  }
+
+  // FILTRES REGISTER
+  changeSelection() {
+    this.fetchSelectedItems()
+    this.fetchCheckedIDs()
+    console.log("OBJECTS:", this.selectedItemsList)
+    console.log("Array of IDs:", this.checkedIDs)
+  }
+  fetchSelectedItems() {
+    this.selectedItemsList = this.checkboxesIndustriaList.filter((value, index) => {
+      return value.isChecked
+    });
+  }
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.checkboxesIndustriaList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
+
+  changeChecked(normes){
+    if(normes == 'termesChecked'){
+      this.termesChecked = !(this.termesChecked);
+    }
+    else if(normes == 'politicaChecked'){
+      this.politicaChecked = !(this.politicaChecked);
+    }
+    console.log(this.termesChecked, this.politicaChecked)
   }
 
   logValidationErrors(group: FormGroup = this.registerForm): void {
@@ -126,6 +372,8 @@ export class RegisterComponent implements OnInit {
     const cognom = this.registerForm.get('cognom');
 
     if (this.accountType == 'empresa') {
+      this.tipusEmpresaSelected = 'empresa'
+
       nomEmpresa.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
       nifEmpresa.setValidators(Validators.required);
       cognom.clearValidators()
@@ -135,6 +383,7 @@ export class RegisterComponent implements OnInit {
       cognom.updateValueAndValidity()
     }
     else if (this.accountType == 'rockstar') {
+      this.tipusEmpresaSelected = 'estudiant'
       nomEmpresa.clearValidators();
       nifEmpresa.clearValidators();
       cognom.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
@@ -145,9 +394,14 @@ export class RegisterComponent implements OnInit {
 
 
     }
-
   }
 
+  changeTipusEmpresa(tipusEmpresaString) {
+    if (this.tipusEmpresaSelected != tipusEmpresaString) {
+      this.tipusEmpresaSelected = tipusEmpresaString;
+    }
+    console.log(this.tipusEmpresaSelected)
+  }
   radioChangedHandler(event: any) {
     this.accountType = event.target.value;
     const nifControl = this.registerForm.get('nomNifEmpresa');
@@ -165,6 +419,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+
   stepBack() {
     window.scrollTo(0, 0)
 
@@ -181,11 +436,18 @@ export class RegisterComponent implements OnInit {
 
         } else {
           if (this.accountType == 'empresa') {
+            console.log('algo guay algo q', this.latUser, this.lngUser)
+
             this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
               this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
               this.registerForm.controls.nomEmpresa.value,
               this.registerForm.controls.nomResponsable.value,
               this.registerForm.controls.nomNifEmpresa.value,
+              this.checkedIDs,
+              this.tipusEmpresaSelected,
+              this.latUser,
+              this.lngUser,
+              this.googleInput.nativeElement.value,
 
             )
               .pipe(first())
@@ -219,6 +481,11 @@ export class RegisterComponent implements OnInit {
               this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
               this.registerForm.controls.nomResponsable.value,
               this.registerForm.controls.cognom.value,
+              this.checkedIDs,
+              this.tipusEmpresaSelected,
+              this.latUser,
+              this.lngUser,
+              this.googleInput.nativeElement.value,
             )
               .pipe(first())
               .subscribe(

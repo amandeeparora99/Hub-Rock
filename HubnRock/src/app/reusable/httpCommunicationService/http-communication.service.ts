@@ -6,6 +6,8 @@ import { first, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Form } from '@angular/forms';
 import { User } from '../../user';
+import { stringify } from '@angular/compiler/src/util';
+import { STRING_TYPE } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -89,7 +91,7 @@ export class HttpCommunicationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
-  
+
   isLoggedIn() {
     return !!localStorage.getItem('currentUser');
   }
@@ -111,13 +113,26 @@ export class HttpCommunicationService {
       }));
   }
 
-  registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa): Observable<any> {
-    const body = new HttpParams()
+  registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa, checkedIDs, tipusSelected, latUser, lngUser, addrUser): Observable<any> {
+    console.log('asdfasdf', latUser, lngUser)
+    let objecteDireccio = { 'lat': latUser, 'lng': lngUser, 'addr': addrUser }
+
+    let body = new HttpParams()
       .set('email', email)
       .set('password', password)
       .set('nom_empresa', nom_empresa)
       .set('nom_responsable', nom_responsable)
       .set('nif_empresa', nif_empresa)
+
+    for (let index = 0; index < checkedIDs.length; index++) {
+      body = body.append(`industria[${index}]`, checkedIDs[index]);
+    }
+
+    body = body.append('tipus_perfil', tipusSelected)
+    console.log(objecteDireccio)
+    body = body.append('ciutat_residencia', JSON.stringify(objecteDireccio))
+
+    console.log('BOOOODY  ', body)
 
     return this.http.post<any>(environment.api + '/user/shortRegisterEmpresa',
       body.toString(),
@@ -140,13 +155,23 @@ export class HttpCommunicationService {
 
   }
 
-  registerRockstar(email, password, nom_rockstar, cognom_rockstar): Observable<any> {
-    const body = new HttpParams()
+  registerRockstar(email, password, nom_rockstar, cognom_rockstar, checkedIDs, tipusSelected, latUser, lngUser, addrUser): Observable<any> {
+    let objecteDireccio = { 'lat': latUser, 'lng': lngUser, 'addr': addrUser }
+    
+    let body = new HttpParams()
       .set('email', email)
       .set('password', password)
       .set('nom_rockstar', nom_rockstar)
       .set('cognom_rockstar', cognom_rockstar)
+    for (let index = 0; index < checkedIDs.length; index++) {
+      body = body.append(`industria[${index}]`, checkedIDs[index]);
+    }
 
+    body = body.append('tipus_perfil', tipusSelected)
+    console.log(objecteDireccio)
+    body = body.append('ciutat_residencia', JSON.stringify(objecteDireccio))
+
+    console.log('BOOOODY  ', body)
     return this.http.post<any>(environment.api + '/user/shortRegisterRockstar',
       body.toString(),
       {
@@ -772,4 +797,72 @@ export class HttpCommunicationService {
   //     return data;
   //   }));
   // }
+
+  getUsersSearch(cerca, empresesChecked, startupsChecked, industriesArray, page, elements): Observable<any> {
+    let body = new HttpParams()
+
+    if (empresesChecked) {
+      body = body.append(`tipus[0]`, 'empresa');
+    }
+    if (startupsChecked) {
+      body = body.append(`tipus[1]`, 'startup');
+    }
+
+    for (let index = 0; index < industriesArray.length; index++) {
+      body = body.append(`industria[${index}]`, industriesArray[index]);
+    }
+
+    console.log('BOOOODY  ', body)
+
+    return this.http.post<any>(environment.api + `/user/getAll/${cerca}/${page}/${elements}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
+
+
+        return data;
+      }
+    }));
+
+  }
+
+  getUsersSearchEmpty(empresesChecked, startupsChecked, industriesArray, page, elements): Observable<any> {
+    let body = new HttpParams()
+
+    if (empresesChecked) {
+      body = body.append(`tipus[0]`, 'empresa');
+    }
+    if (startupsChecked) {
+      body = body.append(`tipus[1]`, 'startup');
+    }
+
+    for (let index = 0; index < industriesArray.length; index++) {
+      body = body.append(`industria[${index}]`, industriesArray[index]);
+    }
+
+    console.log('BOOOODY  ', body)
+
+    return this.http.post<any>(environment.api + `/user/getAll/${page}/${elements}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
+
+
+        return data;
+      }
+    }));
+
+  }
 }

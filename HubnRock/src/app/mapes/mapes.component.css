@@ -148,3 +148,24 @@ input[type="checkbox"]:checked+label {
 #industriesDiv label{
     font-size: 14px;
 }
+.perfilfoto{
+    margin-bottom: 30px; 
+    width: 100px; 
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.perfilfoto2{
+    width: 43px; 
+    height: 43px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+}
+
+.miniTitle{
+    font-size: 16px;
+    font-family: 'WorkSans-Bold';
+}

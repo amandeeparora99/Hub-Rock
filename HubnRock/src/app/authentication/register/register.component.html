@@ -15,7 +15,8 @@
             <div class="row d-flex justify-content-around">
 
                 <div class="accountType-container">
-                    <input id="account-type1" type="radio" name="myradio" value="empresa" checked (change)="radioChangedHandler($event)">
+                    <input id="account-type1" type="radio" name="myradio" value="empresa" checked
+                        (change)="radioChangedHandler($event)">
                     <label for="account-type1" class="clickable"></label>
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" src="../../../assets/illustrations/Company.png">
@@ -23,7 +24,8 @@
                     </div>
                 </div>
                 <div class="accountType-container">
-                    <input id="account-type2" type="radio" name="myradio" value="rockstar" (change)="radioChangedHandler($event)">
+                    <input id="account-type2" type="radio" name="myradio" value="rockstar"
+                        (change)="radioChangedHandler($event)">
                     <label for="account-type2" class="clickable"></label>
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" src="../../../assets/illustrations/Startup.png">
@@ -35,16 +37,19 @@
 
             <p id="text" class="text-center">
                 <ng-container *ngIf="accountType == 'empresa'; else rockstarType">
-                    <i>Empresa:</i> companyies amb un desig d’innovar, de millorar constantment i de construir un futur millor.
+                    <i>Empresa:</i> companyies amb un desig d’innovar, de millorar constantment i de construir un futur
+                    millor.
                 </ng-container>
                 <ng-template #rockstarType>
-                    <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de participar en els reptes de Hub & Rock.
+                    <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de
+                    participar en els reptes de Hub & Rock.
                 </ng-template>
 
             </p>
 
             <div class="text-center">
-                <button (click)="registerNextStep()" id="btn-next" type="button" class="btn btn-primary">SEGÜENT PAS</button>
+                <button (click)="registerNextStep()" id="btn-next" type="button" class="btn btn-primary">SEGÜENT
+                    PAS</button>
             </div>
 
         </div>
@@ -61,13 +66,17 @@
 
         <div class="container">
 
-            <h1 *ngIf="accountType == 'empresa'" class="text-center register-title">Crea el perfil de la teva empresa</h1>
-            <h1 *ngIf="accountType == 'rockstar'" class="text-center register-title">Crea el teu perfil de “rockstar”</h1>
+            <h1 *ngIf="accountType == 'empresa'" class="text-center register-title">Crea el perfil de la teva empresa
+            </h1>
+            <h1 *ngIf="accountType == 'rockstar'" class="text-center register-title">Crea el teu perfil de “rockstar”
+            </h1>
 
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
+                <div class="form-group" *ngIf="accountType == 'empresa'"
+                    [ngClass]="{'is-invalid' : formErrors.nomEmpresa}">
                     <label for="InputNom">Nom empresa</label>
-                    <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom" (blur)="logValidationErrors()">
+                    <input formControlName="nomEmpresa" type="text" class="form-control" id="InputNom"
+                        (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomEmpresa">
                         {{formErrors.nomEmpresa}}
                     </span>
@@ -75,21 +84,24 @@
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomResponsable}">
                     <label for="InputRealName" *ngIf="accountType == 'empresa'">Nom responsable</label>
                     <label for="InputRealName" *ngIf="accountType != 'empresa'">Nom</label>
-                    <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName" (blur)="logValidationErrors()">
+                    <input formControlName="nomResponsable" type="text" class="form-control" id="InputRealName"
+                        (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomResponsable">
                         {{formErrors.nomResponsable}}
                     </span>
                 </div>
                 <div class="form-group" *ngIf="accountType != 'empresa'" [ngClass]="{'is-invalid' : formErrors.cognom}">
                     <label for="InputCognom">Cognom</label>
-                    <input formControlName="cognom" type="text" class="form-control" id="InputCognom" (blur)="logValidationErrors()">
+                    <input formControlName="cognom" type="text" class="form-control" id="InputCognom"
+                        (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.cognom">
                         {{formErrors.cognom}}
                     </span>
                 </div>
                 <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomCorreu}">
                     <label for="InputMail">Correu electrònic</label>
-                    <input formControlName="nomCorreu" type="email" class="form-control" id="InputMail" aria-describedby="emailHelp" (blur)="logValidationErrors()">
+                    <input formControlName="nomCorreu" type="email" class="form-control" id="InputMail"
+                        aria-describedby="emailHelp" (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomCorreu">
                         {{formErrors.nomCorreu}}
                     </span>
@@ -98,135 +110,133 @@
                 <div formGroupName="contrasenyaGroup" [ngClass]="{'is-invalid' : formErrors.nomContrasenya}">
                     <div class="form-group">
                         <label for="InputPassword">Contrasenya</label>
-                        <input formControlName="nomContrasenya" type="password" class="form-control" id="InputPassword" (blur)="logValidationErrors()">
+                        <input formControlName="nomContrasenya" type="password" class="form-control" id="InputPassword"
+                            (blur)="logValidationErrors()">
                         <span class="help-block" *ngIf="formErrors.nomContrasenya">
                             {{formErrors.nomContrasenya}}
                         </span>
                     </div>
-                    <div class="form-group" [ngClass]="{'is-invalid' : formErrors.nomRepeteixContrasenya || formErrors.contrasenyaGroup}">
+                    <div class="form-group"
+                        [ngClass]="{'is-invalid' : formErrors.nomRepeteixContrasenya || formErrors.contrasenyaGroup}">
                         <label for="InputPasswordRepeat">Repeteix contrasenya</label>
-                        <input formControlName="nomRepeteixContrasenya" type="password" class="form-control" id="InputPasswordRepeat" (blur)="logValidationErrors()">
-                        <span class="help-block" *ngIf="formErrors.nomRepeteixContrasenya || formErrors.contrasenyaGroup">
-                            {{formErrors.nomRepeteixContrasenya ? formErrors.nomRepeteixContrasenya : formErrors.contrasenyaGroup}}
+                        <input formControlName="nomRepeteixContrasenya" type="password" class="form-control"
+                            id="InputPasswordRepeat" (blur)="logValidationErrors()">
+                        <span class="help-block"
+                            *ngIf="formErrors.nomRepeteixContrasenya || formErrors.contrasenyaGroup">
+                            {{formErrors.nomRepeteixContrasenya ? formErrors.nomRepeteixContrasenya :
+                            formErrors.contrasenyaGroup}}
                         </span>
                     </div>
                 </div>
 
-                <div class="form-group" *ngIf="accountType == 'empresa'" [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
+                <div class="form-group" *ngIf="accountType == 'empresa'"
+                    [ngClass]="{'is-invalid' : formErrors.nomNifEmpresa}">
                     <label for="InputNIF">NIF empresa</label>
-                    <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF" (blur)="logValidationErrors()">
+                    <input formControlName="nomNifEmpresa" type="text" class="form-control" id="InputNIF"
+                        (blur)="logValidationErrors()">
                     <span class="help-block" *ngIf="formErrors.nomNifEmpresa">
                         {{formErrors.nomNifEmpresa}}
                     </span>
                 </div>
 
-                <div class="form-group" *ngIf="accountType == 'empresa'"><!--[ngClass]="{'is-invalid' : formErrors.nomCorreu}" -->
-                    <label for="InputAdreca" class="mb-0">Adreça empresa</label>
+                <div class="form-group">
+                    <!--[ngClass]="{'is-invalid' : formErrors.nomCorreu}" -->
+                    <label for="InputAdreca" *ngIf="accountType == 'empresa'" class="mb-0">Adreça empresa</label>
+                    <label for="InputAdreca" *ngIf="accountType == 'rockstar'" class="mb-0">Ciutat de residència</label>
                     <p class="mb-2">Introdueix la teva adreça i selecciona una de les opcions que apareixen</p>
-                    <input class="form-control" id="InputAdreca" (blur)="logValidationErrors()">
-
-                    <!-- <span class="help-block" *ngIf="formErrors.nomCorreu">
-                        {{formErrors.nomCorreu}}
-                    </span> -->
+                    <input (focus)="showGoogleAdresses()" type="text" class="form-control" id="google_input"
+                        placeholder="Carrer Major" #googleInput (blur)="logValidationErrors()" />
                 </div>
 
-                <div style="margin-top: 30px;" class="form-group mb20px" *ngIf="accountType == 'empresa'">
-                    <label for="InputAdreca" class="mb-0">En quina indústria opera l’empresa?</label>
+                <div style="margin-top: 30px;" class="form-group mb20px">
+                    <label for="InputAdreca" *ngIf="accountType == 'empresa'" class="mb-0">En quina indústria opera
+                        l’empresa?</label>
+                    <label for="InputAdreca" *ngIf="accountType == 'rockstar'" class="mb-0">En quina indústria tens
+                        experiència?</label>
                     <p>Pots seleccionar més d’una indústria</p>
                     <label for="InputAdreca" style="margin-bottom: 15px;">Sector TIC</label>
                     <div id="industriesbox">
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Big Data</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Biotecnologia</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Blockchain</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Ciberseguretat</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Desenvolupament de software</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Fabricació de hardware</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Impressió 3D</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Intel·ligència artificial</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Mobilitat</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Realitat virtual i augmentada</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">UX / UI</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Xarxes i telecomunicacions</label>
-                        </div>
-
-                        <hr style="margin-top: 30px;">
-                        <label style="margin-bottom: 15px;" for="InputAdreca">Sector TIC</label>
 
                         <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Activitats financeres i assegurances</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Administració pública</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Agricultura i alimentació</label>
+                            <ng-container *ngFor="let item of checkboxesIndustriaList; let i = index">
+                                <label class="btn btn-secondary btnradius mr25 industria">
+                                    <input [id]="item.id" type="checkbox" [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="item.isChecked" (change)="changeSelection()" />
+                                    {{item.label}}
+                                </label>
+                                
+                                <div *ngIf="i == 11" class="col row">
+                                    <label for="InputAdreca" style="margin-bottom: 15px; margin-top: 20px;">Altres sectors</label>
+                                </div>
+                                
+                            </ng-container>
                         </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Arquitectura i construcció</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Art, cultura i oci</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Assessories i gestories</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Comerç</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Educació</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Energia i aigua</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Extracció i transformació de minerals</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Investigació i desenvolupament</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Hosteleria i restauració</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Indústries manufactureres</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Indústries transformadores dels metalls</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Publicitat i marketing</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Recursos humans</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Salut</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Sostenibilitat i medi ambient</label>
-                        </div>
-                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Transport i logística</label>
-                            <label class="btn btn-secondary btnradius mr25 industria"><input type="checkbox">Turisme</label>
-                            <label class="btn btn-secondary btnradius industria"><input type="checkbox">Veterinària</label>
-                        </div>
+
                     </div>
                 </div>
 
-                <div class="form-group mb90px" *ngIf="accountType == 'empresa'">
+                <div class="form-group mb90px">
                     <label>Amb quin d’aquests perfils t’identifiques més?</label>
-                    <div class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle" data-toggle="buttons">
+                    <div *ngIf="accountType == 'empresa'"
+                        class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle"
+                        data-toggle="buttons">
                         <label class="btn btn-secondary d-flex align-items-center justify-content-center active">
-                            <input type="radio" name="Empresa" id="tipusEmpresa" autocomplete="off" checked>
-                            <img src="../../../assets/illustrations/Empreses.png" style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Empresa
+                            <input type="radio" name="Empresa" id="tipusEmpresa" autocomplete="off" checked
+                                (click)="changeTipusEmpresa('empresa')">
+                            <img src="../../../assets/illustrations/Empreses.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Empresa
                         </label>
                         <label class="btn btn-secondary d-flex align-items-center justify-content-center">
-                            <input type="radio" name="Startup" id="tipusStartup" autocomplete="off">
-                            <img src="../../../assets/illustrations/Startups.png" style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Startup
+                            <input type="radio" name="Startup" id="tipusStartup" autocomplete="off"
+                                (click)="changeTipusEmpresa('startup')">
+                            <img src="../../../assets/illustrations/Startups.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Startup
+                        </label>
+
+                    </div>
+
+                    <div *ngIf="accountType == 'rockstar'"
+                        class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle"
+                        data-toggle="buttons">
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center active">
+                            <input type="radio" name="Estudiant" id="tipusEstudiant" autocomplete="off" checked
+                                (click)="changeTipusEmpresa('estudiant')">
+                            <img src="../../../assets/illustrations/Estudiants.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Estudiant
+                        </label>
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center">
+                            <input type="radio" name="Expert" id="tipusExpert" autocomplete="off"
+                                (click)="changeTipusEmpresa('expert')">
+                            <img src="../../../assets/illustrations/Experts.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Expert
                         </label>
                     </div>
+
                 </div>
 
-                <div class="form-group" *ngIf="accountType == 'empresa'">
+                <div class="form-group">
                     <div class="row d-flex align-items-center flex-column termsconditions">
                         <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" value="" id="acceptoTermesiCondicions">
-                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a>Termes i condicions</a> de Hub & Rock</label>
+                            <input class="form-check-input" type="checkbox" 
+                            value="" id="acceptoTermesiCondicions"
+                            [checked]="termesChecked" (change)="changeChecked('termesChecked')">
+                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a>Termes i
+                                    condicions</a> de Hub & Rock</label>
                         </div>
                         <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" value="" id="acceptoPoliticaPrivacitat">
-                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a>Política de privacitat</a> de Hub & Rock</label>
+                            <input class="form-check-input" type="checkbox" 
+                            value="" id="acceptoPoliticaPrivacitat"
+                            [checked]="politicaChecked" (change)="changeChecked('politicaChecked')">
+                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a>Política de
+                                    privacitat</a> de Hub & Rock</label>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" id="btn-login" [disabled]="registerForm.invalid" class="btn btn-primary">CREAR L'USUARI</button>
+                    <button type="submit" id="btn-login" [disabled]="registerForm.invalid || !(termesChecked && politicaChecked)" class="btn btn-primary">CREAR
+                        L'USUARI</button>
                 </div>
                 <div class="text-center elimina-link">
                     <a (click)="stepBack()">Torna enrere</a>

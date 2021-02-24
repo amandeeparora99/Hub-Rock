@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<!-- <div id="hubrock-header" class="container-fluid">
+<div id="hubrock-header" class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-light">
         <a class="navbar-brand"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -43,6 +43,9 @@
             <ul class="navbar-nav hrheaderlinks">
                 <li class="nav-item nav-first-item">
                     <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' (click)="headerRedirect(4)" class="nav-link mr-3">Veure reptes oberts</a>
+                </li>
+                <li class="nav-item nav-first-item">
+                    <a [ngClass]='{"actiu" : currentPathMatch("/mapes",0)}' (click)="headerRedirect(5)" class="nav-link mr-3">Directori mapes</a>
                 </li>
                 <li>
                     <a *ngIf="currentUserObject && !currentUserObject.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}' href="/creacio-repte" class="nav-link mr-3">Crea un repte</a>
@@ -67,11 +70,11 @@
             </ul>
         </div>
     </nav>
-</div> -->
+</div>
 
 <!-- <div style="width: 100%; height: 20px; background-color: darkblue;"></div> -->
 
-<nav id="hubrock-header" class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+<!-- <nav id="hubrock-header" class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
     <div class="navbar-brand d-flex w-40 mr-auto"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
@@ -97,7 +100,7 @@
     <div class="navbar-brand d-flex w-custom mr-auto"></div>
 
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
-        <ul class="navbar-nav w-100 justify-content-start-mobile"> <!--center-->
+        <ul class="navbar-nav w-100 justify-content-start-mobile"> center
             <li class="mr-2 nav-item active">
                 <a class="nav-link" href="#"><img src="../../../assets/navbar/Dona't d'alta.png" style="width: 20px; height: 20px;"> Veure reptes oberts</a>
             </li>
@@ -108,10 +111,10 @@
                 <a class="nav-link" href="#"><img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Directori</a>
             </li>
         </ul>
-        <ul class="nav navbar-nav justify-content-end mlautow100"> <!--ml-auto w-100 --> 
+        <ul class="nav navbar-nav justify-content-end mlautow100"> ml-auto w-100
             <li class="nav-item">
                 <a class="nav-link" href="#">CAT</a>
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->

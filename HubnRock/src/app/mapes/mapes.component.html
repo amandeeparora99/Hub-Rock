@@ -3,93 +3,114 @@
 
 </agm-map> -->
 <div class="container-fluid map">
-    <!-- <agm-map class="box" [latitude]="lat" [longitude]="lng">
-
-    </agm-map> -->
-    <div class="box"></div>
-    <div class="box overlay empresaInfo" [style]="'display:'+display+';'">
+    <agm-map class="box" [latitude]="lat" [longitude]="lng">
+        <agm-marker *ngFor="let empresa of empreses" [latitude]="getJSONlatlng(empresa.ciutat_residencia).lat" 
+            [longitude]="getJSONlatlng(empresa.ciutat_residencia).lng"
+            (markerClick)="displayChange(); setEmpresa(empresa)">
+            <agm-info-window>
+                <div class="d-flex align-items-center">
+                    <div class="perfilfoto2"
+                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + empresa.url_photo_profile + ')'}"
+                    alt="Card image cap"></div>
+                    <h3 class="miniTitle mb-0">{{empresa.nom_empresa}}</h3>
+                </div>
+                <div style="max-width: 230px; padding: 5px">
+                    {{empresa.bio}}
+                </div>
+            </agm-info-window>
+        </agm-marker>
+    </agm-map>
+    <!-- <div class="box"></div> -->
+    <div *ngIf="currentEmpresa" class="box overlay empresaInfo" [style]="'display:'+display+';'">
         <div class="d-flex justify-content-between">
             <div></div>
-            <img style="margin-bottom: 30px;" src="https://dummyimage.com/100x100/000/fff" class="rounded-circle"
-                alt="">
-            <div (click)="displayChange()">X</div>
+            <div class="rounded-circle perfilfoto"
+                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + currentEmpresa.url_photo_profile + ')'}"
+                alt="Card image cap"></div>
+            <div style="cursor: pointer;" (click)="displayChange()">X</div>
         </div>
         <div class="text-center maininfo">
-            <h3>Digital Company</h3>
-            <p>Som especialistes en packaging
-                de tots els sectors</p>
+            <h3>{{currentEmpresa.nom_empresa}}</h3>
+            <p>{{currentEmpresa.bio}}</p>
             <p>www.digitalcompany.com</p>
         </div>
         <div>
-            <h3>Digital Company</h3>
-            <p style="overflow-x: hidden; font-size: 14px;">Lorem Ipsum es simplemente el texto de relleno de las
-                imprentas y archivos de texto.
-                Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500,
-                cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una
-                galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
-                No sólo sobrevivió 500 años…</p>
+            <h3>Sobre nosaltres</h3>
+            <p *ngIf="currentEmpresa.bio" style="overflow-x: hidden; font-size: 14px;">{{currentEmpresa.bio}}</p>
+            <p *ngIf="!currentEmpresa.bio" style="overflow-x: hidden; font-size: 14px;">-</p>
         </div>
         <hr />
         <div>
-            <h3>Digital Company</h3>
-            <div class="servei" style="display: inline-block;">tecnologia</div>
+            <h3>Els nostres serveis</h3>
+            <div *ngIf="currentEmpresa.serveis.length">
+                <div *ngFor="let servei of currentEmpresa.serveis" class="servei" style="display: inline-block; margin-right: 25px;">
+                {{servei.servei_nom}}</div>
+            </div>
+            <div *ngIf="!currentEmpresa.serveis.length">-</div>
         </div>
         <hr />
         <div>
-            <h3>Digital Company</h3>
-            <div class="servei" style="display: inline-block;">tecnologia</div>
+            <h3>Les nostres indústries</h3>
+            <div *ngFor="let industria of currentEmpresa.industries" class="servei" style="display: inline-block; margin-right: 5px; margin-bottom: 5px;">
+                {{industria.nom}}</div>
         </div>
         <hr />
         <div>
             <h3>Documents</h3>
-            <img class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
-            <a target="_blank" href="#" class="link-perfil-usuari">Tavil - catàleg de serveis</a>
+            <img *ngIf="currentEmpresa.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
+            <a *ngIf="currentEmpresa.cv_path" target="_blank" [href]="fileStorageUrl + currentEmpresa.cv_path" download class="link-perfil-usuari">Presentació {{currentEmpresa.nom_empresa}}</a>
+            <p *ngIf="!currentEmpresa.cv_path">-</p>
         </div>
         <hr />
         <div>
             <h3>On trobar-nos?</h3>
             <div class="d-flex">
                 <img class="mr-1 align-self-start" src="../../assets/testicons/place-localizer.png" alt="">
-                <p>c/ Pont Major, 12<br>
-                    Besalú, Girona</p>
+                <p>{{getJSONlatlng(currentEmpresa.ciutat_residencia).addr}}</p>
             </div>
+            <br>
             <a href="#">www.digitalcompany.com</a>
             <div class="d-flex mt-3">
-                <a target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
-                <a target="_blank"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
-                <a target="_blank"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
+                <a *ngIf="currentEmpresa.xarxes_linkedin" target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
+                <a *ngIf="currentEmpresa.xarxes_twitter" target="_blank"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Instagram"></a>
+                <a *ngIf="currentEmpresa.xarxes_instagram" target="_blank"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Facebook"></a>
+                <a *ngIf="currentEmpresa.xarxes_facebook" target="_blank"><img class="mr-2" src="../../assets/testicons/Facebook.png" alt="Facebook"></a>
                 <!-- <a *ngIf="usuariObject.xarxes_twitter" [attr.href]="usuariObject.xarxes_twitter" target="_blank"><img class="mr-2" src="../../assets/testicons/Twitter.png" alt="Twitter"></a> -->
             </div>
         </div>
         <hr />
         <div>
             <h3>Últim repte creat</h3>
-
+            <p>-</p>
         </div>
         <hr />
     </div>
 
     <div class="d-flex justify-content-end">
         <div class="secondoverlay empresaInfo onMobileRelative">
-
-            <div class="input-group">
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><img src="../../assets/simpleicons/Search_N.png" width="20px"
-                                height="20px" alt="Cerca"></div>
+            <form (ngSubmit)="onSearchSubmit()">
+                <div class="input-group">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><img src="../../assets/simpleicons/Search_N.png" width="20px"
+                                    height="20px" alt="Cerca"></div>
+                        </div>
+                        <input type="text" class="form-control" id="cercarEmpreses" [(ngModel)]="text"
+                            [ngModelOptions]="{standalone: true}" placeholder="Busca empreses al mapa"
+                            (input)="onSearchChange($event.target.value)">
                     </div>
-                    <input type="text" class="form-control" id="cercarEmpreses" placeholder="Busca empreses al mapa">
                 </div>
-            </div>
+            </form>
             <div class="d-flex justify-content-end">
-                <p style="font-size: 13px; color:#b6b6b6;">Eliminar cerca</p>
+                <p style="font-size: 13px; color:#b6b6b6; cursor: pointer;" (click)="clearSearch()">Eliminar cerca</p>
             </div>
 
             <hr class="mt-0 mb-0">
 
             <h3>Clica sobre el tipus de perfil buscat</h3>
             <div class="form-check form-check-inline checkboxes mr-4">
-                <input type="checkbox" id="InputEmpreses">
+                <input type="checkbox" id="InputEmpreses" value="empreses" [checked]="empresaChecked"
+                    (change)="changeTipusEmpresa('empresa')">
                 <label class="form-check-label" for="InputEmpreses">
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" width="40px" height="40px"
@@ -99,7 +120,8 @@
                 </label>
             </div>
             <div class="form-check form-check-inline checkboxes">
-                <input type="checkbox" id="InputStartups">
+                <input type="checkbox" id="InputStartups" value="startups" [checked]="startupsChecked"
+                    (change)="changeTipusEmpresa('startup')">
                 <label class="form-check-label" for="InputStartups">
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <img class="ilustration" width="40px" height="40px"
@@ -113,154 +135,17 @@
 
             <div class="d-flex justify-content-between">
                 <h3 class="mb-1">De quina industria?</h3>
-                <p class="mb-0" style="font-size: 13px; color:#b6b6b6; margin-top: 20px;">Eliminar cerca</p>
+                <p class="mb-0" style="font-size: 13px; color:#b6b6b6; margin-top: 20px; cursor: pointer;"
+                    (click)="clearFilters()">Eliminar cerca</p>
             </div>
             <p style="font-size: 13px">Pots seleccionar més d’una</p>
 
-            <div id="industriesDiv"> <!--DESPLEGABLE-->
+            <div id="industriesDiv">
                 <div style="margin-top: 18px; margin-left: 18px">
-                    <!-- SECTOR TIC -->
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_totes" name="Totes">
-                        <label class="custom-control-label" for="ind_totes">Totes</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_bigdata" name="Big Data">
-                        <label class="custom-control-label" for="ind_bigdata">Big Data</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_biotecnologia" name="Biotecnologia">
-                        <label class="custom-control-label" for="ind_biotecnologia">Biotecnologia</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_blockchain" name="Blockchain">
-                        <label class="custom-control-label" for="ind_blockchain">Blockchain</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_ciberseguretat" name="Ciberseguretat">
-                        <label class="custom-control-label" for="ind_ciberseguretat">Ciberseguretat</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_software" name="Desenvolupament de software">
-                        <label class="custom-control-label" for="ind_software">Desenvolupament de software</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_hardware" name="Fabricació de hardware">
-                        <label class="custom-control-label" for="ind_hardware">Fabricació de hardware</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_impressio3d" name="Impressió 3D">
-                        <label class="custom-control-label" for="ind_impressio3d">Impressió 3D</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_IA" name="Intel·ligència artificial">
-                        <label class="custom-control-label" for="ind_IA">Intel·ligència artificial</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_mobilitat" name="Mobilitat">
-                        <label class="custom-control-label" for="ind_mobilitat">Mobilitat</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_vrar" name="Realitat virtual i augmentada">
-                        <label class="custom-control-label" for="ind_vrar">Realitat virtual i augmentada</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_uxui" name="UX / UI">
-                        <label class="custom-control-label" for="ind_uxui">UX / UI</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_xarxestelecom" name="Xarxes i telecomunicacions">
-                        <label class="custom-control-label" for="ind_xarxestelecom">Xarxes i telecomunicacions</label>
-                    </div>
-                    <!-- /SECTOR TIC -->
-                    <!-- ALTRES SECTORS -->
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_actfinanceresassegurances" name="Activitats financeres i assegurances">
-                        <label class="custom-control-label" for="ind_actfinanceresassegurances">Activitats financeres i assegurances</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_administraciopublica" name="Administració pública">
-                        <label class="custom-control-label" for="ind_administraciopublica">Administració pública</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_agriculturaialimentacio" name="Agricultura i alimentación">
-                        <label class="custom-control-label" for="ind_agriculturaialimentacio">Agricultura i alimentació</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_arquitecturaiconstruccio" name="Arquitectura i construcció">
-                        <label class="custom-control-label" for="ind_arquitecturaiconstruccio">Arquitectura i construcció</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_artculturaioci" name="Art, cultura i oci">
-                        <label class="custom-control-label" for="ind_artculturaioci">Art, cultura i oci</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_assesoriesigestories" name="Assessories i gestories">
-                        <label class="custom-control-label" for="ind_assesoriesigestories">Assessories i gestories</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_comerc" name="Comerç">
-                        <label class="custom-control-label" for="ind_comerc">Comerç</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_educacio" name="Educació">
-                        <label class="custom-control-label" for="ind_educacio">Educació</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_energiaiaigua" name="Energia i aigua">
-                        <label class="custom-control-label" for="ind_energiaiaigua">Energia i aigua</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_extracciotransformaciominerals" name="Extracció i transformació de minerals">
-                        <label class="custom-control-label" for="ind_extracciotransformaciominerals">Extracció i transformació de minerals</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_investigaciodesenvolupament" name="Investigació i desenvolupament">
-                        <label class="custom-control-label" for="ind_investigaciodesenvolupament">Investigació i desenvolupament</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_hosteleriarestauracio" name="Hosteleria i restauració">
-                        <label class="custom-control-label" for="ind_hosteleriarestauracio">Hosteleria i restauració</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_manufactureres" name="Indústries manufactureres">
-                        <label class="custom-control-label" for="ind_manufactureres">Indústries manufactureres</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_transformadoresmetalls" name="Indústries transformadores dels metalls ">
-                        <label class="custom-control-label" for="ind_transformadoresmetalls">Indústries transformadores dels metalls </label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_publicitatmarketing" name="Publicitat i marketing">
-                        <label class="custom-control-label" for="ind_publicitatmarketing">Publicitat i marketing</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_recursoshumans" name="Recursos humans">
-                        <label class="custom-control-label" for="ind_recursoshumans">Recursos humans</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_salut" name="Salut">
-                        <label class="custom-control-label" for="ind_salut">Salut</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_sostenibilitatmediambient" name="Sostenibilitat i medi ambient">
-                        <label class="custom-control-label" for="ind_sostenibilitatmediambient">Sostenibilitat i medi ambient</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_transportlogistica" name="Transport i logística">
-                        <label class="custom-control-label" for="ind_transportlogistica">Transport i logística</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_turisme" name="Turisme">
-                        <label class="custom-control-label" for="ind_turisme">Turisme</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_veterinaria" name="Veterinària">
-                        <label class="custom-control-label" for="ind_veterinaria">Veterinària</label>
-                    </div>
-                    <div class="custom-control custom-checkbox mb-2">
-                        <input type="checkbox" class="custom-control-input" id="ind_altres" name="Altres">
-                        <label class="custom-control-label" for="ind_altres">Altres</label>
+                    <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList">
+                        <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
+                            [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
+                        <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>
                     </div>
                 </div>
             </div>
@@ -268,4 +153,5 @@
     </div>
 
 </div>
-<button (click)="displayChange()">Hola</button>
+
+<app-footer></app-footer>
