@@ -408,6 +408,10 @@ export class RepteComponent implements OnInit {
 
   }
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   repteCanHaveForum(data_inici, data_final) {
     if (data_inici && data_final) {
       let dateInici = new Date(data_inici);

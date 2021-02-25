@@ -47,8 +47,8 @@
                     <div class="d-flex justify-content-start category-div col-md-6 col-sm-12 col-xs-12">
 
                         <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center categoriaRepte">
-                            <img class="participateimg" src="../../assets/illustrations/{{categoria.participants_name}}.png" alt="Categoria empresa">
-                            <p class="typetext">{{categoria.participants_name}}</p>
+                            <img class="participateimg" [src]="'../../assets/illustrations/'+capitalizeFirstLetter(categoria.participants_name)+'.png'" alt="Categoria empresa">
+                            <p class="typetext">{{capitalizeFirstLetter(categoria.participants_name)}}</p>
                         </div>
 
                     </div>
@@ -150,11 +150,11 @@
                     <div *ngIf="repte.url_photo_2" class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
-                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="getYoutubeUrl(repte.url_video)">
+                <!-- <div id="videorepte" class="row d-flex justify-content-center" *ngIf="getYoutubeUrl(repte.url_video)">
                     <iframe width="660" height="370" [src]="getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div id="videorepte" class="row d-flex justify-content-center" *ngIf="!getYoutubeUrl(repte.url_video)">
-                    No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid
+                </div> -->
+                <div id="videorepte" class="row d-flex justify-content-center"> <!--*ngIf="!getYoutubeUrl(repte.url_video)"-->
+                    <!-- No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid -->
                 </div>
 
 
@@ -207,8 +207,10 @@
                 <div class="text-readmore row d-flex justify-content-between">
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <p>
-                            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
-                            una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años.
+                            Per participar al repte cal seguir totes les instruccions de l’empresa organitzadora. Comenceu llegint el resum del repte i les solucions 
+                            buscades (juntament amb els requeriments tècnics, si n’hi ha), i prepareu la vostra solució amb temps. <br><br>
+                            Si teniu qualsevol dubte sobre el procés podeu contactar amb els organitzadors, amb la Cambra de Comerç de Girona, o utilitzar el 
+                            fòrum del repte. Us recomanem utilitzar el directori de Hub & Rock per completar el vostre equip amb estudiants o experts.
                         </p>
                         <!-- <a href="#">SABER MÉS</a> -->
                     </div>
@@ -278,11 +280,11 @@
 
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="separator"></div>
-                </div>
+                </div> -->
 
-                <div id="altresrecursos" class="row">
+                <!-- <div id="altresrecursos" class="row">
                     <h1 class="tematicatitle">Altres recursos</h1>
                 </div>
                 <div id="altresrecursosfiles" class="row d-flex flex-column">
@@ -291,7 +293,7 @@
                         <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                         <a target="_blank" [href]="fileStorageUrl + recurs.recurs_url_fitxer" download>{{recurs.recurs_nom}}</a>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="videos">   DESACTIVEM VIDEOS PER DEMOSTRACIO GRAV.
                     <div class="row">
