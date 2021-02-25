@@ -10,12 +10,13 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
   styleUrls: ['./mapes.component.css']
 })
 export class MapesComponent implements OnInit {
-  lat: number = 40;
-  lng: number = -3;
+  lat: number = 41.7252;
+  lng: number = 1.82335;
   display = 'none';
 
   empresaChecked = false;
   startupsChecked = false;
+  fitBoundsVar = false;
 
   currentEmpresa;
   public fileStorageUrl = environment.api + '/image/';
@@ -204,7 +205,7 @@ export class MapesComponent implements OnInit {
 
   subscriptionHttp1$: Subscription;
 
-  empreses: any[];
+  empreses: any[] = [];
 
   constructor(private httpCommunication: HttpCommunicationService){};
 
@@ -220,6 +221,8 @@ export class MapesComponent implements OnInit {
   }
 
   getJSONlatlng(latlng){
+    console.log("NORMAL:",latlng)
+    console.log("AMB PARSE:",JSON.parse(latlng))
     return JSON.parse(latlng);
   }
 
@@ -289,7 +292,7 @@ export class MapesComponent implements OnInit {
   }
 
   onSearchSubmit(){
-
+    
     if(this.text){
       console.log("Search AMB Nom")
       this.subscriptionHttp1$ = this.httpCommunication.getUsersSearch(this.text,
@@ -305,6 +308,12 @@ export class MapesComponent implements OnInit {
             console.log(data);
             if (data.code == "1") {
               this.empreses = data.rows;
+              if (data.rows.length){
+                this.fitBoundsVar = true;
+              }
+              else{
+                this.fitBoundsVar = false;
+              }
             }
           },
           error => {
@@ -327,6 +336,12 @@ export class MapesComponent implements OnInit {
             console.log(data);
             if (data.code == "1") {
               this.empreses = data.rows;
+              if (data.rows.length){
+                this.fitBoundsVar = true;
+              }
+              else{
+                this.fitBoundsVar = false;
+              }
             }
           },
           error => {
