@@ -812,8 +812,6 @@ export class HttpCommunicationService {
       body = body.append(`industria[${index}]`, industriesArray[index]);
     }
 
-    console.log('BOOOODY  ', body)
-
     return this.http.post<any>(environment.api + `/user/getAll/${cerca}/${page}/${elements}`,
       body.toString(),
       {
@@ -846,8 +844,6 @@ export class HttpCommunicationService {
       body = body.append(`industria[${index}]`, industriesArray[index]);
     }
 
-    console.log('BOOOODY  ', body)
-
     return this.http.post<any>(environment.api + `/user/getAll/${page}/${elements}`,
       body.toString(),
       {
@@ -858,11 +854,94 @@ export class HttpCommunicationService {
       if (data.code == '1') {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
-
-
         return data;
       }
     }));
 
   }
+
+  getReptesByNameSearch(searchKeyword, page, elements): Observable<any> {
+    var body = new HttpParams()
+
+    return this.http.post<any>(environment.api + `/repte/getByNameAndParams/${searchKeyword}/${page}/${elements}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        return data;
+      }
+    }));
+    
+  }
+
+  getReptesByNameAndParamsSearch(searchKeyword, status, empresesChecked, startupsChecked, expertsChecked, estudiantsChecked, page, elements): Observable<any> {
+    let body = new HttpParams()
+
+    if (status) {
+      body = body.append(`estat[0]`, status);
+    }
+    if (empresesChecked) {
+      body = body.append(`tipus[0]`, '1');
+    }
+    if (startupsChecked) {
+      body = body.append(`tipus[1]`, '2');
+    }
+    if (expertsChecked) {
+      body = body.append(`tipus[2]`, '3');
+    }
+    if (estudiantsChecked) {
+      body = body.append(`tipus[3]`, '4');
+    }
+
+    return this.http.post<any>(environment.api + `/repte/getByNameAndParams/${searchKeyword}/${page}/${elements}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        return data;
+      }
+    }));
+    
+  }
+
+  getUsersSearchBar(cerca, empresesChecked, startupsChecked, expertsChecked, estudiantsChecked, industriesArray, page, elements): Observable<any> {
+    let body = new HttpParams()
+
+    if (empresesChecked) {
+      body = body.append(`tipus[0]`, 'empresa');
+    }
+    if (startupsChecked) {
+      body = body.append(`tipus[1]`, 'startup');
+    }
+    if (expertsChecked) {
+      body = body.append(`tipus[2]`, 'estudiant');
+    }
+    if (estudiantsChecked) {
+      body = body.append(`tipus[3]`, 'expert');
+    }
+
+    for (let index = 0; index < industriesArray.length; index++) {
+      body = body.append(`industria[${index}]`, industriesArray[index]);
+    }
+
+    return this.http.post<any>(environment.api + `/user/getAll/${cerca}/${page}/${elements}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        return data;
+      }
+    }));
+
+  }
+
 }

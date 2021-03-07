@@ -1,0 +1,275 @@
+<app-header></app-header>
+<div class="container main-container">
+    <div class="row">
+        <div class="col-md-2 titol-font">Busca en</div>
+        <div class="col-md-10 d-flex align-items-center">
+            <button type="button" class="btn btn-primary btn-buscar btn-buscar" style="margin-right:20px" (click)="changeSearch('reptes'); resetCheckboxes()" [ngClass]="{'btn-buscar-active':activeSearch == 'reptes'}">REPTES</button>
+            <!-- <button type="button" class="btn btn-primary btn-buscar" style="margin-right:20px" (click)="changeSearch('crowdfunding')" [ngClass]="{'btn-buscar-active':activeSearch == 'crowdfunding'}">CROWDFUNDING</button> -->
+            <button type="button" class="btn btn-primary btn-buscar" (click)="changeSearch('directori'); searchProfileByName(searchKeyword)" [ngClass]="{'btn-buscar-active':activeSearch == 'directori'}">DIRECTORI</button>
+        </div>
+    </div>
+    <hr class="hr-style">
+    <section id="reptes" *ngIf="activeSearch == 'reptes'">
+        <div class="row">
+
+            <div class="col-md-2 filter-col">
+
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav d-flex flex-column">
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-title">FILTRES</p>
+                                    <a (click)="resetCheckboxes()" class="filter-link pointer">Resetejar tots els filtres</a>
+                                </div>
+                            </li>
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-subtitle">Estat del repte</p>
+                                    <div class="filter-list w-100">
+                                        <div style="margin-top: 18px; margin-left: 18px; margin-bottom: 16px;">
+
+                                            <div class="form-check custom-control custom-checkbox mb-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                        [(ngModel)]="futursRadio" value="futurs"
+                                                        (change)="onRepteStatusChange($event.target.value)"/>Futurs
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="form-check custom-control custom-checkbox mb-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                        [(ngModel)]="tancatsRadio" value="tancat"
+                                                        (change)="onRepteStatusChange($event.target.value)"/>Tancats
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check custom-control custom-checkbox mb-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                        [(ngModel)]="obertsRadio" value="obert"
+                                                        (change)="onRepteStatusChange($event.target.value)"/>Oberts
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-subtitle">Qui pot participar?</p>
+                                    <div class="filter-list w-100">
+                                        <div style="margin-top: 18px; margin-left: 18px; margin-bottom: 16px;">
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="empresesCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChange($event, 'empreses')" [checked]="empresesCheckbox">
+                                                <label for="empresesCheckbox" class="custom-control-label">Empreses</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="startupsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChange($event, 'startups')" [checked]="startupsCheckbox">
+                                                <label for="startupsCheckbox" class="custom-control-label">Startups</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="expertsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChange($event, 'experts')" [checked]="expertsCheckbox">
+                                                <label for="expertsCheckbox" class="custom-control-label">Experts</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="estudiantsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChange($event, 'estudiants')" [checked]="estudiantsCheckbox">
+                                                <label for="estudiantsCheckbox" class="custom-control-label">Estudiants</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+
+            </div>
+            <div class="col-md-10" style="padding-left: 40px;">
+                <div class="row">
+                    <div class="col resultat">
+                        S’han trobat {{reptes.length}} resultats amb <span>“{{searchKeyword}}”</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <ng-container *ngIf="reptes.length">
+                        <div *ngFor="let repte of reptes; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="card" routerLink="/repte/{{repte.idrepte}}">
+                                <div class="card-img-top card-repte-img" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}" alt="Card image cap"></div>
+                                <div class="card-body fitxa-repte">
+                                    <div class="card-title d-flex">
+                                        <div click-stop-propagation class="rounded-circle mr-2 mt-0 cardProfileImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_profile + ')'}" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+                                        </div>
+                                        <p click-stop-propagation class="m-0 username" routerLink="/perfil/{{repte.user_iduser}}">{{repte.nom_empresa}}</p>
+                                    </div>
+                                    <h5 class="card-title titol-repte">{{repte.nom}}</h5>
+                                    <p class="card-text desc-repte">{{repte.descripcio_short}}</p>
+                                    <div class="card-title d-flex align-items-center">
+                                        <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Win2.png" alt="25x25">
+                                        <div class="d-flex align-items-center">
+                                            <div *ngFor="let premi of repte.premis; let i = index">
+                                                <p class="m-0" *ngIf="i+1 != repte.premis.length">{{premiCurt(premi.premi_dotacio)}} /&nbsp;</p>
+                                                <p class="m-0" *ngIf="i+1 == repte.premis.length">{{premiCurt(premi.premi_dotacio)}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-title d-flex">
+                                        <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
+                                        <p class="m-0">{{diesRestants(repte.data_inici, repte.data_final)}}</p>
+                                    </div>
+                                    <div class="tags">
+                                        <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'startups',
+                                                        'tag-blue': participants.participants_name == 'empreses',
+                                                        'tag-orange': participants.participants_name == 'estudiants',
+                                                        'tag-purple': participants.participants_name == 'experts'}">
+                                            {{participants.participants_name}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- <section id="reptes" *ngIf="activeSearch == 'crowdfunding'">
+        -- Secció Crowdfunding
+    </section> -->
+
+    <section id="directori" *ngIf="activeSearch == 'directori'">
+        <div class="row">
+
+            <div class="col-md-2 filter-col">
+
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav d-flex flex-column">
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-title">FILTRES</p>
+                                    <a (click)="resetCheckboxes(); clearFilters()" class="filter-link pointer">Resetejar tots els filtres</a>
+                                </div>
+                            </li>
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-subtitle">Tipus de perfil</p>
+                                    <div class="filter-list w-100">
+                                        <div style="margin-top: 18px; margin-left: 18px; margin-bottom: 16px;">
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="empresesCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChangeUsers($event, 'empreses')" [checked]="empresesCheckbox">
+                                                <label for="empresesCheckbox" class="custom-control-label">Empreses</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="startupsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChangeUsers($event, 'startups')" [checked]="startupsCheckbox">
+                                                <label for="startupsCheckbox" class="custom-control-label">Startups</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="expertsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChangeUsers($event, 'experts')" [checked]="expertsCheckbox">
+                                                <label for="expertsCheckbox" class="custom-control-label">Experts</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input id="estudiantsCheckbox" type="checkbox" class="custom-control-input"
+                                                    (change)="onTypeChangeUsers($event, 'estudiants')" [checked]="estudiantsCheckbox">
+                                                <label for="estudiantsCheckbox" class="custom-control-label">Estudiants</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="nav-item active">
+                                <div class="row">
+                                    <p class="filter-subtitle">Indústria</p>
+                                    <div id="industriesDiv" class="filter-list w-100">
+                                        <div style="margin-top: 18px; margin-left: 18px">
+                                            <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList">
+                                                <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
+                                                    [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
+                                                <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+            <div class="col-md-10" style="padding-left: 40px;">
+                <div class="row">
+                    <div class="col resultat">
+                        S’han trobat {{users.length}} resultats amb <span>“{{searchKeyword}}”</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="user-cards"><br>
+                        <div class="row d-flex flex-column align-items-center esborranys-mb">
+                            <div class="row w-100" *ngIf="users.length">
+                                
+                                <div *ngFor="let user of users; let i = index" class="col-md-4 col-sm-6">
+                                    <div click-stop-propagation class="card solucio-enviat p-2" style="cursor: auto;">
+                                        <div class="card-header">
+                                            <span class="user-type-tag">{{user.tipus_perfil}}</span>
+                                            <div class="row justify-content-center">
+                                                <a click-stop-propagation target="_blank">
+                                                    <div class="rounded-circle profilePicSearch"
+                                                    [ngStyle]="{'background-image': 'url('+fileStorageUrl+user.url_photo_profile+')'}"
+                                                    alt="Imatge perfil"></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-overflow">
+                                                {{user.empresa_rockstar == 0 ? user.nom_empresa : user.nom_rockstar + " " + user.cognom_rockstar}}</h5>
+                                            <h6 class="card-subtitle text-overflow">{{user.bio}}</h6>
+                                        </div>
+                                        <div class="card-footer bg-transparent d-flex justify-content-center mt-3 mb-3">
+                                            <div class="redirectButton" style="cursor: pointer;" [routerLink]="'/perfil/'+user.user_iduser">
+                                                <p class="mb-0">&#8594;</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+</div>
+<app-footer></app-footer>

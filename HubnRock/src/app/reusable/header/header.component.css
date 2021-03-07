@@ -40,6 +40,10 @@
     list-style: none;
 }
 
+.hubrock-header-2{
+    border-bottom: solid 1px #dfdfdf;
+}
+
 .nav-links li {
     display: inline-block;
     padding: 0px 20px;
@@ -84,6 +88,16 @@
     .mobile-column {
         flex-direction: column;
     } */
+    .hubrock-header-2{
+        padding:0px 5% 0px!important;
+    }
+    .mb20mobile{
+        margin-bottom: 20px;
+    }
+    #navbarSearch {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
 }
 
 /* @media (min-width: 769px) and (max-width: 991.98px) {
@@ -194,6 +208,5 @@
 }
 
 .actiu {
-    font-weight: bold;
-    text-decoration: underline;
+    color: #00e292!important;
 }

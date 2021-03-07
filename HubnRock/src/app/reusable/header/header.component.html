@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div id="hubrock-header" class="container-fluid">
+<!-- <div id="hubrock-header" class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-light">
         <a class="navbar-brand"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -70,28 +70,44 @@
             </ul>
         </div>
     </nav>
-</div>
+</div> -->
 
 <!-- <div style="width: 100%; height: 20px; background-color: darkblue;"></div> -->
 
-<!-- <nav id="hubrock-header" class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+<nav id="hubrock-header" class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
     <div class="navbar-brand d-flex w-40 mr-auto"><img (click)="headerRedirect(1)" id="logo" src="../../../assets/logos/HubRock_NewLogo.png"></div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
         <ul class="navbar-nav w-100 justify-content-center">
-            <form [formGroup] class="navbar-form" id="navbarSearch" role="search">
+            <form [formGroup]="searchForm" (ngSubmit)="search()" class="navbar-form" id="navbarSearch" role="search">
                 <input class="form-control mr-sm-2" type="text" placeholder="Busca reptes, empreses, perfils…" 
-                aria-label="Search">
+                formControlName="keyword" aria-label="Search">
             </form>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link" href="#"><img src="../../../assets/navbar/Dona't d'alta.png" style="width: 20px; height: 20px;"> Dona't d'alta</a>
+            <li *ngIf="!currentUserObject" class="nav-item">
+                <a [ngClass]='{"actiu" : currentPathMatch("/registre",0)}' class="nav-link mr-3" href="/registre">
+                    <img [src]="currentPathMatch('/registre',0) ? '../../../assets/navbar/Dona\'t d\'alta_V.png' : '../../../assets/navbar/Dona\'t d\'alta.png'" 
+                    style="width: 20px; height: 20px;">
+                     Dona't d'alta
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Entra</a>
+            <li *ngIf="!currentUserObject" class="nav-item">
+                <a [ngClass]='{"actiu" : currentPathMatch("/login",0)}' class="nav-link" href="/login">
+                    <img [src]="currentPathMatch('/login',0) ? '../../../assets/navbar/Entrar_V.png' : '../../../assets/navbar/Entrar.png'"
+                    style="width: 20px; height: 20px;"> Entra
+                </a>
+            </li>
+            <li *ngIf="currentUserObject && currentUserObject" class="nav-item">
+                <a [ngClass]='{"actiu" : currentPathMatch("/perfil/",currentUserObject.idUser)}' [href]="getUserProfile()" class="nav-link">
+                    <img [src]="currentPathMatch('/perfil/',currentUserObject.idUser) ? '../../../assets/navbar/Perfil_V.png' : '../../../assets/navbar/Perfil.png'"
+                    style="width: 20px; height: 20px;"> {{currentUserObject.nom}}</a>
+            </li>
+            <li *ngIf="currentUserObject" class="elimina-link nav-item">
+                <a (click)="userLogout()" class="nav-link">
+                    <img src="../../../assets/navbar/Sortir_V.png" style="width: 20px; height: 20px;"> Sortir</a>
             </li>
         </ul>
     </div>
@@ -100,21 +116,34 @@
     <div class="navbar-brand d-flex w-custom mr-auto"></div>
 
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
-        <ul class="navbar-nav w-100 justify-content-start-mobile"> center
+        <ul class="navbar-nav w-100 justify-content-start-mobile">
             <li class="mr-2 nav-item active">
-                <a class="nav-link" href="#"><img src="../../../assets/navbar/Dona't d'alta.png" style="width: 20px; height: 20px;"> Veure reptes oberts</a>
+                <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' class="nav-link" href="/reptes">
+                    <img [src]="currentPathMatch('/reptes',0) ? '../../../assets/navbar/Veure reptes oberts_V.png' : '../../../assets/navbar/Veure reptes oberts.png'"
+                     style="width: 20px; height: 20px;"> Veure reptes oberts</a>
             </li>
             <li class="mr-2 nav-item">
-                <a class="nav-link" href="#"><img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Crea un repte</a>
+                <a *ngIf="currentUserObject && !currentUserObject.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}' 
+                    href="/creacio-repte" class="nav-link">
+                    <img [src]="currentPathMatch('/creacio-repte',0) ? '../../../assets/navbar/Crea un repte_V.png' : '../../../assets/navbar/Crea un repte.png'" 
+                    style="width: 20px; height: 20px;"> Crea un repte</a>
+
+                <a *ngIf="currentUserObject && currentUserObject.userType" (click)="obrirTest()" class="nav-link">
+                    <img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Crea un repte</a>
+
+                <a *ngIf="!currentUserObject" href='/login' class="nav-link">
+                    <img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Crea un repte</a>
             </li>
-            <li class="mr-2 nav-item">
-                <a class="nav-link" href="#"><img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Directori</a>
+            <li class="mr-2 nav-item mb20mobile">
+                <a class="nav-link" href="/mapes" [ngClass]='{"actiu" : currentPathMatch("/mapes",0)}'>
+                    <img [src]="currentPathMatch('/mapes',0) ? '../../../assets/navbar/Crea un repte_V.png' : '../../../assets/navbar/Crea un repte.png'"
+                     style="width: 20px; height: 20px;"> Mapa tecnològic</a>
             </li>
         </ul>
-        <ul class="nav navbar-nav justify-content-end mlautow100"> ml-auto w-100
+        <ul class="nav navbar-nav justify-content-end mlautow100">
             <li class="nav-item">
-                <a class="nav-link" href="#">CAT</a>
+                <!-- <a class="nav-link" href="#">CAT</a> -->
             </li>
         </ul>
     </div>
-</nav> -->
+</nav>

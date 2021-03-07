@@ -41,6 +41,7 @@ import { SobreHubandrockComponent } from './sobre-hubandrock/sobre-hubandrock.co
 import { ContacteComponent } from './contacte/contacte.component';
 import { MapesComponent } from './mapes/mapes.component';
 import { AgmCoreModule } from "@agm/core";
+import { BuscadorComponent } from './buscador/buscador.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AgmCoreModule } from "@agm/core";
     SobreHubandrockComponent,
     ContacteComponent,
     MapesComponent,
+    BuscadorComponent,
   ],
   imports: [
     BrowserModule,

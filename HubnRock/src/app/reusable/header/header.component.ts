@@ -3,6 +3,7 @@ import { HttpCommunicationService } from '../httpCommunicationService/http-commu
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/user';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,9 @@ export class HeaderComponent implements OnInit {
 
   public currentUserObject: User;
   // public userLogged: Boolean = false;
+  searchForm: FormGroup;
 
-  constructor(private _httpService: HttpCommunicationService, private router: Router) {
+  constructor(private _httpService: HttpCommunicationService, private router: Router, private fb: FormBuilder) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -22,10 +24,12 @@ export class HeaderComponent implements OnInit {
     this._httpService.currentUser.subscribe(
       data => {
         this.currentUserObject = data;
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHH')
       }
     );
 
+    this.searchForm = this.fb.group({
+      keyword: '',
+    });
     // if (localStorage.getItem('currentUser')) {
     //   console.log('estic en la merdaaaa')
     //   let currentUserStored = JSON.parse(localStorage.getItem('currentUser'))
@@ -95,7 +99,19 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/perfil/', this.currentUserObject.idUser])
   }
 
+  getUserProfile(){
+    let string = '';
+    string = '/perfil/' + this.currentUserObject.idUser;
+    return string;
+  }
+
   obrirTest() {
     document.getElementById("openCreaRepte").click();
+  }
+
+  search(){
+    if(this.searchForm.value.keyword){
+      this.router.navigate(['/buscar/'+this.searchForm.value.keyword])
+    }
   }
 }

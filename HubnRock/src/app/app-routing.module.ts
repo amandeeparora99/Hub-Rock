@@ -47,6 +47,7 @@ import { RepteCanViewGuard } from './repte-can-view.guard';
 import { OwnSolucioEsborranyGuard } from './own-solucio-esborrany.guard';
 import { CanEditSolucioGuard } from './can-edit-solucio.guard';
 import { MapesComponent } from './mapes/mapes.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'sobre-hubandrock', component: SobreHubandrockComponent },
   { path: 'contactar', component: ContacteComponent },
+  { path: 'buscar/:id', component: BuscadorComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },

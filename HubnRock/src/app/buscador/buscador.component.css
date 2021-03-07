@@ -1,0 +1,392 @@
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 16px;
+}
+
+.hr-style {
+    border: solid 1px #020e7d;
+    margin-bottom: 50px;
+}
+
+.main-container {
+    margin-top: 40px;
+    max-width: 1318px;
+    margin-bottom: 55px;
+}
+
+.titol-font {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.75;
+    letter-spacing: -2.12px;
+    color: #130084;
+}
+
+.btn-buscar {
+    width: 230px;
+    height: 40px;
+    border-radius: 8px;
+    border: solid 1px #000000;
+    background-color: white;
+    color: #000000;
+}
+
+.btn-buscar-active {
+    width: 230px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #020e7d;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+* {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+}
+
+#hubrock-reptes #banner {
+    height: 453px;
+    background-image: url('../../assets/testpics/BannerReptesverd.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#hubrock-reptes #banner .container {
+    max-width: 1110px;
+}
+
+#hubrock-reptes #banner .container .title {
+    font-family: 'WorkSans-Bold';
+    font-size: 60px;
+    line-height: 60px;
+    letter-spacing: -2.47px;
+    color: #020e7d;
+}
+
+#hubrock-reptes #banner .container .subtitle {
+    font-family: 'WorkSans-Regular';
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.99px;
+    color: #020e7d;
+}
+
+#hubrock-reptes #toolbar {
+    margin-top: 72px;
+}
+
+#hubrock-reptes #toolbar>div {
+    margin-bottom: 12px;
+}
+
+#hubrock-reptes #toolbar #searchbar {
+    height: 50px;
+    border-color: #020e7d;
+}
+
+#hubrock-reptes .container .test {
+    max-width: 451px;
+}
+
+#icon {
+    background-color: white;
+    border-color: #020e7d;
+    border-right: 0;
+    pointer-events: none;
+}
+
+#icon:hover {
+    color: black
+}
+
+#hubrock-reptes #toolbar #category {
+    max-width: 445px;
+}
+
+@media (min-width: 1199.98px) {
+    .flex-end-desktop {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+#category .category-item {
+    flex-basis: 77px;
+    flex-grow: 1;
+    margin: 0px 10px;
+}
+
+#category .category-item .category-text {
+    font-family: 'WorkSans-Regular';
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: -0.58px;
+}
+
+.reptestitle {
+    margin-top: 60px;
+    font-family: 'WorkSans-Bold';
+    font-size: 50px;
+    letter-spacing: -2.06px;
+    color: #020e7d;
+    margin-bottom: 56px;
+}
+
+#hubrock-reptesoberts,
+#hubrock-reptesproces,
+#hubrock-reptestancats,
+#hubrock-reptescerca {
+    margin-bottom: 128px;
+}
+
+.btn-veure-mes {
+    margin-top: 60px;
+    width: 350px;
+    height: 55px;
+    font-size: 17px;
+    letter-spacing: -0.9px;
+    background-color: #00e292;
+    color: black;
+    border: 0;
+    font-family: 'WorkSans-Regular';
+    font-weight: 800;
+}
+
+.fitxa-repte .desc-repte {
+    margin-bottom: 39px;
+    font-size: 14px;
+    letter-spacing: -0.95px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.fitxa-repte .titol-repte {
+    font-family: 'WorkSans-Bold';
+    font-size: 18px;
+    letter-spacing: -0.54px;
+}
+
+.tags {
+    margin-top: 30px;
+}
+
+.tags button {
+    pointer-events: none;
+}
+
+.tags .tag {
+    margin: 2px;
+}
+
+.card {
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+
+input[type="checkbox"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+
+.username:hover {
+    color: #00e292;
+    cursor: pointer;
+}
+
+.resultat {
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    color: #000000;
+    margin-bottom: 50px;
+}
+
+.resultat span {
+    font-family: 'WorkSans-Bold';
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    color: #000000;
+}
+
+.filter-title {
+    font-size: 18px;
+    letter-spacing: -0.54px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.filter-subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.48px;
+    color: #000000;
+}
+
+.filter-link {
+    font-size: 13px;
+    letter-spacing: -0.69px;
+    color: #020e7d;
+}
+
+.filter-col .row {
+    margin-bottom: 35px;
+}
+
+.filter-list {
+    border-radius: 6px;
+    border: solid 1px #dfdfdf;
+}
+
+.filter-overflow {
+    height: 202px;
+    overflow: scroll;
+}
+
+#user-cards .card {
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+#user-cards .card-footer {
+    border: none;
+}
+
+#user-cards .solucio-enviat {
+    background-color: #fafafa;
+}
+
+#user-cards .card-title {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+    text-align: center;
+}
+
+#user-cards .card-subtitle {
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    text-align: center;
+}
+
+#user-cards .card-subtitle a {
+    color: #020e7d;
+}
+
+#user-cards .card-header {
+    border: none;
+    background-color: #fafafa;
+}
+
+.text-overflow {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.text-overflow-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.user-type-tag {
+    border-radius: 5px;
+    border: solid 1px #ffffff;
+    background-color: #ffffff;
+    font-size: 13px;
+    letter-spacing: -0.39px;
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    padding: 8px 10px;
+    word-break: keep-all;
+}
+
+/** Filtres checkboxes */
+.checkboxes label p{
+    font-size: 14px;
+}
+.checkboxes input[type="checkbox"] {
+    appearance: none;
+}
+input[type="checkbox"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+input[type="radio"]:checked+label {
+    color: #00e292;
+    font-family: 'WorkSans-Bold';
+    font-weight: bold;
+}
+
+#industriesDiv {
+    height: 202px;
+    border-radius: 6px;
+    border: solid 1px #dfdfdf;
+    overflow-y: scroll;
+}
+#industriesDiv label{
+    font-size: 14px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: white; 
+}
+::-webkit-scrollbar-thumb {
+    background: #020e7d; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #020e7d; 
+}
+
+.profilePicSearch{
+    width: 84px;
+    height: 84px;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.redirectButton {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: solid 1px #020e7d;
+    transition: 0.3s;
+}
+.redirectButton:hover {
+    background-color: #020e7d;
+}
+.redirectButton p{
+    font-size: 22px;
+    color: #020e7d;
+    text-decoration: none;
+}
+.redirectButton:hover p{
+    color: white;
+}

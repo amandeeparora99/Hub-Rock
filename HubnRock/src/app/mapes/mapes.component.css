@@ -9,22 +9,16 @@
 agm-map{
     height: 600px;
 }
-/* width */
+/* scrollbar */
 ::-webkit-scrollbar {
     width: 5px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
     background: white; 
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #020e7d; 
 }
-
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #020e7d; 
 }
