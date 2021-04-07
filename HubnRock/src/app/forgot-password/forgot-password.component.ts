@@ -99,7 +99,6 @@ export class ForgotPasswordComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             if (data.code == 1) {
               this.fpassSuccess = 1;
             }

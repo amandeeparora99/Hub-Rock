@@ -336,7 +336,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   onPdfSelected(event) {
-    console.log('total recursos size', this.totalRecursosSize);
     const maxRecursosSize = 10485760;
     let duplicateFile = false;
     if (event.target.files) {
@@ -361,7 +360,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       //   }
       // }
     }
-    console.log(this.pdfArray)
   }
 
   deletePdf(index) {
@@ -450,7 +448,6 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
                 this.success = true;
 
                 this.toastr.success('Solució enviada correctament!', 'Enviat')
-                console.log(data);
               }
 
             });
@@ -513,11 +510,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
       }
 
       let formData: any = this.appendRepte();
-      console.log("imprimint append my firned")
 
-      for (var value of formData.values()) {
-        console.log(value);
-      }
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
 
       this.subscriptionHttp2$ = this.httpClient.addSolucioBorrador(formData, this.idRepte)
         .pipe(first())

@@ -182,7 +182,6 @@ export class RepteComponent implements OnInit {
   }
 
   getRepteFromComponent(id) {
-    console.log("getRepteFromComponent")
     this.subscriptionHttp$ = this.httpCommunication.getRepte(id)
       .pipe(first())
       .subscribe(
@@ -202,7 +201,6 @@ export class RepteComponent implements OnInit {
   }
 
   getRepteForum(idRepte, page, elements) {
-    console.log("getRepteForum")
     if (this.httpCommunication.loggedIn()) {
       this.subscriptionHttp2$ = this.httpCommunication.getForumLogin(idRepte, page, elements)
         .pipe(first())
@@ -214,7 +212,7 @@ export class RepteComponent implements OnInit {
                 this.hasForum = true;
               }
             } else {
-              console.log("Forum ERROR")
+              // console.log("Forum ERROR")
             }
           },
           error => {
@@ -233,7 +231,7 @@ export class RepteComponent implements OnInit {
                 this.hasForum = true;
               }
             } else {
-              console.log("Forum ERROR")
+              // console.log("Forum ERROR")
             }
           },
           error => {
@@ -297,7 +295,6 @@ export class RepteComponent implements OnInit {
   }
 
   getSolucionsProposades(page, elements) {
-    console.log(page, elements)
     this.subscriptionHttp$ = this.httpCommunication.getSolucionsByRepte(this.idRepte, page, elements).pipe(first())
       .subscribe(data => {
         if (data.code == "1") {
@@ -457,7 +454,6 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             if (data.code == 1) {
               this.topicPost = '';
               this.toastr.success('Missatge enviat correctament', 'Enviat');
@@ -491,9 +487,8 @@ export class RepteComponent implements OnInit {
                 if (data.code == '1') {
                   let variableName = "forumParent" + idMissatgePare;
                   this.objectRespostes[variableName] = data.rows;
-                  console.log("RESPOSTES:", this.objectRespostes[variableName])
                 } else {
-                  console.log("Forum ERROR")
+                  // console.log("Forum ERROR")
                 }
               }
             );
@@ -506,21 +501,20 @@ export class RepteComponent implements OnInit {
                 if (data.code == '1') {
                   let variableName = "forumParent" + idMissatgePare;
                   this.objectRespostes[variableName] = data.rows;
-                  console.log("RESPOSTES:", this.objectRespostes[variableName])
                 } else {
-                  console.log("Forum ERROR")
+                  // console.log("Forum ERROR")
                 }
               }
             );
         }
       }
       else {
-        console.log("No té respostes my friend")
+        // console.log("No té respostes my friend")
       }
 
     }
     else {
-      console.log("Already loaded!")
+      // console.log("Already loaded!")
     }
 
   }
@@ -586,7 +580,7 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
           }
         );
     }
@@ -595,7 +589,7 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
           }
         );
     }
@@ -604,7 +598,6 @@ export class RepteComponent implements OnInit {
   contestar(idResposta) {
     //Posem tots els inputs en false again i nomes activem el que ha apretat nou l'user.
     for (const [key, value] of Object.entries(this.objectButtonsInput)) {
-      console.log(key, value);
       if (value == true) {
         this.objectButtonsInput[key] = false
       }
@@ -628,7 +621,6 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             if (data.code == 1) {
               this.toastr.success('Missatge enviat correctament', 'Enviat')
             }
@@ -640,7 +632,6 @@ export class RepteComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             if (data.code == 1) {
               this.toastr.success('Missatge enviat correctament', 'Enviat')
             }

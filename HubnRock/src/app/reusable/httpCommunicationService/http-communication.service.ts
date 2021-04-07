@@ -29,16 +29,13 @@ export class HttpCommunicationService {
   }
 
   saveCurrentUserLocalStorage(token, idUser, email) {
-    console.log('es crida save current', idUser, token, email)
-
-    console.log("SAVE NOSQQ")
-
-
+    // console.log('es crida save current', idUser, token, email)
+    // console.log("SAVE NOSQQ")
     this.getUser(idUser).pipe(first())
       .subscribe(
         data => {
           if (data.code == '1') {
-            console.log('retorna luser correctament')
+            // console.log('retorna luser correctament')
 
             localStorage.setItem('currentUser', JSON.stringify({ "token": token, "idUser": idUser, "email": email, "userType": data.row.empresa_rockstar }));
             let nomE;
@@ -48,7 +45,7 @@ export class HttpCommunicationService {
             else {
               nomE = data.row.nom_rockstar
             }
-            console.log("ESTA FENT CANVIS JAKNDLAKDJNIJKSNDF")
+            // console.log("ESTA FENT CANVIS")
             this.currentUserSubject.next({
 
               token: token,
@@ -70,7 +67,7 @@ export class HttpCommunicationService {
   }
 
   login(email: string, password: string) {
-    console.log(email + " " + password);
+    // console.log(email + " " + password);
     return this.http.post<any>(environment.api + '/login', { email, password })
       .pipe(map(data => {
         // login successful if there's a jwt token in the response
@@ -114,7 +111,7 @@ export class HttpCommunicationService {
   }
 
   registerEmpresa(email, password, nom_empresa, nom_responsable, nif_empresa, checkedIDs, tipusSelected, latUser, lngUser, addrUser): Observable<any> {
-    console.log('asdfasdf', latUser, lngUser)
+    // console.log('Register', latUser, lngUser)
     let objecteDireccio = { 'lat': latUser, 'lng': lngUser, 'addr': addrUser }
 
     let body = new HttpParams()
@@ -129,10 +126,10 @@ export class HttpCommunicationService {
     }
 
     body = body.append('tipus_perfil', tipusSelected)
-    console.log(objecteDireccio)
+    // console.log(objecteDireccio)
     body = body.append('ciutat_residencia', JSON.stringify(objecteDireccio))
 
-    console.log('BOOOODY  ', body)
+    // console.log('BOOOODY  ', body)
 
     return this.http.post<any>(environment.api + '/user/shortRegisterEmpresa',
       body.toString(),
@@ -142,7 +139,7 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
-        console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
+        // console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -168,10 +165,10 @@ export class HttpCommunicationService {
     }
 
     body = body.append('tipus_perfil', tipusSelected)
-    console.log(objecteDireccio)
+    // console.log(objecteDireccio)
     body = body.append('ciutat_residencia', JSON.stringify(objecteDireccio))
 
-    console.log('BOOOODY  ', body)
+    // console.log('BOOOODY  ', body)
     return this.http.post<any>(environment.api + '/user/shortRegisterRockstar',
       body.toString(),
       {
@@ -180,7 +177,7 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
-        console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
+        // console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
         console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -323,7 +320,7 @@ export class HttpCommunicationService {
       if (data.code == '1') {
         let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
         this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
-        console.log(data)
+        // console.log(data)
         return data;
       }
     }));
@@ -374,7 +371,7 @@ export class HttpCommunicationService {
       if (data.code == '1') {
         let localStorageUser = JSON.parse(localStorage.getItem('currentUser'))
         this.saveCurrentUserLocalStorage(localStorageUser.token, localStorageUser.idUser, localStorageUser.email);
-        console.log(data)
+        // console.log(data)
         return data;
       }
     }));
@@ -416,7 +413,7 @@ export class HttpCommunicationService {
       }
     ).pipe(map(data => {
       if (data.code == '1') {
-        console.log(data)
+        // console.log(data)
         return data;
       }
     }));
@@ -515,7 +512,7 @@ export class HttpCommunicationService {
   }
 
   getReptesSearch(string, page, elements): Observable<any> {
-    console.log("entrat a get reptes Buscats")
+    // console.log("entrat a get reptes Buscats")
     //console.log(email + " " + password);
     return this.http.get<any>(environment.api + `/repte/getByName/${string}/${page}/${elements}`)
       .pipe(map(data => {
@@ -693,7 +690,7 @@ export class HttpCommunicationService {
   }
 
   getSolucionsByRepte(idRepte, page, elements): Observable<any> {
-    console.log(idRepte, page, elements)
+    // console.log(idRepte, page, elements)
     return this.http.get<any>(environment.api + `/solucio/getAllDetailedPaginationByRepte/${idRepte}/${page}/${elements}`)
       .pipe(map(data => {
 
@@ -959,7 +956,7 @@ export class HttpCommunicationService {
   }
 
   postDialogMsg(idChat, message): Observable<any> {
-    console.log("CONSOLE LOG ABANS D'ENVIAR: idchat - " + idChat + ", message: " + message)
+    // console.log("CONSOLE LOG ABANS D'ENVIAR: idchat - " + idChat + ", message: " + message)
     const body = new HttpParams()
       .set('idchat', idChat)
       .set('message', message)

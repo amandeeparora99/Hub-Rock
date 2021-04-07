@@ -89,9 +89,9 @@ export class RecoverPasswordComponent implements OnInit {
       .subscribe(
         data => {
           if (data.code == '1') {
-            console.log("DONEIRO")
+            // console.log("DONEIRO")
           } else {
-            console.log("FAILEIRO")
+            // console.log("FAILEIRO")
           }
       });
   }

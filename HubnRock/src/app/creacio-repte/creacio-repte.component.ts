@@ -327,7 +327,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
 
   logValidationErrors(group: FormGroup = this.repteForm): void {
-    console.log('LOG VALIDATION CRIDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
 
@@ -355,7 +354,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
           for (let control of (<FormArray>this.repteForm.get('partnerArray')).controls) {
             if (control instanceof FormGroup) {
-              console.log('LOGO JURAT VALUE', this.objectPartners)
 
               if (control.controls.nomPartner.value ||
                 control.controls.breuDescripcioPartner.value ||
@@ -491,7 +489,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
 
   onPdfSelected(event) {
-    console.log('total recursos size', this.totalRecursosSize);
+    // console.log('total recursos size', this.totalRecursosSize);
     const maxRecursosSize = 10485760;
     let duplicateFile = false;
     if (event.target.files) {
@@ -516,7 +514,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       //   }
       // }
     }
-    console.log(this.pdfArray)
+    // console.log(this.pdfArray)
   }
 
   deletePdf(index) {
@@ -536,13 +534,13 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
         this.fotosRepte[inputName] = event.target.files[0]
 
-        console.log(this.fotosRepte)
+        // console.log(this.fotosRepte)
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0])
         reader.onload = (event: any) => {
           this.fotosReptePreview[inputName] = reader.result
-          console.log(this.fotosReptePreview)
+          // console.log(this.fotosReptePreview)
         }
       } else {
         alert('L\'arxiu supera el límit de 1MB')
@@ -553,11 +551,11 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   onFileSelected(event, index?) {
     if (event.target.files) {
       if (event.target.files[0].size < 1000000) {
-        console.log('fiel pujat', event.target.files[0])
+        // console.log('fiel pujat', event.target.files[0])
         let inputName = event.target.name;
         this.objectFotos[inputName] = event.target.files[0]
 
-        console.log(inputName, index)
+        // console.log(inputName, index)
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0])
@@ -574,11 +572,11 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   onFileSelectedSolucio(event, index?) {
     if (event.target.files) {
       if (event.target.files[0].size < 1000000) {
-        console.log('fiel pujat', event.target.files[0])
+        // console.log('file pujat', event.target.files[0])
         let inputName = event.target.name;
         this.objectSolucions[inputName] = event.target.files[0]
 
-        console.log(inputName, index)
+        // console.log(inputName, index)
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0])
@@ -590,17 +588,17 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
     }
-    console.log(this.objectSolucionsPreview)
+    // console.log(this.objectSolucionsPreview)
   }
 
   onFileSelectedPartner(event, index?) {
     if (event.target.files) {
       if (event.target.files[0].size < 1000000) {
-        console.log('file PARTNER pujat', event.target.files[0])
+        // console.log('file PARTNER pujat', event.target.files[0])
         let inputName = event.target.name;
         this.objectPartners[inputName] = event.target.files[0]
 
-        console.log(inputName, index)
+        // console.log(inputName, index)
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0])
@@ -613,17 +611,17 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
     }
-    console.log(this.objectPartnersPreview)
+    // console.log(this.objectPartnersPreview)
   }
 
   onFileSelectedJurat(event, index?) {
     if (event.target.files) {
       if (event.target.files[0].size < 1000000) {
-        console.log('fiel pujat', event.target.files[0])
+        // console.log('fiel pujat', event.target.files[0])
         let inputName = event.target.name;
         this.objectJurats[inputName] = event.target.files[0]
 
-        console.log(inputName, index)
+        // console.log(inputName, index)
 
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0])
@@ -637,7 +635,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
     }
-    console.log(this.objectJuratsPreview)
+    // console.log(this.objectJuratsPreview)
   }
 
   eliminarFoto(fotoName) {
@@ -782,66 +780,66 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
 
   loopObjectFotosPreview(number, valueName) {
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    // console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
     let arrayLength = Object.keys(this.objectFotosPreview).length - 1
 
     for (const [key, value] of Object.entries(this.objectFotosPreview)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
+      // console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
 
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+        // console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectFotosPreview[stringRestada] = this.objectFotosPreview[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
+    // console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    // console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectFotosPreview[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
+    // console.log("ArrayObject despres de manipular: ", this.objectFotosPreview)
   }
 
   loopObjectFotos(number, valueName) {
 
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    // console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
     let arrayLength = Object.keys(this.objectFotos).length - 1
 
     for (const [key, value] of Object.entries(this.objectFotos)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
+      // console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
 
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+        // console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectFotos[stringRestada] = this.objectFotos[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
+    // console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    // console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectFotos[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectFotos)
+    // console.log("ArrayObject despres de manipular: ", this.objectFotos)
 
   }
 
@@ -939,9 +937,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   }
 
   checkboxvalues() {
-    console.log("CHECKBOXES")
-    console.log(this.repteForm.get('checkboxGroup').value)
-    console.log(this.repteForm.get('checkboxGroup').value.empresesCheckbox)
+    // console.log("CHECKBOXES")
+    // console.log(this.repteForm.get('checkboxGroup').value)
+    // console.log(this.repteForm.get('checkboxGroup').value.empresesCheckbox)
   }
 
 
@@ -1169,9 +1167,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       let formData: any = this.appendRepte();
 
-      for (var value of formData.values()) {
-        console.log(value);
-      }
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
 
       this.subscriptionHttp1$ = this.httpClient.addRepteBorrador(formData)
         .pipe(first())
@@ -1183,7 +1181,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
               this.success = true;
               this.borradorEnviat = true;
               this.toastr.success('Repte desat com a esborrany', 'Desat')
-              console.log("TOASTER")
             }
           });
     }
@@ -1197,15 +1194,15 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   onRepteSubmit() {
     window.scrollTo(0, 0)
 
-    console.log(this.repteForm.get('datesGroup').valid)
+    // console.log(this.repteForm.get('datesGroup').valid)
 
     this.checkUntouched = true;
 
     if (!this.repteForm.valid) {
-      console.log(this.repteForm.valid)
+      // console.log(this.repteForm.valid)
       for (const field in this.repteForm.controls) { // 'field' is a string
         const control = this.repteForm.get(field).errors; // 'control' is a FormControl  
-        console.log(field, control)
+        // console.log(field, control)
       }
       if (!this.formErrors.campsErronis) {
         this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
@@ -1225,9 +1222,9 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
         let formData: any = this.appendRepte();
 
-        for (var value of formData.values()) {
-          console.log(value);
-        }
+        // for (var value of formData.values()) {
+        //   console.log(value);
+        // }
 
         this.subscriptionHttp1$ = this.httpClient.addRepteRevisio(formData)
           .pipe(first())
@@ -1248,22 +1245,21 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;
 
-    if (this.currentTab != 0) {
-      console.log("COMPROVACIO NOVA")
-      console.log(this.repteForm.get('nomRepte').valid)
-      console.log(this.repteForm.get('descripcioBreuRepte').valid)
-      console.log(this.repteForm.get('descripcioDetalladaRepte').valid)
-      console.log(this.repteForm.get('fotoPortada').valid)
-      console.log(this.repteForm.get('videoSolucio').valid)
-      console.log(this.repteForm.get('checkboxGroup').valid)
-      console.log(this.repteForm.get('limitParticipants').valid)
-      console.log(this.repteForm.get('dataInici').valid)
-      console.log(this.repteForm.get('dataFinalitzacio').valid)
-      console.log(this.repteForm.get('nomRepte').valid)
-      console.log(this.repteForm.get('nomRepte').valid)
-      console.log(this.repteForm.get('nomRepte').valid)
-
-    }
+    // if (this.currentTab != 0) {
+    //   console.log("COMPROVACIO NOVA")
+    //   console.log(this.repteForm.get('nomRepte').valid)
+    //   console.log(this.repteForm.get('descripcioBreuRepte').valid)
+    //   console.log(this.repteForm.get('descripcioDetalladaRepte').valid)
+    //   console.log(this.repteForm.get('fotoPortada').valid)
+    //   console.log(this.repteForm.get('videoSolucio').valid)
+    //   console.log(this.repteForm.get('checkboxGroup').valid)
+    //   console.log(this.repteForm.get('limitParticipants').valid)
+    //   console.log(this.repteForm.get('dataInici').valid)
+    //   console.log(this.repteForm.get('dataFinalitzacio').valid)
+    //   console.log(this.repteForm.get('nomRepte').valid)
+    //   console.log(this.repteForm.get('nomRepte').valid)
+    //   console.log(this.repteForm.get('nomRepte').valid)
+    // }
   }
 
   logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {
@@ -1282,7 +1278,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
 
       if (abstractControl instanceof FormGroup) {
-        console.log('ERROOOOOOORS DE DATE', abstractControl.errors)
         this.logValidationErrorsUntouched(abstractControl);
       }
       // if (abstractControl instanceof FormArray) {
@@ -1301,27 +1296,27 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     for (const [key, value] of Object.entries(this.objectSolucionsPreview)) {
       let index = key.split(/([0-9]+)/)[1];
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
 
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+        // console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectSolucionsPreview[stringRestada] = this.objectSolucionsPreview[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
+    // console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    // console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectSolucionsPreview[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectSolucionsPreview)
+    // console.log("ArrayObject despres de manipular: ", this.objectSolucionsPreview)
   }
 
   loopObjectFotosSolucio(number, valueName) {
@@ -1329,29 +1324,29 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
     for (const [key, value] of Object.entries(this.objectSolucions)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
+      // console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
 
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+        // console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectSolucions[stringRestada] = this.objectSolucions[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
+    // console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    // console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectSolucions[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectSolucions)
+    // console.log("ArrayObject despres de manipular: ", this.objectSolucions)
 
   }
 
@@ -1360,126 +1355,100 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
     for (const [key, value] of Object.entries(this.objectPartnersPreview)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
+      // console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
 
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
+        // console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
 
         this.objectPartnersPreview[stringRestada] = this.objectPartnersPreview[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
+    // console.log("ULTIM OBJECTE: " + valueName + arrayLength)
+    // console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectPartnersPreview[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectPartnersPreview)
+    // console.log("ArrayObject despres de manipular: ", this.objectPartnersPreview)
   }
 
   loopObjectFotosPartner(number, valueName) {
 
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
+    // console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
     let arrayLength = Object.keys(this.objectPartners).length - 1
 
     for (const [key, value] of Object.entries(this.objectPartners)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
+      // console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
-
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
-
         this.objectPartners[stringRestada] = this.objectPartners[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectPartners[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectPartners)
 
   }
 
   loopObjectFotosPreviewJurat(number, valueName) {
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
     let arrayLength = Object.keys(this.objectJuratsPreview).length - 1
 
     for (const [key, value] of Object.entries(this.objectJuratsPreview)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
+        // console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
-
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
-
         this.objectJuratsPreview[stringRestada] = this.objectJuratsPreview[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectJuratsPreview[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectJuratsPreview)
   }
 
   loopObjectFotosJurat(number, valueName) {
-
-    console.log("FOTOPREMI QUE VOLEM ELIMINAR:" + valueName + number);
     let arrayLength = Object.keys(this.objectJurats).length - 1
 
     for (const [key, value] of Object.entries(this.objectJurats)) {
       let index = key.split(/([0-9]+)/)[1];
-      console.log("LOOP NÚMERO: " + index)
       if (index < number) {
-        console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
+        // console.log("PREMI INFERIOR AL QUE VOLEM ELIMINAR")
       }
       if (index == number) {
-        console.log("PREMI QUE VOLEM ELIMINAR")
+        // console.log("PREMI QUE VOLEM ELIMINAR")
       }
       if (index > number) {
-        console.log("PREMI QUE VOLEM RESTAR")
         let resta = Number(index) - 1;
         let stringPassada = valueName + Number(index)
         let stringRestada = valueName + resta
-
-        console.log("NUMERO ES MODIFICA DE: " + stringPassada + " A: " + stringRestada)
-
         this.objectJurats[stringRestada] = this.objectJurats[stringPassada]
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectJurats[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectJurats)
-
   }
 
 }

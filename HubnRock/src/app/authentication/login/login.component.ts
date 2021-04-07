@@ -107,12 +107,10 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       this.logValidationErrorsUntouched()
     } else {
-      // console.log("lo que passem" + this.loginForm.controls.email.value, this.loginForm.get(['password']).value)
       this.subscriptionHttp$ = this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             if (data.code == 302) {
               this.router.navigate(["/"]);
             }

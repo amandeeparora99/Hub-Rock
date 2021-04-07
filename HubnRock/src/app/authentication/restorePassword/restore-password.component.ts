@@ -21,10 +21,10 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   onRestore(): void {
-    console.log(this.restoreForm.value)
-    console.log(this.restoreForm.get('email').errors)
-    console.log(this.restoreForm.get('email').touched)
-    console.log(this.restoreForm.get('email').dirty)
+    // console.log(this.restoreForm.value)
+    // console.log(this.restoreForm.get('email').errors)
+    // console.log(this.restoreForm.get('email').touched)
+    // console.log(this.restoreForm.get('email').dirty)
 
   }
   

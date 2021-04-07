@@ -40,7 +40,6 @@ export class HomepageComponent implements OnInit {
 
     this.httpCommunication.currentUser.subscribe(
       data => {
-        console.log('ENTREM A FUCKING CURENT USER')
         this.currentUser = data;
         this.userIsRockstar = this.currentUser.userType;
       }
@@ -92,7 +91,6 @@ export class HomepageComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             this.allReptes = data.rows;
 
@@ -108,7 +106,6 @@ export class HomepageComponent implements OnInit {
       .subscribe(
         data => {
           this.success = true;
-          console.log(data);
         },
         error => {
           console.log("Fail")
@@ -139,7 +136,6 @@ export class HomepageComponent implements OnInit {
           if (data.code == 1) {
             this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
             this.success = true;
-            console.log(data);
           }
         }
       );
@@ -189,7 +185,6 @@ export class HomepageComponent implements OnInit {
         }
       }
     }
-    console.log(this.pdfArray)
   }
 
   resetPdfArray() {
@@ -346,7 +341,6 @@ export class HomepageComponent implements OnInit {
   onSearchChange(searchValue: string): void {
     if (searchValue.slice(-1) == ',') {
       this.addTag(searchValue.slice(0, -1))
-      console.log(searchValue.slice(0, -1) + ": added to string")
       this.inputValue = ''
     }
   }
@@ -356,7 +350,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getTags() {
-    console.log(this.tags)
+    // console.log(this.tags)
   }
 
   addTagSubmit(string) {
@@ -370,7 +364,6 @@ export class HomepageComponent implements OnInit {
         this.tags.splice(i, 1);
       }
     }
-    console.log(this.tags)
   }
 
   ngOnDestroy() {

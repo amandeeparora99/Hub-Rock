@@ -279,13 +279,10 @@ export class RegisterComponent implements OnInit {
 
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    console.log("OBJECTS:", this.selectedItemsList)
-    console.log("Array of IDs:", this.checkedIDs)
   }
 
   showGoogleAdresses() {
-    console.log("funkamo o que")
-    console.log(this.googleInput.nativeElement)
+    // console.log(this.googleInput.nativeElement)
 
     var autocomplete;
     autocomplete = new google.maps.places.Autocomplete(this.googleInput.nativeElement), {
@@ -300,9 +297,8 @@ export class RegisterComponent implements OnInit {
       let place = autocomplete.getPlace();
       context.latUser = place.geometry.location.lat();
       context.lngUser = place.geometry.location.lng();
-      console.log("LATITUD:", context.latUser);
-      console.log("LONGITUD:", context.lngUser);
-
+      // console.log("LATITUD:", context.latUser);
+      // console.log("LONGITUD:", context.lngUser);
     });
 
   }
@@ -311,8 +307,6 @@ export class RegisterComponent implements OnInit {
   changeSelection() {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    console.log("OBJECTS:", this.selectedItemsList)
-    console.log("Array of IDs:", this.checkedIDs)
   }
   fetchSelectedItems() {
     this.selectedItemsList = this.checkboxesIndustriaList.filter((value, index) => {
@@ -335,7 +329,6 @@ export class RegisterComponent implements OnInit {
     else if(normes == 'politicaChecked'){
       this.politicaChecked = !(this.politicaChecked);
     }
-    console.log(this.termesChecked, this.politicaChecked)
   }
 
   logValidationErrors(group: FormGroup = this.registerForm): void {
@@ -400,29 +393,23 @@ export class RegisterComponent implements OnInit {
     if (this.tipusEmpresaSelected != tipusEmpresaString) {
       this.tipusEmpresaSelected = tipusEmpresaString;
     }
-    console.log(this.tipusEmpresaSelected)
   }
   radioChangedHandler(event: any) {
     this.accountType = event.target.value;
     const nifControl = this.registerForm.get('nomNifEmpresa');
     if (event.target.value == "rockstar") {
       nifControl.clearValidators();
-
       nifControl.updateValueAndValidity()
-
     }
     else {
       nifControl.setValidators(Validators.required);
-
       nifControl.updateValueAndValidity()
-
     }
   }
 
 
   stepBack() {
     window.scrollTo(0, 0)
-
     this.register = 0;
     this.accountType = 'empresa';
     this.registerForm.reset();
@@ -436,7 +423,6 @@ export class RegisterComponent implements OnInit {
 
         } else {
           if (this.accountType == 'empresa') {
-            console.log('algo guay algo q', this.latUser, this.lngUser)
 
             this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
               this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
@@ -453,7 +439,6 @@ export class RegisterComponent implements OnInit {
               .pipe(first())
               .subscribe(
                 data => {
-                  console.log(data);
                   if (data.code == "1") {
                     this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
                       timeOut: 2000,
@@ -462,11 +447,9 @@ export class RegisterComponent implements OnInit {
                   }
                   else if (data.code == 534) {
                     this.registerForm.controls['password'].setErrors({ 'password': true });
-                    console.log("fallat");
                   }
                   else if (data.code == 533) {
                     this.registerForm.controls['email'].setErrors({ 'email': true });
-                    console.log("fallat");
 
                   }
                 },
@@ -490,7 +473,6 @@ export class RegisterComponent implements OnInit {
               .pipe(first())
               .subscribe(
                 data => {
-                  console.log(data);
                   if (data.code == "1") {
                     this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
                       timeOut: 2000,
@@ -499,12 +481,9 @@ export class RegisterComponent implements OnInit {
                   }
                   else if (data.code == 534) {
                     this.registerForm.controls['password'].setErrors({ 'password': true });
-                    console.log("fallat");
                   }
                   else if (data.code == 533) {
                     this.registerForm.controls['email'].setErrors({ 'email': true });
-                    console.log("fallat");
-
                   }
                 },
                 error => {

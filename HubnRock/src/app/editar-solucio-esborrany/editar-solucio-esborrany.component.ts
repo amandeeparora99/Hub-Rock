@@ -209,7 +209,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
                     if (this.solucio.recursos.length) {
                       this.solucio.recursos.forEach(recurs => {
-                        console.log('REEEEEEEEEEEEEECUUUUUUUUUUUUUUUUUUUUUUURS', recurs);
                         fetch(this.fileStorageUrl + recurs.recurs_solucio_url_file, {
                           headers: { 'Content-Type': 'application/pdf' }
                         })
@@ -218,7 +217,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
                             this.pdfArray.push(file);
                             this.totalRecursosSize += file.size;
                           });
-                        console.log('this.array my friend', this.pdfArray)
                       });
                     }
 
@@ -454,7 +452,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   }
 
   onPdfSelected(event) {
-    console.log('total recursos size', this.totalRecursosSize);
     const maxRecursosSize = 10485760;
     let duplicateFile = false;
     if (event.target.files) {
@@ -479,7 +476,6 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       //   }
       // }
     }
-    console.log(this.pdfArray)
   }
 
   deletePdf(index) {
@@ -645,11 +641,10 @@ export class EditarSolucioEsborranyComponent implements OnInit {
       }
 
       let formData: any = this.appendRepte();
-      console.log("imprimint append my firned")
 
-      for (var value of formData.values()) {
-        console.log(value);
-      }
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
 
       this.subscriptionHttp2$ = this.httpClient.editSolucioEsborrany(this.idSolucio, formData)
         .pipe(first())

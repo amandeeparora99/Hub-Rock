@@ -76,7 +76,6 @@ export class ReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             if (data.rows.length < 1) {
               this.obertsNoMore = true;
@@ -105,7 +104,6 @@ export class ReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             if (data.rows.length < 1) {
               this.procesNoMore = true;
@@ -135,7 +133,6 @@ export class ReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             if (data.rows.length < 1) {
               this.tancatsNoMore = true;
@@ -167,7 +164,6 @@ export class ReptesComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data.rows);
             if (data.code == "1") {
               this.searching = 1;
               this.reptesCerca = [];
@@ -182,7 +178,6 @@ export class ReptesComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data.rows);
             if (data.code == "1") {
               this.searching = 1;
               this.reptesCerca = [];
@@ -200,7 +195,6 @@ export class ReptesComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data.rows);
             if (data.code == "1") {
               this.searching = 1;
               this.reptesCerca = [];
@@ -219,7 +213,6 @@ export class ReptesComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    console.log(searchValue);
     if (searchValue.length > 2) {
       this.searching = 1;
       this.reptesCerca = [];

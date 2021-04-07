@@ -212,8 +212,8 @@ export class MapesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    console.log("OBJECTS:", this.selectedItemsList)
-    console.log("Array of IDs:", this.checkedIDs)
+    // console.log("OBJECTS:", this.selectedItemsList)
+    // console.log("Array of IDs:", this.checkedIDs)
   }
 
   clearSearch(){
@@ -221,16 +221,16 @@ export class MapesComponent implements OnInit {
   }
 
   getJSONlatlng(latlng){
-    console.log("NORMAL:",latlng)
-    console.log("AMB PARSE:",JSON.parse(latlng))
+    // console.log("NORMAL:",latlng)
+    // console.log("AMB PARSE:",JSON.parse(latlng))
     return JSON.parse(latlng);
   }
 
   onSearchChange(searchValue: string): void {
     if (searchValue.length > 2) {
-      console.log(searchValue);
+      // console.log(searchValue);
     }
-    console.log('asdf',this.text)
+    // console.log('asdf',this.text)
   }
 
   displayChange(){
@@ -254,16 +254,16 @@ export class MapesComponent implements OnInit {
       this.empresaChecked = !(this.empresaChecked);
     }
 
-    console.log("EMPRESA CHECKED: "+this.empresaChecked)
-    console.log("STARTUPS CHECKED: "+this.startupsChecked)
+    // console.log("EMPRESA CHECKED: "+this.empresaChecked)
+    // console.log("STARTUPS CHECKED: "+this.startupsChecked)
     this.onSearchSubmit()
   }
 
   changeSelection() {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    console.log("OBJECTS:", this.selectedItemsList)
-    console.log("Array of IDs:", this.checkedIDs)
+    // console.log("OBJECTS:", this.selectedItemsList)
+    // console.log("Array of IDs:", this.checkedIDs)
     this.onSearchSubmit()
   }
 
@@ -294,7 +294,7 @@ export class MapesComponent implements OnInit {
   onSearchSubmit(){
     
     if(this.text){
-      console.log("Search AMB Nom")
+      // console.log("Search AMB Nom")
       this.subscriptionHttp1$ = this.httpCommunication.getUsersSearch(this.text,
         this.empresaChecked,
         this.startupsChecked,
@@ -305,7 +305,7 @@ export class MapesComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
             if (data.code == "1") {
               this.empreses = data.rows;
               if (data.rows.length){
@@ -322,7 +322,7 @@ export class MapesComponent implements OnInit {
           });
     }
     else{
-      console.log("Search sense Nom")
+      // console.log("Search sense Nom")
       this.subscriptionHttp1$ = this.httpCommunication.getUsersSearchEmpty(
         this.empresaChecked,
         this.startupsChecked,
@@ -333,7 +333,7 @@ export class MapesComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
             if (data.code == "1") {
               this.empreses = data.rows;
               if (data.rows.length){

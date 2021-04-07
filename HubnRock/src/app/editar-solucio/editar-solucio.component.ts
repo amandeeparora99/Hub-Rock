@@ -210,7 +210,6 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
 
                     if (this.solucio.recursos.length) {
                       this.solucio.recursos.forEach(recurs => {
-                        console.log('REEEEEEEEEEEEEECUUUUUUUUUUUUUUUUUUUUUUURS', recurs);
                         fetch(this.fileStorageUrl + recurs.recurs_solucio_url_file, {
                           headers: { 'Content-Type': 'application/pdf' }
                         })
@@ -219,7 +218,6 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
                             this.pdfArray.push(file);
                             this.totalRecursosSize += file.size;
                           });
-                        console.log('this.array my friend', this.pdfArray)
                       });
                     }
 
@@ -455,7 +453,6 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
   }
 
   onPdfSelected(event) {
-    console.log('total recursos size', this.totalRecursosSize);
     const maxRecursosSize = 10485760;
     let duplicateFile = false;
     if (event.target.files) {
@@ -480,7 +477,6 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
       //   }
       // }
     }
-    console.log(this.pdfArray)
   }
 
   deletePdf(index) {
@@ -568,89 +564,12 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
                 this.enviat = true;
 
                 this.toastr.success('Solució enviada correctament!', 'Enviat')
-                console.log(data);
               }
             });
 
       }
     }
-
-
-
   }
-
-  // desaBorrador() {
-  //   if (!this.solucioForm.get('nomSolucio').value) {
-
-  //     if (!this.formErrors.nomSolucio) {
-  //       this.formErrors.nomSolucio += this.validationMessages.nomSolucio.required + ' ';
-  //     }
-
-  //     if (!this.formErrors.campsErronis) {
-  //       this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
-  //     }
-
-  //   } else if (this.solucioForm.get('nomSolucio').value.length < 3) {
-
-  //     if (!this.formErrors.nomSolucio) {
-  //       this.formErrors.nomSolucio += this.validationMessages.nomSolucio.minlength + ' ';
-  //     }
-
-  //     if (!this.formErrors.campsErronis) {
-  //       this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
-  //     }
-
-  //   } else if (this.solucioForm.get('nomSolucio').value.length > 255) {
-
-  //     if (!this.formErrors.nomSolucio) {
-  //       this.formErrors.nomSolucio += this.validationMessages.nomSolucio.maxlength + ' ';
-  //     }
-
-  //     if (!this.formErrors.campsErronis) {
-  //       this.formErrors.campsErronis += this.validationMessages.campsErronis.errors + ' ';
-  //     }
-
-  //   } else if (this.repte.estat_idestat != 3) {
-
-  //     if (!this.formErrors.repteChecks) {
-  //       this.formErrors.repteChecks += this.validationMessages.repteChecks.noValid + ' ';
-  //     }
-
-  //   } else if (this.dateIniciRepte > this.currentDate || this.dateFinalRepte < this.currentDate) {
-
-  //     if (!this.formErrors.repteChecks) {
-  //       this.formErrors.repteChecks += this.validationMessages.repteChecks.noEnProces + ' ';
-  //     }
-
-  //   } else {
-  //     this.formDone = true;
-
-  //     if (this.formErrors.campsErronis) {
-  //       this.formErrors.campsErronis = '';
-  //     }
-
-  //     let formData: any = this.appendSolucio();
-  //     console.log("imprimint append my firned")
-
-  //     for (var value of formData.values()) {
-  //       console.log(value);
-  //     }
-
-  //     this.subscriptionHttp2$ = this.httpClient.editSolucioEsborrany(this.idSolucio, formData)
-  //       .pipe(first())
-  //       .subscribe(
-  //         data => {
-  //           if (data.code == '1') {
-
-  //             this.success = true;
-  //             this.actualitzat = true;
-  //             // let currentUserId = JSON.parse(localStorage.getItem('currentUser')).idUser;
-  //             // this.router.navigate([`/perfil/${currentUserId}`])
-
-  //           }
-  //         });
-  //   }
-  // }
 
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;

@@ -416,7 +416,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       
           this.tipusEmpresaSelected = this.usuariObject.tipus_perfil;
           this.checkboxesUpdated = true;
-          console.log("ELS SELECCIONATS: ",this.checkboxesIndustriaList);
 
           this.editUserForm.patchValue({
             nomEmpresa: this.usuariObject.nom_empresa,
@@ -437,15 +436,15 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
           //PATCH RECURSOS
           if (this.usuariObject.cv_path) {
-            console.log('PDF', this.pdfArray)
+            // console.log('PDF', this.pdfArray)
 
             this.pdfArray[0] = this.usuariObject.cv_path
-            console.log('PDF', this.pdfArray)
+            // console.log('PDF', this.pdfArray)
           }
 
           //PATCH FOTO PERFIL
           if (this.usuariObject.url_photo_profile) {
-            console.log(this.fileStorageUrl + this.usuariObject.url_photo_profile)
+            // console.log(this.fileStorageUrl + this.usuariObject.url_photo_profile)
             fetch(this.fileStorageUrl + this.usuariObject.url_photo_profile)
               .then(res => res.blob()) // Gets the response and returns it as a blob
               .then(blob => {
@@ -458,14 +457,9 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
                 reader.onload = (event: any) => {
                   this.fotoProfilePreview = reader.result
                   this.currentFotoProfilePreview = reader.result
-                  console.log('PER QUE NO ENSENYA FOTOO', this.fotoProfilePreview, this.fotoProfile)
-
                 }
               })
           }
-
-          console.log(this.usuariObject)
-
         }
       });
   }
@@ -543,7 +537,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         }
       }
     }
-    console.log(this.pdfArray)
   }
 
   resetPdfArray() {
@@ -593,7 +586,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
                 this.toastr.success('Les teves dades s\'han actualitzat correctament', 'Desat')
                 this.router.navigate([`/perfil/${this.idUsuari}`])
                 // this.success = true;
-                console.log(data);
               }
             }
           );
@@ -646,7 +638,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if (this.pdfArray.length) {
         if (this.pdfChanged) {
           formData.append(`cv_path`, this.pdfArray[0]);
-          console.log('araaaaay', this.pdfArray)
         }
 
       } else {
@@ -662,14 +653,14 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if(this.checkedIDs) {
         for (let index = 0; index < this.checkedIDs.length; index++) {
           formData.append(`industria[${index}]`, this.checkedIDs[index]);
-          console.log("=========================================================")
-          console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
+          // console.log("=========================================================")
+          // console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
         }
       }
 
       if(this.tipusEmpresaSelected) {
-        console.log("=========================================================")
-        console.log("APPENDING: "+ this.tipusEmpresaSelected)
+        // console.log("=========================================================")
+        // console.log("APPENDING: "+ this.tipusEmpresaSelected)
         formData.append('tipus_perfil', this.tipusEmpresaSelected)
       }
 
@@ -725,7 +716,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if (this.pdfArray.length) {
         if (this.pdfChanged) {
           formData.append(`cv_path`, this.pdfArray[0]);
-          console.log('araaaaay', this.pdfArray)
         }
       } else {
         formData.append('cv_path_delete', '')
@@ -740,14 +730,14 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       if(this.checkedIDs) {
         for (let index = 0; index < this.checkedIDs.length; index++) {
           formData.append(`industria[${index}]`, this.checkedIDs[index]);
-          console.log("=========================================================")
-          console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
+          // console.log("=========================================================")
+          // console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
         }
       }
 
       if(this.tipusEmpresaSelected) {
-        console.log("=========================================================")
-        console.log("APPENDING: "+ this.tipusEmpresaSelected)
+        // console.log("=========================================================")
+        // console.log("APPENDING: "+ this.tipusEmpresaSelected)
         formData.append('tipus_perfil', this.tipusEmpresaSelected)
       }
 
@@ -766,7 +756,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   onSearchChange(searchValue: string): void {
     if (searchValue.slice(-1) == ',') {
       this.addTag(searchValue.slice(0, -1))
-      console.log(searchValue.slice(0, -1) + ": added to string")
       this.inputValue = ''
     }
   }
@@ -798,12 +787,12 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         this.tags.splice(i, 1);
       }
     }
-    console.log(this.tags)
+    
   }
 
   onFileSelected(event) {
     if (event.target.files) {
-      console.log('fiel pujat', event.target.files[0])
+      
       this.fotoProfile = event.target.files[0]
 
       var reader = new FileReader();
@@ -813,15 +802,13 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       }
     }
 
-    console.log(this.fotoProfilePreview)
+    
   }
 
   // FILTRES REGISTER
   changeSelection() {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    console.log("OBJECTS:", this.selectedItemsList)
-    console.log("Array of IDs:", this.checkedIDs)
   }
   fetchSelectedItems() {
     this.selectedItemsList = this.checkboxesIndustriaList.filter((value, index) => {
@@ -840,7 +827,6 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     if (this.tipusEmpresaSelected != tipusEmpresaString) {
       this.tipusEmpresaSelected = tipusEmpresaString;
     }
-    console.log(this.tipusEmpresaSelected)
   }
 
   ngOnDestroy() {

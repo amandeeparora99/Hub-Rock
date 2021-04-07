@@ -97,7 +97,6 @@ export class PerfilComponent implements OnInit {
               }
             });
             if(!chatExists){
-              console.log("CREATING NEW CHAT...")
               this.createNewChat(this.currentUserObject.idUser, this.usuariObject.user_iduser, iduser);
               this.chatPreferencesService.setValue('block');
               this.chatPreferencesService.setTargetUserId('');
@@ -113,7 +112,7 @@ export class PerfilComponent implements OnInit {
   createNewChat(id1, id2, contactId){
     this.subscriptionHttp9$ = this.httpClient.createNewChat(id1, id2, contactId).pipe(first())
         .subscribe(data => {
-            console.log(data)
+            // console.log(data)
         });
   }
 
@@ -292,11 +291,9 @@ export class PerfilComponent implements OnInit {
           }
         })
     } else {
-      console.log('CARREGANT DES DE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
       this.subscriptionHttp4$ = this.httpClient.getSolucionsByUserId(this.idUsuari, pagina, elements).pipe(first())
         .subscribe(data => {
           if (data.code == "1") {
-            console.log('NHA TROBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT')
             if (data.rows.length < 1) {
               this.solucionsNoMore = true;
             }
@@ -398,7 +395,6 @@ export class PerfilComponent implements OnInit {
   }
 
   routeEditProfile() {
-    console.log("redireccionant")
     this.router.navigate(['/perfil/' + this.usuariObject.user_iduser + '/editar-perfil']);
   }
 

@@ -237,8 +237,6 @@ export class BuscadorComponent implements OnInit {
   changeSelection() {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
-    // console.log("OBJECTS:", this.selectedItemsList)
-    // console.log("Array of IDs:", this.checkedIDs)
 
     this.searchProfileByName(this.searchKeyword);
   }
@@ -270,7 +268,6 @@ export class BuscadorComponent implements OnInit {
   }
 
   onRepteStatusChange(value){
-    // console.log(" Value is : ", value );
     this.selectedRadio = value;
 
     this.searchRepteByNameAndParams(this.searchKeyword, this.selectedRadio, 
@@ -388,7 +385,6 @@ export class BuscadorComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           if (data.code == "1") {
             this.reptes = data.rows;
           }
@@ -400,13 +396,11 @@ export class BuscadorComponent implements OnInit {
   }
 
   searchRepteByNameAndParams(keyword, status, empresesChecked, startupsChecked, expertsChecked, estudiantsChecked){
-    // console.log("SEARCHING BY PARAMETERS")
     this.subscriptionHttp1$ = this.httpCommunication.getReptesByNameAndParamsSearch(keyword, status, empresesChecked, 
       startupsChecked, expertsChecked, estudiantsChecked, 1, 9)
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           if (data.code == "1") {
             this.reptes = [];
             this.reptes = data.rows;
@@ -419,8 +413,6 @@ export class BuscadorComponent implements OnInit {
   }
 
   searchProfileByName(keyword){
-    // console.log("SEARCHING BY PROFILE NAME")
-    // console.log(this.empresesCheckbox, this.startupsCheckbox, this.expertsCheckbox, this.estudiantsCheckbox)
     this.subscriptionHttp2$ = this.httpCommunication.getUsersSearchBar(keyword,
       this.empresesCheckbox,
       this.startupsCheckbox,
@@ -433,7 +425,6 @@ export class BuscadorComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           if (data.code == "1") {
             this.users = [];
             this.users = data.rows;

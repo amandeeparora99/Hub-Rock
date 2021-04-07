@@ -70,10 +70,10 @@ export class ChatComponent implements OnInit {
 
     // Check what users are connected
     this.WebSocketService.listen('user_connected').subscribe((data) => {
-      console.log("LLISTA DE SALES ACTIVES:", data);
+      // console.log("LLISTA DE SALES ACTIVES:", data);
     })
     this.WebSocketService.listen('user_disconnected').subscribe((data) => {
-      console.log("LLISTA DE SALES ACTIVES:", data);
+      // console.log("LLISTA DE SALES ACTIVES:", data);
     })
     this.WebSocketService.listen('new_message').subscribe((data) => {
       this.messages.push(data);
@@ -100,7 +100,6 @@ export class ChatComponent implements OnInit {
   }
 
   getRoomId(id1, id2) {
-    console.log("GETTING ID 1 + ID 2: " + id1 + '_' + id2)
     var commonId = '';
 
     if (id1 > id2) {
@@ -128,7 +127,7 @@ export class ChatComponent implements OnInit {
           this.chatMsg = '';
         }
         else{
-          console.log("ERROR AL ENVIAR MISSATGE!")
+          // console.log("ERROR AL ENVIAR MISSATGE!")
         }
       });
       
@@ -156,8 +155,6 @@ export class ChatComponent implements OnInit {
   }
 
   changePage(pageNo) {
-    console.log("WE ARE CURRENTLY TALKING WITH: ")
-    console.log(this.personId)
     if(pageNo == 0) {  //Si la pagina es la 0, desconectarse de qualsevol xat
       this.exitSocket()
     }
@@ -180,7 +177,6 @@ export class ChatComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log("RESULTAT DE TOTS ELS XATS: ", data.row);
           if (data.code == "1") {
             this.chatList = data.row;
             if(this.chatList.length) {
@@ -199,7 +195,6 @@ export class ChatComponent implements OnInit {
     .subscribe(
       data => {
         if (data.code == "1") {
-          console.log("AQUESTS SON TOTS ELS MISATGES QUE S'HAN FET: ", data.row.dialog)
           data.row.dialog.forEach(element => {
             this.messages.push(element)
           });
