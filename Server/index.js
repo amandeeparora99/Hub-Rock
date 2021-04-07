@@ -4,7 +4,7 @@ const app = require('express')()
 const serverHttp = require('http').Server(app)
 const io = require('socket.io')(serverHttp, {
     cors: {
-        origin: "http://localhost:4200",    // https://hubandrock.com !
+        origin: "https://hubandrock.com",    // https://hubandrock.com !
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
