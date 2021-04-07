@@ -40,6 +40,185 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   inputValue;
   tags = [];
 
+  selectedItemsList = [];
+  checkedIDs = [];
+  tipusEmpresaSelected = '';
+  checkboxesUpdated = false;
+
+  checkboxesIndustriaList = [
+    {
+      id: '1',
+      label: 'Big Data',
+      isChecked: false
+    },
+    {
+      id: '2',
+      label: 'Biotecnologia',
+      isChecked: false
+    },
+    {
+      id: '3',
+      label: 'Blockchain',
+      isChecked: false
+    },
+    {
+      id: '4',
+      label: 'Ciberseguretat',
+      isChecked: false
+    },
+    {
+      id: '5',
+      label: 'Desenvolupament de software',
+      isChecked: false
+    },
+    {
+      id: '6',
+      label: 'Fabricació de hardware',
+      isChecked: false
+    },
+    {
+      id: '7',
+      label: 'Impressió 3D',
+      isChecked: false
+    },
+    {
+      id: '8',
+      label: 'Intel·ligència artificial',
+      isChecked: false
+    },
+    {
+      id: '9',
+      label: 'Mobilitat',
+      isChecked: false
+    },
+    {
+      id: '10',
+      label: 'Realitat virtual i augmentada',
+      isChecked: false
+    },
+    {
+      id: '11',
+      label: 'UX / UI',
+      isChecked: false
+    },
+    {
+      id: '12',
+      label: 'Xarxes i telecomunicacions',
+      isChecked: false
+    },
+    {
+      id: '13',
+      label: 'Activitats financeres i assegurances',
+      isChecked: false
+    },
+    {
+      id: '14',
+      label: 'Administració pública',
+      isChecked: false
+    },
+    {
+      id: '15',
+      label: 'Agricultura i alimentació',
+      isChecked: false
+    },
+    {
+      id: '16',
+      label: 'Arquitectura i construcció',
+      isChecked: false
+    },
+    {
+      id: '17',
+      label: 'Art, cultura i oci',
+      isChecked: false
+    },
+    {
+      id: '18',
+      label: 'Assessories i gestories',
+      isChecked: false
+    },
+    {
+      id: '19',
+      label: 'Comerç',
+      isChecked: false
+    },
+    {
+      id: '20',
+      label: 'Educació',
+      isChecked: false
+    },
+    {
+      id: '21',
+      label: 'Energia i aigua',
+      isChecked: false
+    },
+    {
+      id: '22',
+      label: 'Extracció i transformació de minerals',
+      isChecked: false
+    },
+    {
+      id: '23',
+      label: 'Investigació i desenvolupament',
+      isChecked: false
+    },
+    {
+      id: '24',
+      label: 'Hosteleria i restauració',
+      isChecked: false
+    },
+    {
+      id: '25',
+      label: 'Indústries manufactureres',
+      isChecked: false
+    },
+    {
+      id: '26',
+      label: 'Indústries transformadores dels metalls',
+      isChecked: false
+    },
+    {
+      id: '27',
+      label: 'Publicitat i marketing',
+      isChecked: false
+    },
+    {
+      id: '28',
+      label: 'Recursos humans',
+      isChecked: false
+    },
+    {
+      id: '29',
+      label: 'Salut',
+      isChecked: false
+    },
+    {
+      id: '30',
+      label: 'Sostenibilitat i medi ambient',
+      isChecked: false
+    },
+    {
+      id: '31',
+      label: 'Transport i logística',
+      isChecked: false
+    },
+    {
+      id: '32',
+      label: 'Turisme',
+      isChecked: false
+    },
+    {
+      id: '33',
+      label: 'Veterinària',
+      isChecked: false
+    },
+    {
+      id: '34',
+      label: 'Altres',
+      isChecked: false
+    },
+
+  ]
+
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
@@ -226,6 +405,19 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             });
           }
 
+          this.usuariObject.industries.forEach(industria => {
+            for (let ind of this.checkboxesIndustriaList) {
+              if(ind.id == industria.idindustria){
+                ind.isChecked = true;
+                break;
+              }
+            }
+          });
+      
+          this.tipusEmpresaSelected = this.usuariObject.tipus_perfil;
+          this.checkboxesUpdated = true;
+          console.log("ELS SELECCIONATS: ",this.checkboxesIndustriaList);
+
           this.editUserForm.patchValue({
             nomEmpresa: this.usuariObject.nom_empresa,
             nomRockstar: this.usuariObject.nom_rockstar,
@@ -243,14 +435,12 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             inputFacebook: this.usuariObject.xarxes_facebook,
           })
 
-          console.log('jfsadkljflañksdjf', this.pdfArray)
-
           //PATCH RECURSOS
           if (this.usuariObject.cv_path) {
-            console.log('jfsadkljflañksdjf', this.pdfArray)
+            console.log('PDF', this.pdfArray)
 
             this.pdfArray[0] = this.usuariObject.cv_path
-            console.log('jfsadkljflañksdjf', this.pdfArray)
+            console.log('PDF', this.pdfArray)
           }
 
           //PATCH FOTO PERFIL
@@ -279,6 +469,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         }
       });
   }
+
 
   logValidationErrorsUntouched(group: FormGroup = this.editUserForm): void {
     Object.keys(group.controls).forEach((key: string) => {
@@ -468,6 +659,20 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         }
       }
 
+      if(this.checkedIDs) {
+        for (let index = 0; index < this.checkedIDs.length; index++) {
+          formData.append(`industria[${index}]`, this.checkedIDs[index]);
+          console.log("=========================================================")
+          console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
+        }
+      }
+
+      if(this.tipusEmpresaSelected) {
+        console.log("=========================================================")
+        console.log("APPENDING: "+ this.tipusEmpresaSelected)
+        formData.append('tipus_perfil', this.tipusEmpresaSelected)
+      }
+
       return formData;
 
     } else if (this.userIsRockstar) {  //LOGGED AS ROCKSTAR
@@ -530,6 +735,20 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
         for (var i = 0; i < this.tags.length; i++) {
           formData.append(`habilitat_nom[${i}]`, this.tags[i]);
         }
+      }
+
+      if(this.checkedIDs) {
+        for (let index = 0; index < this.checkedIDs.length; index++) {
+          formData.append(`industria[${index}]`, this.checkedIDs[index]);
+          console.log("=========================================================")
+          console.log("APPENDING: industria["+index+"] "+this.checkedIDs[index])
+        }
+      }
+
+      if(this.tipusEmpresaSelected) {
+        console.log("=========================================================")
+        console.log("APPENDING: "+ this.tipusEmpresaSelected)
+        formData.append('tipus_perfil', this.tipusEmpresaSelected)
       }
 
       return formData;
@@ -595,6 +814,33 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     }
 
     console.log(this.fotoProfilePreview)
+  }
+
+  // FILTRES REGISTER
+  changeSelection() {
+    this.fetchSelectedItems()
+    this.fetchCheckedIDs()
+    console.log("OBJECTS:", this.selectedItemsList)
+    console.log("Array of IDs:", this.checkedIDs)
+  }
+  fetchSelectedItems() {
+    this.selectedItemsList = this.checkboxesIndustriaList.filter((value, index) => {
+      return value.isChecked
+    });
+  }
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.checkboxesIndustriaList.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
+  changeTipusEmpresa(tipusEmpresaString) {
+    if (this.tipusEmpresaSelected != tipusEmpresaString) {
+      this.tipusEmpresaSelected = tipusEmpresaString;
+    }
+    console.log(this.tipusEmpresaSelected)
   }
 
   ngOnDestroy() {

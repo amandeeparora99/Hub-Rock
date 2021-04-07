@@ -42,6 +42,8 @@ import { ContacteComponent } from './contacte/contacte.component';
 import { MapesComponent } from './mapes/mapes.component';
 import { AgmCoreModule } from "@agm/core";
 import { BuscadorComponent } from './buscador/buscador.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatPreferencesService } from "./chat-preferences.service";
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
     ContacteComponent,
     MapesComponent,
     BuscadorComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
       apiKey: 'AIzaSyAVihtGC3jXgn2HGLVawwCEy-K9Nwxfbq8'
     })
   ],
-  providers: [HttpCommunicationService, DatePipe, AuthGuard,
+  providers: [HttpCommunicationService, ChatPreferencesService, DatePipe, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

@@ -143,3 +143,46 @@ textarea {
 .inputFotoPerfil {
     max-width: 250px;
 }
+
+#industriesbox .btnradius {
+    border-radius: 10px;
+}
+#industriesbox .mr25 {
+    margin-right: 20px;
+    margin-bottom:5px;
+}
+#industriesbox .btn-group-toggle .industria{
+    background-color: white;
+    color: black;
+}
+#industriesbox .btn-group-toggle .industria:hover{
+    background-color: #F7FAFF;
+}
+#industriesbox .btn-group-toggle .industria.active{
+    background-color: #020e7d;
+    color: white;
+}
+
+#industriesbox .btn-group-toggle .industria {
+    padding: 12px 16px;
+    font-size: 14px!important;
+    font-family: 'WorkSans-Regular'!important;
+    letter-spacing: -0.66px;
+    font-weight: normal;
+    width: 30%;
+}
+.buttonsidentifica .btn {
+    width: 49%;
+    height: 111px;
+    font-size: 20px!important;
+    font-family: 'WorkSans-Regular'!important;
+    background-color: white;
+    color: black;
+}
+.buttonsidentifica .btn.active {
+    background-color: #020e7d;
+    color: white;
+}
+.buttonsidentifica .btn:hover:not(.active) {
+    background-color: #F7FAFF;
+}

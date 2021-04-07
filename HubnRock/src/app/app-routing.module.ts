@@ -30,6 +30,8 @@ import { PerStartupsComponent } from "./per-startups/per-startups.component";
 import { FaqComponent } from "./faq/faq.component";
 import { SobreHubandrockComponent } from "./sobre-hubandrock/sobre-hubandrock.component";
 import { ContacteComponent } from "./contacte/contacte.component";
+import { MapesComponent } from './mapes/mapes.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -46,8 +48,7 @@ import { SolucioCanViewGuard } from './solucio-can-view.guard';
 import { RepteCanViewGuard } from './repte-can-view.guard';
 import { OwnSolucioEsborranyGuard } from './own-solucio-esborrany.guard';
 import { CanEditSolucioGuard } from './can-edit-solucio.guard';
-import { MapesComponent } from './mapes/mapes.component';
-import { BuscadorComponent } from './buscador/buscador.component';
+
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },

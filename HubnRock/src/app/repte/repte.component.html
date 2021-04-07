@@ -65,9 +65,9 @@
 
                             <div class="d-flex col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
-                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici | date:'dd-MM-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici | date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </h1>
-                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'smaller')">{{repte.data_final | date:'dd-MM-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'smaller')">{{repte.data_final | date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </h1>
                             </div>
 

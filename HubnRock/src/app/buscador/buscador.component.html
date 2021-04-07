@@ -5,7 +5,9 @@
         <div class="col-md-10 d-flex align-items-center">
             <button type="button" class="btn btn-primary btn-buscar btn-buscar" style="margin-right:20px" (click)="changeSearch('reptes'); resetCheckboxes()" [ngClass]="{'btn-buscar-active':activeSearch == 'reptes'}">REPTES</button>
             <!-- <button type="button" class="btn btn-primary btn-buscar" style="margin-right:20px" (click)="changeSearch('crowdfunding')" [ngClass]="{'btn-buscar-active':activeSearch == 'crowdfunding'}">CROWDFUNDING</button> -->
-            <button type="button" class="btn btn-primary btn-buscar" (click)="changeSearch('directori'); searchProfileByName(searchKeyword)" [ngClass]="{'btn-buscar-active':activeSearch == 'directori'}">DIRECTORI</button>
+            <button type="button" class="btn btn-primary btn-buscar" 
+            (click)="changeSearch('directori'); searchProfileByName(searchKeyword); futursRadio = null; tancatsRadio = null; obertsRadio = null;" 
+            [ngClass]="{'btn-buscar-active':activeSearch == 'directori'}">DIRECTORI</button>
         </div>
     </div>
     <hr class="hr-style">

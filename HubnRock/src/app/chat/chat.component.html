@@ -1,0 +1,88 @@
+<button (click)="changeDisplay()" class="open-button" [style]="popupDisplay == 'block' ? 'display: none;' : 'display: block;'">Xat</button>
+
+<div *ngIf="page == 0 && chatList.length" class="chat-popup container" [class]="popupDisplay == 'block' ? 'show' : ''" [style]="'display:'+popupDisplay">
+    <div class="d-flex justify-content-between chat-header">
+        <h1 class="chat-title" style="font-weight: bold;">Xat</h1>
+        <h1 class="chat-title mb-0" style="cursor: pointer;" (click)="changeDisplay()">✕</h1>
+    </div>
+    
+    <div *ngFor="let chat of chatList; let i = index" (click)="onPersonClick(chat.with_who, chat.chat_idchat); setRecieverVariables(chat.url_photo_profile, chat.chat_idchat); changePage(1)" 
+    class="d-flex align-items-center chatbox pointer" 
+    style="padding-top: 13px; padding-bottom: 13px; padding-left: 30px;">
+        <div class="col-md-2 col-sm-2 mobileAuto"><img class="rounded-circle" style="width: 48px; height: 48px" 
+            [src]="fileStorageUrl+chat.url_photo_profile"></div>
+        <div class="col-md-10 col-sm-10 mobileAuto">
+            <h3 class="user-title bold mb-0">{{chat.empresa_rockstar == '0' ? chat.nom_empresa : chat.nom_rockstar}}</h3>
+            <h3 class="last-message mb-0">{{chat.lastMessageText}}</h3>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="page == 2 && chatList.length == 0" class="chat-popup container" [class]="popupDisplay == 'block' ? 'show' : ''" [style]="'display:'+popupDisplay">
+    <div class="d-flex justify-content-between chat-header">
+        <h1 class="chat-title" style="font-weight: bold;">Xat</h1>
+        <h1 class="chat-title mb-0" style="cursor: pointer;" (click)="changeDisplay()">✕</h1>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center no-dialogs" style="height: 80%;">
+        <div class="text-center">
+            <h4>No tens cap conversa</h4>
+            <p>Pots iniciar converses amb empreses,
+                startups, experts o estudiants.</p>
+            <button>EXPLORA EL DIRECTORI</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="page == 1" class="chat-popup container d-flex flex-column" [class]="popupDisplay == 'block' ? 'show' : ''" [style]="'display:'+popupDisplay">
+    
+    <div class="w-100">
+        <div class="d-flex align-items-center justify-content-between chat-header">
+            <h1 class="chat-title-u mb-0" style="font-weight: bold;">
+                <span (click)="changePage(0); getAllUserChats()" style="cursor: pointer; font-size: 20px; margin-bottom: 0; margin-right: 10px; align-self: center;">❮</span> Digital Company</h1>
+            <h1 class="chat-title mb-0" style="cursor: pointer;" (click)="changeDisplay(); exitSocket()">✕</h1>
+        </div>
+    </div>
+
+    <div class="w-100 container" #scrollBottom style="height: 100%; overflow-y: scroll;">
+
+        <div *ngFor="let msg of messages">
+            <div *ngIf="currentUserObject.idUser.toString() != msg.who" class="row" style="padding-left: 15px">
+                <div class="d-flex chat-card chat-card-left">
+                    <img class="rounded-circle align-self-end mr-2" 
+                    [src]="recieverAvatarUrl != '' ? recieverAvatarUrl : 'https://dummyimage.com/36x36/000/'" 
+                    style="width: 36px; height: 36px;" alt="Foto perfil">
+                    <div class="dialog">
+                        <p style="font-size: 17px;" class="mb-0 dialog-text">{{msg.message}}</p>
+                        <p style="font-size: 13px; color: #bcbcbc; float: right;" class="mb-0">{{msg.time | date:'shortTime'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="currentUserObject.idUser.toString() == msg.who" class="row justify-content-end" style="padding-right: 15px">
+                <div class="d-flex chat-card chat-card-right">
+                    <!-- <img class="order-2 rounded-circle align-self-end ml-2" [src]="loggedAvatarUrl"
+                    style="max-width: 36px; min-width: 36px; max-height: 36px;" alt="Foto perfil"> -->
+                    <div class="order-2 rounded-circle align-self-end ml-2" 
+                    [style]="'width: 36px; height: 36px; background-repeat: no-repeat; background-image: url('
+                    +loggedAvatarUrl+'); background-size: cover; background-position: center center'"></div>
+                    <div class="order-1 dialog">
+                        <p style="font-size: 17px;" class="mb-0 dialog-text">{{msg.message}}</p>
+                        <p style="font-size: 13px; color: #bcbcbc; float: right;" class="mb-0">{{msg.time | date:'shortTime'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w-100">
+        <div style="height: 1px; background-color:#d9d9d9;"></div>
+        <form class="form-group d-flex" style="margin: 30px" (submit)="onSubmit()">
+            <textarea placeholder="Escriu el teu missatge…" class="form-control" (keydown.enter)="onSubmit();false"
+            id="chat-textarea" style="min-height: 84px; margin-right: 5px;"
+            [(ngModel)]="chatMsg" [ngModelOptions]="{standalone: true}"></textarea>
+            <button class="btn"><img src="../../assets/simpleicons/Send.png" style="width: 30px; height: 30px;"></button>
+        </form>
+    </div>
+
+</div>

@@ -157,7 +157,7 @@ export class HttpCommunicationService {
 
   registerRockstar(email, password, nom_rockstar, cognom_rockstar, checkedIDs, tipusSelected, latUser, lngUser, addrUser): Observable<any> {
     let objecteDireccio = { 'lat': latUser, 'lng': lngUser, 'addr': addrUser }
-    
+
     let body = new HttpParams()
       .set('email', email)
       .set('password', password)
@@ -874,7 +874,7 @@ export class HttpCommunicationService {
         return data;
       }
     }));
-    
+
   }
 
   getReptesByNameAndParamsSearch(searchKeyword, status, empresesChecked, startupsChecked, expertsChecked, estudiantsChecked, page, elements): Observable<any> {
@@ -907,7 +907,7 @@ export class HttpCommunicationService {
         return data;
       }
     }));
-    
+
   }
 
   getUsersSearchBar(cerca, empresesChecked, startupsChecked, expertsChecked, estudiantsChecked, industriesArray, page, elements): Observable<any> {
@@ -944,4 +944,55 @@ export class HttpCommunicationService {
 
   }
 
+  getAllUserChats(): Observable<any> {
+    return this.http.get<any>(environment.api + `/getUserFullChats`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  getAllDialog(chatId): Observable<any> {
+    return this.http.get<any>(environment.api + `/getChatById/${chatId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  postDialogMsg(idChat, message): Observable<any> {
+    console.log("CONSOLE LOG ABANS D'ENVIAR: idchat - " + idChat + ", message: " + message)
+    const body = new HttpParams()
+      .set('idchat', idChat)
+      .set('message', message)
+
+    return this.http.post<any>(environment.api + `/updateChat`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        return data;
+      }
+    }));
+  }
+
+  createNewChat(userName, contactName, contactId): Observable<any> {
+    const body = new HttpParams()
+      .set('user_name', userName)
+      .set('contact_name', contactName)
+      .set('contact_id', contactId)
+
+    return this.http.post<any>(environment.api + `/createNewChat`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+      if (data.code == '1') {
+        return data;
+      }
+    }));
+  }
 }

@@ -119,6 +119,76 @@
                     </span>
                 </div>
 
+                <!--NOVES COSES A EDIT PERFIL-->
+
+                <div style="margin-top: 30px;" class="form-group mb20px" *ngIf="checkboxesUpdated">
+                    <label for="InputAdreca" *ngIf="!userIsRockstar" class="mb-0">En quina indústria opera
+                        l’empresa?</label>
+                    <label for="InputAdreca" *ngIf="userIsRockstar" class="mb-0">En quina indústria tens
+                        experiència?</label>
+                    <p>Pots seleccionar més d’una indústria</p>
+                    <label for="InputAdreca" style="margin-bottom: 15px;">Sector TIC</label>
+                    <div id="industriesbox">
+
+                        <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                            <ng-container *ngFor="let item of checkboxesIndustriaList; let i = index">
+                                <label class="btn btn-secondary btnradius mr25 industria" [ngClass]="item.isChecked ? 'active' : ''">
+                                    <input [id]="item.id" type="checkbox" [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="item.isChecked" (change)="changeSelection()" />
+                                    {{item.label}}
+                                </label>
+                                
+                                <div *ngIf="i == 11" class="col row">
+                                    <label for="InputAdreca" style="margin-bottom: 15px; margin-top: 20px;">Altres sectors</label>
+                                </div>
+                                
+                            </ng-container>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group mb90px" *ngIf="checkboxesUpdated">
+                    <label>Amb quin d’aquests perfils t’identifiques més?</label>
+                    <div *ngIf="!userIsRockstar"
+                        class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle"
+                        data-toggle="buttons">
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center" [ngClass]="tipusEmpresaSelected == 'empresa' ? 'active' : ''">
+                            <input type="radio" name="Empresa" id="tipusEmpresa" autocomplete="off"
+                                (click)="changeTipusEmpresa('empresa')">
+                            <img src="../../../assets/illustrations/Empreses.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Empresa
+                        </label>
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center" [ngClass]="tipusEmpresaSelected == 'startup' ? 'active' : ''">
+                            <input type="radio" name="Startup" id="tipusStartup" autocomplete="off"
+                                (click)="changeTipusEmpresa('startup')">
+                            <img src="../../../assets/illustrations/Startups.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Startup
+                        </label>
+
+                    </div>
+
+                    <div *ngIf="userIsRockstar"
+                        class="form-group d-flex justify-content-between buttonsidentifica btn-group-toggle"
+                        data-toggle="buttons">
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center" [ngClass]="tipusEmpresaSelected == 'estudiant' ? 'active' : ''">
+                            <input type="radio" name="Estudiant" id="tipusEstudiant" autocomplete="off"
+                                (click)="changeTipusEmpresa('estudiant')">
+                            <img src="../../../assets/illustrations/Estudiants.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Estudiant
+                        </label>
+                        <label class="btn btn-secondary d-flex align-items-center justify-content-center" [ngClass]="tipusEmpresaSelected == 'expert' ? 'active' : ''">
+                            <input type="radio" name="Expert" id="tipusExpert" autocomplete="off"
+                                (click)="changeTipusEmpresa('expert')">
+                            <img src="../../../assets/illustrations/Experts.png"
+                                style="margin-right: 30px; max-width: 75px; max-height: 75px;"> Expert
+                        </label>
+                    </div>
+
+                </div>
+
+                <!-- NOVES COSES A EDIT PERFIL -->
+
                 <label for="inputTags" class="col-form-label pt-0" *ngIf="userIsRockstar">Habilitats:</label>
                 <label for="inputTags" class="col-form-label pt-0" *ngIf="!userIsRockstar">Serveis:</label>
 

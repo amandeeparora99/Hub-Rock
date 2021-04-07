@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
+import { ChatPreferencesService } from '../chat-preferences.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-perfil',
@@ -12,6 +14,8 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class PerfilComponent implements OnInit {
   public fileStorageUrl = environment.api + '/image/';
+  public popupDisplay;
+  public currentUserObject: User;
 
   public idUsuari;
   public usuariExists = true;
@@ -47,21 +51,72 @@ export class PerfilComponent implements OnInit {
   subscriptionHttp5$: Subscription;
   subscriptionHttp6$: Subscription;
   subscriptionHttp7$: Subscription;
+  subscriptionHttp8$: Subscription;
+  subscriptionHttp9$: Subscription;
   subscriptionCurrentUser$: Subscription;
 
 
-  constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService) { }
+  constructor(public router: Router, public aRouter: ActivatedRoute, private httpClient: HttpCommunicationService,
+    private chatPreferencesService: ChatPreferencesService) { }
 
   ngOnInit(): void {
-
     this.idUsuari = this.aRouter.snapshot.params.id;
 
     if (this.idUsuari) {
       this.getUserFromComponent(this.idUsuari)
     }
 
+    this.httpClient.currentUser.subscribe(
+      data => {
+        this.currentUserObject = data;
+      }
+    );
 
+    this.chatPreferencesService.getValue().subscribe((value) => {
+      this.popupDisplay = value;
+    });
   }
+
+  changeDisplay(iduser) {
+    if (this.popupDisplay == 'block') {
+      this.chatPreferencesService.setValue('none');
+    }
+    else {
+      this.createChatIfNoExist(iduser);
+    }
+  }
+
+  createChatIfNoExist(iduser){
+    var chatExists = false;
+    this.subscriptionHttp8$ = this.httpClient.getAllUserChats().pipe(first())
+        .subscribe(data => {
+          if (data.code == "1") {
+            data.row.forEach(element => {
+              if(element.with_who == iduser){
+                chatExists = true;
+              }
+            });
+            if(!chatExists){
+              console.log("CREATING NEW CHAT...")
+              this.createNewChat(this.currentUserObject.idUser, this.usuariObject.user_iduser, iduser);
+              this.chatPreferencesService.setValue('block');
+              this.chatPreferencesService.setTargetUserId('');
+            }
+            else{
+              this.chatPreferencesService.setValue('block');
+              this.chatPreferencesService.setTargetUserId('');
+            }
+          }
+        });
+  }
+
+  createNewChat(id1, id2, contactId){
+    this.subscriptionHttp9$ = this.httpClient.createNewChat(id1, id2, contactId).pipe(first())
+        .subscribe(data => {
+            console.log(data)
+        });
+  }
+
 
   getUserFromComponent(idUsuari) {
     this.subscriptionHttp1$ = this.httpClient.getUser(idUsuari).pipe(first())

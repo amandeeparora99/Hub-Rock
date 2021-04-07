@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpCommunicationService } from './reusable/httpCommunicationService/http-communication.service';
 
 @Component({
@@ -9,8 +10,7 @@ import { HttpCommunicationService } from './reusable/httpCommunicationService/ht
 export class AppComponent {
   title = 'HubnRock';
 
-  constructor(private _httpService: HttpCommunicationService) {
-  }
+  constructor(private _httpService: HttpCommunicationService, private router: Router) { }
 
   onActivate(event) {
     // let scrollToTop = window.setInterval(() => {
@@ -31,6 +31,21 @@ export class AppComponent {
       let currentUserStored = JSON.parse(localStorage.getItem('currentUser'))
       this._httpService.saveCurrentUserLocalStorage(currentUserStored.token, currentUserStored.idUser, currentUserStored.email);
     }
+  }
+
+  noAuthPage() {
+    if (localStorage.getItem('currentUser')) {
+      if (this.router.url.includes('/registre') || this.router.url.includes('/login') || this.router.url.includes('/validate-account')
+        || this.router.url.includes('/recover-password') || this.router.url.includes('/forgot-password')) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    else{
+      return false;
+    }
+
   }
   // onActivate(e) {
   //   if (e.constructor.name)==="login"{ // for example
