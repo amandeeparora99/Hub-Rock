@@ -30,7 +30,6 @@ export class HttpCommunicationService {
 
   saveCurrentUserLocalStorage(token, idUser, email) {
     // console.log('es crida save current', idUser, token, email)
-    // console.log("SAVE NOSQQ")
     this.getUser(idUser).pipe(first())
       .subscribe(
         data => {
@@ -990,6 +989,22 @@ export class HttpCommunicationService {
       if (data.code == '1') {
         return data;
       }
+    }));
+  }
+
+  resetUnread(chatId, contactId): Observable<any> {
+    const body = new HttpParams()
+      .set('chat_id', chatId)
+      .set('contact_id', contactId)
+
+    return this.http.post<any>(environment.api + `/resetUnread`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+        return data;
     }));
   }
 }

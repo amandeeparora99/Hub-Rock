@@ -1,4 +1,5 @@
-<button (click)="changeDisplay()" class="open-button" [style]="popupDisplay == 'block' ? 'display: none;' : 'display: block;'">Xat</button>
+<button (click)="changeDisplay()" class="open-button" 
+    [style]="popupDisplay == 'block' ? 'display: none;' : 'display: block;'">Xat <span *ngIf="unreads>0" class="badge badge-pill badge-danger">{{unreads}}</span></button>
 
 <div *ngIf="page == 0 && chatList.length" class="chat-popup container" [class]="popupDisplay == 'block' ? 'show' : ''" [style]="'display:'+popupDisplay">
     <div class="d-flex justify-content-between chat-header">
@@ -13,7 +14,11 @@
             [src]="fileStorageUrl+chat.url_photo_profile"></div>
         <div class="col-md-10 col-sm-10 mobileAuto">
             <h3 class="user-title bold mb-0">{{chat.empresa_rockstar == '0' ? chat.nom_empresa : chat.nom_rockstar}}</h3>
-            <h3 class="last-message mb-0">{{chat.lastMessageText}}</h3>
+            <div *ngIf="chat.lastMessageText" class="d-flex justify-content-between">
+                <h3 *ngIf="chat.lastMessageText.length>=30" class="last-message mb-0">{{chat.lastMessageText | slice:0:30 }}...</h3>
+                <h3 *ngIf="chat.lastMessageText.length<30" class="last-message mb-0">{{chat.lastMessageText}}</h3>
+                <span *ngIf="chat.unread>0" class="badge badge-pill badge-hub">{{chat.unread}}</span>
+            </div>
         </div>
     </div>
 </div>

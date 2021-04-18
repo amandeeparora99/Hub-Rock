@@ -29,10 +29,13 @@ export class ChatComponent implements OnInit {
 
   chatList = [];
   messages = [];
+  unreads = 0;
 
   subscriptionHttp$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
+  subscriptionHttp4$: Subscription;
 
   constructor(private WebSocketService: WebSocketService, private _httpService: HttpCommunicationService, private chatPreferencesService: ChatPreferencesService) { }
 
@@ -68,6 +71,9 @@ export class ChatComponent implements OnInit {
       }
     });
 
+    //Get all unreads to show them.
+    this.getAllUnreads();
+
     // Check what users are connected
     this.WebSocketService.listen('user_connected').subscribe((data) => {
       // console.log("LLISTA DE SALES ACTIVES:", data);
@@ -75,9 +81,22 @@ export class ChatComponent implements OnInit {
     this.WebSocketService.listen('user_disconnected').subscribe((data) => {
       // console.log("LLISTA DE SALES ACTIVES:", data);
     })
+    this.WebSocketService.listen('new_message_commonRoom').subscribe((data) => {
+      let reciever = data['to'];
+      let sender = data['who'];
+
+      //Si el receptor es el client i NO ESTA EN NINGUN XAT o el xat és amb unaltre:
+      if(reciever == this.currentUserObject.idUser && (this.personId == '' || this.personId != sender) ) { 
+        window.alert("Message from "+data['who'])
+        //Fer un get dels unreads i guardar el numero per mostrar-ho alla en petit (toastr?).
+        this.getAllUnreads();
+      }
+    })
     this.WebSocketService.listen('new_message').subscribe((data) => {
       this.messages.push(data);
+      this.resetUnread(this.currentChatId, this.personId);
     })
+    this.WebSocketService.emit('common_room', 'commonRoom');
   }
 
   ngAfterViewChecked() {
@@ -92,6 +111,7 @@ export class ChatComponent implements OnInit {
     }
 
     this.chatPreferencesService.setTargetUserId(personId);
+    this.resetUnread(chatId, this.personId);  //Set READ to all messages.
 
     var roomId = this.getRoomId(this.currentUserObject.idUser, Number(this.personId));
     this.WebSocketService.emit('user_connected', roomId);
@@ -121,6 +141,7 @@ export class ChatComponent implements OnInit {
           this.WebSocketService.emit('send_message', {
             roomId: this.getRoomId(this.currentUserObject.idUser, Number(this.personId)),
             who: this.currentUserObject.idUser.toString(),
+            to: this.personId,
             message: this.chatMsg,
             time: nowDate
           });
@@ -144,6 +165,7 @@ export class ChatComponent implements OnInit {
 
   changeDisplay() {
     if (this.popupDisplay == 'block') {
+      this.getAllUnreads();
       this.chatPreferencesService.setValue('none');
       this.chatPreferencesService.setTargetUserId('');  //Everytime Chat is closed, set the user id to 0
     }
@@ -186,6 +208,32 @@ export class ChatComponent implements OnInit {
               this.page = 2;
             }
           }
+        });
+  }
+
+  getAllUnreads() {
+    var unreads = 0;
+
+    this.subscriptionHttp3$ = this._httpService.getAllUserChats()
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data.code == "1") {
+            data.row.forEach(chatlog => {
+              if(chatlog.unread != 0){
+                unreads = unreads + 1;
+              }
+            });
+            this.unreads = unreads;
+            console.log("YOU HAVE "+unreads+" UNREAD MESSAGES.")
+          }
+        });
+  }
+
+  resetUnread(chatId, contactId){
+    this.subscriptionHttp4$ = this._httpService.resetUnread(chatId, contactId).pipe(first())
+        .subscribe(data => {
+            // console.log(data)
         });
   }
 

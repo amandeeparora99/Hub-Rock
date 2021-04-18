@@ -12,10 +12,17 @@ const io = require('socket.io')(serverHttp, {
 });
 
 var users = [];
+var commonRoomName;
 
 io.on('connection', function (socket) {
     console.log("A user connected!");
     
+    socket.on('common_room', function(commonRoomName) {
+        socket.join(commonRoomName);
+        this.commonRoomName = commonRoomName;
+        console.log("New person joined on " + this.commonRoomName)
+    })
+
     //Append new user to userList
     socket.on('user_connected', function(roomId) {
         if(!users.includes(roomId)){
@@ -25,15 +32,14 @@ io.on('connection', function (socket) {
         socket.join(roomId);
 
         console.log("ACTIVE SOCKETS:");
-        console.log(socket.rooms)
-        
+        console.log(socket.rooms);
         
         io.emit("user_connected", users);
     })
 
     socket.on('send_message', function(data) {
-
         io.sockets.in(data.roomId).emit('new_message', data);
+        io.sockets.in(this.commonRoomName).emit('new_message_commonRoom', data)
         // socket.broadcast.to(sendTo).emit('new_message', data);
     });
 
