@@ -1,0 +1,15 @@
+* {
+    font-family: 'WorkSans-Regular';
+    letter-spacing: -0.22px;
+}
+
+.title-h{
+    font-family: 'WorkSans-Bold';
+    font-size: 32px;
+    letter-spacing: -0.54px;
+}
+.title-s{
+    font-family: 'WorkSans-Bold';
+    font-size: 26px;
+    letter-spacing: -0.54px;
+}

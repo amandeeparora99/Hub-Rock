@@ -307,7 +307,13 @@ export class MapesComponent implements OnInit {
           data => {
             // console.log(data);
             if (data.code == "1") {
-              this.empreses = data.rows;
+              this.empreses = [];
+              data.rows.forEach(element => {
+                var latval = JSON.parse(element.ciutat_residencia).lat
+                if(element.ciutat_residencia && latval != 0){
+                  this.empreses.push(element)
+                }
+              });
               if (data.rows.length){
                 this.fitBoundsVar = true;
               }
@@ -335,7 +341,13 @@ export class MapesComponent implements OnInit {
           data => {
             // console.log(data);
             if (data.code == "1") {
-              this.empreses = data.rows;
+              this.empreses = [];
+              data.rows.forEach(element => {
+                var latval = JSON.parse(element.ciutat_residencia).lat
+                if(element.ciutat_residencia && latval != 0){
+                  this.empreses.push(element)
+                }
+              });
               if (data.rows.length){
                 this.fitBoundsVar = true;
               }

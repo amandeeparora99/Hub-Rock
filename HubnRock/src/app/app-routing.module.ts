@@ -32,6 +32,9 @@ import { SobreHubandrockComponent } from "./sobre-hubandrock/sobre-hubandrock.co
 import { ContacteComponent } from "./contacte/contacte.component";
 import { MapesComponent } from './mapes/mapes.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { PoliticaDeCookiesComponent } from "./politica-de-cookies/politica-de-cookies.component";
+import { PoliticaDePrivacitatComponent } from "./politica-de-privacitat/politica-de-privacitat.component";
+import { TermesICondicionsComponent } from "./termes-i-condicions/termes-i-condicions.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -77,6 +80,9 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'sobre-hubandrock', component: SobreHubandrockComponent },
   { path: 'contactar', component: ContacteComponent },
+  { path: 'politica-de-cookies', component: PoliticaDeCookiesComponent },
+  { path: 'politica-de-privacitat', component: PoliticaDePrivacitatComponent },
+  { path: 'termes-i-condicions', component: TermesICondicionsComponent },
   { path: 'buscar/:id', component: BuscadorComponent },
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },

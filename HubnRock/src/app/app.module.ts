@@ -44,6 +44,9 @@ import { AgmCoreModule } from "@agm/core";
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatPreferencesService } from "./chat-preferences.service";
+import { PoliticaDeCookiesComponent } from './politica-de-cookies/politica-de-cookies.component';
+import { PoliticaDePrivacitatComponent } from './politica-de-privacitat/politica-de-privacitat.component';
+import { TermesICondicionsComponent } from './termes-i-condicions/termes-i-condicions.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,9 @@ import { ChatPreferencesService } from "./chat-preferences.service";
     MapesComponent,
     BuscadorComponent,
     ChatComponent,
+    PoliticaDeCookiesComponent,
+    PoliticaDePrivacitatComponent,
+    TermesICondicionsComponent,
   ],
   imports: [
     BrowserModule,
