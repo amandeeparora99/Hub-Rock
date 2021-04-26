@@ -145,7 +145,7 @@
                     <label for="InputAdreca" *ngIf="accountType == 'rockstar'" class="mb-0">Ciutat de residència</label>
                     <p class="mb-2">Introdueix la teva adreça i selecciona una de les opcions que apareixen</p>
                     <input (focus)="showGoogleAdresses()" type="text" class="form-control" id="google_input"
-                        placeholder="Carrer Major" #googleInput (blur)="logValidationErrors()" />
+                        placeholder="Carrer Major" #googleInput (blur)="logValidationErrors();" />
                 </div>
 
                 <div style="margin-top: 30px;" class="form-group mb20px">
