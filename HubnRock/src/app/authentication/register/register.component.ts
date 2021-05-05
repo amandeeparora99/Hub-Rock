@@ -301,7 +301,7 @@ export class RegisterComponent implements OnInit {
       // console.log("LATITUD:", context.latUser);
       // console.log("LONGITUD:", context.lngUser);
     });
-    
+
   }
 
   // FILTRES REGISTER
@@ -323,11 +323,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  changeChecked(normes){
-    if(normes == 'termesChecked'){
+  changeChecked(normes) {
+    if (normes == 'termesChecked') {
       this.termesChecked = !(this.termesChecked);
     }
-    else if(normes == 'politicaChecked'){
+    else if (normes == 'politicaChecked') {
       this.politicaChecked = !(this.politicaChecked);
     }
   }
@@ -356,7 +356,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  alertGooglePlace(){
+  alertGooglePlace() {
     console.log(this.googleInput.nativeElement.value);
   }
 
@@ -427,75 +427,82 @@ export class RegisterComponent implements OnInit {
           this.formErrors.nomCorreu += this.validationMessages.nomCorreu.emailExists + ' ';
 
         } else {
-          if (this.accountType == 'empresa') {
 
-            this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
-              this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-              this.registerForm.controls.nomEmpresa.value,
-              this.registerForm.controls.nomResponsable.value,
-              this.registerForm.controls.nomNifEmpresa.value,
-              this.checkedIDs,
-              this.tipusEmpresaSelected,
-              this.latUser,
-              this.lngUser,
-              this.googleInput.nativeElement.value,
+          if (this.latUser != 0) {
 
-            )
-              .pipe(first())
-              .subscribe(
-                data => {
-                  if (data.code == "1") {
-                    this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
-                      timeOut: 2000,
-                    });
-                    this.router.navigate(["/login"])
-                  }
-                  else if (data.code == 534) {
-                    this.registerForm.controls['password'].setErrors({ 'password': true });
-                  }
-                  else if (data.code == 533) {
-                    this.registerForm.controls['email'].setErrors({ 'email': true });
+            if (this.accountType == 'empresa') {
 
-                  }
-                },
-                error => {
-                  //this.error = error;
-                  //this.loading = false;
-                });
+              this.subscriptionHttp1$ = this.httpCommunication.registerEmpresa(this.registerForm.controls.nomCorreu.value,
+                this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+                this.registerForm.controls.nomEmpresa.value,
+                this.registerForm.controls.nomResponsable.value,
+                this.registerForm.controls.nomNifEmpresa.value,
+                this.checkedIDs,
+                this.tipusEmpresaSelected,
+                this.latUser,
+                this.lngUser,
+                this.googleInput.nativeElement.value,
 
+              )
+                .pipe(first())
+                .subscribe(
+                  data => {
+                    if (data.code == "1") {
+                      this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
+                        timeOut: 2000,
+                      });
+                      this.router.navigate(["/login"])
+                    }
+                    else if (data.code == 534) {
+                      this.registerForm.controls['password'].setErrors({ 'password': true });
+                    }
+                    else if (data.code == 533) {
+                      this.registerForm.controls['email'].setErrors({ 'email': true });
+
+                    }
+                  },
+                  error => {
+                    //this.error = error;
+                    //this.loading = false;
+                  });
+
+            }
+            else if (this.accountType == 'rockstar') {
+              this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
+                this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
+                this.registerForm.controls.nomResponsable.value,
+                this.registerForm.controls.cognom.value,
+                this.checkedIDs,
+                this.tipusEmpresaSelected,
+                this.latUser,
+                this.lngUser,
+                this.googleInput.nativeElement.value,
+              )
+                .pipe(first())
+                .subscribe(
+                  data => {
+                    if (data.code == "1") {
+                      this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
+                        timeOut: 2000,
+                      });
+                      this.router.navigate(["/login"]);
+                    }
+                    else if (data.code == 534) {
+                      this.registerForm.controls['password'].setErrors({ 'password': true });
+                    }
+                    else if (data.code == 533) {
+                      this.registerForm.controls['email'].setErrors({ 'email': true });
+                    }
+                  },
+                  error => {
+                    //this.error = error;
+                    //this.loading = false;
+                  });
+
+            }
           }
-          else if (this.accountType == 'rockstar') {
-            this.subscriptionHttp2$ = this.httpCommunication.registerRockstar(this.registerForm.controls.nomCorreu.value,
-              this.registerForm.get('contrasenyaGroup').get('nomContrasenya').value,
-              this.registerForm.controls.nomResponsable.value,
-              this.registerForm.controls.cognom.value,
-              this.checkedIDs,
-              this.tipusEmpresaSelected,
-              this.latUser,
-              this.lngUser,
-              this.googleInput.nativeElement.value,
-            )
-              .pipe(first())
-              .subscribe(
-                data => {
-                  if (data.code == "1") {
-                    this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
-                      timeOut: 2000,
-                    });
-                    this.router.navigate(["/login"]);
-                  }
-                  else if (data.code == 534) {
-                    this.registerForm.controls['password'].setErrors({ 'password': true });
-                  }
-                  else if (data.code == 533) {
-                    this.registerForm.controls['email'].setErrors({ 'email': true });
-                  }
-                },
-                error => {
-                  //this.error = error;
-                  //this.loading = false;
-                });
-
+          else {
+            this.toastr.error("Selecciona l'adreça de Google!", "Error de registre!");
           }
         }
       })
