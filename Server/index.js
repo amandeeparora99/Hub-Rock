@@ -1,15 +1,25 @@
 'use strict'
 
-const app = require('express')()
-const serverHttp = require('http').Server(app)
-const io = require('socket.io')(serverHttp, {
-    cors: {
-        origin: "https://hubandrock.com",    // https://hubandrock.com !
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
-});
+var fs = require('fs');
+var app = require('express')();
+var https = require('https');
+var server = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/hubandrock.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/hubandrock.com/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/hubandrock.com/chain.pem'),
+    requestCert: false,
+    rejectUnauthorized: false
+},app);
+
+// const serverHttp = require('http').Server(app)
+// const io = require('socket.io')(serverHttp, {
+//     cors: {
+//         origin: "https://hubandrock.com",    // https://hubandrock.com !
+//         methods: ["GET", "POST"],
+//         allowedHeaders: ["my-custom-header"],
+//         credentials: true
+//     }
+// });
 
 var users = [];
 var commonRoomName;
@@ -60,6 +70,6 @@ io.on('connection', function (socket) {
     
 });
 
-serverHttp.listen(3000, () => {
+server.listen(3000, () => {
     console.log("Socket.io server is listening on port 3000")
 })

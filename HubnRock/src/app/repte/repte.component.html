@@ -1,5 +1,6 @@
 <app-header></app-header>
-<section id="hubrock-repte-banner" *ngIf="repte && repteExists" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
+<section id="hubrock-repte-banner" *ngIf="repte && repteExists"
+    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_main + ')'}">
 </section>
 
 <div class="container-fluid no-existeix text-center d-flex flex-column justify-content-center" *ngIf="!repteExists">
@@ -13,7 +14,8 @@
 <section id="hubrock-repte-info" *ngIf="repteExists && repte">
     <div class="container">
         <div class="d-flex align-items-center owner mb-3">
-            <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile" alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
+            <img *ngIf="repte" class="rounded-circle" width="34px" [src]="fileStorageUrl + repte.user.url_photo_profile"
+                alt="25x25" routerLink="/perfil/{{repte.user_iduser}}">
             <h3 *ngIf="repte" class="repteowner mb-0" routerLink="/perfil/{{repte.user_iduser}}">
                 {{repte.user.nom_empresa}}</h3>
         </div>
@@ -26,18 +28,24 @@
             <div class="col-md-4 d-flex flex-column justify-content-start tablet-left">
 
                 <div [ngClass]="{'tooltip top': !repteEnProces()}">
-                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="currentUser && canParticipate()" [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button"
+                        *ngIf="currentUser && canParticipate()"
+                        [routerLink]="['/repte/', idRepte, 'creacio-solucio']">PARTICIPA AL REPTE
                     </button>
-                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                    <span *ngIf="!repteEnProces() && !repteAcabat()" class="tiptext">Aquest repte no ha començat!</span>
+                    <span *ngIf="!repteEnProces() && repteAcabat()" class="tiptext">Aquest repte ha finalitzat!</span>
                 </div>
 
                 <div [ngClass]="{'tooltip top': !repteEnProces()}">
-                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button" *ngIf="!currentUser && canParticipate()" routerLink="/login">PARTICIPA AL REPTE
+                    <button [disabled]="!repteEnProces()" class="btn hubrock-btn" type="button"
+                        *ngIf="!currentUser && canParticipate()" routerLink="/login">PARTICIPA AL REPTE
                     </button>
-                    <span *ngIf="!repteEnProces()" class="tiptext">Aquest repte no ha començat!</span>
+                    <span *ngIf="!repteEnProces() && !repteAcabat()" class="tiptext">Aquest repte no ha començat!</span>
+                    <span *ngIf="!repteEnProces() && repteAcabat()" class="tiptext">Aquest repte ha finalitzat!</span>
                 </div>
 
-                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()" [routerLink]="['/repte/', idRepte, 'editar-repte']">EDITA EL REPTE</button>
+                <button class="btn hubrock-btn mt-2" type="button" *ngIf="canEdit() && !isEsborrany()"
+                    [routerLink]="['/repte/', idRepte, 'editar-repte']">EDITA EL REPTE</button>
                 <button class="btn hubrock-btn mt-2" type="button" *ngIf="canDelete()" (click)="deleteRepte()">ELIMINA
                     EL REPTE</button>
             </div>
@@ -46,8 +54,11 @@
                 <div class="row d-flex justify-content-between">
                     <div class="d-flex justify-content-start category-div col-md-6 col-sm-12 col-xs-12">
 
-                        <div *ngFor="let categoria of repte.participants" class="d-flex flex-column align-items-center categoriaRepte">
-                            <img class="participateimg" [src]="'../../assets/illustrations/'+capitalizeFirstLetter(categoria.participants_name)+'.png'" alt="Categoria empresa">
+                        <div *ngFor="let categoria of repte.participants"
+                            class="d-flex flex-column align-items-center categoriaRepte">
+                            <img class="participateimg"
+                                [src]="'../../assets/illustrations/'+capitalizeFirstLetter(categoria.participants_name)+'.png'"
+                                alt="Categoria empresa">
                             <p class="typetext">{{capitalizeFirstLetter(categoria.participants_name)}}</p>
                         </div>
 
@@ -57,7 +68,8 @@
                         <div class="d-flex justify-content-between align-items-start info-div">
 
                             <div class="d-flex align-items-center col-md-4">
-                                <img class="participateimgCat align-self-center" src="../../assets/illustrations/Community.png" alt="">
+                                <img class="participateimgCat align-self-center"
+                                    src="../../assets/illustrations/Community.png" alt="">
                                 <h1 *ngIf="repte.individual_equip == 0">Individual</h1>
                                 <h1 *ngIf="repte.individual_equip != 0">2 - {{repte.limit_participants}}<br> persones
                                 </h1>
@@ -65,9 +77,11 @@
 
                             <div class="d-flex col-md-4">
                                 <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
-                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici | date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici |
+                                    date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </h1>
-                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'smaller')">{{repte.data_final | date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
+                                <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'smaller')">{{repte.data_final |
+                                    date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
                                 </h1>
                             </div>
 
@@ -90,19 +104,22 @@
     <div class="container infobox-container" *ngIf="repte">
 
         <!-- Nav pills -->
-        <ul id="tabs" class="nav nav-pills nav-justified" role="tablist">
+        <ul id="tabs" class="nav nav-pills nav-justified" role="tablist" *ngIf="!guanyadorPage">
             <li class="nav-item">
-                <div class="nav-link active d-flex align-items-center justify-content-center" data-toggle="pill" href="#resum">
+                <div class="nav-link active d-flex align-items-center justify-content-center" data-toggle="pill"
+                    href="#resum">
                     <p class="mb-0">Resum del repte</p>
                 </div>
             </li>
             <li class="nav-item">
-                <div id="togglesegon" class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#quebusquem">
+                <div id="togglesegon" class="nav-link d-flex align-items-center justify-content-center"
+                    data-toggle="pill" href="#quebusquem">
                     <p class="mb-0">Què busquem?</p>
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#baseslegals">
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill"
+                    href="#baseslegals">
                     <p class="mb-0">Bases legals</p>
                 </div>
             </li>
@@ -112,7 +129,8 @@
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#propostes">
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill"
+                    href="#propostes">
                     <p class="mb-0">Propostes</p>
                 </div>
             </li>
@@ -127,17 +145,148 @@
                 </div>
             </li>
             <li *ngIf="repte.partners[0].partner_nom != ''" class="nav-item">
-                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#partners">
+                <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill"
+                    href="#partners">
                     <p class="mb-0">Partners</p>
                 </div>
             </li>
         </ul>
 
+        <div class="tab-content" id="guanyadorPage" *ngIf="guanyadorPage">
+            <h1 style="margin-bottom: 80px">Tria els guanyadors</h1>
+            <h3 class="mb-3">Escull 1 guanyador per premi</h3>
+            <div class="row d-flex justify-content-center">
+                <p style="max-width: 415px;">Al guardar, els premis encara no es publicaran.
+                    Podràs fer una revisió final abans de publicar els guanyadors.</p>
+            </div>
+
+            <ul style="margin-top: 40px;" class="nav nav-pills d-flex justify-content-center" id="premis-tab"
+                role="tablist">
+                <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
+                    <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'"
+                        data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home"
+                        aria-selected="true">{{premi.premi_nom}}</a>
+                </li>
+            </ul>
+            <div class="cancelGuanyadorPage row d-flex justify-content-center align-items-center">
+                <a class="pointer" (click)="toggleGuanyadorPage()">CANCELAR</a>
+                <button class="btn hubrock-btn" type="button">GUARDAR ELS GUANYADORS</button>
+            </div>
+            <div style="border-bottom: solid 1px #979797; margin-bottom: 70px;" class="separator"></div>
+
+            <div class="tab-content" id="premis-tabContent">
+                <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show"
+                    [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel"
+                    aria-labelledby="pills-home-tab">
+                    <div class="row d-flex justify-content-center">
+                        <h3 class="mb-3">Escull el guanyador del premi seleccionat</h3>
+                        <p style="max-width: 682px; text-align: center;">Clica sobre una solució per associar-la a un
+                            premi.
+                            Un cop guardats els guanyadors els podràs editar abans de publicar-los. Les solucions en
+                            blau ja
+                            tenen un premi assignat.</p>
+                    </div>
+                    <!-- SOLUCIONS -->
+                    <!-- <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
+                        <div class="row w-100">
+                            <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
+                                <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
+                                        <h6 class="card-subtitle mb-5 text-overflow">{{solucio.solucio_proposada_descripcio_short}}</h6>
+    
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <div class="row">
+                                            <div class="col-auto pr-0">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
+                                            </div>
+                                            <div class="col m-auto text-overflow-1">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="!solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
+                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}
+                                                    {{solucio.user.cognom_rockstar}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!solucionsProposadesNoMore" class="text-center">
+                            <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucionsProposades()">VEURE MÉS</button>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+
+        </div>
+
         <!-- Tab panes -->
-        <div class="tab-content" *ngIf="repte">
+        <div class="tab-content" *ngIf="repte && !guanyadorPage">
+
             <div id="resum" class="container tab-pane active">
 
-                <br>
+                <div *ngIf="isRepteOwner() && repteAcabat()" class="anunciarGuanyador d-flex flex-column align-items-center justify-content-center">
+                    <img src="../../assets/illustrations/Win2.png" width="70px" style="margin-bottom: 20px" alt="">
+                    <h1>El repte ha finalitzat</h1>
+                    <p>Fes públiques les solucions guanyadores</p>
+                    <button class="btn hubrock-btn mt-3" type="button" (click)="toggleGuanyadorPage()">ANUNCIAR ELS
+                        GUANYADORS</button>
+                </div>
+
+                <div class="resultatGuanyadors" *ngIf="repteAcabat() && !isRepteOwner()">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <h1 style="margin-bottom: 15px; color: white; font-family: 'WorkSans-Bold';
+                        font-size: 36px; letter-spacing: -0.5px;">Repte tancat</h1>
+                        <p *ngIf="!repte.premis[0].guanyador" 
+                            style="font-size: 16px; letter-spacing: -0.22px;color: #ffffff;">
+                            L'autor del repte aviat mostrarà els guanyadors!</p>
+                        <p *ngIf="repte.premis[0].guanyador" 
+                            style="font-size: 16px; letter-spacing: -0.22px;color: #ffffff;">
+                            Aquestes són les solucions guanyadores:</p>
+                        
+                        <!-- <div class="row d-flex flex-column align-items-center" *ngIf="repte.premis[0].guanyador">
+                            <div class="row w-100">
+                                <div *ngFor="let guanyador of repte.premis" class="col-md-4 col-sm-6">
+                                    <div click-stop-propagation class="card solucio-enviat p-2"
+                                        [routerLink]="['/solucio/', guanyador.guanyador]">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
+                                            <h6 class="card-subtitle mb-5 text-overflow">
+                                                {{solucio.solucio_proposada_descripcio_short}}</h6>
+        
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                            <div class="row">
+                                                <div class="col-auto pr-0">
+                                                    <a click-stop-propagation
+                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                        target="_blank"><img class="rounded-circle" height="50px" width="50px"
+                                                            [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
+                                                </div>
+                                                <div class="col m-auto text-overflow-1">
+                                                    <a click-stop-propagation
+                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                        *ngIf="!solucio.user.empresa_rockstar" target="_blank"
+                                                        class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
+                                                    <a click-stop-propagation
+                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                        *ngIf="solucio.user.empresa_rockstar" target="_blank"
+                                                        class="solucio-footer username">{{solucio.user.nom_rockstar}}
+                                                        {{solucio.user.cognom_rockstar}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!solucionsProposadesNoMore" class="text-center">
+                                <button type="button" class="btn btn-primary btn-veure-mes btn-style"
+                                    (click)="seeMoreSolucionsProposades()">VEURE MÉS</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
 
                 <h1 class="tabtitle text-center">Sobre el repte</h1>
                 <div class="row d-flex justify-content-center">
@@ -145,15 +294,18 @@
                     </p>
                 </div>
 
-                <div id="fotosSobreElRepte" class="row d-flex justify-content-between">
-                    <div *ngIf="repte.url_photo_1" class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
-                    <div *ngIf="repte.url_photo_2" class="fotosRepte" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
+                <div id="fotosSobreElRepte" class="row d-flex justify-content-center">
+                    <div *ngIf="repte.url_photo_1" class="fotosRepte primeraFoto"
+                        [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
+                    <div *ngIf="repte.url_photo_2" class="fotosRepte"
+                        [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
                 <!-- <div id="videorepte" class="row d-flex justify-content-center" *ngIf="getYoutubeUrl(repte.url_video)">
                     <iframe width="660" height="370" [src]="getYoutubeUrl(repte.url_video)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div> -->
-                <div id="videorepte" class="row d-flex justify-content-center"> <!--*ngIf="!getYoutubeUrl(repte.url_video)"-->
+                <div id="videorepte" class="row d-flex justify-content-center">
+                    <!--*ngIf="!getYoutubeUrl(repte.url_video)"-->
                     <!-- No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid -->
                 </div>
 
@@ -162,11 +314,17 @@
 
                 <div id="solucionsbuscades" class="row d-flex justify-content-center">
 
-                    <div class="col-md-3 col-sm-6 col-xs-12" *ngFor="let soluciobuscada of repte.solucions; let i = index">
+                    <div class="col-md-3 col-sm-6 col-xs-12"
+                        *ngFor="let soluciobuscada of repte.solucions; let i = index">
                         <div class="card" style="transition: 0.3s;">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
-                                <div *ngIf="soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"></div>
-                                <img *ngIf="!soluciobuscada.solucio_url_photo" class="rounded-circle solucionsbuscadesImg" src="../../assets/logos/default-solucio-image.jpg">
+                                <div *ngIf="soluciobuscada.solucio_url_photo"
+                                    class="rounded-circle solucionsbuscadesImg"
+                                    [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}">
+                                </div>
+                                <img *ngIf="!soluciobuscada.solucio_url_photo"
+                                    class="rounded-circle solucionsbuscadesImg"
+                                    src="../../assets/logos/default-solucio-image.jpg">
 
                             </div>
                             <div class="card-body solucio-info text-center">
@@ -189,7 +347,8 @@
                 <div class="row d-flex justify-content-center">
                     <div id="comparticiparwho" class="d-flex justify-content-between">
 
-                        <div class="d-flex flex-column align-items-center" *ngFor="let quiparticipa of repte.participants; let i = index">
+                        <div class="d-flex flex-column align-items-center"
+                            *ngFor="let quiparticipa of repte.participants; let i = index">
                             <img class="howtoparticipateimg" [src]="getImage(quiparticipa.idparticipants)" alt="">
                             <!--ALT DINÀMIC PER SEO-->
                             <p class="typetext">{{quiparticipa.participants_name}}</p>
@@ -201,16 +360,21 @@
                 <div class="row d-flex justify-content-center margin-bottom-40">
                     <p *ngIf="repte.individual_equip == 0 || !repte.limit_participants">Individual</p>
                     <p *ngIf="repte.individual_equip == 1 && repte.limit_participants == '2'">Equips de 2 persones</p>
-                    <p *ngIf="repte.individual_equip == 1 && repte.limit_participants != '2'">Equips de 2 - {{repte.limit_participants}} persones</p>
+                    <p *ngIf="repte.individual_equip == 1 && repte.limit_participants != '2'">Equips de 2 -
+                        {{repte.limit_participants}} persones</p>
                 </div>
 
                 <div class="text-readmore row d-flex justify-content-between">
                     <div class="d-flex flex-column align-items-center justify-content-center">
                         <p>
-                            Per participar al repte cal seguir totes les instruccions de l’empresa organitzadora. Comenceu llegint el resum del repte i les solucions 
-                            buscades (juntament amb els requeriments tècnics, si n’hi ha), i prepareu la vostra solució amb temps. <br><br>
-                            Si teniu qualsevol dubte sobre el procés podeu contactar amb els organitzadors, amb la Cambra de Comerç de Girona, o utilitzar el 
-                            fòrum del repte. Us recomanem utilitzar el directori de Hub & Rock per completar el vostre equip amb estudiants o experts.
+                            Per participar al repte cal seguir totes les instruccions de l’empresa organitzadora.
+                            Comenceu llegint el resum del repte i les solucions
+                            buscades (juntament amb els requeriments tècnics, si n’hi ha), i prepareu la vostra solució
+                            amb temps. <br><br>
+                            Si teniu qualsevol dubte sobre el procés podeu contactar amb els organitzadors, amb la
+                            Cambra de Comerç de Girona, o utilitzar el
+                            fòrum del repte. Us recomanem utilitzar el directori de Hub & Rock per completar el vostre
+                            equip amb estudiants o experts.
                         </p>
                         <!-- <a href="#">SABER MÉS</a> -->
                     </div>
@@ -223,15 +387,20 @@
 
                 <ul class="nav nav-pills d-flex justify-content-center" id="premis-tab" role="tablist">
                     <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
-                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'" data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home" aria-selected="true">{{premi.premi_nom}}</a>
+                        <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'"
+                            data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home"
+                            aria-selected="true">{{premi.premi_nom}}</a>
                     </li>
                 </ul>
 
 
                 <div class="tab-content" id="premis-tabContent">
-                    <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show" [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div *ngFor="let premi of repte.premis; let i = index" class="tab-pane fade show"
+                        [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel"
+                        aria-labelledby="pills-home-tab">
                         <div class="text-premis row d-flex justify-content-start">
-                            <div class="premiImg" [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}">
+                            <div class="premiImg"
+                                [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}">
                             </div>
 
                             <div class="d-flex flex-column align-items-start justify-content-center">
@@ -252,10 +421,14 @@
             <div id="quebusquem" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Què busquem?</h1>
 
-                <div class="text-premis row d-flex justify-content-start" *ngFor="let soluciobuscada of repte.solucions; let i = index">
+                <div class="text-premis row d-flex justify-content-start" [class]="i % 2 == 0 ? 'mobileOrder' : 'classicOrder'"
+                    *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="(i % 2 == 0) && (soluciobuscada.solucio_url_photo)"></div>
-                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg" *ngIf="(i % 2 == 0) && (!soluciobuscada.solucio_url_photo)">
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
+                            class="align-self-start tematicaImg"
+                            *ngIf="(i % 2 == 0) && (soluciobuscada.solucio_url_photo)"></div>
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg"
+                            *ngIf="(i % 2 == 0) && (!soluciobuscada.solucio_url_photo)">
                         <!--Si el numero es parell -> text esquerre-->
 
                         <div class="d-flex flex-column align-items-start justify-content-center" *ngIf="i % 2 != 0">
@@ -274,8 +447,11 @@
                                     src="../../assets/simpleicons/fileicon.png" alt=""> Especificacions tècniques</button> -->
                         </div>
 
-                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}" class="align-self-start tematicaImg" *ngIf="(i % 2 != 0) && (soluciobuscada.solucio_url_photo)"></div>
-                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg" *ngIf="(i % 2 != 0) && (!soluciobuscada.solucio_url_photo)">
+                        <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
+                            class="align-self-start tematicaImg"
+                            *ngIf="(i % 2 != 0) && (soluciobuscada.solucio_url_photo)"></div>
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg"
+                            *ngIf="(i % 2 != 0) && (!soluciobuscada.solucio_url_photo)">
                     </div>
 
                 </div>
@@ -315,7 +491,264 @@
                 <h1 class="tabtitle text-center">Bases legals</h1>
 
                 <div class="container">
-                    <div class="legaltext">{{repte.bases_legals_personals}}</div>
+                    <div *ngIf="repte.bases_legals_personals" class="legaltext">{{repte.bases_legals_personals}}</div>
+                    <div *ngIf="!repte.bases_legals_personals" class="legaltext">
+                        L’objectiu d’aquestes regles és establir els termes i condicions que regulen la vostra
+                        participació al repte. En registrar-vos en aquest repte, accepteu plenament i sense condicions
+                        complir aquestes regles. Si no esteu d'acord amb cap d'aquestes regles, no us inscriviu a aquest
+                        repte i no envieu cap solució.
+                        <br><br>
+                        <b>1. TERMINI</b>
+                        <br><br>
+                        Aquest repte finalitza a la data escollida pel seu creador, i que es pot consultar a la pàgina
+                        d’inici del repte. El repte serà accessible les 24 hores del dia a la plataforma Hub & Rock,
+                        subjecte a possibles operacions de manteniment.
+                        <br><br>
+                        <b>2. ACCEPTACIÓ DE LES NORMES</b>
+                        <br><br>
+                        Qualsevol persona elegible que estigui registrada al lloc web del repte i que s’inscrigui per
+                        participar-hi (“Participant” o “tu”) ha de revisar i acceptar aquestes bases. En accedir i
+                        acceptar aquestes regles, s’estableix una relació contractual vàlida i aplicable amb el creador
+                        del repte pel que fa la participació en el repte. La inscripció al repte no estableix cap
+                        relació de subordinació entre el creador i el participant, qui
+                        accepta plenament i incondicionalment complir aquestes normes. Els participants expressen el seu
+                        acord marcant una casella mentre s’inscriuen al repte.
+                        <br>
+                        En cas d’incompliment d’aquestes bases, el participant serà desqualificat immediatament del
+                        repte i no se li atorgarà cap premi.
+                        <br><br>
+                        <b>3. INSCRIPCIÓ I PARTICIPACIÓ AL REPTE</b>
+                        <br><br>
+                        Per participar al Desafiament, hem d’haver rebut el registre complet abans del moment de
+                        finalització del repte.
+                        <br>
+                        Per registrar-se, el participant primer ha d’haver creat un compte d’usuari al la plataforma i
+                        ha d’haver completat la informació requerida amb veracitat i precisió, com ara el nom complet,
+                        l’adreça de correu electrònic, etc.
+                        <br>
+                        Qualsevol registre basat en informació inexacta, falsa o incompleta comportarà la
+                        desqualificació del participant. L’oposició a la recopilació, enregistrament i ús de les seves
+                        dades personals que siguin necessàries per dur a terme el repte comportarà la desqualificació
+                        del participant. El participant és l’únic responsable de la informació que proporciona mentre es
+                        registra. Qualsevol error, anomalia o inconsistència intencionada o involuntària, relacionada
+                        amb aquesta informació, pot provocar la desqualificació del participant. El creador del repte es
+                        reserva el dret a realitzar totes les verificacions necessàries sobre la identitat, l'adreça
+                        postal i / o de correu electrònic del participant.
+                        <br>
+                        L’eliminació de la plataforma del compte d’usuari d’un participant al repte es considerarà com
+                        una retirada del repte. En aquest cas, el participant, independentment de si l’eliminació
+                        resulti o no de l’acte personal del participant, no participarà al repte i no obtindrà cap
+                        compensació.
+                        <br>
+                        També ha d’acceptat les regles, així com els termes i condicions que inclouen l’assumpció del
+                        risc, l’alliberament de responsabilitat, la renúncia a les reclamacions i l’acord
+                        d’indemnització i la política de privadesa, durant la creació del vostre compte d’usuari i el
+                        registre al repte.
+                        <br>
+                        La inscripció i la participació al repte són gratuïtes, sense cap obligació de compra ni de
+                        pagament.
+                        <br><br>
+                        <b>4. ELIGIBILITAT</b>
+                        <br><br>
+                        Aquest repte està obert i s’ofereix únicament a:
+                        <br>
+                        Qualsevol persona resident a un país de la Unió Europea o amb la ciutadania d’un país de la Unió
+                        Europea que tingui una edat de divuit (18) anys o més amb plena capacitat legal. Si el
+                        participant és menor d’edat, haureu de proporcionar aquesta autorització signada per un pare o
+                        tutor a nom del menor.
+                        <br>
+                        Tots els documents que puguin confirmar l’elegibilitat del participant seran necessaris abans
+                        d’atorgar qualsevol premi (per exemple, document d’identitat, carnet d’estudiant, etc.).
+                        <br>
+                        Aquest desafiament és nul als països on la llei ho prohibeix o restringeix.
+                        <br><br>
+                        <b>5. FINALITAT DEL REPTE I PARTICIPACIÓ</b>
+                        <br><br>
+                        La participació en el repte està determinada per l’empresa o organització que ha creat el repte.
+                        El creador del repte pot determinar si és un repte per equips o per membres individuals.
+                        Consulteu aquesta característica del repte a la pàgina d’inici del repte.
+                        <br>
+                        L’objectiu del repte és que els participants presentin solucions (o projectes) que compleixin
+                        els requisits determinats pel creador del repte al resum del repte i que siguin formalitzats
+                        pels lliuraments. El resum inclou informació sobre diversos terminis, detalls dels premis,
+                        requisits del patrocinador, etc. (el "resum"). El Brief és accessible a través de la pàgina del
+                        repte a la plataforma Hub & Rock.
+                        <br><br>
+                        <b>6. LLIURABLES</b>
+                        <br><br>
+                        Durant el repte, els participants poden penjar qualsevol document o altre material (com ara
+                        textos, presentacions, vídeos, etc.) relacionats amb el seu projecte al lloc web del repte com a
+                        resposta i com a solució al repte.
+                        <br>
+                        Per ser elegibles, els lliuraments han de (i) abordar el problema específic establert al resum,
+                        (ii) estar en un format digital comú, com ara, DOC, DOCX, PDF, PPT, PPTX, KEY, ODT, MP3, MPEG,
+                        MOV, MP4 i (iii) estaran en l’idioma determinat pel creador del repte i, en termes generals, han
+                        de complir aquestes regles.
+                        <br>
+                        Si un lliurable no es pot descarregar, no té el format adequat o és incompatible, il·legible o
+                        inintel·ligible, el lliurament serà desqualificat.
+                        <br>
+                        En enviar un lliurable, els participants declaren i garanteixen que:
+                        <br>
+                        El lliurament inclou exclusivament les contribucions dels participants i dels equips.
+                        <br>
+                        En cas contrari, si s’ha utilitzat contingut d’un tercer en el desenvolupament del lliurable,
+                        s’han d’obtenir tots els drets, autoritzacions i acords necessaris per enviar el lliurable i
+                        concedir els drets esmentats aquí. L'existència de contribucions de tercers no acreditades al
+                        lliurable comportarà la desqualificació del lliurable i dels participants relacionats;
+                        <br>
+                        Cap altra persona i / o entitat té dret a reclamar cap dret sobre l’ús del lliurable; i
+                        <br>
+                        El contingut del lliurable no infringeix ni infringirà cap dret de tercers, inclosos, entre
+                        d'altres, drets de propietat intel·lectual, privacitat, legislació sobre competència,
+                        confidencialitat o qualsevol dret contractual o extracontractual. Tots els lliuraments
+                        sospitosos d’infringir qualsevol llei i / o dret de tercers no seran elegibles.
+                        <br>
+                        Els participants són responsables i assumiran els costos o despeses relacionats amb la
+                        preparació i l’enviament dels lliuraments. Els participants assumeixen tot el risc de
+                        lliuraments danyats, perduts, incomplets, invàlids, incorrectes o mal dirigits.
+                        <br><br>
+                        <b>7. PREMIS</b>
+                        <br><br>
+                        Els premis que s’atorgaran als guanyadors del repte estan subjectes a totes les condicions
+                        següents. S'atorguen als guanyadors del repte i estan subjectes al compliment de les següents
+                        condicions acumulatives:
+                        <br>
+                        Els lliuraments compleixen la secció 6 ("Entregables");
+                        Cada participant d’un projecte guanyador compleix les seccions 8 i 9;
+                        Es pot demostrar que els participants guanyadors compleixen les condicions d’elegibilitat de la
+                        secció 4.
+                        <br>
+                        El guanyador no pot fer cap reassignació ni transferència de premis. Si no es pot contactar un
+                        guanyador potencial i no pot acceptar el premi, el creador del repte no tindrà cap obligació amb
+                        aquest guanyador potencial. El creador del premi no substituirà cap premi perdut o robat després
+                        d’haver estat atorgat als guanyadors. El creador del repte renuncia a qualsevol garantia
+                        relativa als premis.
+                        <br>
+                        En cas que no es pugui contactar amb un participant (un guanyador), per correu electrònic o per
+                        telèfon, durant més de tres (3) mesos després del primer intent d’arribar-hi, es considerarà que
+                        ha renunciat al seu dret a reclamar el premi i no tindrà dret a cap premi ni cap mena de
+                        compensació.
+                        <br>
+                        Si el premi tal com estava previst inicialment no està disponible, el creador del repte serà
+                        lliure de substituir-lo per un altre premi de valor similar. Qualsevol decisió d’aquest tipus és
+                        a discreció exclusiva del creador del repte.
+                        <br>
+                        Qualsevol participant que no compleixi les condicions de participació previstes a les bases
+                        durant la seva inscripció i / o en qualsevol moment durant el repte serà desqualificat
+                        sumàriament del repte sense previ avís i no tindrà dret a cap premi. En el supòsit de que
+                        s’atorga un premi a un participant que no compleix les condicions de participació en
+                        registrar-se o durant tota la durada del repte, el patrocinador es reserva el dret d’exigir al
+                        participant la devolució del premi atorgat.
+                        <br><br>
+                        <b>8. COMUNICACIÓ</b>
+                        <br><br>
+                        El participant reconeix i accepta que el creador del repte pot comunicar, a tot el món, durant
+                        la durada del repte i durant un període d’un (1) any després de la finalització del repte, les
+                        solucions guanyadores del repte, la informació sobre els equips guanyadors, a través de
+                        qualsevol format, físic o digital (llocs web, pancartes publicitàries, xarxes socials,
+                        newsletters, notes de premsa, entre d’altres), coneguts o desconeguts fins ara, de forma
+                        gratuïta.
+                        <br>
+                        En particular, consentiu l’ús, per part del creador del repte, del vostre nom i cognoms, de la
+                        vostra ciutat i regió de residència, del nom de la institució en què heu estudiat o en què heu
+                        obtingut els vostres diplomes i altra informació biogràfica, la vostra imatge, informació sobre
+                        el premi (si sou guanyador) i qualsevol altra dada personal que envieu amb els vostres
+                        lliurables, així com el contingut dels vostres lliuraments relacionats amb el repte.
+                        <br>
+                        En signar el formulari de consentiment per a mitjans del patrocinador, cada participant
+                        autoritza el patrocinador a utilitzar les fotografies, vídeos o qualsevol mitjà del participant
+                        pres durant el repte i difondre’ls a través de qualsevol mitjà de comunicació.
+                        <br>
+                        Aquest ús no dóna dret al guanyador a cap altre pagament que no sigui el premi que va rebre.
+                        <br><br>
+                        <b>9. CONFIDENCIALITAT</b>
+                        <br><br>
+                        El patrocinador no té l'obligació de mantenir confidencial la informació continguda en els
+                        lliuraments. En termes generals, quan envien qualsevol lliurable, els participants entenen i
+                        accepten que tota la informació que conté pugui ser divulgada públicament pel patrocinador.
+                        <br>
+                        Si sou un guanyador del premi, el creador del repte us pot sol·licitar que firmeu un acord de
+                        confidencialitat / no divulgació amb la finalitat d’iniciar negociacions sobre el
+                        desenvolupament posterior del vostre projecte, tal com es descriu al vostre lliurament.
+                        <br>
+                        A més, els participants reconeixen que el creador del repte pot actualment o en el futur
+                        desenvolupar informació interna o rebre informació d’altres parts, que sigui similar a la
+                        informació continguda en qualsevol dels projectes. En conseqüència, res aquí prohibeix al
+                        patrocinador adquirir, desenvolupar o haver desenvolupat per a ell productes, conceptes,
+                        sistemes, serveis o tècniques similars o competir amb els productes, conceptes, sistemes o
+                        tècniques contemplats o incorporats a qualsevol lliurable.
+                        <br><br>
+                        <b>10. PROPIETAT INTEL·LECTUAL</b>
+                        <br><br>
+                        Definicions. Als efectes d’aquesta secció,
+                        "Drets de propietat intel·lectual" es refereix a qualsevol dret d'autor o altres drets sobre una
+                        marca, un disseny o un model, una patent i, més generalment, qualsevol element (inclosos els
+                        secrets comercials i els coneixements tècnics) que puguin ser protegits per o lleis o
+                        convencions internacionals sobre propietat intel·lectual ("Drets de propietat intel·lectual")
+                        <br>
+                        Els "drets anteriors" fan referència a qualsevol dret de propietat intel·lectual i / o qualsevol
+                        coneixement associat que tinguin els participants abans de la data d'inici del repte ("drets
+                        anteriors")
+                        <br>
+                        Les "creacions" fan referència a qualsevol programari (inclòs el programari de codi font i
+                        objecte), base de dades, especificacions tècniques, text, disseny, model, informació,
+                        coneixement, mètode, procés o producte, així com a qualsevol element resultant i / o processos
+                        probables que es protegeixi d'acord amb les lleis o convencions nacionals i / o internacionals
+                        sobre propietat intel·lectual desenvolupades per qualsevol participant com a part dels
+                        lliuraments enviats durant tot el repte ("Creacions").
+                        <br>
+                        Garantia de no infracció. En enviar qualsevol lliurable, en qualsevol fase del repte, cada
+                        participant garanteix al patrocinador que és el copropietari i / o el titular dels drets de
+                        propietat intel·lectual sobre la totalitat o una part de les creacions contingudes en els
+                        lliuraments presentats en qualsevol etapa del repte i que ha obtingut tots els drets i permisos
+                        sobre totes les creacions preexistents i qualsevol element dels lliuraments per als quals no
+                        tingui els drets pertinents.
+                        <br>
+                        Cada participant garanteix (i) que la seva contribució és original i sense precedents; (ii) que
+                        no infringeixi els drets d'autor ni cap dret de propietat intel·lectual de tercers; (iii) que
+                        tots els elements en què es formen els seus enviaments, així com totes les contribucions i
+                        informació comunicades als documents de presentació de presentacions són exactes, fiables i
+                        complets; i (iv) que la presentació dels lliuraments pertinents no constitueix cap acte de
+                        competència deslleial de cap mena.
+                        <br>
+                        És obligatori que els participants indiquin la font de les creacions preexistents de qualsevol
+                        naturalesa i de qualsevol suport inclòs en qualsevol lliurament enviat. Qualsevol lliurament que
+                        inclogui diversos participants constitueix un treball col·laboratiu i s’ha de tractar com a tal
+                        d’acord amb la normativa vigent aplicable.
+                        <br>
+                        Els participants són els únics responsables del contingut que creen, publiquen o pengen al lloc
+                        web del repte, i de la transferència de tecnologies o informació amb la qual estan implicats els
+                        participants.
+                        <br>
+                        Responsabilitat. El creador del repte no es fa responsable de la infracció de les disposicions
+                        anteriors per part dels participants. Cada participant indemnitzarà el patrocinador, els seus
+                        funcionaris, directius, junta de govern, empleats i agents de qualsevol pertorbació, acció,
+                        reclamació, oposició i demanda, intent de desallotjament, danys, pèrdues i costos (inclosos,
+                        entre d'altres, honoraris i costos raonables d’advocats) relacionats amb qualsevol reclamació de
+                        tercers en relació amb qualsevol creació als lliuraments (inclosos els drets de propietat
+                        intel·lectual).
+                        <br><br>
+                        <b>11. MODIFICACIÓ DE LES NORMES, SUSPENSIÓ I CANCEL·LACIÓ DEL REPTE</b>
+                        <br><br>
+                        Actualització de les Normes. El creador del repte es reserva el dret de modificar aquestes
+                        Regles en qualsevol moment, sense previ avís als Participants. Es recomana als participants que
+                        consultin aquestes Bases regularment. Els participants renuncien expressament a totes les
+                        reclamacions o disputes relacionades amb qualsevol modificació d’aquestes Normes per part del
+                        creador del repte.
+                        <br>
+                        Si algun paràgraf d’aquestes normes es declara il·legal, no es pot aplicar o és nul per una
+                        decisió judicial, el paràgraf en qüestió es considerarà nul, però tots els altres paràgrafs no
+                        afectats s’executaran dins dels límits de la llei.
+                        <br>
+                        Cancel·lació o suspensió del repte. El creador del repte es reserva el dret, a la seva
+                        discreció, de (i) cancel·lar, finalitzar, modificar o suspendre el repte i aquestes Regles, per
+                        qualsevol motiu, en qualsevol moment i sense cap responsabilitat, i (ii) de limitar o restringir
+                        la participació en el repte. El patrocinador no es farà responsable de la modificació,
+                        cancel·lació o suspensió del repte i no es percebrà cap compensació ni remuneració als
+                        participants.
+                        <br><br>
+                    </div>
                 </div>
 
             </div>
@@ -324,16 +757,23 @@
             <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
-                <div class="row d-flex justify-content-center postForum" *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser">
+                <div class="row d-flex justify-content-center postForum"
+                    *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser">
                     <div class="row d-flex justify-content-center postForumDiv">
-                        <textarea [(ngModel)]="topicPost" (input)="onSearchChange($event.target.value)" class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
+                        <textarea [(ngModel)]="topicPost" (input)="onSearchChange($event.target.value)"
+                            class="form-control inputForum fadeIn" [hidden]="!textAreaOn" id="textareaForum"></textarea>
                         <div class="inputForum" *ngIf="!textAreaOn">
-                            As a participant in the Leading Digital Transformation program, you may use this platform to communicate with your colleagues, share ideas, information, documents and any other materials related to the program that might be useful and of interest both
-                            to you and other participants. Remember to be respectful when sharing ideas through this platform. Please keep in mind that this forum is for academic purposes only. Any technical questions or issues must be reported through
+                            As a participant in the Leading Digital Transformation program, you may use this platform to
+                            communicate with your colleagues, share ideas, information, documents and any other
+                            materials related to the program that might be useful and of interest both
+                            to you and other participants. Remember to be respectful when sharing ideas through this
+                            platform. Please keep in mind that this forum is for academic purposes only. Any technical
+                            questions or issues must be reported through
                             the corresponding means.
                         </div>
 
-                        <button [disabled]="buttonDisabled" type="button" class="forumbutton text-left" (click)="switchTextArea()">{{ forumButtonText }}</button>
+                        <button [disabled]="buttonDisabled" type="button" class="forumbutton text-left"
+                            (click)="switchTextArea()">{{ forumButtonText }}</button>
                     </div>
                 </div>
 
@@ -343,17 +783,24 @@
 
                     <div class="forumBody" *ngFor="let forumPost of forum; let i = index">
 
-                        <div class="forumContent firstTopic" [ngClass]="{'cpointer': forumPost.comments > 0}" (click)="carregarRespostes(forumPost.id, forumPost.comments);">
+                        <div class="forumContent firstTopic" [ngClass]="{'cpointer': forumPost.comments > 0}"
+                            (click)="carregarRespostes(forumPost.id, forumPost.comments);">
                             <div class="row d-flex align-items-center mb-4">
-                                <img [src]="fileStorageUrl + forumPost.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                <img [src]="fileStorageUrl + forumPost.url_photo_profile"
+                                    class="rounded-circle align-self-center mr-3 forumprofilepic">
                                 <div class="col">
                                     <div class="row d-flex align-items-center">
-                                        <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar == 0 ? forumPost.nom_empresa : forumPost.nom_rockstar + " " + forumPost.cognom_rockstar}}
+                                        <p class="m-0 mr-3 mb-1 forumPostName"
+                                            routerLink="/perfil/{{forumPost.user_iduser}}">{{forumPost.empresa_rockstar
+                                            == 0 ? forumPost.nom_empresa : forumPost.nom_rockstar + " " +
+                                            forumPost.cognom_rockstar}}
                                         </p>
-                                        <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button" class="commentRank">Creador del repte</button>
+                                        <button *ngIf="repte.user_iduser == forumPost.user_iduser" type="button"
+                                            class="commentRank">Creador del repte</button>
                                     </div>
                                     <div class="row">
-                                        <p class="m-0 forumPostDate">{{forumDateToText(forumPost.creation_date | date: 'dd/MM/yyyy')}}
+                                        <p class="m-0 forumPostDate">{{forumDateToText(forumPost.creation_date | date:
+                                            'dd/MM/yyyy')}}
                                         </p>
                                     </div>
                                 </div>
@@ -364,7 +811,8 @@
                             <div class="row d-flex comentariButtons justify-content-between">
                                 <div>
                                     <button click-stop-propagation *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)
-                                    && currentUser" type="button" class="btn forumButton" (click)="contestar(forumPost.id)">
+                                    && currentUser" type="button" class="btn forumButton"
+                                        (click)="contestar(forumPost.id)">
                                         <img src="../../assets/simpleicons/Comment_B.png" height="25px"
                                             class="mr-2 ml-0 align-self-center">Contestar
                                     </button>
@@ -373,12 +821,15 @@
                                         <img src="../../assets/simpleicons/Comment_B.png" height="25px"
                                             class="mr-2 ml-0 align-self-center">Contestar
                                     </button>
-                                    <button *ngIf="currentUser" click-stop-propagation type="button" class="btn forumButton" (click)="likePost(forumPost.like_user_count, forumPost.id);">
+                                    <button *ngIf="currentUser" click-stop-propagation type="button"
+                                        class="btn forumButton"
+                                        (click)="likePost(forumPost.like_user_count, forumPost.id);">
                                         <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                             height="25px" class="mr-2 ml-0 align-self-center">
                                         {{forumPost.like_count}} M'agrada
                                     </button>
-                                    <button *ngIf="!currentUser" click-stop-propagation type="button" class="btn forumButton" routerLink="/login">
+                                    <button *ngIf="!currentUser" click-stop-propagation type="button"
+                                        class="btn forumButton" routerLink="/login">
                                         <img [src]="forumPost.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                             height="25px" class="mr-2 ml-0 align-self-center">
                                         {{forumPost.like_count}} M'agrada
@@ -388,9 +839,13 @@
                                     <p class="commentsLength mb-0">{{forumPost.comments}} RESPOSTES</p>
                                 </div>
                             </div>
-                            <div class="row d-flex justify-content-end" *ngIf="returnTrue(forumPost.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                                <textarea #respostaForum click-stop-propagation placeholder="Resposta..." class="form-control mt-4" [id]="'resposta'+forumPost.id" style="height: 70px;"></textarea>
-                                <button click-stop-propagation type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, 0); respostaForum.value = ''">Envia</button>
+                            <div class="row d-flex justify-content-end"
+                                *ngIf="returnTrue(forumPost.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
+                                <textarea #respostaForum click-stop-propagation placeholder="Resposta..."
+                                    class="form-control mt-4" [id]="'resposta'+forumPost.id"
+                                    style="height: 70px;"></textarea>
+                                <button click-stop-propagation type="button" class="btn enviaButton"
+                                    (click)="sendMessage(respostaForum.value, forumPost.id, 0); respostaForum.value = ''">Envia</button>
                             </div>
                         </div>
 
@@ -398,17 +853,23 @@
                         <div *ngIf="objectRespostes['forumParent'+forumPost.id]">
                             <hr class="mb-5">
 
-                            <div class="forumContent answer" *ngFor="let resposta of objectRespostes['forumParent'+forumPost.id]; let i = index">
+                            <div class="forumContent answer"
+                                *ngFor="let resposta of objectRespostes['forumParent'+forumPost.id]; let i = index">
                                 <div class="row d-flex align-items-center mb-4">
-                                    <img [src]="fileStorageUrl + resposta.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                    <img [src]="fileStorageUrl + resposta.url_photo_profile"
+                                        class="rounded-circle align-self-center mr-3 forumprofilepic">
                                     <div class="col">
                                         <div class="row d-flex align-items-center">
-                                            <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{resposta.user_iduser}}">
-                                                {{resposta.empresa_rockstar == 0 ? resposta.nom_empresa : resposta.nom_rockstar + " " + resposta.cognom_rockstar}}</p>
-                                            <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button" class="commentRank">Creador del repte</button>
+                                            <p class="m-0 mr-3 mb-1 forumPostName"
+                                                routerLink="/perfil/{{resposta.user_iduser}}">
+                                                {{resposta.empresa_rockstar == 0 ? resposta.nom_empresa :
+                                                resposta.nom_rockstar + " " + resposta.cognom_rockstar}}</p>
+                                            <button *ngIf="repte.user_iduser == resposta.user_iduser" type="button"
+                                                class="commentRank">Creador del repte</button>
                                         </div>
                                         <div class="row">
-                                            <p class="m-0 forumPostDate">{{forumDateToText(resposta.creation_date | date: 'dd/MM/yyyy')}}</p>
+                                            <p class="m-0 forumPostDate">{{forumDateToText(resposta.creation_date |
+                                                date: 'dd/MM/yyyy')}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -416,29 +877,38 @@
                                     <p>{{resposta.content}}</p>
                                 </div>
                                 <div class="row d-flex comentariButtons">
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser" type="button" class="btn forumButton" (click)="contestar(resposta.id)">
+                                    <button
+                                        *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser"
+                                        type="button" class="btn forumButton" (click)="contestar(resposta.id)">
                                         <img src="../../assets/simpleicons/Comment_B.png" height="25px"
                                             class="mr-2 ml-0 align-self-center">Contestar
                                     </button>
-                                    <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser" type="button" class="btn forumButton" routerLink="/login">
+                                    <button
+                                        *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser"
+                                        type="button" class="btn forumButton" routerLink="/login">
                                         <img src="../../assets/simpleicons/Comment_B.png" height="25px"
-                                        class="mr-2 ml-0 align-self-center">Contestar
+                                            class="mr-2 ml-0 align-self-center">Contestar
                                     </button>
-                                    <button type="button" class="btn forumButton" *ngIf="currentUser" (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
+                                    <button type="button" class="btn forumButton" *ngIf="currentUser"
+                                        (click)="likeMessage(resposta.like_user_count, resposta.id); likeMessageChange(forumPost.id, i, resposta.like_user_count)">
                                         <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                             height="25px" class="mr-2 ml-0 align-self-center">
                                         {{resposta.like_count}} M'agrada
                                     </button>
-                                    <button type="button" class="btn forumButton" *ngIf="!currentUser" routerLink="/login">
+                                    <button type="button" class="btn forumButton" *ngIf="!currentUser"
+                                        routerLink="/login">
                                         <img [src]="resposta.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                             height="25px" class="mr-2 ml-0 align-self-center">
                                         {{resposta.like_count}} M'agrada
                                     </button>
                                 </div>
 
-                                <div class="row d-flex justify-content-end" *ngIf="returnTrue(resposta.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                                    <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                    <button type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
+                                <div class="row d-flex justify-content-end"
+                                    *ngIf="returnTrue(resposta.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
+                                    <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4"
+                                        id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
+                                    <button type="button" class="btn enviaButton"
+                                        (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
                                 </div>
 
 
@@ -446,15 +916,20 @@
 
                                 <div class="margintop30" *ngFor="let answer of resposta.childs; let j = index">
                                     <div class="row d-flex align-items-center mb-4">
-                                        <img [src]="fileStorageUrl + answer.url_photo_profile" class="rounded-circle align-self-center mr-3 forumprofilepic">
+                                        <img [src]="fileStorageUrl + answer.url_photo_profile"
+                                            class="rounded-circle align-self-center mr-3 forumprofilepic">
                                         <div class="col">
                                             <div class="row d-flex align-items-center">
-                                                <p class="m-0 mr-3 mb-1 forumPostName" routerLink="/perfil/{{answer.user_iduser}}">
-                                                    {{answer.empresa_rockstar == 0 ? answer.nom_empresa : answer.nom_rockstar + " " + answer.cognom_rockstar}}</p>
-                                                <button *ngIf="repte.user_iduser == answer.user_iduser" type="button" class="commentRank">Creador del repte</button>
+                                                <p class="m-0 mr-3 mb-1 forumPostName"
+                                                    routerLink="/perfil/{{answer.user_iduser}}">
+                                                    {{answer.empresa_rockstar == 0 ? answer.nom_empresa :
+                                                    answer.nom_rockstar + " " + answer.cognom_rockstar}}</p>
+                                                <button *ngIf="repte.user_iduser == answer.user_iduser" type="button"
+                                                    class="commentRank">Creador del repte</button>
                                             </div>
                                             <div class="row">
-                                                <p class="m-0 forumPostDate">{{forumDateToText(answer.creation_date | date: 'dd/MM/yyyy')}}</p>
+                                                <p class="m-0 forumPostDate">{{forumDateToText(answer.creation_date |
+                                                    date: 'dd/MM/yyyy')}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -462,27 +937,36 @@
                                         <p>{{answer.content}}</p>
                                     </div>
                                     <div class="row d-flex comentariButtons">
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser" type="button" class="btn forumButton" (click)="contestar(answer.id)">
+                                        <button
+                                            *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && currentUser"
+                                            type="button" class="btn forumButton" (click)="contestar(answer.id)">
                                             <img src="../../assets/simpleicons/Comment_B.png" height="25px"
                                                 class="mr-2 ml-0 align-self-center">Contestar</button>
-                                        <button *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser" type="button" class="btn forumButton" routerLink="/login">
+                                        <button
+                                            *ngIf="repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final) && !currentUser"
+                                            type="button" class="btn forumButton" routerLink="/login">
                                             <img src="../../assets/simpleicons/Comment_B.png" height="25px"
                                                 class="mr-2 ml-0 align-self-center">Contestar</button>
-                                        <button type="button" class="btn forumButton" *ngIf="currentUser" (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
+                                        <button type="button" class="btn forumButton" *ngIf="currentUser"
+                                            (click)="likeMessage(answer.like_user_count, answer.id); likeAnswerChange(forumPost.id, i, j, answer.like_user_count)">
                                             <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                                 height="25px" class="mr-2 ml-0 align-self-center">
                                             {{answer.like_count}} M'agrada
                                         </button>
-                                        <button type="button" class="btn forumButton" *ngIf="!currentUser" routerLink="/login">
+                                        <button type="button" class="btn forumButton" *ngIf="!currentUser"
+                                            routerLink="/login">
                                             <img [src]="answer.like_user_count == 0 ? '../../assets/simpleicons/Likes_B.png' : '../../assets/simpleicons/Likes.png'"
                                                 height="25px" class="mr-2 ml-0 align-self-center">
                                             {{answer.like_count}} M'agrada
                                         </button>
                                     </div>
 
-                                    <div class="row d-flex justify-content-end" *ngIf="returnTrue(answer.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
-                                        <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4" id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
-                                        <button type="button" class="btn enviaButton" (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
+                                    <div class="row d-flex justify-content-end"
+                                        *ngIf="returnTrue(answer.id) && repte.estat_idestat == 3 && repteCanHaveForum(repte.data_inici, repte.data_final)">
+                                        <textarea #respostaForum placeholder="Resposta..." class="form-control mt-4"
+                                            id="exampleFormControlTextarea1" style="height: 70px;"></textarea>
+                                        <button type="button" class="btn enviaButton"
+                                            (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
                                     </div>
                                 </div>
 
@@ -505,20 +989,31 @@
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">
                         <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
-                            <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                            <div click-stop-propagation class="card solucio-enviat p-2"
+                                [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                 <div class="card-body">
                                     <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5 text-overflow">{{solucio.solucio_proposada_descripcio_short}}</h6>
+                                    <h6 class="card-subtitle mb-5 text-overflow">
+                                        {{solucio.solucio_proposada_descripcio_short}}</h6>
 
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     <div class="row">
                                         <div class="col-auto pr-0">
-                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
+                                            <a click-stop-propagation
+                                                [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                target="_blank"><img class="rounded-circle" height="50px" width="50px"
+                                                    [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                         </div>
                                         <div class="col m-auto text-overflow-1">
-                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="!solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
-                                            <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" *ngIf="solucio.user.empresa_rockstar" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}}
+                                            <a click-stop-propagation
+                                                [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                *ngIf="!solucio.user.empresa_rockstar" target="_blank"
+                                                class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
+                                            <a click-stop-propagation
+                                                [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
+                                                *ngIf="solucio.user.empresa_rockstar" target="_blank"
+                                                class="solucio-footer username">{{solucio.user.nom_rockstar}}
                                                 {{solucio.user.cognom_rockstar}}</a>
                                         </div>
                                     </div>
@@ -527,11 +1022,13 @@
                         </div>
                     </div>
                     <div *ngIf="!solucionsProposadesNoMore" class="text-center">
-                        <button type="button" class="btn btn-primary btn-veure-mes btn-style" (click)="seeMoreSolucionsProposades()">VEURE MÉS</button>
+                        <button type="button" class="btn btn-primary btn-veure-mes btn-style"
+                            (click)="seeMoreSolucionsProposades()">VEURE MÉS</button>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center" *ngIf="solucionsProposades && solucionsProposades.length < 1">
+                <div class="d-flex justify-content-center"
+                    *ngIf="solucionsProposades && solucionsProposades.length < 1">
                     <p class="maxwidth-540 text-center">Aquest repte encara no té solucions proposades.</p>
                 </div>
 
@@ -609,7 +1106,8 @@
                 <h1 class="tabtitle text-center">Preguntes freqüents</h1>
 
                 <div class="d-flex justify-content-center">
-                    <p class="maxwidth-540 text-center">En aquest apartat es resoldran els dubtes freqüents sobre el repte.
+                    <p class="maxwidth-540 text-center">En aquest apartat es resoldran els dubtes freqüents sobre el
+                        repte.
                     </p>
                 </div>
 
@@ -618,7 +1116,8 @@
                     <div class="panel panel-default" *ngFor="let pregunta of repte.faqs; let i = index">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <button class="btn btn-link accordionbutton" data-toggle="collapse" [attr.href]="'#resposta' + i">{{pregunta.faq_pregunta}}</button>
+                                <button class="btn btn-link accordionbutton" data-toggle="collapse"
+                                    [attr.href]="'#resposta' + i">{{pregunta.faq_pregunta}}</button>
                             </h4>
                         </div>
                         <div [id]="'resposta' + i" class="accordionbody panel-collapse collapse in">
@@ -635,12 +1134,15 @@
                 <h1 class="tabtitle text-center">Jurat</h1>
 
                 <div class="d-flex justify-content-center juratinfo">
-                    <p class="maxwidth-540 text-center">En aquest apartat descobriràs els responsables a valorar les solucions proposades per aquest repte.</p>
+                    <p class="maxwidth-540 text-center">En aquest apartat descobriràs els responsables a valorar les
+                        solucions proposades per aquest repte.</p>
                 </div>
 
                 <div class="row d-flex justify-content-center">
-                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container" *ngFor="let jurat of repte.jurats; let i = index">
-                        <img [src]="fileStorageUrl + jurat.jurat_url_photo" class="rounded-circle align-self-center jurat-img">
+                    <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container"
+                        *ngFor="let jurat of repte.jurats; let i = index">
+                        <img [src]="fileStorageUrl + jurat.jurat_url_photo"
+                            class="rounded-circle align-self-center jurat-img">
                         <h1>{{jurat.jurat_nom}}</h1>
                         <p class="text-center">{{jurat.jurat_bio}}</p>
                     </div>
@@ -655,8 +1157,10 @@
                     <p class="maxwidth-540 text-center">Col·laboradors del repte.</p>
                 </div>
 
-                <div class="row d-flex justify-content-start align-items-center partner-container" *ngFor="let partner of repte.partners; let i = index">
-                    <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + partner.partner_url_logo + ')'}" alt="Partner image" class="rounded-circle partnerimg">
+                <div class="row d-flex justify-content-start align-items-center partner-container"
+                    *ngFor="let partner of repte.partners; let i = index">
+                    <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + partner.partner_url_logo + ')'}"
+                        alt="Partner image" class="rounded-circle partnerimg">
                     </div>
                     <div class="partner-info">
                         <h3 class="partner-name">{{partner.partner_nom}}</h3>

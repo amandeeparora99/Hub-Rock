@@ -232,12 +232,61 @@ img {
 #premis-tab {
     margin-bottom: 64px;
 }
-
+.cancelGuanyadorPage {
+    margin-bottom: 70px;
+}
+.cancelGuanyadorPage a{
+    color: #020e7d; 
+    font-size: 18px; 
+    font-weight: 600; 
+    letter-spacing: -0.95px;
+}
+@media (max-width: 767px) {
+    .cancelGuanyadorPage {
+        flex-direction: column-reverse;
+    }
+    .cancelGuanyadorPage .btn{
+        margin-bottom: 10px;
+    }
+    #fotosSobreElRepte .fotosRepte{
+        min-width: 400px!important;
+        min-height: 213px!important;
+    }
+    #quebusquem .tematicaImg{
+        min-width: 430px!important;
+        min-height: 229px!important;
+    }
+    .premiImg {
+        min-width: 450px!important;
+        min-height: 315px!important;
+    }
+    .primeraFoto{
+        margin-bottom: 20px;
+    }
+    .mobileOrder{
+        display: flex;
+    }
+    .mobileOrder div:nth-child(1){
+        order: 2;
+    }
+    .mobileOrder div:nth-child(2){
+        order: 1;
+    }
+}
+@media (min-width: 768px){
+    
+}
 @media (min-width: 992px) {
     #premis-tab {
         max-width: 574px;
         margin-right: auto;
         margin-left: auto;
+    }
+    .cancelGuanyadorPage a{
+        margin-right: 80px;
+    }
+    .primeraFoto{
+        margin-right: 30px;
     }
 }
 
@@ -823,4 +872,40 @@ img {
     display: -webkit-box;
     -webkit-line-clamp: 3; /* number of lines to show */
     -webkit-box-orient: vertical;
+}
+
+.anunciarGuanyador{
+    margin-top: 40px;
+    padding: 40px 40px 50px 40px;
+    border-radius: 12px;
+    border: solid 1px #020e7d;
+}
+.anunciarGuanyador h1{
+    font-family: 'WorkSans-Bold';
+    font-size: 38px;
+    letter-spacing: -0.5px;
+}
+.anunciarGuanyador p{
+    font-size: 20px;
+}
+#guanyadorPage h1{
+    font-family: 'WorkSans-Bold';
+    font-size: 32px;
+    letter-spacing: -0.87px;
+    text-align: center;
+}
+#guanyadorPage h3{
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.76px;
+    text-align: center;
+}
+
+.resultatGuanyadors{
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50% - 10px);
+    background-color: #020e7d;
 }

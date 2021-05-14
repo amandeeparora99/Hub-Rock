@@ -212,6 +212,7 @@ export class MapesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSelectedItems()
     this.fetchCheckedIDs()
+    this.onSearchSubmit()
     // console.log("OBJECTS:", this.selectedItemsList)
     // console.log("Array of IDs:", this.checkedIDs)
   }
@@ -300,7 +301,7 @@ export class MapesComponent implements OnInit {
         this.startupsChecked,
         this.checkedIDs,
         1,
-        6
+        99
       )
         .pipe(first())
         .subscribe(
@@ -334,7 +335,7 @@ export class MapesComponent implements OnInit {
         this.startupsChecked,
         this.checkedIDs,
         1,
-        6
+        99
       )
         .pipe(first())
         .subscribe(

@@ -24,6 +24,7 @@ export class RepteComponent implements OnInit {
   public topicPost;
   public buttonDisabled: Boolean = false;
 
+  public guanyadorPage: Boolean = false;
   public forum = null;
   public forumRespostes = null;
   public hasForum: Boolean = false;
@@ -78,6 +79,20 @@ export class RepteComponent implements OnInit {
     }
   }
 
+  isRepteOwner(): Boolean {
+    if(this.currentUser){  //If logged in, check if owner
+      if(this.currentUser.idUser == this.repte.user_iduser){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    else{  //If not logged in, return false
+      return false;
+    }
+  }
+
   canEdit(): Boolean {
     // només abans de la data d'inici, que sigui el creador, tot depenent de l'estat
     if (this.currentUser && this.repte) {
@@ -117,6 +132,17 @@ export class RepteComponent implements OnInit {
     let currentDate = new Date();
 
     if (dateIniciRepte < currentDate && dateFinalRepte > currentDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  repteAcabat(): Boolean {
+    let dateFinalRepte = new Date(this.repte.data_final);
+    let currentDate = new Date();
+
+    if (currentDate > dateFinalRepte) {
       return true;
     } else {
       return false;
@@ -612,6 +638,10 @@ export class RepteComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  toggleGuanyadorPage(){
+    this.guanyadorPage = !this.guanyadorPage;
   }
 
   sendMessage(message, topicId, messageParentId) {

@@ -297,7 +297,6 @@ export class RegisterComponent implements OnInit {
       let place = autocomplete.getPlace();
       context.latUser = place.geometry.location.lat();
       context.lngUser = place.geometry.location.lng();
-      // context.googleInput.nativeElement.vale = 
       // console.log("LATITUD:", context.latUser);
       // console.log("LONGITUD:", context.lngUser);
     });
