@@ -8,7 +8,7 @@ import { io } from 'socket.io-client';
 export class WebSocketService {
 
   socket: any;
-  readonly uri: string = "https://165.232.98.39:3000"
+  readonly uri: string = "https://hubandrock.com:3000"
   // readonly uri: string = "ws://localhost:3000"
 
   constructor() {
