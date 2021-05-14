@@ -11,6 +11,9 @@ var server = https.createServer({
     rejectUnauthorized: false
 },app);
 
+server.listen(3000, () => {
+    console.log("Socket.io server is listening on port 3000")
+})
 // const serverHttp = require('http').Server(app)
 // const io = require('socket.io')(serverHttp, {
 //     cors: {
@@ -20,6 +23,8 @@ var server = https.createServer({
 //         credentials: true
 //     }
 // });
+
+var io = require('socket.io').listen(server);
 
 var users = [];
 var commonRoomName;
@@ -70,6 +75,3 @@ io.on('connection', function (socket) {
     
 });
 
-server.listen(3000, () => {
-    console.log("Socket.io server is listening on port 3000")
-})
