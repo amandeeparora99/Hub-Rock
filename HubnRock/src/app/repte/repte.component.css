@@ -321,18 +321,15 @@ img {
     font-size: 30px;
     letter-spacing: -0.42px;
 }
-
 #quebusquem .separator {
     width: 100%;
     height: 1px;
     border: solid 1px #979797;
     margin-bottom: 52px;
 }
-
 #quebusquem #altresrecursos h1 {
     margin-bottom: 41px;
 }
-
 #altresrecursosfiles div img {
     margin-right: 30px;
 }
@@ -535,7 +532,6 @@ img {
 #jurat {
     margin-bottom: 100px;
 }
-
 .partnerimg {
     margin-right: 69px;
     min-width: 250px;
@@ -544,7 +540,6 @@ img {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 #propostes .card {
     border-radius: 14px;
     height: 250px;
@@ -552,89 +547,72 @@ img {
     cursor: pointer;
     transition: box-shadow 0.2s ease-in-out;
 }
-
 #propostes .card-footer {
     border: none;
 }
-
 #propostes .solucio-esborrany {
     background-color: #f7f7f7;
 }
-
 #propostes .solucio-enviat {
     background-color: #d2f5e8;
 }
-
 #propostes .card-title {
     font-size: 24px;
     letter-spacing: -0.4px;
     font-family: 'WorkSans-Bold';
 }
-
 #propostes .card-subtitle {
     font-size: 18px;
     letter-spacing: -0.8px;
     font-family: 'WorkSans-Regular';
     color: #000000;
 }
-
 #propostes .card-subtitle a {
     color: #020e7d;
 }
-
 #propostes .solucio-enviat .solucio-footer {
     font-size: 18px;
     letter-spacing: -0.45px;
     font-family: 'WorkSans-Bold';
     color: #000000;
 }
-
 #propostes .solucio-esborrany .solucio-footer {
     font-size: 16px;
     letter-spacing: -0.22;
     font-family: 'WorkSans-Regular';
 }
-
 #propostes .esborrany-inici {
     color: #000000;
 }
-
 #propostes .esborrany-final {
     color: #9e0193;
 }
-
 @media (max-width: 766px) {
     .col-mt {
         margin-top: 1%;
     }
 }
-
 @media (min-width: 990px) {
     .col-mr {
         margin-right: 4%;
     }
 }
-
 @media (max-width: 450px) {
     #btn-editar {
         margin-bottom: 10px;
     }
 }
-
 .no-existeix {
     height: 80vh;
 }
-
 .no-existeix h1 {
     font-size: 48px;
     letter-spacing: -1.2px;
     font-family: 'WorkSans-Bold';
 }
-
 .no-existeix .btn-manage {
     width: 255px;
 }
-
 .btn-manage {
     width: 100%;
     border-radius: 8px;
@@ -647,16 +625,13 @@ img {
     height: 55px;
     margin: 2px;
 }
-
 .inputForum {
     max-width: 793px;
     margin-bottom: 35px;
 }
-
 .postForum {
     margin-bottom: 96px;
 }
-
 .forumbutton {
     letter-spacing: -0.25px;
     color: #020e7d;
@@ -675,9 +650,6 @@ img {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
     letter-spacing: -0.22px;
     color: #020e7d;
 }
@@ -690,9 +662,6 @@ img {
 .forumPostDate {
     font-size: 14px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
     letter-spacing: -0.2px;
     color: #7b7b7b;
 }
@@ -814,39 +783,32 @@ img {
     margin-right: 50px;
     min-width: 500px;
     min-height: 350px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .owner img,
 .owner .repteowner {
     cursor: pointer;
 }
-
-#fotosSobreElRepte .fotosRepte {
-    min-width: 537px;
-    min-height: 287px;
+.bgattr{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
+#fotosSobreElRepte .fotosRepte {
+    min-width: 537px;
+    min-height: 287px;
+}
+
 #quebusquem .tematicaImg {
     min-width: 470px;
     min-height: 265px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 .solucionsbuscadesImg {
     margin-top: 26px;
     margin-bottom: 16px;
     min-width: 89px;
     min-height: 89px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 .username:hover {
     color: #00e292 !important;
@@ -867,18 +829,4 @@ img {
     display: -webkit-box;
     -webkit-line-clamp: 3; /* number of lines to show */
     -webkit-box-orient: vertical;
-}
-.anunciarGuanyador{
-    margin-top: 40px;
-    padding: 40px 40px 50px 40px;
-    border-radius: 12px;
-    border: solid 1px #020e7d;
-}
-.anunciarGuanyador h1{
-    font-family: 'WorkSans-Bold';
-    font-size: 38px;
-    letter-spacing: -0.5px;
-}
-.anunciarGuanyador p{
-    font-size: 20px;
 }

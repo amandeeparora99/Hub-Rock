@@ -226,10 +226,12 @@
 
             <div id="resum" class="container tab-pane active">
 
-                <div *ngIf="isRepteOwner() && repteAcabat()" class="anunciarGuanyador d-flex flex-column align-items-center justify-content-center">
+                <div *ngIf="isRepteOwner() && repteAcabat()"
+                class="anunciarGuanyador d-flex flex-column align-items-center justify-content-center"
+                style="margin-top: 40px;padding: 40px 40px 50px 40px;border-radius: 12px;border: solid 1px #020e7d;">
                     <img src="../../assets/illustrations/Win2.png" width="70px" style="margin-bottom: 20px" alt="">
-                    <h1>El repte ha finalitzat</h1>
-                    <p>Fes públiques les solucions guanyadores</p>
+                    <h1 style="font-family: 'WorkSans-Bold';font-size: 38px;letter-spacing: -0.5px;">El repte ha finalitzat</h1>
+                    <p style="font-size: 20px;">Fes públiques les solucions guanyadores</p>
                     <button class="btn hubrock-btn mt-3" type="button" (click)="toggleGuanyadorPage()">ANUNCIAR ELS
                         GUANYADORS</button>
                 </div>
@@ -297,9 +299,9 @@
                 </div>
 
                 <div id="fotosSobreElRepte" class="row d-flex justify-content-center">
-                    <div *ngIf="repte.url_photo_1" class="fotosRepte primeraFoto"
+                    <div *ngIf="repte.url_photo_1" class="fotosRepte primeraFoto bgattr"
                         [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_1 + ')'}"></div>
-                    <div *ngIf="repte.url_photo_2" class="fotosRepte"
+                    <div *ngIf="repte.url_photo_2" class="fotosRepte bgattr"
                         [ngStyle]="{'background-image': 'url(' + fileStorageUrl + repte.url_photo_2 + ')'}"></div>
                 </div>
 
@@ -321,11 +323,11 @@
                         <div class="card" style="transition: 0.3s;">
                             <div class="card-img-top d-flex justify-content-center align-items-center">
                                 <div *ngIf="soluciobuscada.solucio_url_photo"
-                                    class="rounded-circle solucionsbuscadesImg"
+                                    class="rounded-circle solucionsbuscadesImg bgattr"
                                     [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}">
                                 </div>
                                 <img *ngIf="!soluciobuscada.solucio_url_photo"
-                                    class="rounded-circle solucionsbuscadesImg"
+                                    class="rounded-circle solucionsbuscadesImg bgattr"
                                     src="../../assets/logos/default-solucio-image.jpg">
 
                             </div>
@@ -401,7 +403,7 @@
                         [class]="{'active': i == 0}" [id]="'pills-premi'+ i" role="tabpanel"
                         aria-labelledby="pills-home-tab">
                         <div class="text-premis row d-flex justify-content-start">
-                            <div class="premiImg"
+                            <div class="premiImg bgattr"
                                 [ngStyle]="{'background-image': 'url(' + fileStorageUrl + premi.premi_url_photo + ')'}">
                             </div>
 
@@ -427,9 +429,9 @@
                     *ngFor="let soluciobuscada of repte.solucions; let i = index">
                     <div class="col">
                         <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
-                            class="align-self-start tematicaImg"
+                            class="align-self-start tematicaImg bgattr"
                             *ngIf="(i % 2 == 0) && (soluciobuscada.solucio_url_photo)"></div>
-                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg"
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg bgattr"
                             *ngIf="(i % 2 == 0) && (!soluciobuscada.solucio_url_photo)">
                         <!--Si el numero es parell -> text esquerre-->
 
@@ -450,9 +452,9 @@
                         </div>
 
                         <div [ngStyle]="{'background-image': 'url(' + fileStorageUrl + soluciobuscada.solucio_url_photo + ')'}"
-                            class="align-self-start tematicaImg"
+                            class="align-self-start tematicaImg bgattr"
                             *ngIf="(i % 2 != 0) && (soluciobuscada.solucio_url_photo)"></div>
-                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg"
+                        <img src="../../assets/logos/default-solucio-image.jpg" class="align-self-start tematicaImg bgattr"
                             *ngIf="(i % 2 != 0) && (!soluciobuscada.solucio_url_photo)">
                     </div>
 
