@@ -58,24 +58,24 @@ export class FooterComponent implements OnInit {
     };
 
     if(this.newsletterForm.value.mailInput){
-      if(this.newsletterForm.valid){
-        this.subscriptionHttp$ = this._httpService.subNewsletter(email)
-          .pipe(first())
-          .subscribe(
-            data => {
-              console.log(data)
-              if (data.data == "success") {
-                window.scrollTo(0, 0);
-                this.newsletterForm.reset();
-                this.toastr.success('T\'has subscrit al newsletter de Hub & Rock exitosament!', 'Subscripció completada')
-              }
-              else{
-                this.toastr.error('Hi ha hagut algun problema, torna-ho a intentar més tard', 'Error de subscripció')
-              }
-            });
-      } else{
-        this.toastr.error('Introdueix un correu vàlid', 'Correu invàlid')
-      }
+      // if(this.newsletterForm.valid){
+      //   this.subscriptionHttp$ = this._httpService.subNewsletter(email)
+      //     .pipe(first())
+      //     .subscribe(
+      //       data => {
+      //         console.log(data)
+      //         if (data.data == "success") {
+      //           window.scrollTo(0, 0);
+      //           this.newsletterForm.reset();
+      //           this.toastr.success('T\'has subscrit al newsletter de Hub & Rock exitosament!', 'Subscripció completada')
+      //         }
+      //         else{
+      //           this.toastr.error('Hi ha hagut algun problema, torna-ho a intentar més tard', 'Error de subscripció')
+      //         }
+      //       });
+      // } else{
+      //   this.toastr.error('Introdueix un correu vàlid', 'Correu invàlid')
+      // }
     }
   }
 
