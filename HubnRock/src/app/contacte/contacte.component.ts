@@ -109,20 +109,20 @@ export class ContacteComponent implements OnInit {
     else{
       //Aqui fer el Node
       
-      // this.subscriptionHttp$ = this.httpCommunication.sendContactEmail(contactForm)
-      //   .pipe(first())
-      //   .subscribe(
-      //     data => {
-      //       console.log(data)
-      //       if (data.data == "success") {
-      //         window.scrollTo(0, 0);
-      //         this.contacteForm.reset();
-      //         this.toastr.success('El teu correu ha estat enviat correctament', 'Missatge enviat')
-      //       }
-      //       else{
-      //         this.toastr.error('Hi ha hagut un error, intenta-ho més tard', 'Error')
-      //       }
-      //     });
+      this.subscriptionHttp$ = this.httpCommunication.sendContactEmail(contactForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              window.scrollTo(0, 0);
+              this.contacteForm.reset();
+              this.toastr.success('El teu correu ha estat enviat correctament', 'Missatge enviat')
+            }
+            else{
+              this.toastr.error('Hi ha hagut un error, intenta-ho més tard', 'Error')
+            }
+          });
     }
   }
 }

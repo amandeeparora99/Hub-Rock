@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.hubandrock.com'
+  api: 'https://api.hubandrock.com',
+  localApi: 'https://hubandrock.com:3000'
 };
 /*
  * For easier debugging in development mode, you can import the following file

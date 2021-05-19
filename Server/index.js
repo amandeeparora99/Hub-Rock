@@ -34,6 +34,10 @@ app.all('*', function(req, res, next) {
     }
 });
 
+server.listen(3000, () => {
+    console.log("Socket.io server is listening on port 3000")
+})
+
 app.post('/newsletter', function (req, res) {
     const email = req.body.email;
     let apiKey = process.env.SIB_API_KEY;
@@ -157,6 +161,3 @@ io.on('connection', function (socket) {
     
 });
 
-server.listen(3000, () => {
-    console.log("Socket.io server is listening on port 3000")
-})
