@@ -1120,7 +1120,10 @@
                     <div class="panel panel-default" *ngFor="let pregunta of repte.faqs; let i = index">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <button class="btn btn-link accordionbutton" data-toggle="collapse"
+                                <button class="btn btn-link accordionbutton" style="background-color: #d2f5e8;
+                                color: black;cursor: pointer;padding: 18px;
+                                width: 100%;border-radius: 8px;text-align: left;outline: none;
+                                font-size: 18px;font-family: 'WorkSans-Bold';text-decoration: none;" data-toggle="collapse"
                                     [attr.href]="'#resposta' + i">{{pregunta.faq_pregunta}}</button>
                             </h4>
                         </div>
