@@ -153,8 +153,8 @@
         </ul>
 
         <div class="tab-content" id="guanyadorPage" *ngIf="guanyadorPage">
-            <h1 style="margin-bottom: 80px">Tria els guanyadors</h1>
-            <h3 class="mb-3">Escull 1 guanyador per premi</h3>
+            <h1 style="font-family: 'WorkSans-Bold';font-size: 32px;letter-spacing: -0.87px;text-align: center;" style="margin-bottom: 80px">Tria els guanyadors</h1>
+            <h3 style="font-size: 28px;font-weight: 600;letter-spacing: -0.76px;text-align: center;" class="mb-3">Escull 1 guanyador per premi</h3>
             <div class="row d-flex justify-content-center">
                 <p style="max-width: 415px;">Al guardar, els premis encara no es publicaran.
                     Podràs fer una revisió final abans de publicar els guanyadors.</p>
@@ -234,7 +234,9 @@
                         GUANYADORS</button>
                 </div>
 
-                <div class="resultatGuanyadors" *ngIf="repteAcabat() && !isRepteOwner()">
+                <div class="resultatGuanyadors" style="margin-top: 50px;padding-top: 50px;
+                padding-bottom: 50px;width: 100vw;margin-left: calc(-50vw + 50% - 10px);
+                background-color: #020e7d;" *ngIf="repteAcabat() && !isRepteOwner()">
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <h1 style="margin-bottom: 15px; color: white; font-family: 'WorkSans-Bold';
                         font-size: 36px; letter-spacing: -0.5px;">Repte tancat</h1>

@@ -839,7 +839,6 @@ img {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 .solucionsbuscadesImg {
     margin-top: 26px;
     margin-bottom: 16px;
@@ -849,23 +848,19 @@ img {
     background-repeat: no-repeat;
     background-position: center;
 }
-
 .username:hover {
     color: #00e292 !important;
     text-decoration: none;
     cursor: pointer;
 }
-
 #propostes .card-subtitle a {
     font-size: 18px;
     letter-spacing: -0.8px;
     font-family: 'WorkSans-Regular';
 }
-
 .card:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-
 .limitText {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -873,7 +868,6 @@ img {
     -webkit-line-clamp: 3; /* number of lines to show */
     -webkit-box-orient: vertical;
 }
-
 .anunciarGuanyador{
     margin-top: 40px;
     padding: 40px 40px 50px 40px;
@@ -887,25 +881,4 @@ img {
 }
 .anunciarGuanyador p{
     font-size: 20px;
-}
-#guanyadorPage h1{
-    font-family: 'WorkSans-Bold';
-    font-size: 32px;
-    letter-spacing: -0.87px;
-    text-align: center;
-}
-#guanyadorPage h3{
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.76px;
-    text-align: center;
-}
-
-.resultatGuanyadors{
-    margin-top: 50px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 100vw;
-    margin-left: calc(-50vw + 50% - 10px);
-    background-color: #020e7d;
 }
