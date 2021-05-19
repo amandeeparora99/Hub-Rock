@@ -16,7 +16,7 @@ export class MapesComponent implements OnInit {
 
   empresaChecked = false;
   startupsChecked = false;
-  fitBoundsVar = false;
+  fitBoundsVar = true;
 
   currentEmpresa;
   public fileStorageUrl = environment.api + '/image/';
@@ -312,7 +312,9 @@ export class MapesComponent implements OnInit {
               data.rows.forEach(element => {
                 var latval = JSON.parse(element.ciutat_residencia).lat
                 if(element.ciutat_residencia && latval != 0){
-                  this.empreses.push(element)
+                  if(element.empresa_rockstar == 0){
+                    this.empreses.push(element)
+                  }
                 }
               });
               if (data.rows.length){
@@ -346,7 +348,9 @@ export class MapesComponent implements OnInit {
               data.rows.forEach(element => {
                 var latval = JSON.parse(element.ciutat_residencia).lat
                 if(element.ciutat_residencia && latval != 0){
-                  this.empreses.push(element)
+                  if(element.empresa_rockstar == 0){
+                    this.empreses.push(element)
+                  }
                 }
               });
               if (data.rows.length){

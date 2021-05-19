@@ -15,22 +15,22 @@
             <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomICognom}">
                 <label for="InputNomCognom">Nom i cognoms</label>
                 <input type="text" formControlName="nomICognom" class="form-control input-for-text" id="InputNomCognom" (blur)="logValidationErrors()">
-                <!-- <span class="help-block" *ngIf="formErrors.nomSolucio">{{formErrors.nomSolucio}}</span> -->
+                <span class="help-block" *ngIf="formErrors.nomICognom">{{formErrors.nomICognom}}</span>
             </div>
             <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.nomEmpresa}">
                 <label for="InputEmpresa" class="mb-0 mr-3">Nom de l'empresa</label><span class="opcional-text">(Opcional)</span><br>
                 <input type="text" formControlName="nomEmpresa" class="form-control input-for-text" id="InputEmpresa" (blur)="logValidationErrors()">
-                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+                <span class="help-block" *ngIf="formErrors.nomEmpresa">{{formErrors.nomEmpresa}}</span>
             </div>
             <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.correuContacte}">
                 <label for="InputCorreu" class="mb-0">Correu de contacte</label><br>
                 <input type="text" formControlName="correuContacte" class="form-control input-for-text" id="InputCorreu" (blur)="logValidationErrors()">
-                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+                <span class="help-block" *ngIf="formErrors.correuContacte">{{formErrors.correuContacte}}</span>
             </div>
             <div class="form-group input-spacing" [ngClass]="{'has-errors' : formErrors.missatge}">
                 <label for="InputMissatge" class="mb-0">Missatge</label><br>
                 <textarea type="text" formControlName="missatge" class="form-control" id="InputMissatge" (blur)="logValidationErrors()"></textarea>
-                <!-- <span class="help-block" *ngIf="formErrors.descripcioBreuSolucio">{{formErrors.descripcioBreuSolucio}}</span> -->
+                <span class="help-block" *ngIf="formErrors.missatge">{{formErrors.missatge}}</span>
             </div>
             <div class="text-center">
                 <button class="btn btn-primary submitBtn" type="submit">ENVIAR MISSATGE</button>

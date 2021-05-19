@@ -63,11 +63,14 @@
         <div class="col-md-4 col-sm-12 col-xs-12">
             <h1 class="footer-heading">Apunta’t a la nostra newsletter</h1>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Escriu el teu correu..."
-                    aria-label="Correu newsletter" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button id="icon" class="btn btn-outline-secondary" type="button"><img class="sendicon" src="../../../assets/simpleicons/Send_B.png" alt="Send"></button>
-                </div>
+                <form [formGroup]="newsletterForm" (ngSubmit)="subNewsletter()" class="navbar-form d-flex" id="navbarSearch" role="search">
+                    <input style="border-radius: 0px;" type="text" class="form-control" placeholder="Escriu el teu correu..."
+                        formControlName="mailInput" aria-label="Correu newsletter" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button style="border-radius: 0px;" id="icon" class="btn btn-outline-secondary" type="button" (click)="subNewsletter()">
+                            <img class="sendicon" src="../../../assets/simpleicons/Send_B.png" alt="Send"></button>
+                    </div>
+                </form>
             </div>
         </div>
 

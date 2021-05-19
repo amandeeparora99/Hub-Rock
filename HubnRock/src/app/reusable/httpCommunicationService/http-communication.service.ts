@@ -1007,4 +1007,20 @@ export class HttpCommunicationService {
         return data;
     }));
   }
+
+  sendContactEmail(form): Observable<any> {
+    const headers = { 'Content-Type': 'application/json'}
+    return this.http.post<any>('https://hubandrock.com:3000/enviarContact', form,  { headers })
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
+  subNewsletter(form): Observable<any> {
+    const headers = { 'Content-Type': 'application/json'}
+    return this.http.post<any>('https://hubandrock.com:3000/newsletter', form,  { headers })
+      .pipe(map(data => {
+        return data;
+      }));
+  }
 }
