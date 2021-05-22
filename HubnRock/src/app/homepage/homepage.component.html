@@ -351,7 +351,12 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center no-gutters mt-3">
-                <button style="min-width: 200px;" class="btn btn-primary who-btn what-btn">UNEIX-TE ARA</button>
+                <a *ngIf="!currentUser" href="/login">
+                    <button style="min-width: 200px;" class="btn btn-primary who-btn what-btn">UNEIX-TE ARA</button>
+                </a>
+                <a *ngIf="currentUser" href="/reptes">
+                    <button style="min-width: 200px;" class="btn btn-primary who-btn what-btn">UNEIX-TE ARA</button>
+                </a>
             </div>
         </div>
     </div>
