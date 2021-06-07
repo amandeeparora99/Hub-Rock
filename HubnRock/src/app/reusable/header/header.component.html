@@ -117,26 +117,26 @@
 
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
         <ul class="navbar-nav w-100 justify-content-start-mobile">
-            <li class="mr-2 nav-item active">
+            <li style="min-width: 196px;" class="mr-4 nav-item active">
                 <a [ngClass]='{"actiu" : currentPathMatch("/reptes",0)}' class="nav-link" href="/reptes">
                     <img [src]="currentPathMatch('/reptes',0) ? '../../../assets/navbar/Veure reptes oberts_V.png' : '../../../assets/navbar/Veure reptes oberts.png'"
                      style="width: 20px; height: 20px;"> Veure reptes oberts</a>
             </li>
-            <li class="mr-2 nav-item">
+            <li style="min-width: 149px;" class="mr-4 nav-item">
                 <a *ngIf="currentUserObject && !currentUserObject.userType" [ngClass]='{"actiu" : currentPathMatch("/creacio-repte",0)}' 
                     href="/creacio-repte" class="nav-link">
                     <img [src]="currentPathMatch('/creacio-repte',0) ? '../../../assets/navbar/Crea un repte_V.png' : '../../../assets/navbar/Crea un repte.png'" 
                     style="width: 20px; height: 20px;"> Crea un repte</a>
 
                 <a *ngIf="currentUserObject && currentUserObject.userType" (click)="obrirTest()" class="nav-link">
-                    <img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Crea un repte</a>
+                    <img src="../../../assets/navbar/Crea un repte.png" style="width: 20px; height: 20px;"> Crea un repte</a>
 
                 <a *ngIf="!currentUserObject" href='/login' class="nav-link">
-                    <img src="../../../assets/navbar/Entrar.png" style="width: 20px; height: 20px;"> Crea un repte</a>
+                    <img src="../../../assets/navbar/Crea un repte.png" style="width: 20px; height: 20px;"> Crea un repte</a>
             </li>
-            <li class="mr-2 nav-item mb20mobile">
+            <li style="min-width: 169px;" class="mr-4 nav-item mb20mobile">
                 <a class="nav-link" href="/mapes" [ngClass]='{"actiu" : currentPathMatch("/mapes",0)}'>
-                    <img [src]="currentPathMatch('/mapes',0) ? '../../../assets/navbar/Crea un repte_V.png' : '../../../assets/navbar/Crea un repte.png'"
+                    <img [src]="currentPathMatch('/mapes',0) ? '../../../assets/navbar/Mapa Tecnologic_G.png' : '../../../assets/navbar/Mapa Tecnologic_B.png'"
                      style="width: 20px; height: 20px;"> Mapa tecnològic</a>
             </li>
         </ul>
