@@ -63,9 +63,9 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-end align-items-start">
+                    <div class="col-md-6 col-sm-12 col-xs-12 d-flex align-items-start">
                         <!--EN MOVIL NO HA DESTAR AL FINAL-->
-                        <div class="d-flex justify-content-between align-items-start info-div">
+                        <div class="d-flex justify-content-between align-items-center mobileCol info-div">
 
                             <div class="d-flex align-items-center col-md-4">
                                 <img class="participateimgCat align-self-center"
@@ -75,7 +75,7 @@
                                 </h1>
                             </div>
 
-                            <div class="d-flex col-md-4">
+                            <div class="d-flex col-md-4 align-items-center">
                                 <img class="participateimgCat" src="../../assets/illustrations/Time.png" alt="">
                                 <h1 *ngIf="dIbiggerThanTodayDate(repte.data_inici, 'bigger')">{{repte.data_inici |
                                     date:'MM-dd-yyyy'}}<br>({{diesRestants(repte.data_inici, repte.data_final)}})
@@ -85,9 +85,9 @@
                                 </h1>
                             </div>
 
-                            <div class="d-flex align-items-center col-md-4">
+                            <div class="d-flex col-md-6 align-items-center">
                                 <img class="participateimgCat" src="../../assets/illustrations/Win2.png" alt="">
-                                <h1>{{premiCurt(repte.premis[0].premi_dotacio)}}</h1>
+                                <h1>{{repte.premis[0].premi_dotacio}}</h1>
                             </div>
 
                         </div>
