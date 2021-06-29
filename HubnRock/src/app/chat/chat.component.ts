@@ -225,7 +225,6 @@ export class ChatComponent implements OnInit {
               }
             });
             this.unreads = unreads;
-            console.log("YOU HAVE "+unreads+" UNREAD MESSAGES.")
           }
         });
   }

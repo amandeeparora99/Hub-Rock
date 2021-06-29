@@ -139,7 +139,7 @@ export class HttpCommunicationService {
     ).pipe(map(data => {
       if (data.code == '1') {
         // console.log("DATA DEL QUE RETORNA EL SHORTREGISTER")
-        console.log(data)
+        // console.log(data)
 
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         // this.saveCurrentUserLocalStorage(data.token, data.lastId, email)
