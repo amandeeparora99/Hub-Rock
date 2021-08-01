@@ -37,9 +37,6 @@ export class HomepageComponent implements OnInit {
   constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log("AQUEST ES EL USER ID: " + JSON.parse(localStorage.getItem('currentUser')).idUser)
-    console.log("AQUEST ES EL USER ROLE: " + JSON.parse(localStorage.getItem('currentUser')).userRole)
-
     this.httpCommunication.currentUser.subscribe(
       data => {
         this.currentUser = data;
