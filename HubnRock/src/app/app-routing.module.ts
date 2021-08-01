@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'reptes', component: ReptesComponent },
   // { path: 'restore', component: RestorePasswordComponent },
-  { path: 'inici', component: HomepageComponent },
+  { path: 'homepage', redirectTo: '' },
   { path: 'repte/:id', component: RepteComponent, canActivate: [RepteCanViewGuard] },
   { path: 'repte/:id/creacio-solucio', component: CreacioSolucioComponent, canActivate: [AuthGuard, CanParticipateRepteGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'solucio/:id', component: SolucioComponent, canActivate: [SolucioCanViewGuard] },
@@ -87,7 +87,7 @@ const routes: Routes = [
   // { path: 'admin/solucions', component: CrudSolucionsComponent, canActivate: [AuthGuard, IsAdminGuard] },
   // { path: 'admin/users', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: '**', component: PageNotFoundComponent },
-
+  
 ];
 
 @NgModule({

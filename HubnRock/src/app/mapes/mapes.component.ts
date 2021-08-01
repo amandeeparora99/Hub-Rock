@@ -206,6 +206,9 @@ export class MapesComponent implements OnInit {
   subscriptionHttp1$: Subscription;
 
   empreses: any[] = [];
+  infoWindowOpened = null
+  previous_info_window = null
+  current_empresa_name = null
 
   constructor(private httpCommunication: HttpCommunicationService){};
 
@@ -216,6 +219,32 @@ export class MapesComponent implements OnInit {
     // console.log("OBJECTS:", this.selectedItemsList)
     // console.log("Array of IDs:", this.checkedIDs)
   }
+
+  close_window(){
+    if (this.previous_info_window != null ) {
+      this.previous_info_window.close()
+    }
+    if(this.display == 'block'){
+      this.display = 'none';
+    }
+  }
+  clickedMarker(infowindow) {
+    if (this.previous_info_window) {
+        this.previous_info_window.close();
+    }
+    this.previous_info_window = infowindow;
+  }
+    
+  // select_marker(data,infoWindow){
+  //   console.log("M CLICKED")
+  //   if (this.previous_info_window == null)
+  //     this.previous_info_window = infoWindow;
+  //   else{
+  //     this.infoWindowOpened = infoWindow
+  //     this.previous_info_window.close()
+  //   }
+  //   this.previous_info_window = infoWindow
+  // }
 
   clearSearch(){
     this.text = '';
@@ -234,12 +263,18 @@ export class MapesComponent implements OnInit {
     // console.log('asdf',this.text)
   }
 
-  displayChange(){
+  displayChange(nomEmpresa){
+    var sameEmpresa = false;
+
+    sameEmpresa = (this.current_empresa_name == nomEmpresa ? true : false)
+
     if(this.display == 'none'){
       this.display = 'block';
     }
     else{
-      this.display = 'none';
+      if(sameEmpresa){
+        this.display = 'none';
+      }
     }
   }
 

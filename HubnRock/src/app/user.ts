@@ -6,5 +6,5 @@ export interface User {
     email: String,
     userType: Boolean,
     firstLogin: Boolean,
-    userRole: Boolean
+    userRole: Number
 }

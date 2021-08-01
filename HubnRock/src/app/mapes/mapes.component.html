@@ -3,12 +3,12 @@
 
 </agm-map> -->
 <div class="container-fluid map">
-    <agm-map class="box" [latitude]="lat" [longitude]="lng" [fitBounds]="fitBoundsVar">
+    <agm-map (mapClick)="close_window()" class="box" [latitude]="lat" [longitude]="lng" [fitBounds]="fitBoundsVar">
         <div *ngIf="empreses.length>0">
             <agm-marker *ngFor="let empresa of empreses" [latitude]="getJSONlatlng(empresa.ciutat_residencia).lat" 
                 [longitude]="getJSONlatlng(empresa.ciutat_residencia).lng"
-                (markerClick)="setEmpresa(empresa); displayChange();" [agmFitBounds]="true"> 
-                <agm-info-window>
+                (markerClick)="setEmpresa(empresa); displayChange(empresa.nom_empresa); clickedMarker(infoWindow)" [agmFitBounds]="true"> 
+                <agm-info-window #infoWindow>
                     <div class="d-flex align-items-center">
                         <div class="perfilfoto2"
                         [ngStyle]="{'background-image': 'url(' + fileStorageUrl + empresa.url_photo_profile + ')'}"
@@ -133,21 +133,55 @@
             <hr class="mt-0 mb-0">
 
             <div class="d-flex justify-content-between">
-                <h3 class="mb-1">De quina industria?</h3>
+                <h3 class="mb-1">De quin sector?</h3>
                 <p class="mb-0" style="font-size: 13px; color:#b6b6b6; margin-top: 20px; cursor: pointer;"
                     (click)="clearFilters()">Eliminar cerca</p>
             </div>
             <p style="font-size: 13px">Pots seleccionar més d’una</p>
 
-            <div id="industriesDiv">
-                <div style="margin-top: 18px; margin-left: 18px">
-                    <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList">
-                        <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
-                            [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
-                        <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>
+            <div id="accordion">
+                <div class="card" style=" margin-bottom: 5px">
+                  <div style="background-color: white;" class="card-header" id="headingOne">
+                      <button style="background-color: white; width: 100%; height: 100%; text-align: left; color: black;" class="btn collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Sector TIC
+                      </button>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="industriesDiv">
+                            <div style="margin-top: 18px; margin-left: 18px">
+                                <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList.slice(0, 13);">
+                                    <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
+                                        [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
+                                    <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                  </div>
                 </div>
+                <div class="card">
+                    <div style="background-color: white;" class="card-header" id="headingTwo">
+                        <button style="background-color: white; width: 100%; height: 100%; text-align: left; color: black;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Altres Sectors
+                        </button>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                      <div class="card-body">
+                        <div id="industriesDiv">
+                            <div style="margin-top: 18px; margin-left: 18px">
+                                <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList.slice(13, checkboxesIndustriaList.length);">
+                                    <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
+                                        [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
+                                    <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
+            
         </div>
     </div>
 

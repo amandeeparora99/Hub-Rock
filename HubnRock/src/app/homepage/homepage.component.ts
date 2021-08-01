@@ -37,6 +37,8 @@ export class HomepageComponent implements OnInit {
   constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    console.log("AQUEST ES EL USER ID: " + JSON.parse(localStorage.getItem('currentUser')).idUser)
+    console.log("AQUEST ES EL USER ROLE: " + JSON.parse(localStorage.getItem('currentUser')).userRole)
 
     this.httpCommunication.currentUser.subscribe(
       data => {
@@ -87,7 +89,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllReptesHomepage() {
-    this.subscriptionHttp$ = this.httpCommunication.getReptesOberts(1, 10)
+    this.subscriptionHttp$ = this.httpCommunication.getReptesProces(1, 6)
       .pipe(first())
       .subscribe(
         data => {
@@ -312,19 +314,50 @@ export class HomepageComponent implements OnInit {
     this.router.navigate([url, idrepte]);
   }
 
-  diesRestants(data_inici) {
-    let date = new Date(data_inici);
-    let currentDate = new Date();
+  diesRestants(data_inici, data_final) {
+    if (data_final && data_inici) {
+      let dateInici = new Date(data_inici);
+      let dateFinal = new Date(data_final);
+      let currentDate = new Date();
 
-    let days = Math.floor((date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+      if (dateInici > currentDate) {
+        let days = Math.floor((dateInici.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
 
-    if (days > 0) {
-      return days + " dies restants";
+        if (days > 0) {
+          return "Inicia en " + days + " dies";
+        }
+        else {
+          return "Comença demà!"
+        }
+
+      }
+      else if (dateInici < currentDate && dateFinal > currentDate) {
+        let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+        return "Tanca en " + days + " dies";
+      }
+      else {
+        let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+        if (days > 30) {
+          return "Tancat";
+        }
+        else if (dateInici < currentDate && dateFinal > currentDate) {
+          let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
+          return "Tanca en " + days + " dies";
+        }
+        else {
+          let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
+          if (days > 30) {
+            return "Tancat";
+          }
+          else {
+            return "Tancat fa " + days + " dies";
+          }
+
+        }
+      }
+
+
     }
-    else {
-      return "Comença demà!"
-    }
-
   }
 
   returnDaydddMMMyyy(day) {
