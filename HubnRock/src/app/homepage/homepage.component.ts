@@ -40,7 +40,9 @@ export class HomepageComponent implements OnInit {
     this.httpCommunication.currentUser.subscribe(
       data => {
         this.currentUser = data;
-        this.userIsRockstar = this.currentUser.userType;
+        if(this.currentUser){
+          this.userIsRockstar = this.currentUser.userType;
+        }
       }
     );
 
