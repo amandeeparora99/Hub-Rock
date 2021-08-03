@@ -706,8 +706,18 @@
                 <div class="regularFont">
                     <div class="custom-control custom-radio">
                         <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" [checked]="radioToSValue == 'hubandrock'" id="customRadioDefaultBases" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioDefaultBases">Utilitzar les bases legals genèriques de Hub
-                            & Rock</label>
+                        <label class="custom-control-label" for="customRadioDefaultBases">Utilitzar les <a id="openBLmodal" 
+                            style="color: #020e7d;" (click)="triggerDisplay()" class="pointer">bases legals genèriques de Hub
+                            & Rock</a></label>
+                        <div id="blModal" class="blmodal" [style]="'display:'+currentDisplay">
+                            <div style="display: flex; height: 100%; width: 100%; justify-content: center; align-items: center;">
+                                <!-- Modal content -->
+                                <div class="blmodal-content align-self-center" style="max-height: 80vh; overflow-y: scroll;">
+                                    <span (click)="triggerDisplay()" class="close">&times;</span>
+                                    <p [innerHTML]="basesLegalsModal"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group" [ngClass]="{'is-invalid' : formErrors.customTOS}">
                         <div class="custom-control custom-radio">

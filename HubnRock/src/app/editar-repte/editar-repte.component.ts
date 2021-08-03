@@ -71,6 +71,8 @@ export class EditarRepteComponent implements OnInit {
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
 
+  currentDisplay = 'none';
+
   @ViewChild('inputFile') myInputVariable: ElementRef;
 
 
@@ -1894,11 +1896,16 @@ export class EditarRepteComponent implements OnInit {
 
       }
     }
-    console.log("ULTIM OBJECTE: " + valueName + arrayLength)
-    console.log("ELIMINANT ULTIM OBJECTE...")
     delete this.objectJurats[valueName + arrayLength];
-    console.log("ArrayObject despres de manipular: ", this.objectJurats)
+  }
 
+  triggerDisplay(){
+    if(this.currentDisplay == 'none'){
+      this.currentDisplay = 'block'
+    }
+    else{
+      this.currentDisplay = 'none'
+    }
   }
 }
 

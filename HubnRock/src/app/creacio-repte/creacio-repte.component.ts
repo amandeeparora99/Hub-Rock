@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { HasUnsavedData } from '../has-unsaved-data';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
 import { User } from '../user';
+import { basesLegals } from '../baseslegals'
 
 @Component({
   selector: 'app-creacio-repte',
@@ -29,6 +30,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       return this.repteForm.dirty;
     }
   }
+
+  basesLegalsModal = basesLegals.text;
   checkUntouched = false;
 
   public fileStorageUrl = environment.api + '/image/';
@@ -68,6 +71,8 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
+
+  currentDisplay = 'none';
 
   @ViewChild('inputFile') myInputVariable: ElementRef;
 
@@ -1449,6 +1454,15 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
       }
     }
     delete this.objectJurats[valueName + arrayLength];
+  }
+
+  triggerDisplay(){
+    if(this.currentDisplay == 'none'){
+      this.currentDisplay = 'block'
+    }
+    else{
+      this.currentDisplay = 'none'
+    }
   }
 
 }

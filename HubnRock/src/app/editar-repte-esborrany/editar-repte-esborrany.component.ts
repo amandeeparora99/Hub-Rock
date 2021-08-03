@@ -77,6 +77,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   @ViewChild('inputFile') myInputVariable: ElementRef;
 
+  currentDisplay = 'none';
 
   validationMessages = {
     'nomRepte': {
@@ -1890,6 +1891,15 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
       }
     }
     delete this.objectJurats[valueName + arrayLength];
+  }
+
+  triggerDisplay(){
+    if(this.currentDisplay == 'none'){
+      this.currentDisplay = 'block'
+    }
+    else{
+      this.currentDisplay = 'none'
+    }
   }
 }
 
