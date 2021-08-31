@@ -1,263 +1,276 @@
 * {
-    font-family: 'WorkSans-Regular';
+  font-family: "WorkSans-Regular";
 }
 
 #editarSolucioEsborrany {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 
 label {
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-family: 'WorkSans-Bold';
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  font-family: "WorkSans-Bold";
 }
 
 label.additional-info {
-    font-size: 15px;
-    letter-spacing: -0.38px;
-    font-family: 'WorkSans-Regular';
+  font-size: 15px;
+  letter-spacing: -0.38px;
+  font-family: "WorkSans-Regular";
 }
 
 textarea#InputBreuDescripcio {
-    height: 100px;
+  height: 100px;
 }
 
 input.input-for-text {
-    height: 55px;
+  height: 55px;
 }
 
 textarea {
-    height: 230px;
-    box-sizing: border-box;
-    border: 1px solid #b6b6b6;
-    border-radius: 10px;
-    resize: none;
-    padding: 12px 20px;
+  height: 230px;
+  box-sizing: border-box;
+  border: 1px solid #b6b6b6;
+  border-radius: 10px;
+  resize: none;
+  padding: 12px 20px;
 }
 
 ::placeholder {
-    font-size: 18px;
-    letter-spacing: -0.45px;
-    color: #b6b6b6;
+  font-size: 18px;
+  letter-spacing: -0.45px;
+  color: #b6b6b6;
 }
 
 .title-form {
-    font-family: 'WorkSans-Bold';
-    font-size: 34px;
-    letter-spacing: -0.85px;
-    margin-bottom: 45px;
+  font-family: "WorkSans-Bold";
+  font-size: 34px;
+  letter-spacing: -0.85px;
+  margin-bottom: 45px;
 }
 
 #pagetitle {
-    font-size: 48px;
-    font-family: 'WorkSans-Bold';
-    letter-spacing: -1.67px;
+  font-size: 48px;
+  font-family: "WorkSans-Bold";
+  letter-spacing: -1.67px;
 }
 
 #reptetitle {
-    margin-top: 1rem;
-    font-size: 24px;
-    letter-spacing: -0.83px;
+  margin-top: 1rem;
+  font-size: 24px;
+  letter-spacing: -0.83px;
 }
 
 .has-errors input {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .has-errors label {
-    color: red;
+  color: red;
 }
 
 .has-errors span {
-    color: red;
+  color: red;
 }
 
 .step-text {
-    font-size: 20px;
-    letter-spacing: -0.68px;
+  font-size: 20px;
+  letter-spacing: -0.68px;
 }
 
 .step-text.active {
-    font-family: 'WorkSans-Bold';
+  font-family: "WorkSans-Bold";
 }
 
 .step {
-    height: 65px;
-    width: 65px;
-    margin: 15px 2px;
-    background-color: #d9d9d9;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    padding-top: 10px;
-    font-size: 28px;
-    letter-spacing: -0.39px;
+  height: 65px;
+  width: 65px;
+  margin: 15px 2px;
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 10px;
+  font-size: 28px;
+  letter-spacing: -0.39px;
 }
 
 .step.active {
-    background-color: #00e292;
-    font-family: 'WorkSans-Bold';
+  background-color: #00e292;
+  font-family: "WorkSans-Bold";
 }
 
 .step.finish {
-    background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .btn-manage {
-    width: 100%;
-    border-radius: 8px;
-    border: solid 1px #020e7d;
-    color: #020e7d;
-    letter-spacing: -0.9px;
-    font-size: 17px;
-    font-weight: 600;
-    background-color: white;
-    height: 55px;
-    margin: 2px;
+  width: 100%;
+  border-radius: 8px;
+  border: solid 1px #020e7d;
+  color: #020e7d;
+  letter-spacing: -0.9px;
+  font-size: 17px;
+  font-weight: 600;
+  background-color: white;
+  height: 55px;
+  margin: 2px;
 }
 
 .btn-eliminar-esborrany {
-    width: 100%;
-    border-radius: 8px;
-    border: solid 1px #c0392b;
-    color: #c0392b;
-    letter-spacing: -0.9px;
-    font-size: 17px;
-    font-family: 'WorkSans-Regular';
-    font-weight: 600;
-    background-color: white;
-    height: 55px;
-    margin: 2px;
+  width: 100%;
+  border-radius: 8px;
+  border: solid 1px #c0392b;
+  color: #c0392b;
+  letter-spacing: -0.9px;
+  font-size: 17px;
+  font-family: "WorkSans-Regular";
+  font-weight: 600;
+  background-color: white;
+  height: 55px;
+  margin: 2px;
 }
 
 .btn-submit {
-    margin: 2px;
-    width: 100%;
-    border-radius: 8px;
-    border: none;
-    color: #000000;
-    letter-spacing: -0.9px;
-    font-size: 17px;
-    font-weight: 600;
-    background-color: #00e292;
-    height: 55px;
+  margin: 2px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  color: #000000;
+  letter-spacing: -0.9px;
+  font-size: 17px;
+  font-weight: 600;
+  background-color: #00e292;
+  height: 55px;
 }
 
 .opcional-text {
-    color: #7b7b7b;
-    letter-spacing: -0.38px;
-    font-size: 15px;
+  color: #7b7b7b;
+  letter-spacing: -0.38px;
+  font-size: 15px;
 }
 
 .dot-spacing {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .dot {
-    height: 16px;
-    width: 16px;
-    background-color: #020e7d;
-    border: none;
-    border-radius: 50%;
-    display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-color: #020e7d;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .steps-mt {
-    margin-top: 80px;
+  margin-top: 80px;
 }
 
 .mt-110 {
-    margin-top: 110px;
+  margin-top: 110px;
 }
 
 .input-spacing {
-    margin-bottom: 70px;
+  margin-bottom: 70px;
 }
 
 .counter {
-    font-size: 16px;
-    letter-spacing: -0.4px;
+  font-size: 16px;
+  letter-spacing: -0.4px;
 }
 
 .equip label {
-    font-size: 18px;
-    letter-spacing: -0.45px;
-    font-family: 'WorkSans-Regular';
+  font-size: 18px;
+  letter-spacing: -0.45px;
+  font-family: "WorkSans-Regular";
 }
 
 .equip .nom-equip label {
-    font-size: 15px;
-    letter-spacing: -0.38px;
-    font-family: 'WorkSans-Regular';
+  font-size: 15px;
+  letter-spacing: -0.38px;
+  font-family: "WorkSans-Regular";
 }
 
 .input-mb {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .equip .equip-text-input {
-    height: 55px;
+  height: 55px;
 }
 
 .bold-label {
-    font-size: 20px;
-    letter-spacing: -0.5px;
-    font-family: 'WorkSans-Bold';
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  font-family: "WorkSans-Bold";
 }
 
 .equip hr {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 input,
 textarea {
-    font-size: 18px;
-    letter-spacing: -0.45px;
+  font-size: 18px;
+  letter-spacing: -0.45px;
 }
 
 .afegeix-link a {
-    color: #020e7d;
-    letter-spacing: -0.45px;
-    font-size: 18px;
+  color: #020e7d;
+  letter-spacing: -0.45px;
+  font-size: 18px;
 }
 
 .afegeix-link a:hover {
-    color: #00e292;
-    text-decoration-line: none;
+  color: #00e292;
+  text-decoration-line: none;
 }
 
 .elimina-link a {
-    color: #e74c3c;
-    letter-spacing: -0.45px;
-    font-size: 18px;
-    cursor: pointer;
+  color: #e74c3c;
+  letter-spacing: -0.45px;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 a:hover,
 a:active,
 a:focus {
-    outline: 0;
-    cursor: pointer;
+  outline: 0;
+  cursor: pointer;
 }
 
 #solucioSuccess .btn-manage {
-    width: 255px;
+  width: 255px;
 }
 
 #solucioSuccess h1 {
-    font-size: 48px;
-    letter-spacing: -1.2px;
-    font-family: 'WorkSans-Bold';
+  font-size: 48px;
+  letter-spacing: -1.2px;
+  font-family: "WorkSans-Bold";
 }
 
 #solucioSuccess p {
-    font-size: 22px;
-    letter-spacing: -0.55px;
+  font-size: 22px;
+  letter-spacing: -0.55px;
 }
 
 #solucioSuccess .paragraph-container {
-    margin-top: 70px;
-    margin-bottom: 70px;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.termsconditions .form-check label {
+  font-size: 15px !important;
+  font-family: "WorkSans-Regular" !important;
+  letter-spacing: -0.38px;
+}
+.termsconditions .form-check label a {
+  font-size: 15px !important;
+  font-family: "WorkSans-Regular" !important;
+  letter-spacing: -0.38px;
+  font-weight: bold;
+  color: #020e7d;
 }

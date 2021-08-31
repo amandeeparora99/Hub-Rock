@@ -33,7 +33,7 @@
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-eliminar-esborrany" (click)="deleteSolucio()">ELIMINA LA SOLUCIÓ</button></div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="prevBtn" [disabled]="currentTab == 0" (click)="nextPrev(-1)">ANTERIOR PAS</button></div>
             <div class="col-md-3 col-sm-6"><button type="button" class="btn btn-primary btn-manage" id="nextBtn" [disabled]="currentTab == numberOfTabs" (click)="nextPrev(1)">SEGÜENT PAS</button></div>
-            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs">EDITA LA SOLUCIÓ</button></div>
+            <div class="col-md-3 col-sm-6"><button type="submit" class="btn btn-primary btn-submit" [disabled]="currentTab != numberOfTabs || !(termesChecked && politicaChecked)">EDITA LA SOLUCIÓ</button></div>
         </div>
 
         <div *ngIf="formErrors.campsErronis" class="row has-errors mt-2">
@@ -117,6 +117,26 @@
                         <input formControlName="pdf" accept=".pdf" (change)="onPdfSelected($event)" type="file" style="display: none;" multiple>
                         <a>+ Afegeix PDFs</a>
                     </label>
+                </div>
+
+                <div class="form-group" style="margin-top: 50px;">
+                    <div class="row d-flex align-items-center flex-column termsconditions">
+                        <div class="form-check row">
+                            <input class="form-check-input" type="checkbox" 
+                            value="" id="acceptoTermesiCondicions"
+                            [checked]="termesChecked" (change)="changeChecked('termesChecked')">
+                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a href="/termes-i-condicions" target="_blank">Termes i
+                                    condicions</a> de Hub & Rock</label>
+                        </div>
+                        <div class="form-check row">
+                            <input class="form-check-input" type="checkbox" 
+                            value="" id="acceptoPoliticaPrivacitat"
+                            [checked]="politicaChecked" (change)="changeChecked('politicaChecked')">
+                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a href="/politica-de-privacitat" target="_blank">Política de
+                                    privacitat</a> de Hub & Rock</label>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

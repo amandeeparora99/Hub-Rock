@@ -65,6 +65,9 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
 
+  termesChecked = false;
+  politicaChecked = false;
+
   validationMessages = {
     'nomSolucio': {
       'required': 'És un camp obligatori.',
@@ -672,6 +675,15 @@ export class EditarSolucioComponent implements OnInit, HasUnsavedData {
     }
 
     return formData;
+  }
+
+  changeChecked(normes) {
+    if (normes == 'termesChecked') {
+      this.termesChecked = !(this.termesChecked);
+    }
+    else if (normes == 'politicaChecked') {
+      this.politicaChecked = !(this.politicaChecked);
+    }
   }
 
   @HostListener('window:beforeunload', ['$event'])

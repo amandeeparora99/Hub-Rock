@@ -850,7 +850,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   addPremiFormGroup(): FormGroup {
     return this.fb.group({
-      nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      nomPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]],
       dotacioPremi: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(1)]],
       descripcioPremi: ['', [Validators.maxLength(900), Validators.minLength(3)]],
       fotoPremi: ['']
@@ -1220,6 +1220,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       if (confirmWindow == true) {
         this.formDone = true;
+        console.log("Form doning...")
 
         if (this.formErrors.campsErronis) {
           this.formErrors.campsErronis = '';

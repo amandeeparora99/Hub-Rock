@@ -704,8 +704,8 @@
                 <h1 class="formpagetitle">Bases legals del repte</h1>
                 <div class="regularFont">
                     <div class="custom-control custom-radio">
-                        <input (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" checked id="customRadioDefaultBases" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioDefaultBases">Utilitzar les <a id="openBLmodal" 
+                        <input style="height: 27px;" [checked]="radioToSValue == 'hubandrock'" (change)="changeRadioToS($event.target.value)" value="hubandrock" type="radio" id="defaultRadioDefaultBases" name="defaultRadioDefaultBases" class="custom-control-input">
+                        <label class="custom-control-label" for="defaultRadioDefaultBases">Utilitzar les <a id="openBLmodal" 
                             style="color: #020e7d;" (click)="triggerDisplay()" class="pointer">bases legals genèriques de Hub
                             & Rock</a></label>
                         <div id="blModal" class="blmodal" [style]="'display:'+currentDisplay">
@@ -720,7 +720,7 @@
                     </div>
                     <div class="form-group" [ngClass]="{'is-invalid' : formErrors.customTOS}">
                         <div class="custom-control custom-radio" style="z-index: 0;">
-                            <input (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadioCustomBases" name="customRadio" class="custom-control-input">
+                            <input [checked]="radioToSValue == 'custom'" (change)="changeRadioToS($event.target.value)" value="custom" type="radio" id="customRadioCustomBases" name="customRadio" class="custom-control-input">
                             <label style="z-index: -1;" class="custom-control-label" for="customRadioCustomBases">Escriure bases legals
                             personalitzades</label>
                         </div>

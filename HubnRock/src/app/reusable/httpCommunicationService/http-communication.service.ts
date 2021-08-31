@@ -437,9 +437,10 @@ export class HttpCommunicationService {
     // for (var value of form.values()) {
     //   console.log(value);
     // }
+    console.log("HttpCom entered...")
     return this.http.post<any>(environment.api + '/repte/addRevisio', form)
       .pipe(map(data => {
-
+        console.log(data)
         return data;
       }));
 
@@ -663,10 +664,11 @@ export class HttpCommunicationService {
   }
 
   addSolucioBorrador(form, idRepte): Observable<any> {
-
+    
     return this.http.post<any>(environment.api + '/solucio/addBorrador/' + idRepte, form)
       .pipe(map(data => {
-
+        
+        console.log(data)
         return data;
       }));
   }
