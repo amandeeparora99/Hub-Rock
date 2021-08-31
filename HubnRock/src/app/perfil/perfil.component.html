@@ -3,7 +3,16 @@
     <h1>Usuari no disponible</h1>
     Aquest usuari no existeix o ha estat eliminat <br>
     <div class="text-center mt-4">
-        <button class="btn btn-primary btn-manage" type="button" routerLink='/'>TORNA A L'INICI</button>
+        <button class="btn btn-primary btn-manage" style="width: 100%;
+        border-radius: 8px;
+        border: solid 1px #020e7d;
+        color: #020e7d;
+        letter-spacing: -0.9px;
+        font-size: 17px;
+        font-weight: 600;
+        background-color: white;
+        height: 55px;
+        margin: 2px;" type="button" routerLink='/'>TORNA A L'INICI</button>
     </div>
 </div>
 <section id="perfil-empresa" *ngIf="usuariExists && usuariObject && !usuariObject.empresa_rockstar">
@@ -268,7 +277,10 @@
                                                     <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
                                                 </a>
                                             </div>
-                                            <div class="col m-auto text-overflow-1">
+                                            <div class="col m-auto" style="overflow: hidden;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 1;
+                                            -webkit-box-orient: vertical;">
                                                 <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
                                             </div>
                                         </div>
@@ -429,7 +441,10 @@
                                             <div class="col-auto pr-0">
                                                 <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                             </div>
-                                            <div class="col m-auto text-overflow-1">
+                                            <div class="col m-auto" style="overflow: hidden;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 1;
+                                            -webkit-box-orient: vertical;">
                                                 <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}} {{solucio.user.cognom_rockstar}}</a>
                                             </div>
                                         </div>

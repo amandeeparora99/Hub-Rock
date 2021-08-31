@@ -620,19 +620,6 @@ img {
 .postForum {
   margin-bottom: 96px;
 }
-.forumbutton {
-  letter-spacing: -0.25px;
-  color: #020e7d;
-  background-color: #f7f7f7;
-  padding-left: 30px;
-  max-width: 793px;
-  font-weight: bold;
-  width: 100%;
-  height: 58px;
-  border-radius: 5px;
-  border: solid 2px #020e7d;
-  transition: 0.3s;
-}
 
 .forumPostName {
   cursor: pointer;
@@ -811,11 +798,4 @@ img {
 }
 .card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-.limitText {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  -webkit-box-orient: vertical;
 }

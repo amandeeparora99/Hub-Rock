@@ -333,7 +333,11 @@
                             </div>
                             <div class="card-body solucio-info text-center">
                                 <h5 class="card-title">{{soluciobuscada.solucio_nom}}</h5>
-                                <p class="card-text limitText">{{soluciobuscada.solucio_descripcio}}</p>
+                                <p class="card-text limitText" style="overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3; /* number of lines to show */
+                                -webkit-box-orient: vertical;">{{soluciobuscada.solucio_descripcio}}</p>
                             </div>
                         </div>
                     </div>
