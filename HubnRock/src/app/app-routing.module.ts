@@ -35,6 +35,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
 import { PoliticaDeCookiesComponent } from "./politica-de-cookies/politica-de-cookies.component";
 import { PoliticaDePrivacitatComponent } from "./politica-de-privacitat/politica-de-privacitat.component";
 import { TermesICondicionsComponent } from "./termes-i-condicions/termes-i-condicions.component";
+import { CrudUsersComponent } from "./crud-users/crud-users.component";
 
 //GUARDS
 import { AuthGuard } from './auth.guard';
@@ -71,6 +72,7 @@ const routes: Routes = [
   { path: 'perfil/:id/editar-perfil', component: EditarPerfilComponent, canActivate: [AuthGuard, OwnUserGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'creacio-repte', component: CreacioRepteComponent, canActivate: [AuthGuard, CompanyRoleGuard], canDeactivate: [HasUnsavedDataGuard] },
   { path: 'admin/reptes', component: CrudReptesComponent, canActivate: [AuthGuard, IsAdminGuard] },
+  { path: 'admin/usuaris', component: CrudUsersComponent, canActivate: [AuthGuard, IsAdminGuard] },
   { path: 'validate-account/:token', component: ValidateAccountComponent },
   { path: 'recover-password/:token', component: RecoverPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },

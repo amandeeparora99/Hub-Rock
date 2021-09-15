@@ -1,189 +1,189 @@
 * {
-    font-family: 'WorkSans-Regular';
-    font-size: 16px;
+  font-family: "WorkSans-Regular";
+  font-size: 16px;
 }
 
 .maxwidth-630 {
-    max-width: 630px;
+  max-width: 630px;
 }
 
 .hrcustom {
-    width: 100%;
-    height: 1px;
-    border: solid 1px #979797;
-    margin-bottom: 15px;
+  width: 100%;
+  height: 1px;
+  border: solid 1px #979797;
+  margin-bottom: 15px;
 }
 
 .hrcustom-white {
-    width: 100%;
-    height: 1px;
-    border: solid 1px white;
-    margin-bottom: 15px;
+  width: 100%;
+  height: 1px;
+  border: solid 1px white;
+  margin-bottom: 15px;
 }
 
 #hubrock-solucio {
-    margin-bottom: 73px;
+  margin-top: 60px;
+  margin-bottom: 73px;
 }
 
 #hubrock-solucio #banner {
-    height: 317px;
-    background-color: #cccccc;
-    /* background-image: url(); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 13px;
+  height: 317px;
+  background-color: #cccccc;
+  /* background-image: url(); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 13px;
 }
 
 #hubrock-solucio #banner .container {
-    max-width: 1110px;
+  max-width: 1110px;
 }
 
 #hubrock-solucio #banner .container .title {
-    font-family: 'WorkSans-Bold';
-    font-size: 50px;
-    line-height: normal;
-    letter-spacing: -0.94px;
-    color: black;
+  font-family: "WorkSans-Bold";
+  font-size: 50px;
+  line-height: normal;
+  letter-spacing: -0.94px;
+  color: black;
 }
 
 #hubrock-solucio #banner .container .subtitle {
-    font-family: 'WorkSans-Bold';
-    font-size: 24px;
-    line-height: normal;
-    letter-spacing: -0.45px;
-    color: black;
+  font-family: "WorkSans-Bold";
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: -0.45px;
+  color: black;
 }
 
 #solucio-body h2 {
-    font-family: 'WorkSans-Bold';
-    font-size: 24px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.33px;
-    margin-bottom: 10px;
+  font-family: "WorkSans-Bold";
+  font-size: 24px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.33px;
+  margin-bottom: 10px;
 }
 
 #solucio-body {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 }
 
 #solucio-body h1 {
-    font-family: 'WorkSans-Bold';
-    font-size: 34px;
-    letter-spacing: -0.47px;
-    color: #000000;
+  font-family: "WorkSans-Bold";
+  font-size: 34px;
+  letter-spacing: -0.47px;
+  color: #000000;
 }
 
 #solucio-body p {
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: -0.22px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -0.22px;
 }
 
 .bigtitle {
-    margin-bottom: 71px;
+  margin-bottom: 71px;
 }
 
 .soluciosection {
-    margin-bottom: 60px;
-    max-width: 630px;
+  margin-bottom: 60px;
+  max-width: 630px;
 }
 
 .equip {
-    border-radius: 19px;
-    background-color: #020e7d;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 77px;
+  border-radius: 19px;
+  background-color: #020e7d;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 77px;
 }
 
 .no-equip {
-    border-radius: 19px;
-    background-color: #020e7d;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 77px;
+  border-radius: 19px;
+  background-color: #020e7d;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 77px;
 }
 
 .equip .container {
-    padding: 30px 40px 10px;
+  padding: 30px 40px 10px;
 }
 
 .teamname {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .membre p {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 #altresrecursos h1 {
-    margin-bottom: 41px;
+  margin-bottom: 41px;
 }
 
 #altresrecursosfiles div img {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 #altresrecursosfiles {
-    margin-bottom: 41px;
+  margin-bottom: 41px;
 }
 
 #altresrecursosfiles div {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .hubrock-btn {
-    background-color: #00e292;
+  background-color: #00e292;
 }
 
 .no-existeix {
-    height: 80vh;
+  height: 80vh;
 }
 
 .no-existeix h1 {
-    font-size: 48px;
-    letter-spacing: -1.2px;
-    font-family: 'WorkSans-Bold';
+  font-size: 48px;
+  letter-spacing: -1.2px;
+  font-family: "WorkSans-Bold";
 }
 
 .no-existeix .btn-manage {
-    width: 255px;
+  width: 255px;
 }
 
 .btn-manage {
-    width: 100%;
-    border-radius: 8px;
-    border: solid 1px #020e7d;
-    color: #020e7d;
-    letter-spacing: -0.9px;
-    font-size: 17px;
-    font-weight: 600;
-    background-color: white;
-    height: 55px;
-    margin: 2px;
+  width: 100%;
+  border-radius: 8px;
+  border: solid 1px #020e7d;
+  color: #020e7d;
+  letter-spacing: -0.9px;
+  font-size: 17px;
+  font-weight: 600;
+  background-color: white;
+  height: 55px;
+  margin: 2px;
 }
 
 .iframe-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    padding-top: 56.25%;
-    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
-
 
 /* Then style the iframe to fit in the container div with full height and width */
 
 .iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
 }
