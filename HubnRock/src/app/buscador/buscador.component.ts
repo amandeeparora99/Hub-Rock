@@ -428,6 +428,8 @@ export class BuscadorComponent implements OnInit {
           if (data.code == "1") {
             this.users = [];
             this.users = data.rows;
+            console.log("=========================================")
+            console.log(data.rows)
           }
         },
         error => {

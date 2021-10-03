@@ -261,9 +261,9 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerForm = this.fb.group({
-      nomEmpresa: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-      cognom: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
-      nomResponsable: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+      nomEmpresa: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      cognom: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+      nomResponsable: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       nomCorreu: ['', [Validators.required, Validators.email]],
       contrasenyaGroup: this.fb.group({
         nomContrasenya: ['', [Validators.required, Validators.pattern('(?=.*[0-9])(?=.*[a-z]).{8,32}$')]],
@@ -371,7 +371,7 @@ export class RegisterComponent implements OnInit {
     if (this.accountType == 'empresa') {
       this.tipusEmpresaSelected = 'empresa'
 
-      nomEmpresa.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
+      nomEmpresa.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
       nifEmpresa.setValidators(Validators.required);
       cognom.clearValidators()
 
@@ -383,7 +383,7 @@ export class RegisterComponent implements OnInit {
       this.tipusEmpresaSelected = 'estudiant'
       nomEmpresa.clearValidators();
       nifEmpresa.clearValidators();
-      cognom.setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(255)]);
+      cognom.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(255)]);
 
       nomEmpresa.updateValueAndValidity()
       nifEmpresa.updateValueAndValidity()

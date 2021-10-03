@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   personId = '';
   popupDisplay = 'none';
   page = 0; //0 = Select user, 1 = Xat interface, 2 = NO USERS
+  currentXat = '';
 
   chatList = [];
   messages = [];
@@ -101,6 +102,10 @@ export class ChatComponent implements OnInit {
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  setCurrentName(name){
+    this.currentXat = name;
   }
 
   onPersonClick(personId, chatId) {

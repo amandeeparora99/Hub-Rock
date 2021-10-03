@@ -1,4 +1,4 @@
-<button (click)="changeDisplay()" class="open-button" 
+<button id="defXat" (click)="changeDisplay()" class="open-button" 
     [style]="popupDisplay == 'block' ? 'display: none;' : 'display: block;'">Xat <span *ngIf="unreads>0" class="badge badge-pill badge-danger">{{unreads}}</span></button>
 
 <div *ngIf="page == 0 && chatList.length" class="chat-popup container" [class]="popupDisplay == 'block' ? 'show' : ''" [style]="'display:'+popupDisplay">
@@ -7,7 +7,7 @@
         <h1 class="chat-title mb-0" style="cursor: pointer;" (click)="changeDisplay()">✕</h1>
     </div>
     
-    <div *ngFor="let chat of chatList; let i = index" (click)="onPersonClick(chat.with_who, chat.chat_idchat); setRecieverVariables(chat.url_photo_profile, chat.chat_idchat); changePage(1)" 
+    <div *ngFor="let chat of chatList; let i = index" (click)="setCurrentName(chat.empresa_rockstar == '0' ? chat.nom_empresa : chat.nom_rockstar + chat.cognom_rockstar); onPersonClick(chat.with_who, chat.chat_idchat); setRecieverVariables(chat.url_photo_profile, chat.chat_idchat); changePage(1)" 
     class="d-flex align-items-center chatbox pointer" 
     style="padding-top: 13px; padding-bottom: 13px; padding-left: 30px;">
         <div class="col-md-2 col-sm-2 mobileAuto"><img class="rounded-circle" style="width: 48px; height: 48px" 
@@ -33,8 +33,8 @@
         <div class="text-center">
             <h4>No tens cap conversa</h4>
             <p>Pots iniciar converses amb empreses,
-                startups, experts o estudiants.</p>
-            <button>EXPLORA EL DIRECTORI</button>
+                startups, experts o estudiants. 
+                Busca al directori d'empreses.</p>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
     <div class="w-100">
         <div class="d-flex align-items-center justify-content-between chat-header">
             <h1 class="chat-title-u mb-0" style="font-weight: bold;">
-                <span (click)="changePage(0); getAllUserChats()" style="cursor: pointer; font-size: 20px; margin-bottom: 0; margin-right: 10px; align-self: center;">❮</span> Digital Company</h1>
+                <span (click)="changePage(0); getAllUserChats()" style="cursor: pointer; font-size: 20px; margin-bottom: 0; margin-right: 10px; align-self: center;">❮</span> {{currentXat}}</h1>
             <h1 class="chat-title mb-0" style="cursor: pointer;" (click)="changeDisplay(); exitSocket()">✕</h1>
         </div>
     </div>

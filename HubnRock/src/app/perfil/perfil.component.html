@@ -316,6 +316,7 @@
                                 </div>
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary" *ngIf="isOwnUser" (click)="routeEditProfile()">EDITAR PERFIL</button>
+                                    <button id="btn-enviarmsg" class="btn btn-primary" *ngIf="!isOwnUser" (click)="changeDisplay(usuariObject.user_iduser)">ENVIAR MISSATGE</button>
                                 </div>
                             </div>
                             <div class="row no-gutters">
