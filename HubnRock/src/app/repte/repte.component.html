@@ -104,7 +104,7 @@
     <div class="container infobox-container" *ngIf="repte">
 
         <!-- Nav pills -->
-        <ul id="tabs" class="nav nav-pills nav-justified" role="tablist" *ngIf="!guanyadorPage">
+        <ul id="tabs" class="nav nav-pills nav-justified" role="tablist" *ngIf="guanyadorPage == 0 || guanyadorPage == 2">
             <li class="nav-item">
                 <div class="nav-link active d-flex align-items-center justify-content-center" data-toggle="pill"
                     href="#resum">
@@ -152,7 +152,7 @@
             </li>
         </ul>
 
-        <div class="tab-content" id="guanyadorPage" *ngIf="guanyadorPage">
+        <div class="tab-content" id="guanyadorPage" *ngIf="guanyadorPage == 1">
             <h3 style="font-size: 32px; font-family: 'WorkSans-Bold';letter-spacing: -0.76px;text-align: center; margin-bottom: 90px;">Tria els guanyadors</h3>
             <h3 style="font-size: 28px;font-weight: 600;letter-spacing: -0.76px;text-align: center;" class="mb-3">Escull 1 guanyador per premi</h3>
             <div class="row d-flex justify-content-center">
@@ -165,12 +165,19 @@
                 <li class="nav-item" *ngFor="let premi of repte.premis; let i = index">
                     <a class="nav-link text-center" [class]="{'active': i == 0}" [id]="'pills-premi-'+ i + '-tab'"
                         data-toggle="pill" [attr.href]="'#pills-premi'+i" role="tab" aria-controls="pills-home"
-                        aria-selected="true">{{premi.premi_nom}}</a>
+                        aria-selected="true">
+                        <div style="display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            height: 100%;
+                            width: 100%;
+                            font-weight: bold;">{{premi.premi_nom}}</div>
+                    </a>
                 </li>
             </ul>
             <div class="cancelGuanyadorPage row d-flex justify-content-center align-items-center">
-                <a class="pointer" (click)="toggleGuanyadorPage()">CANCELAR</a>
-                <button class="btn hubrock-btn" type="button">GUARDAR ELS GUANYADORS</button>
+                <a class="pointer" (click)="toggleGuanyadorPage(0)">CANCELAR</a>
+                <button class="btn hubrock-btn" type="button" (click)="toggleGuanyadorPage(2)">VISTA PRÈVIA DELS GUANYADORS</button>
             </div>
             <div style="border-bottom: solid 1px #979797; margin-bottom: 70px;" class="separator"></div>
 
@@ -190,11 +197,11 @@
                     <div id="propostes" class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                         <div class="row w-100">
                             <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
-                                <div style="background-color: #f3f3f3;" click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
+                                <div [style]="(solucionsGuanyadoresObj[premi.premi_nom].idSolucio && solucionsGuanyadoresObj[premi.premi_nom].idSolucio == solucio.idsolucio_proposada) ? '' : 'background-color: #f3f3f3;'" click-stop-propagation class="card solucio-enviat p-2" 
+                                    (click)="showPillIndex(premi.idpremi,premi.premi_nom, solucio.idsolucio_proposada, solucio.solucio_proposada_nom, solucio.solucio_proposada_descripcio_short, solucio.solucio_user_iduser, solucio.user.url_photo_profile, solucio.user.nom_empresa, solucio.user.nom_rockstar, solucio.user.cognom_rockstar, solucio.user.empresa_rockstar)">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
                                         <h6 class="card-subtitle mb-5 text-overflow">{{solucio.solucio_proposada_descripcio_short}}</h6>
-    
                                     </div>
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
@@ -221,74 +228,124 @@
 
         </div>
 
+        <div class="tab-content" style="background-color: #020e7d; margin-top: 50px; padding: 60px 0px; border-radius: 14px;" *ngIf="repte && (guanyadorPage == 2)">
+            <div style="color: white;" class="row d-flex flex-column justify-content-center align-items-center">
+                <h3 style="font-size: 32px; font-family: 'WorkSans-Bold';letter-spacing: -0.76px;text-align: center; margin-bottom: 14px;">Publicar guanyadors</h3>
+                <p style="max-width: 540px; text-align: center;">Un cop publicats els guanyadors no es podràn modificar. Revisa’ls abans de publicar-los!</p>
+            
+                <div class="row w-100 justify-content-center d-flex">
+                    <div class="col-md-3 col-sm-3 col-xs-3" *ngFor="let sol of solucionsGuanyadoresObj | keyvalue">
+                        <a style="background-color: white;
+                            border-radius: 50%;
+                            height: 94px;
+                            width: 94px;
+                            margin: auto;
+                            margin-bottom: 23px" class="nav-link text-center">
+                            <div style="display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                height: 100%;
+                                width: 100%;
+                                font-weight: bold;">{{sol.key}}</div>
+                        </a>
+                        <div style="border-radius: 14px; background-color:#d2f5e8;" class="card solucio-enviat p-2">
+                            <div class="card-body">
+                                <h5 class="card-title text-overflow" style="font-size: 24px;
+                                letter-spacing: -0.4px;font-family: 'WorkSans-Bold'; color: black;">{{sol.value.nomSolucio}}</h5>
+                                <h6 class="card-subtitle mb-5 text-overflow" style="color: black;">{{sol.value.descSolucio}}</h6>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="row">
+                                    <div class="col-auto pr-0">
+                                        <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + sol.value.solucioUserImg" alt=""></a>
+                                    </div>
+                                    <div class="col m-auto text-overflow-1">
+                                        <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="!sol.value.solEmpresaRockstar" target="_blank" class="solucio-footer username"
+                                            style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.solucioUserNomEmpresa}}</a>
+                                        <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="sol.value.solEmpresaRockstar" target="_blank" class="solucio-footer username"
+                                            style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.solucioNomRockstar}}
+                                                {{sol.value.solucioCognomRockstar}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+            </div>
+
+            <div style="margin-top: 50px;" class="row d-flex justify-content-center align-items-center">
+                <a class="pointer" style="color: white; font-size: 18px; font-weight: 600; letter-spacing: -0.95px; margin-right: 20px;" 
+                    (click)="toggleGuanyadorPage(1)">EDITAR GUANYADORS</a>
+                <button class="btn hubrock-btn" type="button" (click)="publicarGuanyadors()">PUBLICAR GUANYADORS</button>
+            </div>
+        </div>
+
         <!-- Tab panes -->
-        <div class="tab-content" *ngIf="repte && !guanyadorPage">
+        <div class="tab-content" *ngIf="repte && (guanyadorPage == 0 || guanyadorPage == 2)">
 
             <div id="resum" class="container tab-pane active">
 
-                <div *ngIf="isRepteOwner() && repteAcabat()"
+                <div *ngIf="((isRepteOwner() && repteAcabat()) && guanyadorPage == 0) && !repte.premis[0].guanyador"
                 class="anunciarGuanyador d-flex flex-column align-items-center justify-content-center"
                 style="margin-top: 40px;padding: 40px 40px 50px 40px;border-radius: 12px;border: solid 1px #020e7d;">
                     <img src="../../assets/illustrations/Win2.png" width="70px" style="margin-bottom: 20px" alt="">
                     <h1 style="font-family: 'WorkSans-Bold';font-size: 38px;letter-spacing: -0.5px;">El repte ha finalitzat</h1>
                     <p style="font-size: 20px;">Fes públiques les solucions guanyadores</p>
-                    <button class="btn hubrock-btn mt-3" type="button" (click)="toggleGuanyadorPage()">ANUNCIAR ELS
+                    <button class="btn hubrock-btn mt-3" type="button" (click)="crearPremisArray(); toggleGuanyadorPage(1)">ANUNCIAR ELS
                         GUANYADORS</button>
                 </div>
 
                 <div class="resultatGuanyadors" style="margin-top: 50px;padding-top: 50px;
                 padding-bottom: 50px;width: 100vw;margin-left: calc(-50vw + 50% - 10px);
-                background-color: #020e7d;" *ngIf="repteAcabat() && !isRepteOwner()">
+                background-color: #020e7d;" *ngIf="repteAcabat() && guanyadorPage == 0">
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <h1 style="margin-bottom: 15px; color: white; font-family: 'WorkSans-Bold';
                         font-size: 36px; letter-spacing: -0.5px;">Repte tancat</h1>
-                        <p *ngIf="!repte.premis[0].guanyador" 
+                        <p *ngIf="!repte.premis[0].guanyador && !isRepteOwner()"
                             style="font-size: 16px; letter-spacing: -0.22px;color: #ffffff;">
                             L'autor del repte aviat mostrarà els guanyadors!</p>
                         <p *ngIf="repte.premis[0].guanyador" 
                             style="font-size: 16px; letter-spacing: -0.22px;color: #ffffff;">
                             Aquestes són les solucions guanyadores:</p>
-                        
-                        <!-- <div class="row d-flex flex-column align-items-center" *ngIf="repte.premis[0].guanyador">
-                            <div class="row w-100">
-                                <div *ngFor="let guanyador of repte.premis" class="col-md-4 col-sm-6">
-                                    <div click-stop-propagation class="card solucio-enviat p-2"
-                                        [routerLink]="['/solucio/', guanyador.guanyador]">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                            <h6 class="card-subtitle mb-5 text-overflow">
-                                                {{solucio.solucio_proposada_descripcio_short}}</h6>
-        
-                                        </div>
-                                        <div class="card-footer bg-transparent">
-                                            <div class="row">
-                                                <div class="col-auto pr-0">
-                                                    <a click-stop-propagation
-                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
-                                                        target="_blank"><img class="rounded-circle" height="50px" width="50px"
-                                                            [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
-                                                </div>
-                                                <div class="col m-auto text-overflow-1">
-                                                    <a click-stop-propagation
-                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
-                                                        *ngIf="!solucio.user.empresa_rockstar" target="_blank"
-                                                        class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
-                                                    <a click-stop-propagation
-                                                        [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
-                                                        *ngIf="solucio.user.empresa_rockstar" target="_blank"
-                                                        class="solucio-footer username">{{solucio.user.nom_rockstar}}
-                                                        {{solucio.user.cognom_rockstar}}</a>
-                                                </div>
+                        <div class="row w-100 justify-content-center d-flex">
+                            <div class="col-md-3 col-sm-3 col-xs-3" *ngFor="let sol of solucionsGuanyadoresFinal | keyvalue">
+                                <a style="background-color: white;
+                                    border-radius: 50%;
+                                    height: 94px;
+                                    width: 94px;
+                                    margin: auto;
+                                    margin-bottom: 23px" class="nav-link text-center">
+                                    <div style="display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        height: 100%;
+                                        width: 100%;
+                                        font-weight: bold;">{{sol.key}}</div>
+                                </a>
+                                <div style="border-radius: 14px; background-color:#d2f5e8;" class="card solucio-enviat p-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-overflow" style="font-size: 24px;
+                                        letter-spacing: -0.4px;font-family: 'WorkSans-Bold'; color: black;">{{sol.value.solucio_proposada_nom}}</h5>
+                                        <h6 class="card-subtitle mb-5 text-overflow" style="color: black;">{{sol.value.solucio_proposada_descripcio_short}}</h6>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <div class="row">
+                                            <div class="col-auto pr-0">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + sol.value.user.url_photo_profile" alt=""></a>
+                                            </div>
+                                            <div class="col m-auto text-overflow-1">
+                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="!sol.value.user.empresa_rockstar" target="_blank" class="solucio-footer username"
+                                                    style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.user.nom_empresa}}</a>
+                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="sol.value.user.empresa_rockstar" target="_blank" class="solucio-footer username"
+                                                    style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.user.nom_rockstar}}
+                                                        {{sol.value.user.cognom_rockstar}}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="!solucionsProposadesNoMore" class="text-center">
-                                <button type="button" class="btn btn-primary btn-veure-mes btn-style"
-                                    (click)="seeMoreSolucionsProposades()">VEURE MÉS</button>
-                            </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 
@@ -473,11 +530,11 @@
 
                 </div>
 
-                <!-- <div class="row">
+                <div class="row">
                     <div class="separator"></div>
-                </div> -->
+                </div>
 
-                <!-- <div id="altresrecursos" class="row">
+                <div id="altresrecursos" class="row">
                     <h1 class="tematicatitle">Altres recursos</h1>
                 </div>
                 <div id="altresrecursosfiles" class="row d-flex flex-column">
@@ -486,7 +543,7 @@
                         <img width="30" src="../../assets/simpleicons/fileicon.png" alt="">
                         <a target="_blank" [href]="fileStorageUrl + recurs.recurs_url_fitxer" download>{{recurs.recurs_nom}}</a>
                     </div>
-                </div> -->
+                </div>
 
                 <!-- <div class="videos">   DESACTIVEM VIDEOS PER DEMOSTRACIO GRAV.
                     <div class="row">
@@ -498,8 +555,6 @@
                 </div> -->
 
 
-
-
             </div>
 
 
@@ -508,8 +563,8 @@
                 <h1 class="tabtitle text-center">Bases legals</h1>
 
                 <div class="container">
-                    <div *ngIf="repte.bases_legals_personals" class="legaltext">{{repte.bases_legals_personals}}</div>
-                    <div *ngIf="!repte.bases_legals_personals" class="legaltext">
+                    <div *ngIf="repte.bases_legals_personals != 0" class="legaltext">{{repte.bases_legals_personals}}</div>
+                    <div *ngIf="!repte.bases_legals_personals == 0" class="legaltext">
                         L’objectiu d’aquestes regles és establir els termes i condicions que regulen la vostra
                         participació al repte. En registrar-vos en aquest repte, accepteu plenament i sense condicions
                         complir aquestes regles. Si no esteu d'acord amb cap d'aquestes regles, no us inscriviu a aquest

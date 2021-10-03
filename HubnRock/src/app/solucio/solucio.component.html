@@ -12,8 +12,8 @@
             <div id="bannerimg">
                 <div id="banner" class="container d-flex align-items-center">
                     <div class="container d-flex flex-column">
-                        <h1 class="title text-center">{{solucio.solucio_proposada_nom}}</h1>
-                        <p class="subtitle text-center">{{solucio.solucio_proposada_nom_equip}}</p>
+                        <h1 style="color: #020e7d;" class="title text-center">{{solucio.solucio_proposada_nom}}</h1>
+                        <p style="color: #020e7d;" class="subtitle text-center">{{solucio.solucio_proposada_nom_equip}}</p>
                     </div>
                 </div>
             </div>
@@ -130,11 +130,11 @@
                                 <div class="hrcustom-white mb-4"></div>
                             </div>
                             <div class="row mb-4" *ngFor="let membre of solucio.membres; let i=i ndex">
-                                <img src="https://dummyimage.com/65x65/000/fff" alt="" class="rounded-circle align-self-center mr-3">
+                                <img src="../../assets/illustrations/profile_pic.png" alt="" class="rounded-circle align-self-center mr-3">
                                 <div class="d-flex flex-column membre">
                                     <p><b>{{membre.membre_nom}}</b></p>
                                     <p><b>{{membre.membre_posicio}}</b></p>
-                                    <p>{{membre.membre_link}}</p>
+                                    <a *ngIf="membre.membre_link" style="color: white;" href="{{membre.membre_link}}">Perfil</a>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                 </div>
 
             </div>
-            <div class="row" *ngIf="!getYoutubeUrl(solucio.solucio_proposada_video)">
+            <div class="row container" *ngIf="!getYoutubeUrl(solucio.solucio_proposada_video)">
                 No s'ha adjuntat cap vídeo o no és un enllaç de Youtube vàlid
             </div>
         </div>

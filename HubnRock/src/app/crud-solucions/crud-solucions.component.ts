@@ -10,46 +10,94 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 })
 export class CrudSolucionsComponent implements OnInit {
 
-  public solucionsPage = 1;
-  public allSolucions = [];
-
-
-  subscriptionHttp1$: Subscription;
-
-  constructor(private _httpClient: HttpCommunicationService) { }
+  subscriptionHttp$: Subscription;
+  subscriptionHttp2$: Subscription;
+  reptes = [];
+  solucions = [];
+  page = 0;
+  
+  constructor(private httpCommunication: HttpCommunicationService) { }
 
   ngOnInit(): void {
-
-    this.getMoreSolucions(this.solucionsPage);
-
+    this.getAllReptes();
   }
 
-  getMoreSolucions(solucionsPage) {
-    this.subscriptionHttp1$ = this._httpClient.getSolucionsAdmin(solucionsPage).pipe(first())
-      .subscribe(data => {
-        if (data.code == '1') {
+  eliminarSolucio(idUser){
+    if(window.confirm("Segur que vols eliminar aquesta solució?")) {
+      if(window.confirm("Aquesta opció no té marxa enrere. N'estàs segur/a?")) {
+        this.blockSolucio(idUser);
+      }
+      else{
+        window.alert("No s'ha eliminat cap solució.")
+      }
+    }
+  }
 
+  blockSolucio(solucioId){
+    this.subscriptionHttp2$ = this.httpCommunication.changeSolucioState(solucioId, 5)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if(data.code == 1){
+            window.location.reload();
+          }
+        },
+        error => {
+        });
+  }
+  
+  changePage(num){
+    this.page = num;
+  }
 
-          if (data.rows.length > 0) {
-            data.rows.forEach(solucio => {
-              this.allSolucions.push(solucio)
+  returnSlice(string){
+    console.log(string)
+    // return string.length>25 ? string.slice(0, 25)+"..." : string
+  }
+
+  storeRepte(repteId){
+    this.getRepteSolucions(repteId);
+  }
+
+  getAllReptes(){
+    this.subscriptionHttp$ = this.httpCommunication.crudGetAll()
+      .pipe(first())
+      .subscribe(
+        data => {
+          // console.log(data);
+          if (data.code == "1") {
+            this.reptes = [];
+            data.rows.forEach(element => {
+              this.reptes.push(element)
+            });
+            console.log(this.reptes)
+          }
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
+  }
+
+  getRepteSolucions(repteId){
+    this.subscriptionHttp$ = this.httpCommunication.getRepte(repteId)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // console.log(data);
+          if (data.code == "1") {
+            console.log(data.row.solucions_proposades)
+            this.solucions = [];
+            data.row.solucions_proposades.forEach(solucio => {
+              this.solucions.push(solucio)
             });
           }
-        }
-
-
-      });
-  }
-
-  nextPageSolucions() {
-    this.solucionsPage = this.solucionsPage + 1;
-
-    this.getMoreSolucions(this.solucionsPage)
-  }
-
-  ngOnDestroy() {
-    this.subscriptionHttp1$?.unsubscribe()
-    // this.subscriptionHttp2$?.unsubscribe()
+          this.page = 2;
+        },
+        error => {
+          //this.error = error;
+          //this.loading = false;
+        });
   }
 
 }

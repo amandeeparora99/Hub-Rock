@@ -11,6 +11,7 @@ import { HttpCommunicationService } from '../reusable/httpCommunicationService/h
 export class CrudUsersComponent implements OnInit {
 
   subscriptionHttp$: Subscription;
+  subscriptionHttp2$: Subscription;
   usuaris = [];
   
   constructor(private httpCommunication: HttpCommunicationService) { }
@@ -22,16 +23,30 @@ export class CrudUsersComponent implements OnInit {
   eliminarUsuari(idUser){
     if(window.confirm("Segur que vols eliminar aquest usuari?")) {
       if(window.confirm("Aquesta opció no té marxa enrere. N'estàs segur/a?")) {
-        console.log("Eliminant el puto user "+idUser)
+        this.blockUser(idUser);
       }
       else{
-        console.log("No s'ha eliminat l'usuari")
+        window.alert("No s'ha eliminat cap usuari.")
       }
     }
   }
 
+  blockUser(userId){
+    this.subscriptionHttp2$ = this.httpCommunication.blockUser(userId)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if(data.code == 1){
+            window.location.reload();
+          }
+        },
+        error => {
+        });
+  }
+  
+
   getAllUsers(){
-    this.subscriptionHttp$ = this.httpCommunication.getUsersSearchEmpty(0,0,0,1,10)
+    this.subscriptionHttp$ = this.httpCommunication.getUsersSearchEmpty(0,0,0,1,9999)
       .pipe(first())
       .subscribe(
         data => {

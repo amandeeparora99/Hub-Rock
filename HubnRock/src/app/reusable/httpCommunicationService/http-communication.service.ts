@@ -233,6 +233,13 @@ export class HttpCommunicationService {
       }));
   }
 
+  changeSolucioState(solucioId, stateId): Observable<any> {
+    return this.http.get<any>(environment.api + '/solucio/editStateSolucio/' + solucioId + '/' + stateId)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
   getUser(user_id): Observable<any> {
 
     return this.http.get<any>(environment.api + '/user/get/' + user_id)
@@ -796,6 +803,13 @@ export class HttpCommunicationService {
   //   }));
   // }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(environment.api + `/user/getAll`)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
   getUsersSearch(cerca, empresesChecked, startupsChecked, industriesArray, page, elements): Observable<any> {
     let body = new HttpParams()
 
@@ -942,6 +956,23 @@ export class HttpCommunicationService {
 
   }
 
+
+  crudGetAll(): Observable<any>{
+    return this.http.get<any>(environment.api + `/repte/getAll/`)
+      .pipe(map(data => {
+        return data;
+      }));
+    
+  }
+
+  blockUser(userId): Observable<any>{
+    return this.http.get<any>(environment.api + `/user/blockUser/${userId}`)
+      .pipe(map(data => {
+        return data;
+      }));
+    
+  }
+
   getAllUserChats(): Observable<any> {
     return this.http.get<any>(environment.api + `/getUserFullChats`)
       .pipe(map(data => {
@@ -1024,5 +1055,22 @@ export class HttpCommunicationService {
       .pipe(map(data => {
         return data;
       }));
+  }
+
+  //======== Guanyadors repte
+
+  setGuanyador(premiId, solucioId): Observable<any> {
+    const body = new HttpParams()
+      .set('solucio_id', solucioId)
+
+    return this.http.post<any>(environment.api + `/repte/setGuanyador/${premiId}`,
+      body.toString(),
+      {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      }
+    ).pipe(map(data => {
+        return data;
+    }));
   }
 }

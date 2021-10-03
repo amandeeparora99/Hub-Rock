@@ -1,99 +1,73 @@
-<app-header></app-header>
-<section id="hubrock-solucions">
-    <div class="container">
-        <div id="toolbar" class="row d-flex justify-content-between">
+<app-header>
+</app-header>
 
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="input-group mb-3 test">
-                    <div class="input-group-prepend">
-                        <button id="icon" class="btn btn-outline-primary" type="button"><img width="25px"
-                                src="../../assets/simpleicons/Search_N.png" alt="Send"></button>
-                    </div>
-                    <input id="searchbar" type="text" class="form-control" placeholder="Some text" placeholder="Busca per paraules clau, nom d’empresa…">
-                </div>
-            </div>
+<div class="container" style="margin-top: 60px; margin-bottom: 60px;">
+    <table class="table table-hover" *ngIf="page == 0">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Data inici</th>
+                <th scope="col">Data final</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="reptes">
+            <tr *ngFor="let repte of reptes; let i = index">
+                <th class="align-middle" scope="row">{{i}}</th>
+                <td class="align-middle">{{repte.nom}}</td>
+                <td class="align-middle">{{repte.data_inici | date: 'dd/MM/yyyy'}}</td>
+                <td class="align-middle">{{repte.data_final | date: 'dd/MM/yyyy'}}</td>
+                <td class="align-middle">
+                    <button class="btn btn-secondary" type="button" (click)="storeRepte(repte.idrepte);">Seleccionar</button>
+                </td>
+            </tr>
+        </tbody>
 
-            <!-- <div class="col-md-6 col-sm-12 col-xs-12 flex-end-desktop">
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEmpreses">
-                    <label class="form-check-label" for="SearchEmpreses">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Company.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Empreses</p>
+    </table>
+
+    <a *ngIf="page == 2" style="font-size: 18px; color: darkblue;" class="pointer" (click)="changePage(0);">- Seleccionar repte</a>
+    <table class="table table-hover" *ngIf="page == 2">
+        
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Descripció</th>
+                <th scope="col">Perquè és innovadora?</th>
+                <th scope="col">En quina fase de desenvolupament es troba?</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!solucions.length">
+                <tr>
+                    <td>Aquest repte no té solucions</td>
+                </tr>
+        </tbody>
+        <tbody *ngIf="solucions.length">
+            <tr *ngFor="let solucio of solucions; let i = index">
+                <th class="align-middle" scope="row">{{i}}</th>
+                <td class="align-middle">{{(solucio.solucio_proposada_nom.length>25)? (solucio.solucio_proposada_nom | slice:0:25)+'..':(solucio.solucio_proposada_nom)}}</td>
+                <td class="align-middle">{{(solucio.solucio_proposada_descripcio_short.length>25)? (solucio.solucio_proposada_descripcio_short | slice:0:25)+'..':(solucio.solucio_proposada_descripcio_short)}}</td>
+                <td class="align-middle">{{(solucio.solucio_proposada_perque_innovacio.length>25)? (solucio.solucio_proposada_perque_innovacio | slice:0:25)+'..':(solucio.solucio_proposada_perque_innovacio)}}</td>
+                <td class="align-middle">{{(solucio.solucio_proposada_fase_desenvolupament.length>25)? (solucio.solucio_proposada_fase_desenvolupament | slice:0:25)+'..':(solucio.solucio_proposada_fase_desenvolupament)}}</td>
+                <td class="align-middle">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Gestionar
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item pointer" [attr.href]="'/solucio/'+solucio.idsolucio_proposada">Veure solucio</a>
+                          <a class="dropdown-item pointer" (click)="eliminarSolucio(solucio.idsolucio_proposada)">Eliminar</a>
                         </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchStartups">
-                    <label class="form-check-label" for="SearchStartups">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Startup.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Startups</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchEstudiants">
-                    <label class="form-check-label" for="SearchEstudiants">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Student.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Estudiants</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-check form-check-inline checkboxes">
-                    <input class="form-check-input inputhidden" type="checkbox" id="SearchExperts">
-                    <label class="form-check-label" for="SearchExperts">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="../../assets/illustrations/Experts.png" width="40px" height="40px">
-                            <p class="checkboxtitle">Experts</p>
-                        </div>
-                    </label>
-                </div>
-            </div> -->
-        </div>
-    </div>
-</section>
+                      </div>
+                </td>
+            </tr>
+        </tbody>
+              
+    </table>
 
+</div>
 
-<section id="crud-solucions">
-    <div class="container">
-
-        <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb">
-            <div class="row w-100" *ngIf="allSolucions.length > 0">
-                <div *ngFor="let solucio of allSolucions" class="col-md-4 col-sm-6">
-                    <div class="card solucio-enviat p-2">
-                        <div class="card-body">
-                            <h5 class="card-title">{{solucio.solucio_proposada_nom}}</h5>
-                            <h6 class="card-subtitle mb-5">Repte <a href="#" target="_blank">Demanar ferran que get solucio retorni nom de repte</a></h6>
-
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <div class="row">
-                                <div class="col-auto pr-0">
-                                    <img class="rounded-circle" height="50px" width="50px" src="../../assets/logos/AIFactoryLogo.png" alt="">
-                                </div>
-                                <div class="col m-auto solucio-footer">
-                                    nom usuari
-                                </div>
-                            </div>
-                            <div class="row no-gutters">
-                                <div class="col-md-4 text-center bg-success">a</div>
-                                <div class="col-md-4 text-center bg-warning">b</div>
-                                <div class="col-md-4 text-center bg-danger">c</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="text-center">
-            <button type="button" (click)="nextPageSolucions()" class="btn btn-primary btn-veure-mes">VEURE MÉS</button>
-        </div>
-    </div>
-
-
-</section>
-
-<app-footer></app-footer>
+<app-footer>
+</app-footer>

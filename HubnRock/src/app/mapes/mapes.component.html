@@ -150,7 +150,7 @@
                     <div class="card-body">
                         <div id="industriesDiv">
                             <div style="margin-top: 18px; margin-left: 18px">
-                                <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList.slice(0, 13);">
+                                <div class="custom-control custom-checkbox mb-2" *ngFor="let item of checkboxesIndustriaList.slice(1, 13);">
                                     <input [id]="item.id" type="checkbox" [(ngModel)]="item.isChecked" class="custom-control-input"
                                         [ngModelOptions]="{standalone: true}" (change)="changeSelection()">
                                     <label [attr.for]="item.id" class="custom-control-label" for="ind_totes">{{item.label}}</label>

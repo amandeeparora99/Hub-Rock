@@ -25,7 +25,7 @@
                           Gestionar
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item pointer">Veure perfil</a>
+                          <a class="dropdown-item pointer" [attr.href]="'/perfil/'+usuari.user_iduser">Veure perfil</a>
                           <a class="dropdown-item pointer" (click)="eliminarUsuari(usuari.user_iduser)">Eliminar</a>
                         </div>
                       </div>

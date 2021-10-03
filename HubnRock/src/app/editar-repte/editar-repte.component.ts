@@ -277,7 +277,7 @@ export class EditarRepteComponent implements OnInit {
               this.repteForm = this.fb.group({
                 nomRepte: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
                 descripcioBreuRepte: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],
-                descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
+                descripcioDetalladaRepte: ['', [Validators.required, Validators.maxLength(9000), Validators.minLength(3)]],
                 fotoPortada: ['',
                   [Validators.required]
                 ],

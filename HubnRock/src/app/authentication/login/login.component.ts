@@ -107,6 +107,26 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       this.logValidationErrorsUntouched()
     } else {
+      // this.subscriptionHttp$ = this.httpCommunication.getAllUsers()
+      // .pipe(first())
+      // .subscribe(
+      //   data => {
+      //     if (data.code == 1) {
+      //       for (let i = 0; i < data.rows.length; i++) {
+      //         if(data.rows[i].email == this.loginForm.controls.email.value){
+      //           if(data.rows[i].bloquejat == 1){
+      //             this.toastr.error('Aquest compte ha estat esborrat', 'Compte esborrat', {
+      //               timeOut: 2000,
+      //             })
+      //             break;
+      //           }
+      //           else{
+
+      //           }
+      //         }
+      //       }
+      //     }
+      //   });
       this.subscriptionHttp$ = this.httpCommunication.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
         .pipe(first())
         .subscribe(

@@ -174,10 +174,10 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
     this.solucioForm = this.fb.group({
       nomSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
       descripcioBreuSolucio: ['', [Validators.required, Validators.maxLength(280), Validators.minLength(3)]],  //max 280 chars en aquest
-      problemaSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      descripcioSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],  //textarea gran, 500 o 1000 va be?
-      innovadoraSolucio: ['', [Validators.required, Validators.maxLength(1000), Validators.minLength(3)]],
-      faseSolucio: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
+      problemaSolucio: ['', [Validators.required, Validators.maxLength(5000), Validators.minLength(3)]],
+      descripcioSolucio: ['', [Validators.required, Validators.maxLength(5000), Validators.minLength(3)]],  //textarea gran, 500 o 1000 va be?
+      innovadoraSolucio: ['', [Validators.required, Validators.maxLength(5000), Validators.minLength(3)]],
+      faseSolucio: ['', [Validators.required, Validators.maxLength(5000), Validators.minLength(3)]],
       videoSolucio: ['', [Validators.pattern(regExp)]],
       pdf: [''],
       nomEquip: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],

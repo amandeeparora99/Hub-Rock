@@ -24,7 +24,7 @@ export class RepteComponent implements OnInit {
   public topicPost;
   public buttonDisabled: Boolean = false;
 
-  public guanyadorPage: Boolean = false;
+  public guanyadorPage = 0;
   public forum = null;
   public forumRespostes = null;
   public hasForum: Boolean = false;
@@ -51,6 +51,10 @@ export class RepteComponent implements OnInit {
   subscriptionHttp4$: Subscription
   subscriptionHttp5$: Subscription
   subscriptionHttp6$: Subscription
+  subscriptionHttp7$: Subscription
+
+  solucionsGuanyadoresObj = {};
+  solucionsGuanyadoresFinal = {};
 
   ngOnInit(): void {
 
@@ -66,6 +70,23 @@ export class RepteComponent implements OnInit {
       this.getRepteForum(this.idRepte, 1, 10);
     }
 
+  }
+
+  getRepteGuanyadors(){
+    if(this.repte.premis[0].guanyador){
+      this.repte.premis.forEach(premi => {
+        this.solucionsProposades.forEach(solucio => {
+          // console.log(premi.guanyador + ", " + solucio.idsolucio_proposada)
+          if(premi.guanyador == solucio.idsolucio_proposada){
+            this.solucionsGuanyadoresFinal[premi.premi_nom] = solucio
+          }
+        });
+      });
+      console.log(this.solucionsGuanyadoresFinal)
+    }
+    else{
+      console.log("No te guanyadors!")
+    }
   }
 
   canParticipate(): Boolean {
@@ -216,9 +237,8 @@ export class RepteComponent implements OnInit {
             this.repte = data.row
             this.repteExists = true;
 
-
-
             this.getSolucionsProposades(this.currentSolucionsProposadesPage, this.elements)
+            
           } else if (data.code == '2') {
             this.repteExists = false;
             // this.router.navigate(['/page-not-found'])
@@ -339,6 +359,8 @@ export class RepteComponent implements OnInit {
               this.solucionsProposadesNoMore = false;
             }
           }
+
+          this.getRepteGuanyadors();
         }
       })
   }
@@ -500,6 +522,62 @@ export class RepteComponent implements OnInit {
     }
   }
 
+  //Logica SOLUCIO GUANYADORA:
+
+  showPillIndex(premiId, i, idSol, nomSol, descSol, solUserId, solUserImg, solNomEmp, solNomRockstar, solCogRockstar, solEmpRock){
+    let obj = {
+      premiId: premiId,
+      idSolucio: idSol,
+      nomSolucio: nomSol,
+      descSolucio: descSol,
+      solucioUserId: solUserId,
+      solucioUserImg: solUserImg,
+      solucioUserNomEmpresa: solNomEmp,
+      solucioNomRockstar: solNomRockstar,
+      solucioCognomRockstar: solCogRockstar,
+      solEmpresaRockstar: solEmpRock
+    }
+    this.solucionsGuanyadoresObj[i] = obj;
+    console.log(this.solucionsGuanyadoresObj[i])
+  }
+
+  crearPremisArray(){
+    let obj = {
+      premiId: '',
+      idSolucio: '',
+      nomSolucio: '',
+      descSolucio: '',
+      solucioUserId: '',
+      solucioUserImg: '',
+      solucioUserNomEmpresa: '',
+      solucioNomRockstar: '',
+      solucioCognomRockstar: '',
+      solEmpresaRockstar: ''
+    }
+    this.repte.premis.forEach(element => {
+      this.solucionsGuanyadoresObj[element.premi_nom] = obj;
+    });
+  }
+
+  publicarGuanyadors(){
+    let k;
+    for (k of Object.keys(this.solucionsGuanyadoresObj)) {
+      console.log("KEYVALUE:")
+      var premiId = this.solucionsGuanyadoresObj[k].premiId
+      var solId = this.solucionsGuanyadoresObj[k].idSolucio
+      this.subscriptionHttp7$ = this.httpCommunication.setGuanyador(premiId, solId)
+        .pipe(first())
+        .subscribe(
+          data => {
+            if (data.code == 1) {
+              this.toastr.success('Els guanyadors s\'han publicat correctament', 'Publicat')
+              window.location.reload()
+            }
+          }
+        );
+  }
+  }
+
   carregarRespostes(idMissatgePare, numRespostes) {
 
     //Falta fer el get sense auth en cas que sigui user sense login
@@ -640,8 +718,19 @@ export class RepteComponent implements OnInit {
     }
   }
 
-  toggleGuanyadorPage(){
-    this.guanyadorPage = !this.guanyadorPage;
+  toggleGuanyadorPage(num){
+    if(num == 2){
+      var x = 0;
+      this.repte.premis.forEach(element => {
+        if(this.solucionsGuanyadoresObj[element.premi_nom].idSolucio == ''){
+          x++
+        }
+      });
+      x != 0 ? window.alert("Escull una solucio per cada premi!") : this.guanyadorPage = num;
+    }
+    else{
+      this.guanyadorPage = num;
+    }
   }
 
   sendMessage(message, topicId, messageParentId) {
