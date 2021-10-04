@@ -43,8 +43,7 @@
                                     <!-- <p class="mt-4 perfil-info">{{usuariObject.ocupacio}} <br> <img *ngIf="usuariObject.ubicacio" class="mr-1" src="../../assets/testicons/Localització.png" alt=""><span style="vertical-align: middle;">{{usuariObject.ubicacio}}</span></p> -->
                                     <p class="mt-4 perfil-info">
                                         <img class="mr-1" src="../../assets/testicons/place-localizer.png" alt="">
-                                        <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
-                                        <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
+                                        <span style="vertical-align: middle;">{{getJSONaddr(usuariObject.ciutat_residencia).addr}}</span>
                                     </p>
                                     <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin" target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>
                                     <a *ngIf="usuariObject.xarxes_instagram" [attr.href]="usuariObject.xarxes_instagram" target="_blank"><img class="mr-2" src="../../assets/testicons/Instagram.png" alt="Instagram"></a>
@@ -324,9 +323,7 @@
                                     <p class="mt-4 perfil-info">
                                         <span *ngIf="usuariObject.ocupacio">{{usuariObject.ocupacio}}<br></span>
                                         <img class="mr-1" src="../../assets/testicons/place-localizer.png" alt="Ubicacio usuari">
-
-                                        <span *ngIf="usuariObject.ubicacio" style="vertical-align: middle;">{{usuariObject.ubicacio}}</span>
-                                        <span *ngIf="!usuariObject.ubicacio" style="vertical-align: middle;">Ubicació sense especificar</span>
+                                        <span style="vertical-align: middle;">{{getJSONaddr(usuariObject.ciutat_residencia).addr}}</span>
                                     </p>
 
                                     <a *ngIf="usuariObject.xarxes_linkedin" [attr.href]="usuariObject.xarxes_linkedin" target="_blank"><img class="mr-2" src="../../assets/testicons/LinkedIn.png" alt="LinkedIn"></a>

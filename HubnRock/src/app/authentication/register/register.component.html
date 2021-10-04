@@ -36,14 +36,12 @@
             </div>
 
             <p id="text" class="text-center">
-                <ng-container *ngIf="accountType == 'empresa'; else rockstarType">
-                    <i>Empresa:</i> companyies amb un desig d’innovar, de millorar constantment i de construir un futur
-                    millor.
-                </ng-container>
-                <ng-template #rockstarType>
-                    <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de
-                    participar en els reptes de Hub & Rock.
-                </ng-template>
+                
+                <i>Empresa:</i> companyies amb un desig d’innovar, de millorar constantment i de construir un futur
+                millor.<br><br>
+                <i>Rockstar:</i> qualsevol persona amb un desig incontrolable de millorar la societat i de
+                participar en els reptes de Hub & Rock.
+                
 
             </p>
 
@@ -220,14 +218,14 @@
                             <input class="form-check-input" type="checkbox" 
                             value="" id="acceptoTermesiCondicions"
                             [checked]="termesChecked" (change)="changeChecked('termesChecked')">
-                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a href="/termes-i-condicions">Termes i
+                            <label class="form-check-label" for="acceptoTermesiCondicions">Accepto els <a href="/termes-i-condicions" target="_blank">Termes i
                                     condicions</a> de Hub & Rock</label>
                         </div>
                         <div class="form-check row">
                             <input class="form-check-input" type="checkbox" 
                             value="" id="acceptoPoliticaPrivacitat"
                             [checked]="politicaChecked" (change)="changeChecked('politicaChecked')">
-                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a href="/politica-de-privacitat">Política de
+                            <label class="form-check-label" for="acceptoPoliticaPrivacitat">Accepto la <a href="/politica-de-privacitat" target="_blank">Política de
                                     privacitat</a> de Hub & Rock</label>
                         </div>
                     </div>

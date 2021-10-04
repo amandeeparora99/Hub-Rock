@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { HttpCommunicationService } from '../reusable/httpCommunicationService/http-communication.service';
@@ -31,7 +32,7 @@ export class RecoverPasswordComponent implements OnInit {
     'contrasenyaGroup': '',
   }
 
-  constructor(public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder) { }
+  constructor(public aRouter: ActivatedRoute, public httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder, public toastr: ToastrService) { }
 
   recoverForm: FormGroup;
   public token;
@@ -89,7 +90,10 @@ export class RecoverPasswordComponent implements OnInit {
       .subscribe(
         data => {
           if (data.code == '1') {
-            // console.log("DONEIRO")
+            this.toastr.success('Ja pots iniciar sessió', 'Contrasenya actualitzada', {
+              timeOut: 2000,
+            });
+            this.router.navigate(["/login"])
           } else {
             // console.log("FAILEIRO")
           }

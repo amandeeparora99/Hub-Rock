@@ -1239,8 +1239,8 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
   addPreguntaFormGroup(): FormGroup {
     return this.fb.group({
-      pregunta: ['', [Validators.required, Validators.maxLength(255), Validators.minLength(3)]],
-      resposta: ['', [Validators.required, Validators.maxLength(2000), Validators.minLength(3)]],
+      pregunta: ['', [Validators.maxLength(2000), Validators.minLength(3)]],
+      resposta: ['', [Validators.maxLength(2000), Validators.minLength(3)]],
     })
   }
 

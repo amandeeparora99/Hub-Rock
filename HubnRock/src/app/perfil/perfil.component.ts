@@ -86,6 +86,10 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  getJSONaddr(addr){
+    return JSON.parse(addr);
+  }
+
   createChatIfNoExist(iduser){
     var chatExists = false;
     this.subscriptionHttp8$ = this.httpClient.getAllUserChats().pipe(first())
