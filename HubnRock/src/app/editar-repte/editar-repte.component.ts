@@ -789,7 +789,7 @@ export class EditarRepteComponent implements OnInit {
                 control.controls.biografiaJurat.updateValueAndValidity({ emitEvent: false })
 
                 if (!this.objectJurats['fotoJurat' + juratArrayCounter]) {
-                  control.controls.fotoJurat.setValidators([Validators.required])
+                  // control.controls.fotoJurat.setValidators([Validators.required])
                   control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
                 } else {
                   control.controls.fotoJurat.clearValidators()

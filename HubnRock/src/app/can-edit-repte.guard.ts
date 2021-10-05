@@ -26,6 +26,8 @@ export class CanEditRepteGuard implements CanActivate {
 
           if (data.row.estat_idestat == 2) {
             return true;
+          } else if (data.row.estat_idestat == 4) { //Si esta rebutjat, que deixi editar
+            return true;
           } else if (data.row.estat_idestat == 1) {
             this.toastr.warning('El repte és un esborrany', 'Accés denegat');
             this.router.navigate(['/'])

@@ -782,7 +782,7 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
 
 
                 if (!this.objectJurats['fotoJurat' + juratArrayCounter]) {
-                  control.controls.fotoJurat.setValidators([Validators.required])
+                  // control.controls.fotoJurat.setValidators([Validators.required])
                   control.controls.fotoJurat.updateValueAndValidity({ emitEvent: false })
                 } else {
                   control.controls.fotoJurat.clearValidators()

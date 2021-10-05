@@ -1216,7 +1216,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-3 col-sm-6 col-xs-12 d-flex flex-column align-items-center jurat-container"
                         *ngFor="let jurat of repte.jurats; let i = index">
-                        <img [src]="fileStorageUrl + jurat.jurat_url_photo"
+                        <img [src]="jurat.jurat_url_photo ? fileStorageUrl + jurat.jurat_url_photo : fileStorageUrl + 'url_photo_profile/default.png'"
                             class="rounded-circle align-self-center jurat-img">
                         <h1>{{jurat.jurat_nom}}</h1>
                         <p class="text-center">{{jurat.jurat_bio}}</p>
