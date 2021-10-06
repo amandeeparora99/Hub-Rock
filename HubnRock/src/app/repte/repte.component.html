@@ -123,11 +123,11 @@
                     <p class="mb-0">Bases legals</p>
                 </div>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill" href="#forum">
                     <p class="mb-0">Fòrum</p>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <div class="nav-link d-flex align-items-center justify-content-center" data-toggle="pill"
                     href="#propostes">
@@ -826,7 +826,7 @@
             </div>
 
 
-            <div id="forum" class="container tab-pane fade"><br>
+            <!-- <div id="forum" class="container tab-pane fade"><br>
                 <h1 class="tabtitle text-center">Fòrum</h1>
 
                 <div class="row d-flex justify-content-center postForum"
@@ -983,9 +983,6 @@
                                         (click)="sendMessage(respostaForum.value, forumPost.id, resposta.id); respostaForum.value = ''">Envia</button>
                                 </div>
 
-
-                                <!-- IF TE RESPOSTES, ENSENYELES AQUI, ABANS DE SEGUIR AMB EL LOOP DE LES ALTRES RESPOSTES. EL CONTESTAR EL QUE FARÀ ÉS CONTESTAR AL PARENT, NO CADA UN DELS FILLS! -->
-
                                 <div class="margintop30" *ngFor="let answer of resposta.childs; let j = index">
                                     <div class="row d-flex align-items-center mb-4">
                                         <img [src]="fileStorageUrl + answer.url_photo_profile"
@@ -1042,8 +1039,6 @@
                                     </div>
                                 </div>
 
-                                <!-- /Repostes -->
-
                             </div>
 
 
@@ -1052,7 +1047,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
 
             <div id="propostes" class="tab-pane fade"><br>

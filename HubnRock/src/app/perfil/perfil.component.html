@@ -35,7 +35,7 @@
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary mr-4" *ngIf="isOwnUser" (click)="routeEditProfile()">EDITAR PERFIL</button>
                                     <button id="btn-crear" class="btn btn-primary" *ngIf="isOwnUser" routerLink="/creacio-repte">CREAR UN REPTE</button>
-                                    <button id="btn-enviarmsg" class="btn btn-primary" *ngIf="!isOwnUser" (click)="changeDisplay(usuariObject.user_iduser)">ENVIAR MISSATGE</button>
+                                    <!-- <button id="btn-enviarmsg" class="btn btn-primary" *ngIf="!isOwnUser" (click)="changeDisplay(usuariObject.user_iduser)">ENVIAR MISSATGE</button> -->
                                 </div>
                             </div>
                             <div class="row no-gutters">
@@ -315,7 +315,7 @@
                                 </div>
                                 <div class="col-md-auto">
                                     <button id="btn-editar" class="btn btn-primary" *ngIf="isOwnUser" (click)="routeEditProfile()">EDITAR PERFIL</button>
-                                    <button id="btn-enviarmsg" class="btn btn-primary" *ngIf="!isOwnUser" (click)="changeDisplay(usuariObject.user_iduser)">ENVIAR MISSATGE</button>
+                                    <!-- <button id="btn-enviarmsg" class="btn btn-primary" *ngIf="!isOwnUser" (click)="changeDisplay(usuariObject.user_iduser)">ENVIAR MISSATGE</button> -->
                                 </div>
                             </div>
                             <div class="row no-gutters">
@@ -378,7 +378,7 @@
                             <p class="card-text">{{usuariObject.experiencia}}</p>
                         </div>
                         <div class="mb-5">
-                            <h5 class="card-title">Educació</h5>
+                            <h5 class="card-title">Estudis</h5>
                             <p class="card-text" *ngIf="!usuariObject.educacio">-</p>
                             <p class="card-text">{{usuariObject.educacio}}</p>
                         </div>

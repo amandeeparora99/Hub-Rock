@@ -345,15 +345,20 @@
                         </div>
 
                         <div class="form-group regularFont">
-                            <div class="d-flex justify-content-between">
+                            
+                                <div class="d-flex img-infohelp justify-content-between">
 
-                                <label [attr.for]="'InputFotoPremi' + i">Foto premi<span class="opcional-text">(Opcional)</span></label>
+                                    <label [attr.for]="'InputFotoPremi' + i">Foto premi<span class="opcional-text">(Opcional)</span></label>
 
-                                <div class="text-center elimina-link" *ngIf="getInterpolationCondition('fotoPremi', i)">
-                                    <a (click)="eliminarFoto('fotoPremi' + i)">- Elimina aquesta foto</a>
+                                    <div style="margin-right: 8px" class="text-center elimina-link ml-auto" *ngIf="getInterpolationCondition('fotoPremi', i)">
+                                        <a class="ml-auto" (click)="eliminarFoto('fotoPremi' + i)">- Elimina aquesta foto</a>
+                                    </div>
+                                
+                                    <div class="d-flex justify-content-end align-self-center tooltip top">
+                                        <img src="../../../assets/simpleicons/info.jpg" class="rounded-circle helpbutton">
+                                        <span class="tiptext">Mida recomanada: 450 x 315px</span>
+                                    </div>
                                 </div>
-
-                            </div>
 
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
                                 <label *ngIf="!getInterpolationCondition('fotoPremi', i)" [attr.for]="'InputFotoPremi' + i" class="pointer mb-0">
@@ -419,14 +424,18 @@
                         </div>
 
                         <div class="form-group hubrockformgrup regularFont" [ngClass]="{'is-invalid' : (solucio.get('fotoSolucio').invalid && solucio.get('fotoSolucio').touched || (solucio.get('fotoSolucio').invalid && checkUntouched))}">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex img-infohelp justify-content-between">
 
                                 <label [attr.for]="'InputFotoSolucio' + i">Foto solució<span class="opcional-text">(Opcional)</span></label>
 
-                                <div class="text-center elimina-link" *ngIf="getInterpolationCondition('fotoSolucio', i)">
+                                <div class="text-center elimina-link ml-auto" style="margin-right: 8px" *ngIf="getInterpolationCondition('fotoSolucio', i)">
                                     <a (click)="eliminarFoto('fotoSolucio' + i)">- Elimina aquesta foto</a>
                                 </div>
-
+                            
+                                <div class="d-flex justify-content-end align-self-center tooltip top">
+                                    <img src="../../../assets/simpleicons/info.jpg" class="rounded-circle helpbutton">
+                                    <span class="tiptext">Mida recomanada: 470 x 265px</span>
+                                </div>
                             </div>
 
                             <div class="image-upload d-flex justify-content-center align-items-center mb-4">
@@ -529,7 +538,15 @@
 
                             <div class="col-md-4 mb-2">
 
-                                <label [attr.for]="'InputLogoPartner' + i">Logo partner</label>
+                                <div class="d-flex img-infohelp justify-content-between">
+
+                                    <label [attr.for]="'InputLogoPartner' + i">Logo partner</label>
+                                    
+                                    <div class="d-flex justify-content-end align-self-center tooltip top">
+                                        <img src="../../../assets/simpleicons/info.jpg" class="rounded-circle helpbutton">
+                                        <span class="tiptext">Mida recomanada: 250 x 250px</span>
+                                    </div>
+                                </div>
 
                                 <div class="text-center elimina-link" *ngIf="getInterpolationCondition('fotoPartner', i)">
                                     <a (click)="eliminarFoto('fotoPartner' + i)">- Elimina aquesta foto</a>
@@ -614,7 +631,15 @@
 
                             <div class="col-md-4 mb-2">
 
-                                <label [attr.for]="'InputLogoPartner' + i">Foto jurat</label>
+                                <div class="d-flex img-infohelp justify-content-between">
+
+                                    <label [attr.for]="'fotoJurat' + i">Foto jurat</label>
+                                    
+                                    <div class="d-flex justify-content-end align-self-center tooltip top">
+                                        <img src="../../../assets/simpleicons/info.jpg" class="rounded-circle helpbutton">
+                                        <span class="tiptext">Mida recomanada: 250 x 250px</span>
+                                    </div>
+                                </div>
 
                                 <div class="text-center elimina-link" *ngIf="getInterpolationCondition('fotoJurat', i)">
                                     <a (click)="eliminarFoto('fotoJurat' + i)">- Elimina aquesta foto</a>

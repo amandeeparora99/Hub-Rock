@@ -33,6 +33,7 @@ export class HomepageComponent implements OnInit {
   subscriptionHttp$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
 
   constructor(private httpCommunication: HttpCommunicationService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) { }
 
@@ -42,6 +43,7 @@ export class HomepageComponent implements OnInit {
         this.currentUser = data;
         if(this.currentUser){
           this.userIsRockstar = this.currentUser.userType;
+          this.userHasBio(this.currentUser.idUser);
         }
       }
     );
@@ -63,6 +65,17 @@ export class HomepageComponent implements OnInit {
 
     this.getAllReptesHomepage();
 
+  }
+
+  userHasBio(userid){
+    this.subscriptionHttp$ = this.httpCommunication.getUser(userid)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (!data.row.bio) {
+            document.getElementById("bioModal").click();
+          }
+        });
   }
 
   openModal() {

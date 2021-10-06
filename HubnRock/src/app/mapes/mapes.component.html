@@ -33,6 +33,9 @@
         </div>
         <div class="text-center maininfo">
             <h3 style="cursor:pointer" routerLink="/perfil/{{currentEmpresa.user_iduser}}">{{currentEmpresa.nom_empresa}}</h3>
+            <a [href]="'/perfil/'+currentEmpresa.user_iduser">
+                <button style="margin-bottom: 0px" class="btn btn-primary what-btn">Veure perfil</button>
+            </a>
             <!-- <p>{{currentEmpresa.bio}}</p> -->
         </div>
         <div>
@@ -41,7 +44,7 @@
             <p *ngIf="!currentEmpresa.bio" style="overflow-x: hidden; font-size: 14px;">-</p>
         </div>
         <hr />
-        <div>
+        <div *ngIf="currentEmpresa.serveis.length">
             <h3>Els nostres serveis</h3>
             <div *ngIf="currentEmpresa.serveis.length">
                 <div *ngFor="let servei of currentEmpresa.serveis" class="servei" style="display: inline-block; margin-right: 5px; margin-bottom: 5px;">
@@ -49,20 +52,20 @@
             </div>
             <div *ngIf="!currentEmpresa.serveis.length">-</div>
         </div>
-        <hr />
+        <hr *ngIf="currentEmpresa.serveis.length" />
         <div>
             <h3>Els nostres sectors</h3>
             <div *ngFor="let industria of currentEmpresa.industries" class="servei" style="display: inline-block; margin-right: 5px; margin-bottom: 5px;">
                 {{industria.nom}}</div>
         </div>
         <hr />
-        <div>
+        <div *ngIf="currentEmpresa.cv_path">
             <h3>Documents</h3>
             <img *ngIf="currentEmpresa.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
             <a *ngIf="currentEmpresa.cv_path" target="_blank" [href]="fileStorageUrl + currentEmpresa.cv_path" download class="link-perfil-usuari">Presentació {{currentEmpresa.nom_empresa}}</a>
             <p *ngIf="!currentEmpresa.cv_path">-</p>
         </div>
-        <hr />
+        <hr *ngIf="currentEmpresa.cv_path" />
         <div>
             <h3>On trobar-nos?</h3>
             <div class="d-flex">

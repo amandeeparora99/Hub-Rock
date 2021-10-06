@@ -44,6 +44,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   checkedIDs = [];
   tipusEmpresaSelected = '';
   checkboxesUpdated = false;
+  hiHaError = false;
 
   checkboxesIndustriaList = [
     {
@@ -258,37 +259,37 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       'required': 'Introdueix un NIF empresa'
     },
     'fotoPerfil': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'ocupacio': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'ubicacio': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'bio': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'experiencia': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'educacio': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
     'pdfFile': {
-      'required': 'Introdueix un nom d\'empresa',
+      'required': 'Aquest camp és requerit',
       'minlength': 'Massa curt',
       'maxlength': 'Massa llarg'
     },
@@ -339,7 +340,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       fotoPerfil: [''],
       ocupacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       ubicacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
-      bio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
+      bio: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       experiencia: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       educacio: ['', [Validators.minLength(2), Validators.maxLength(255)]],
       pdfFile: ['',],
@@ -470,9 +471,10 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
+      
       if (abstractControl && !abstractControl.valid) {
+        console.log(key)
         const messages = this.validationMessages[key];
-
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
             this.formErrors[key] += messages[errorKey] + ' ';
@@ -551,7 +553,9 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
   onSubmit() {
     if (this.editUserForm.invalid) {
       this.logValidationErrorsUntouched()
+      this.hiHaError = true;
     } else {
+      this.hiHaError = false;
       let confirmString: string;
 
       if (this.userIsRockstar) {

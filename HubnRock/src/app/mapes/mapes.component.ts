@@ -347,7 +347,7 @@ export class MapesComponent implements OnInit {
               data.rows.forEach(element => {
                 var latval = JSON.parse(element.ciutat_residencia).lat
                 if(element.ciutat_residencia && latval != 0){
-                  if(element.empresa_rockstar == 0){
+                  if(element.empresa_rockstar == 0 && element.bio){
                     this.empreses.push(element)
                   }
                 }
@@ -383,7 +383,7 @@ export class MapesComponent implements OnInit {
               data.rows.forEach(element => {
                 var latval = JSON.parse(element.ciutat_residencia).lat
                 if(element.ciutat_residencia && latval != 0){
-                  if(element.empresa_rockstar == 0){
+                  if(element.empresa_rockstar == 0 && element.bio){
                     this.empreses.push(element)
                   }
                 }
