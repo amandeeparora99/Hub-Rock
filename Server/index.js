@@ -87,8 +87,51 @@ app.post("/enviarContact", function (req, res) {
 
   const mailOptions = {
     from: "contact@hubandrock.com",
-    to: "callmetheryota@gmail.com",
+    to: "contact@hubandrock.com",
     subject: `<${req.body.correu_electronic}> ${req.body.nom_cognoms} - ${req.body.nom_empresa}`,
+    text: req.body.missatge,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send({
+        data: "error",
+      });
+    } else {
+      console.log("Correu enviat " + info.response);
+      res.send({
+        data: "success",
+      });
+    }
+  });
+
+  console.log("Data recieved: ");
+  console.log(
+    req.body.nom_cognoms +
+      ", " +
+      req.body.nom_empresa +
+      ", " +
+      req.body.correu_electronic +
+      ", " +
+      req.body.missatge
+  );
+});
+
+app.post("/enviarRegisterMail", function (req, res) {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.dondominio.com",
+    port: 587,
+    auth: {
+      user: "contact@hubandrock.com",
+      pass: "Hubandrock2021.",
+    },
+  });
+
+  const mailOptions = {
+    from: "contact@hubandrock.com",
+    to: "contact@hubandrock.com",
+    subject: `Nou registre [${req.body.accountType}]`,
     text: req.body.missatge,
   };
 

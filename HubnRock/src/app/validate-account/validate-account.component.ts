@@ -18,9 +18,7 @@ export class ValidateAccountComponent implements OnInit {
   subscriptionHttp$: Subscription
 
   ngOnInit(): void {
-    console.log("BONDIA PAVOS")
     this.token = this.aRouter.snapshot.params.token;
-    console.log(this.token)
     this.subscriptionHttp$ = this.httpCommunication.validateAccount(this.token)
       .pipe(first())
       .subscribe(
@@ -38,5 +36,7 @@ export class ValidateAccountComponent implements OnInit {
           }
       });
   }
+
+
 
 }

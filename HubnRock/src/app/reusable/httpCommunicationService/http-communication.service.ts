@@ -1049,6 +1049,14 @@ export class HttpCommunicationService {
       }));
   }
 
+  sendRegisteredMail(form): Observable<any> {
+    const headers = { 'Content-Type': 'application/json'}
+    return this.http.post<any>(environment.localApi + `/enviarRegisterMail`, form,  { headers })
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
   subNewsletter(form): Observable<any> {
     const headers = { 'Content-Type': 'application/json'}
     return this.http.post<any>(environment.localApi + `/newsletter`, form,  { headers })

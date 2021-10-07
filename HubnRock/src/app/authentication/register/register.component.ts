@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
 
   tipusEmpresaSelected = 'empresa';
   selectedItemsList = [];
@@ -419,6 +420,41 @@ export class RegisterComponent implements OnInit {
     this.registerForm.reset();
   }
 
+  appendInfo() {
+
+    var email = { 
+      tipus_empresa: this.accountType == 'empresa' ? 'Empresa' : 'Rockstar',
+      nom_cognoms: this.accountType == 'empresa' ? this.registerForm.controls.nomResponsable.value : this.registerForm.controls.nomResponsable.value + ' ' + this.registerForm.controls.cognom.value,
+      nom_empresa: this.accountType == 'empresa' ? this.registerForm.controls.nomEmpresa.value : '',
+      correu_electronic: this.registerForm.controls.nomCorreu.value,
+      missatge: this.accountType == 'empresa' ? 'Nou registre de tipus Empresa. <br>Nom empresa: '+
+        this.registerForm.controls.nomEmpresa.value+'<br>Nom responsable: '+this.registerForm.controls.nomResponsable.value+
+        '<br>Correu electrònic: '+this.registerForm.controls.nomCorreu.value : 'Nou registre de tipus Rockstar. <br>Nom i cognoms: '+
+        this.registerForm.controls.nomResponsable.value+' '+this.registerForm.controls.cognom.value+'<br>Correu electrònic: '+
+        this.registerForm.controls.nomCorreu.value,
+    };
+
+    return email;
+  }
+
+  sendRegisteredMail() {
+    console.log("ENVIANT MAIL...")
+    let emailForm = this.appendInfo();
+    console.log(emailForm)
+    this.subscriptionHttp3$ = this.httpCommunication.sendRegisteredMail(emailForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              console.log("Email sent for admin")
+            }
+            else{
+              console.log("Email NOT sent for admin")
+            }
+          });
+  }
+
   onSubmit(): void {
     this.subscriptionHttp1$ = this.httpCommunication.emailExists(this.registerForm.controls.nomCorreu.value)
       .subscribe(data => {
@@ -450,6 +486,7 @@ export class RegisterComponent implements OnInit {
                       this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
                         timeOut: 2000,
                       });
+                      this.sendRegisteredMail();
                       this.router.navigate(["/login"])
                     }
                     else if (data.code == 534) {
@@ -484,6 +521,7 @@ export class RegisterComponent implements OnInit {
                       this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
                         timeOut: 2000,
                       });
+                      this.sendRegisteredMail();
                       this.router.navigate(["/login"]);
                     }
                     else if (data.code == 534) {
