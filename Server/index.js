@@ -118,7 +118,7 @@ app.post("/enviarContact", function (req, res) {
   );
 });
 
-app.post("/enviarRegisterMail", function (req, res) {
+app.post("/enviarMail", function (req, res) {
   const transporter = nodemailer.createTransport({
     host: "smtp.dondominio.com",
     port: 587,
@@ -130,8 +130,8 @@ app.post("/enviarRegisterMail", function (req, res) {
 
   const mailOptions = {
     from: "contact@hubandrock.com",
-    to: "contact@hubandrock.com",
-    subject: `Nou registre [${req.body.tipus_empresa}]`,
+    to: req.body.reciever,
+    subject: req.body.subject,
     text: req.body.missatge,
   };
 

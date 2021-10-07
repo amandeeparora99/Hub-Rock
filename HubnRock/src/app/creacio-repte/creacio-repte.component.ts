@@ -71,6 +71,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
 
   currentDisplay = 'none';
 
@@ -1195,6 +1196,32 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   }
 
+  appendInfo() {
+    var email = { 
+      subject: 'L\'usuari ['+this.currentUser.nom+'] ha creat un repte',
+      reciever: 'contact@hubandrock.com',
+      missatge: 'L\'usuari'+this.currentUser.nom+' ha creat un repte. El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
+    };
+    return email;
+  }
+
+  sendRegisteredMail() {
+    console.log("ENVIANT MAIL...")
+    let emailForm = this.appendInfo();
+    console.log(emailForm)
+    this.subscriptionHttp2$ = this.httpClient.sendRegisteredMail(emailForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              console.log("Email sent for admin")
+            }
+            else{
+              console.log("Email NOT sent for admin")
+            }
+          });
+  }
 
   onRepteSubmit() {
     window.scrollTo(0, 0)
@@ -1220,7 +1247,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
       if (confirmWindow == true) {
         this.formDone = true;
-        console.log("Form doning...")
 
         if (this.formErrors.campsErronis) {
           this.formErrors.campsErronis = '';
@@ -1241,6 +1267,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
                 this.success = true;
                 this.idRepte = data.lastId;
                 this.toastr.success('Repte enviat per revisar!', 'Enviat')
+                this.sendRegisteredMail()
               }
 
             });
@@ -1250,22 +1277,6 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
 
   changeCurrentTab(tabNumber) {
     this.currentTab = tabNumber;
-
-    // if (this.currentTab != 0) {
-    //   console.log("COMPROVACIO NOVA")
-    //   console.log(this.repteForm.get('nomRepte').valid)
-    //   console.log(this.repteForm.get('descripcioBreuRepte').valid)
-    //   console.log(this.repteForm.get('descripcioDetalladaRepte').valid)
-    //   console.log(this.repteForm.get('fotoPortada').valid)
-    //   console.log(this.repteForm.get('videoSolucio').valid)
-    //   console.log(this.repteForm.get('checkboxGroup').valid)
-    //   console.log(this.repteForm.get('limitParticipants').valid)
-    //   console.log(this.repteForm.get('dataInici').valid)
-    //   console.log(this.repteForm.get('dataFinalitzacio').valid)
-    //   console.log(this.repteForm.get('nomRepte').valid)
-    //   console.log(this.repteForm.get('nomRepte').valid)
-    //   console.log(this.repteForm.get('nomRepte').valid)
-    // }
   }
 
   logValidationErrorsUntouched(group: FormGroup = this.repteForm): void {

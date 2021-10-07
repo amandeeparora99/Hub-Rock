@@ -421,19 +421,15 @@ export class RegisterComponent implements OnInit {
   }
 
   appendInfo() {
-
     var email = { 
-      tipus_empresa: this.accountType == 'empresa' ? 'Empresa' : 'Rockstar',
-      nom_cognoms: this.accountType == 'empresa' ? this.registerForm.controls.nomResponsable.value : this.registerForm.controls.nomResponsable.value + ' ' + this.registerForm.controls.cognom.value,
-      nom_empresa: this.accountType == 'empresa' ? this.registerForm.controls.nomEmpresa.value : '',
-      correu_electronic: this.registerForm.controls.nomCorreu.value,
+      subject: this.accountType == 'empresa' ? 'Nou registre [Empresa]' : 'Nou registre [Rockstar]',
+      reciever: 'contact@hubandrock.com',
       missatge: this.accountType == 'empresa' ? 'Nou registre de tipus Empresa. \nNom empresa: '+
         this.registerForm.controls.nomEmpresa.value+'\nNom responsable: '+this.registerForm.controls.nomResponsable.value+
         '\nCorreu electrònic: '+this.registerForm.controls.nomCorreu.value : 'Nou registre de tipus Rockstar. \nNom i cognoms: '+
         this.registerForm.controls.nomResponsable.value+' '+this.registerForm.controls.cognom.value+'\nCorreu electrònic: '+
         this.registerForm.controls.nomCorreu.value,
     };
-
     return email;
   }
 

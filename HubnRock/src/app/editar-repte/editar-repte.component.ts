@@ -70,6 +70,7 @@ export class EditarRepteComponent implements OnInit {
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
+  subscriptionHttp2$: Subscription;
 
   currentDisplay = 'none';
 
@@ -1621,6 +1622,33 @@ export class EditarRepteComponent implements OnInit {
 
   // }
 
+  appendInfo() {
+    var email = { 
+      subject: 'L\'usuari ['+this.currentUser.nom+'] ha editat un repte',
+      reciever: 'contact@hubandrock.com',
+      missatge: 'L\'usuari'+this.currentUser.nom+' ha editat el repte "'+this.repte.nom+'". El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
+    };
+    return email;
+  }
+
+  sendRegisteredMail() {
+    console.log("ENVIANT MAIL...")
+    let emailForm = this.appendInfo();
+    console.log(emailForm)
+    this.subscriptionHttp2$ = this.httpClient.sendRegisteredMail(emailForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              console.log("Email sent for admin")
+            }
+            else{
+              console.log("Email NOT sent for admin")
+            }
+          });
+  }
+
 
   onRepteSubmit() {
     window.scrollTo(0, 0)
@@ -1662,6 +1690,7 @@ export class EditarRepteComponent implements OnInit {
               if (data.code == 1) {
                 window.scrollTo(0, 0)
                 this.toastr.success('Repte actualitzat i enviat per revisar!', 'Enviat')
+                this.sendRegisteredMail();
                 this.success = true;
                 this.enviat = true;
               }
