@@ -1051,7 +1051,7 @@ export class HttpCommunicationService {
 
   sendRegisteredMail(form): Observable<any> {
     const headers = { 'Content-Type': 'application/json'}
-    return this.http.post<any>(environment.localApi + `/enviarRegisterMail`, form,  { headers })
+    return this.http.post<any>(environment.localApi + `/enviarMail`, form,  { headers })
       .pipe(map(data => {
         return data;
       }));
