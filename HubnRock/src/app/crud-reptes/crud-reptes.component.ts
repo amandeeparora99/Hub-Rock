@@ -54,6 +54,7 @@ export class CrudReptesComponent implements OnInit {
     this.getReptesOberts(this.currentObertPage, this.elements);
     this.getReptesProces(this.currentProcesPage, this.elements);
     this.getReptesTancats(this.currentTancatPage, this.elements);
+    console.log(this.reptesOberts, this.reptesProces, this.reptesTancats)
   }
 
   seeMoreOberts() {

@@ -1626,7 +1626,7 @@ export class EditarRepteComponent implements OnInit {
     var email = { 
       subject: 'L\'usuari ['+this.currentUser.nom+'] ha editat un repte',
       reciever: 'contact@hubandrock.com',
-      missatge: 'L\'usuari'+this.currentUser.nom+' ha editat el repte "'+this.repte.nom+'". El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
+      missatge: 'L\'usuari '+this.currentUser.nom+' ha editat el repte "'+this.repte.nom+'". El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
     };
     return email;
   }

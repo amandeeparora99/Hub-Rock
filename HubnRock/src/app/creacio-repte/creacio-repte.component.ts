@@ -1200,7 +1200,7 @@ export class CreacioRepteComponent implements OnInit, HasUnsavedData {
     var email = { 
       subject: 'L\'usuari ['+this.currentUser.nom+'] ha creat un repte',
       reciever: 'contact@hubandrock.com',
-      missatge: 'L\'usuari'+this.currentUser.nom+' ha creat un repte. El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
+      missatge: 'L\'usuari '+this.currentUser.nom+' ha creat un repte. El pots acceptar, rebutjar o eliminar accedint al seguent enllaç: \nhttps://hubandrock.com/admin/reptes'
     };
     return email;
   }
