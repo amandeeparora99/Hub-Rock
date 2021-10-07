@@ -87,7 +87,7 @@ app.post("/enviarContact", function (req, res) {
 
   const mailOptions = {
     from: "contact@hubandrock.com",
-    to: "contact@hubandrock.com",
+    to: "callmetheryota@gmail.com",
     subject: `<${req.body.correu_electronic}> ${req.body.nom_cognoms} - ${req.body.nom_empresa}`,
     text: req.body.missatge,
   };
