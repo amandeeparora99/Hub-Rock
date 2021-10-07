@@ -427,10 +427,10 @@ export class RegisterComponent implements OnInit {
       nom_cognoms: this.accountType == 'empresa' ? this.registerForm.controls.nomResponsable.value : this.registerForm.controls.nomResponsable.value + ' ' + this.registerForm.controls.cognom.value,
       nom_empresa: this.accountType == 'empresa' ? this.registerForm.controls.nomEmpresa.value : '',
       correu_electronic: this.registerForm.controls.nomCorreu.value,
-      missatge: this.accountType == 'empresa' ? 'Nou registre de tipus Empresa. <br>Nom empresa: '+
-        this.registerForm.controls.nomEmpresa.value+'<br>Nom responsable: '+this.registerForm.controls.nomResponsable.value+
-        '<br>Correu electrònic: '+this.registerForm.controls.nomCorreu.value : 'Nou registre de tipus Rockstar. <br>Nom i cognoms: '+
-        this.registerForm.controls.nomResponsable.value+' '+this.registerForm.controls.cognom.value+'<br>Correu electrònic: '+
+      missatge: this.accountType == 'empresa' ? 'Nou registre de tipus Empresa. \nNom empresa: '+
+        this.registerForm.controls.nomEmpresa.value+'\nNom responsable: '+this.registerForm.controls.nomResponsable.value+
+        '\nCorreu electrònic: '+this.registerForm.controls.nomCorreu.value : 'Nou registre de tipus Rockstar. \nNom i cognoms: '+
+        this.registerForm.controls.nomResponsable.value+' '+this.registerForm.controls.cognom.value+'\nCorreu electrònic: '+
         this.registerForm.controls.nomCorreu.value,
     };
 

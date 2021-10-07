@@ -131,7 +131,7 @@ app.post("/enviarRegisterMail", function (req, res) {
   const mailOptions = {
     from: "contact@hubandrock.com",
     to: "contact@hubandrock.com",
-    subject: `Nou registre [${req.body.accountType}]`,
+    subject: `Nou registre [${req.body.tipus_empresa}]`,
     text: req.body.missatge,
   };
 
@@ -150,15 +150,7 @@ app.post("/enviarRegisterMail", function (req, res) {
   });
 
   console.log("Data recieved: ");
-  console.log(
-    req.body.nom_cognoms +
-      ", " +
-      req.body.nom_empresa +
-      ", " +
-      req.body.correu_electronic +
-      ", " +
-      req.body.missatge
-  );
+  console.log(req.body);
 });
 
 var io = require("socket.io")(server, {
