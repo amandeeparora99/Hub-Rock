@@ -236,8 +236,8 @@
                         <div class="row d-flex flex-column align-items-center esborranys-mb">
                             <div class="row w-100" *ngIf="users.length">
                                 
-                                <div *ngFor="let user of users; let i = index" class="col-md-4 col-sm-6">
-                                    <div click-stop-propagation class="card solucio-enviat p-2" style="cursor: auto; min-width: 330px;">
+                                <div *ngFor="let user of users; let i = index" class="col-md-4 col-sm-6" style="min-width: 330px;">
+                                    <div click-stop-propagation class="card solucio-enviat p-2" style="cursor: auto;">
                                         <div class="card-header">
                                             <span class="user-type-tag">{{user.tipus_perfil}}</span>
                                             <div class="row justify-content-center">

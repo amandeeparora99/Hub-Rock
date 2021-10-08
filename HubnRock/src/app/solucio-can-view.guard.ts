@@ -17,24 +17,32 @@ export class SolucioCanViewGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     let idSolucio;
     let idCurrentUser;
+    let currentUser;
 
     idSolucio = route.paramMap.get('id');
 
     if (this._httpService.loggedIn()) {
       idCurrentUser = JSON.parse(localStorage.getItem('currentUser')).idUser;
+      currentUser = JSON.parse(localStorage.getItem('currentUser'))
     }
 
 
     return this._httpService.getSolucio(idSolucio).pipe(
       map(data => {
         if (data.code == '1') {
-
-          if (data.row.solucio_estat_idestat == 3) {
-            return true;
+          // console.log("CAN VIEW:")
+          // console.log(data.row)
+          // console.log("USER ID: "+idCurrentUser)
+          // console.log("CREADOR SOLUCIO ID: "+data.row.solucio_user_iduser)
+          // console.log("REPTE CREADOR ID: "+data.row.repte_user_iduser)
+          // console.log("USER ADMIN? "+currentUser.userRole)
+          if (data.row.solucio_estat_idestat == 3 && idCurrentUser && (idCurrentUser == data.row.solucio_user_iduser || idCurrentUser == data.row.repte_user_iduser
+            || currentUser.userRole == 1)) {
+            return true;  //Si és el creador o creador de la solucio o administrador
           } else if (data.row.solucio_estat_idestat != 3 && idCurrentUser && data.row.solucio_user_iduser == idCurrentUser) {
             return true;
           } else {
-            this.toastr.warning('La solució no és vàlida', 'Accés denegat')
+            this.toastr.warning('No es pot accedir a la solució', 'Accés denegat')
             this.router.navigate(['/'])
             return false;
           }

@@ -304,7 +304,9 @@ export class PerfilComponent implements OnInit {
 
             for (let index = 0; index < data.rows.length; index++) {
               const solucio = data.rows[index];
-
+              // if(data.rows[index].estat_idestat != 5){
+              //   this.userSolucions.push(solucio)
+              // }
               this.userSolucions.push(solucio)
 
               if (index < 5) {
@@ -313,6 +315,8 @@ export class PerfilComponent implements OnInit {
                 this.solucionsNoMore = false;
               }
             }
+            console.log("SOLUCIONS CARREGADES: ")
+            console.log(this.userSolucions)
           }
         });
     }

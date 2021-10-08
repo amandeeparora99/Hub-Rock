@@ -1056,32 +1056,33 @@
                 <div class="row d-flex flex-column align-items-center mt-5 esborranys-mb" *ngIf="repte.solucions">
                     <div class="row w-100">
                         <div *ngFor="let solucio of solucionsProposades" class="col-md-4 col-sm-6">
-                            <div click-stop-propagation class="card solucio-enviat p-2"
+                            <div click-stop-propagation class="card solucio-enviat p-2" [style]="currentUser && 
+                            (currentUser.idUser == repte.user_iduser || currentUser.idUser == solucio.user_iduser || currentUser.userRole == 1) ? 
+                            'height: 232px' : 'height: 184px'"
                                 [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                 <div class="card-body">
                                     <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                    <h6 class="card-subtitle mb-5 text-overflow">
-                                        {{solucio.solucio_proposada_descripcio_short}}</h6>
-
+                                    <h6 class="card-subtitle text-overflow">{{solucio.solucio_proposada_descripcio_short}}</h6>
                                 </div>
                                 <div class="card-footer bg-transparent">
-                                    <div class="row">
+                                    <div class="row" *ngIf="currentUser && 
+                                        (currentUser.idUser == repte.user_iduser || currentUser.idUser == solucio.user_iduser || currentUser.userRole == 1)">
                                         <div class="col-auto pr-0">
                                             <a click-stop-propagation
                                                 [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
                                                 target="_blank"><img class="rounded-circle" height="50px" width="50px"
-                                                    [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
+                                                    [src]="'https://dummyimage.com/50/000/fff'" alt=""></a>
                                         </div>
                                         <div class="col m-auto text-overflow-1">
                                             <a click-stop-propagation
                                                 [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
-                                                *ngIf="!solucio.user.empresa_rockstar" target="_blank"
-                                                class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
+                                                *ngIf="!solucio.empresa_rockstar" target="_blank"
+                                                class="solucio-footer username">{{solucio.nom_empresa}}</a>
                                             <a click-stop-propagation
                                                 [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
-                                                *ngIf="solucio.user.empresa_rockstar" target="_blank"
-                                                class="solucio-footer username">{{solucio.user.nom_rockstar}}
-                                                {{solucio.user.cognom_rockstar}}</a>
+                                                *ngIf="solucio.empresa_rockstar" target="_blank"
+                                                class="solucio-footer username">{{solucio.nom_rockstar}}
+                                                {{solucio.cognom_rockstar}}</a>
                                         </div>
                                     </div>
                                 </div>

@@ -9,10 +9,16 @@ img {
 
 #hubrock-repte-banner {
   height: 542px;
-  background-color: burlywood;
+  background-color: #f7faff;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media (min-width: 768px) {
+  #hubrock-repte-banner {
+    background-size: contain;
+  }
 }
 
 #hubrock-repte-info {
@@ -530,7 +536,6 @@ img {
 }
 #propostes .card {
   border-radius: 14px;
-  height: 250px;
   border: none;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;

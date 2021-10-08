@@ -266,23 +266,10 @@
                                 <div class="card solucio-enviat p-2" click-stop-propagation [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
+                                        <h6 class="card-subtitle text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
 
                                     </div>
                                     <div class="card-footer bg-transparent">
-                                        <div class="row">
-                                            <div class="col-auto pr-0">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank">
-                                                    <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="col m-auto" style="overflow: hidden;
-                                            display: -webkit-box;
-                                            -webkit-line-clamp: 1;
-                                            -webkit-box-orient: vertical;">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_empresa}}</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -431,21 +418,9 @@
                                 <div click-stop-propagation class="card solucio-enviat p-2" [routerLink]="['/solucio/', solucio.idsolucio_proposada]">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow">{{solucio.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5 text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
-
+                                        <h6 class="card-subtitle text-overflow">Repte <a click-stop-propagation [routerLink]="['/repte/', solucio.idrepte]" target="_blank">{{solucio.nom}}</a></h6>
                                     </div>
                                     <div class="card-footer bg-transparent">
-                                        <div class="row">
-                                            <div class="col-auto pr-0">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
-                                            </div>
-                                            <div class="col m-auto" style="overflow: hidden;
-                                            display: -webkit-box;
-                                            -webkit-line-clamp: 1;
-                                            -webkit-box-orient: vertical;">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', solucio.solucio_user_iduser]" target="_blank" class="solucio-footer username">{{solucio.user.nom_rockstar}} {{solucio.user.cognom_rockstar}}</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
