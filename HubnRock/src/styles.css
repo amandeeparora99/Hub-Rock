@@ -202,3 +202,8 @@
   border: solid 2px #020e7d;
   transition: 0.3s;
 }
+
+.ngx-toastr {
+  width: 300px !important;
+  min-height: 100px !important;
+}

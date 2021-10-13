@@ -99,7 +99,7 @@
 
         <div class="d-flex">
             <div class="row w-100">
-                <ng-container *ngIf="reptesProces.length">
+                <ng-container *ngIf="reptesProces.length>0">
 
                     <div *ngFor="let repte of reptesProces; let i = index" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="card" routerLink="/repte/{{repte.idrepte}}" [ngClass]="{'bg-success' : repte.estat_idestat == 3, 'bg-warning' : repte.estat_idestat == 2, 'eliminat' : repte.estat_idestat == 5, 'bg-danger' : repte.estat_idestat == 4}">
@@ -140,17 +140,17 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
+                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.user.email, repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
                                     Acceptar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>

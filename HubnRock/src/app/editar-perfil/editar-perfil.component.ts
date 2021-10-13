@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   public fileStorageUrl = environment.api + '/image/';
 
+  @ViewChild('googleInput') googleInput: ElementRef;
   editUserForm: FormGroup;
   currentUser: User;
   userIsRockstar: Boolean;
@@ -27,6 +28,9 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
   pdfArray = [];
   pdfChanged = false;
+
+  latUser: any = 0;
+  lngUser: any = 0;
 
   fotoProfile;
   fotoProfilePreview;
@@ -389,6 +393,10 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
     });
   }
 
+  getJSONaddr(addr){
+    return JSON.parse(addr);
+  }
+
   getUserFromComponent(idUsuari) {
     this.subscriptionHttp1$ = this.httpCommunication.getUser(idUsuari).pipe(first())
       .subscribe(data => {
@@ -425,7 +433,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
             nomResponsable: this.usuariObject.nom_responsable,
             nifEmpresa: this.usuariObject.nif_empresa,
             ocupacio: this.usuariObject.ocupacio,
-            ubicacio: this.usuariObject.ubicacio,
+            ubicacio: this.getJSONaddr(this.usuariObject.ciutat_residencia).addr,
             bio: this.usuariObject.bio,
             experiencia: this.usuariObject.experiencia,
             educacio: this.usuariObject.educacio,
@@ -516,6 +524,29 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       }
 
     })
+
+  }
+
+  showGoogleAdresses() {
+    // console.log(this.googleInput.nativeElement)
+
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete(this.googleInput.nativeElement), {
+      types: ['geocode'],
+      componentRestrictions: {
+        country: "ES"
+      }
+    };
+    let context = this;
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var near_place = autocomplete.getPlace();
+      let place = autocomplete.getPlace();
+      context.latUser = place.geometry.location.lat();
+      context.lngUser = place.geometry.location.lng();
+      console.log("LATITUD:", context.latUser);
+      console.log("LONGITUD:", context.lngUser);
+      console.log(context.editUserForm.get('ubicacio').value);
+    });
 
   }
 
@@ -611,7 +642,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       }
 
       if (this.editUserForm.get('ubicacio').value) {
-        formData.append('ubicacio', this.editUserForm.get('ubicacio').value);
+        formData.append('ubicacio', this.googleInput.nativeElement.value);
       }
 
       if (this.editUserForm.get('inputLinkedIn').value) {
@@ -634,6 +665,10 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       }
       if (this.editUserForm.get('nomEmpresa').value) {
         formData.append('nom_empresa', this.editUserForm.get('nomEmpresa').value);
+      }
+      if (this.latUser != 0) {
+        let objecteDireccio = { 'lat': this.latUser, 'lng': this.lngUser, 'addr': this.googleInput.nativeElement.value }
+        formData.append('ciutat_residencia', JSON.stringify(objecteDireccio))
       }
 
       if (this.editUserForm.get('nomResponsable').value) {
@@ -690,7 +725,7 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
       }
 
       if (this.editUserForm.get('ubicacio').value) {
-        formData.append('ubicacio', this.editUserForm.get('ubicacio').value);
+        formData.append('ubicacio', this.googleInput.nativeElement.value);
       }
 
       if (this.editUserForm.get('inputLinkedIn').value) {
@@ -715,6 +750,11 @@ export class EditarPerfilComponent implements OnInit, HasUnsavedData {
 
       if (this.editUserForm.get('cognom').value) {
         formData.append('cognom_rockstar', this.editUserForm.get('cognom').value);
+      }
+
+      if (this.latUser != 0) {
+        let objecteDireccio = { 'lat': this.latUser, 'lng': this.lngUser, 'addr': this.googleInput.nativeElement.value }
+        formData.append('ciutat_residencia', JSON.stringify(objecteDireccio))
       }
 
       if (this.pdfArray.length) {

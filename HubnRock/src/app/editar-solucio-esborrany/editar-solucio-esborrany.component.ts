@@ -58,10 +58,12 @@ export class EditarSolucioEsborranyComponent implements OnInit {
   dateIniciRepte;
   dateFinalRepte;
   currentDate;
+  mailTo;
 
   subscriptionForm$: Subscription;
   subscriptionHttp1$: Subscription;
   subscriptionHttp2$: Subscription;
+  subscriptionHttp3$: Subscription;
 
   termesChecked = false;
   politicaChecked = false;
@@ -197,7 +199,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
                 data => {
                   if (data.code == 1) {
                     this.repte = data.row;
-
+                    this.mailTo = data.row.user.email;
                     this.solucioForm.patchValue({
                       nomSolucio: this.solucio.solucio_proposada_nom,
                       descripcioBreuSolucio: this.solucio.solucio_proposada_descripcio_short,
@@ -491,6 +493,33 @@ export class EditarSolucioEsborranyComponent implements OnInit {
 
   }
 
+  appendInfo() {
+    var email = { 
+      subject: 'Nova proposta de solució pel teu repte',
+      reciever: this.mailTo,
+      missatge: 'Tens una nova proposta pel teu repte "'+this.repte.nom+'". \nPots accedir a les propostes del teu repte utilitzant el següent enllaç: https://hubandrock.com/repte/'+this.repte.idrepte
+    };
+    return email;
+  }
+
+  sendRegisteredMail() {
+    console.log("ENVIANT MAIL...")
+    let emailForm = this.appendInfo();
+    console.log(emailForm)
+    this.subscriptionHttp3$ = this.httpClient.sendRegisteredMail(emailForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              console.log("Email sent for admin")
+            }
+            else{
+              console.log("Email NOT sent for admin")
+            }
+          });
+  }
+
   onSubmit() {
     this.checkUntouched = true;
     this.formErrors.repteIndividualOEquip = '';
@@ -579,6 +608,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
           .subscribe(
             data => {
               if (data.code == 1) {
+                this.sendRegisteredMail();
                 window.scrollTo(0, 0)
 
                 this.success = true;

@@ -52,9 +52,12 @@ export class RepteComponent implements OnInit {
   subscriptionHttp5$: Subscription
   subscriptionHttp6$: Subscription
   subscriptionHttp7$: Subscription
+  subscriptionHttp8$: Subscription
 
   solucionsGuanyadoresObj = {};
   solucionsGuanyadoresFinal = {};
+
+  public pdfGuanyador;
 
   ngOnInit(): void {
 
@@ -70,6 +73,14 @@ export class RepteComponent implements OnInit {
       this.getRepteForum(this.idRepte, 1, 10);
     }
 
+  }
+
+  onFileSelected(event) {
+    if (event.target.files) {
+      this.pdfGuanyador = event.target.files[0]
+
+      console.log("PDF emmagatzemat: "+this.pdfGuanyador)
+    }
   }
 
   getRepteGuanyadors(){
@@ -350,7 +361,7 @@ export class RepteComponent implements OnInit {
 
           for (let index = 0; index < data.rows.length; index++) {
             const solucioProposada = data.rows[index];
-
+            
             this.solucionsProposades.push(solucioProposada)
 
             if (index < 5) {
@@ -359,7 +370,7 @@ export class RepteComponent implements OnInit {
               this.solucionsProposadesNoMore = false;
             }
           }
-
+          console.log(this.solucionsProposades)
           this.getRepteGuanyadors();
         }
       })
@@ -560,22 +571,46 @@ export class RepteComponent implements OnInit {
   }
 
   publicarGuanyadors(){
-    let k;
-    for (k of Object.keys(this.solucionsGuanyadoresObj)) {
-      console.log("KEYVALUE:")
-      var premiId = this.solucionsGuanyadoresObj[k].premiId
-      var solId = this.solucionsGuanyadoresObj[k].idSolucio
-      this.subscriptionHttp7$ = this.httpCommunication.setGuanyador(premiId, solId)
+    if(!this.pdfGuanyador){
+      alert('Selecciona el document de resolucio')
+    }
+    else{
+      const formData = new FormData();
+      formData.append('url_guanyador_fitxer', this.pdfGuanyador)
+      console.log(this.pdfGuanyador)
+      this.subscriptionHttp8$ = this.httpCommunication.setPdfGuanyador(this.idRepte, formData)
         .pipe(first())
         .subscribe(
           data => {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            console.log(data)
             if (data.code == 1) {
-              this.toastr.success('Els guanyadors s\'han publicat correctament', 'Publicat')
-              window.location.reload()
+              let k;
+              for (k of Object.keys(this.solucionsGuanyadoresObj)) {
+                console.log("KEYVALUE:")
+                var premiId = this.solucionsGuanyadoresObj[k].premiId
+                var solId = this.solucionsGuanyadoresObj[k].idSolucio
+                this.subscriptionHttp7$ = this.httpCommunication.setGuanyador(premiId, solId)
+                  .pipe(first())
+                  .subscribe(
+                    data => {
+                      if (data.code == 1) {
+                        this.toastr.success('Els guanyadors s\'han publicat correctament', 'Publicat')
+                        window.location.reload()
+                      }
+                    }
+                  );
+              }
+            }
+            else{
+              this.toastr.error("Hi ha hagut un problema amb la plataforma. Intenta-ho més tard")
             }
           }
         );
-  }
+
+      
+      
+    }
   }
 
   carregarRespostes(idMissatgePare, numRespostes) {

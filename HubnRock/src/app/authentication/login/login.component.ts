@@ -111,27 +111,29 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
+            console.log(data)
             if (data.code == 302) {
               this.router.navigate(["/"]);
             }
+            else if(data.code == 304){
+              this.toastr.error('Un administrador ha eliminat aquest compte', 'Compte eliminat', {
+                timeOut: 3000,
+              })
+            }
             else if (data.code == 303) {
               this.toastr.warning('Revisa el correu i valida el compte', 'Compte no verificat', {
-                timeOut: 2000,
+                timeOut: 3000,
               })
             }
             else if (data.code == 534) {
-
               if (!this.formErrors.password) {
                 this.formErrors.password += this.validationMessages.password.incorrecte + ' ';
               }
-
             }
             else if (data.code == 533) {
-
               if (!this.formErrors.email) {
                 this.formErrors.email += this.validationMessages.email.incorrecte + ' ';
               }
-
             }
           });
     }

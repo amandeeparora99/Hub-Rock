@@ -1081,4 +1081,12 @@ export class HttpCommunicationService {
         return data;
     }));
   }
+
+  setPdfGuanyador(repte_id, form): Observable<any> {
+    return this.http.post<any>(environment.api + '/repte/guanyador_fitxer/'+repte_id, form)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+  
 }

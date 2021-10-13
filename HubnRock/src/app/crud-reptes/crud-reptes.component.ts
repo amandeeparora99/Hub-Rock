@@ -54,7 +54,6 @@ export class CrudReptesComponent implements OnInit {
     this.getReptesOberts(this.currentObertPage, this.elements);
     this.getReptesProces(this.currentProcesPage, this.elements);
     this.getReptesTancats(this.currentTancatPage, this.elements);
-    console.log(this.reptesOberts, this.reptesProces, this.reptesTancats)
   }
 
   seeMoreOberts() {
@@ -79,11 +78,15 @@ export class CrudReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
+            console.log()
             if (data.rows.length < 1) {
               this.obertsNoMore = true;
+             
             }
+
+            data.rows.length < 1 ? console.log("No hi ha reptes Oberts") : console.log(data.rows)
+            
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 
@@ -108,12 +111,11 @@ export class CrudReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             if (data.rows.length < 1) {
               this.procesNoMore = true;
             }
-
+            data.rows.length < 1 ? console.log("No hi ha reptes en Proces") : console.log(data.rows)
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 
@@ -138,11 +140,11 @@ export class CrudReptesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.rows);
           if (data.code == "1") {
             if (data.rows.length < 1) {
               this.tancatsNoMore = true;
             }
+            data.rows.length < 1 ? console.log("No hi ha reptes Tancats") : console.log(data.rows)
             for (let index = 0; index < data.rows.length; index++) {
               const repte = data.rows[index];
 
@@ -242,6 +244,34 @@ export class CrudReptesComponent implements OnInit {
     }
   }
 
+  appendInfo(state, reciever, idRepte) {
+    var email = { 
+      subject: state == 3 ? 'El teu repte s\'ha validat' : (state == 4 ? 'El teu repte s\'ha rebutjat' : 'El teu repte s\'ha eliminat'),
+      reciever: reciever,
+      missatge: state == 3 ? 'Un administrador ha validat el teu repte.\nAccedeix-hi amb el seguent enllaç: https://hubandrock.com/repte/'+idRepte : (state == 4 ? 'Un administrador ha rebutjat el teu repte. Revisa\'l i torna a enviar la teva proposta.\nhttps://hubandrock.com/repte/'+idRepte : 
+      'Un administrador ha eliminat el teu repte. Pots contactar amb l\'equip per qualsevol dubte: https://hubandrock.com/contactar')
+    };
+    return email;
+  }
+
+  sendRegisteredMail(state, reciever, idRepte) {
+    console.log("ENVIANT MAIL...")
+    let emailForm = this.appendInfo(state, reciever, idRepte);
+    console.log(emailForm)
+    this.subscriptionHttp3$ = this.httpCommunication.sendRegisteredMail(emailForm)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log(data)
+            if (data.data == "success") {
+              console.log("Email sent for admin")
+            }
+            else{
+              console.log("Email NOT sent for admin")
+            }
+          });
+  }
+
   canValidateRepte(iniciRepte) {
     let dateIniciRepte = new Date(iniciRepte);
     let currentDate = new Date();
@@ -253,7 +283,7 @@ export class CrudReptesComponent implements OnInit {
     }
   }
 
-  changeState(idRepte, estat, iniciRepte?) {
+  changeState(email, idRepte, estat, iniciRepte?) {
     if (estat == 3) {
       if (this.canValidateRepte(iniciRepte)) {
         let confirmWindow = confirm('Està segur que vol canviar l\'estat d\'aquest repte?')
@@ -265,6 +295,7 @@ export class CrudReptesComponent implements OnInit {
               data => {
                 if (data.code == '1') {
                   this.toastr.success('S\'ha validat el repte correctament', 'Estat modificat');
+                  this.sendRegisteredMail(estat, email, idRepte);
                   window.location.reload();
                 }
               },
@@ -283,6 +314,7 @@ export class CrudReptesComponent implements OnInit {
           .subscribe(
             data => {
               if (data.code == '1') {
+                this.sendRegisteredMail(estat, email, idRepte);
                 window.location.reload();
               }
             },
@@ -353,24 +385,24 @@ export class CrudReptesComponent implements OnInit {
       }
       else if (dateInici < currentDate && dateFinal > currentDate) {
         let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-        return "Tenca en " + days + " dies";
+        return "Tanca en " + days + " dies";
       }
       else {
         let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
         if (days > 30) {
-          return "Tencat";
+          return "Tancat";
         }
         else if (dateInici < currentDate && dateFinal > currentDate) {
           let days = Math.floor((dateFinal.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24);
-          return "Tenca en " + days + " dies";
+          return "Tanca en " + days + " dies";
         }
         else {
           let days = Math.floor(dateFinal.getTime() / 1000 / 60 / 60 / 24);
           if (days > 30) {
-            return "Tencat";
+            return "Tancat";
           }
           else {
-            return "Tencat fa " + days + " dies";
+            return "Tancat fa " + days + " dies";
           }
 
         }

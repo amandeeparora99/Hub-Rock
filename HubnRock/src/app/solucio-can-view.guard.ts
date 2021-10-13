@@ -42,7 +42,7 @@ export class SolucioCanViewGuard implements CanActivate {
           } else if (data.row.solucio_estat_idestat != 3 && idCurrentUser && data.row.solucio_user_iduser == idCurrentUser) {
             return true;
           } else {
-            this.toastr.warning('No es pot accedir a la solució', 'Accés denegat')
+            this.toastr.warning('Només administradors i el creador del repte/solució hi poden accedir.', 'No es pot accedir a la solució')
             this.router.navigate(['/'])
             return false;
           }

@@ -685,6 +685,7 @@
                             <div class="d-flex justify-content-between mt-5">
                                 <div>
                                     <label for="InputNomCognomsJurat" class="mb-0">Pregunta {{i+1}}</label>
+                                    <span class="opcional-text">(Opcional)</span><br>
                                 </div>
                                 <div class="text-center elimina-link" *ngIf="repteForm.get('preguntaArray').length > 1">
                                     <a (click)="removePreguntaButtonClick(i)">- Elimina aquesta pregunta</a>

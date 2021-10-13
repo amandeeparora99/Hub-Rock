@@ -104,10 +104,11 @@
 
                 <div class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.ubicacio}">
                     <label for="InputUbicacio">Ubicació</label>
-                    <input formControlName="ubicacio" type="text" class="form-control" id="InputUbicacio" (blur)="logValidationErrors()">
-                    <span class="help-block" *ngIf="formErrors.ubicacio">
-                        {{formErrors.ubicacio}}
-                    </span>
+                    <!-- <div class="row container">
+                        <span style="vertical-align: middle;">{{getJSONaddr(usuariObject.ciutat_residencia).addr}}</span>
+                    </div> -->
+                    <!-- <input formControlName="ubicacio" type="text" class="form-control" id="InputUbicacio" (blur)="logValidationErrors()"> -->
+                    <input formControlName="ubicacio" (focus)="showGoogleAdresses()" class="form-control" id="google_input" #googleInput />
                 </div>
 
                 <div class="form-group mb-4" [ngClass]="{'is-invalid' : formErrors.bio}">

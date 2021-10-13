@@ -275,6 +275,21 @@
             </div>
 
             <div style="margin-top: 50px;" class="row d-flex justify-content-center align-items-center">
+                <label for="file-upload" style="color: white;
+                    font-size: 18px;
+                    font-weight: 600;
+                    letter-spacing: -0.95px;
+                    margin-right: 20px;
+                    cursor: pointer;
+                    border: 1px solid white;
+                    padding: 9px;
+                    border-radius: 7px;">
+                    {{pdfGuanyador ? pdfGuanyador.name : 'Pujar document de resolució'}}
+                </label>
+                <input size="display: none;" id="file-upload" accept=".pdf" (change)="onFileSelected($event)" type="file" style="display: none;">
+            </div>
+
+            <div style="margin-top: 50px;" class="row d-flex justify-content-center align-items-center">
                 <a class="pointer" style="color: white; font-size: 18px; font-weight: 600; letter-spacing: -0.95px; margin-right: 20px;" 
                     (click)="toggleGuanyadorPage(1)">EDITAR GUANYADORS</a>
                 <button class="btn hubrock-btn" type="button" (click)="publicarGuanyadors()">PUBLICAR GUANYADORS</button>
@@ -308,7 +323,7 @@
                         <p *ngIf="repte.premis[0].guanyador" 
                             style="font-size: 16px; letter-spacing: -0.22px;color: #ffffff;">
                             Aquestes són les solucions guanyadores:</p>
-                        <div class="row w-100 justify-content-center d-flex">
+                        <div class="row w-100 justify-content-center d-flex container">
                             <div class="col-md-3 col-sm-3 col-xs-3" *ngFor="let sol of solucionsGuanyadoresFinal | keyvalue">
                                 <a style="background-color: white;
                                     border-radius: 50%;
@@ -323,28 +338,35 @@
                                         width: 100%;
                                         font-weight: bold;">{{sol.key}}</div>
                                 </a>
-                                <div style="border-radius: 14px; background-color:#d2f5e8;" class="card solucio-enviat p-2">
+                                <div style="border-radius: 14px; background-color:#d2f5e8; height: 233px;" class="card solucio-enviat p-2">
                                     <div class="card-body">
                                         <h5 class="card-title text-overflow" style="font-size: 24px;
                                         letter-spacing: -0.4px;font-family: 'WorkSans-Bold'; color: black;">{{sol.value.solucio_proposada_nom}}</h5>
-                                        <h6 class="card-subtitle mb-5 text-overflow" style="color: black;">{{sol.value.solucio_proposada_descripcio_short}}</h6>
+                                        <h6 class="card-subtitle text-overflow" style="color: black;">{{sol.value.solucio_proposada_descripcio_short}}</h6>
                                     </div>
                                     <div class="card-footer bg-transparent">
                                         <div class="row">
                                             <div class="col-auto pr-0">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.user_iduser]" target="_blank"><img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + sol.value.user.url_photo_profile" alt=""></a>
+                                                <img class="rounded-circle" height="50px" width="50px" [src]="fileStorageUrl + sol.value.user.url_photo_profile" alt="">
                                             </div>
                                             <div class="col m-auto text-overflow-1">
-                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="!sol.value.user.empresa_rockstar" target="_blank" class="solucio-footer username"
-                                                    style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.user.nom_empresa}}</a>
-                                                <a click-stop-propagation [routerLink]="['/perfil/', sol.value.solucioUserId]" *ngIf="sol.value.user.empresa_rockstar" target="_blank" class="solucio-footer username"
+                                                <p *ngIf="!sol.value.user.empresa_rockstar" class="solucio-footer"
+                                                    style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.user.nom_empresa}}</p>
+                                                <p *ngIf="sol.value.user.empresa_rockstar" class="solucio-footer"
                                                     style="color: black;font-size: 18px;letter-spacing: -0.45px;font-family: 'WorkSans-Bold'">{{sol.value.user.nom_rockstar}}
-                                                        {{sol.value.user.cognom_rockstar}}</a>
+                                                        {{sol.value.user.cognom_rockstar}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <a style="font-size: 18px; font-weight: 600;
+                            letter-spacing: -0.95px; margin-right: 20px;
+                            cursor: pointer; border: 1px solid white;
+                            padding: 10px 20px; color: white;
+                            border-radius: 7px; margin-top: 30px;" target="_blank" [href]="fileStorageUrl + repte.url_guanyador_fitxer" download>
+                            <img width="30" style="margin-right: 10px;" src="../../assets/simpleicons/fileiconWhite.png" alt="">Resolució/Acta</a>
                         </div>
                     </div>
                 </div>
@@ -1071,7 +1093,7 @@
                                             <a click-stop-propagation
                                                 [routerLink]="['/perfil/', solucio.solucio_user_iduser]"
                                                 target="_blank"><img class="rounded-circle" height="50px" width="50px"
-                                                    [src]="'https://dummyimage.com/50/000/fff'" alt=""></a>
+                                                    [src]="fileStorageUrl + solucio.user.url_photo_profile" alt=""></a>
                                         </div>
                                         <div class="col m-auto text-overflow-1">
                                             <a click-stop-propagation
