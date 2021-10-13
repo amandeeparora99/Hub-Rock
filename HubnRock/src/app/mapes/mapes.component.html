@@ -60,7 +60,7 @@
         </div>
         <hr />
         <div *ngIf="currentEmpresa.cv_path">
-            <h3>Documents</h3>
+            <h3>Presentació de l'empresa</h3>
             <img *ngIf="currentEmpresa.cv_path" class="mr-4" width="30" src="../../assets/simpleicons/fileicon.png" alt="">
             <a *ngIf="currentEmpresa.cv_path" target="_blank" [href]="fileStorageUrl + currentEmpresa.cv_path" download class="link-perfil-usuari">Presentació {{currentEmpresa.nom_empresa}}</a>
             <p *ngIf="!currentEmpresa.cv_path">-</p>

@@ -92,7 +92,7 @@ import { TermesICondicionsComponent } from './termes-i-condicions/termes-i-condi
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 4000,
+      timeOut: 10000,
       progressBar: true,
       progressAnimation: 'increasing',
       preventDuplicates: true

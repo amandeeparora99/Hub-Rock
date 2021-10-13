@@ -480,7 +480,7 @@ export class RegisterComponent implements OnInit {
                   data => {
                     if (data.code == "1") {
                       this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
-                        timeOut: 2000,
+                        timeOut: 10000,
                       });
                       this.sendRegisteredMail();
                       this.router.navigate(["/login"])
@@ -515,7 +515,7 @@ export class RegisterComponent implements OnInit {
                   data => {
                     if (data.code == "1") {
                       this.toastr.success('Revisa el correu per validar el compte', 'Registre completat', {
-                        timeOut: 2000,
+                        timeOut: 10000,
                       });
                       this.sendRegisteredMail();
                       this.router.navigate(["/login"]);

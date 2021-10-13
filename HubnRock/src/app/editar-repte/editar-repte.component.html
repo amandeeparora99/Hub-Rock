@@ -198,7 +198,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputEmpreses" formControlName="empresesCheckbox" checked>
                             <label class="form-check-label" for="InputEmpreses">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.empresesCheckbox ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'">
+                                    <img class="ilustration" [src]="repteForm.get('checkboxGroup').value.empresesCheckbox ? '../../../assets/illustrations/Empreses.png' : '../../../assets/illustrations/Empreses_BW.png'">
                                     <p class="checkboxtitle">Empreses</p>
                                 </div>
                             </label>
@@ -207,7 +207,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputStartups" formControlName="startupsCheckbox">
                             <label class="form-check-label" for="InputStartups">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.startupsCheckbox ? '../../../assets/illustrations/Startup.png' : '../../../assets/illustrations/Startups_BW.png'">
+                                    <img class="ilustration" [src]="repteForm.get('checkboxGroup').value.startupsCheckbox ? '../../../assets/illustrations/Startup.png' : '../../../assets/illustrations/Startups_BW.png'">
                                     <p class="checkboxtitle">Startups</p>
                                 </div>
                             </label>
@@ -216,7 +216,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputEstudiants" formControlName="estudiantsCheckbox">
                             <label class="form-check-label" for="InputEstudiants">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.estudiantsCheckbox ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'">
+                                    <img class="ilustration" [src]="repteForm.get('checkboxGroup').value.estudiantsCheckbox ? '../../../assets/illustrations/Estudiants.png' : '../../../assets/illustrations/Estudiants_BW.png'">
                                     <p class="checkboxtitle">Estudiants</p>
                                 </div>
                             </label>
@@ -225,7 +225,7 @@
                             <input class="form-check-input inputhidden" type="checkbox" id="InputExperts" formControlName="expertsCheckbox">
                             <label class="form-check-label" for="InputExperts">
                                 <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img class="ilustration" [src]="this.repteForm.get('checkboxGroup').value.expertsCheckbox ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'">
+                                    <img class="ilustration" [src]="repteForm.get('checkboxGroup').value.expertsCheckbox ? '../../../assets/illustrations/Experts.png' : '../../../assets/illustrations/Experts_BW.png'">
                                     <p class="checkboxtitle">Experts</p>
                                 </div>
                             </label>
@@ -357,7 +357,7 @@
                                 </div>
                             </div>
 
-                            <div class="image-upgoad d-flex justify-content-center align-items-center mb-4">
+                            <div class="image-upload d-flex justify-content-center align-items-center mb-4">
                                 <label *ngIf="!getInterpolationCondition('fotoPremi', i)" [attr.for]="'InputFotoPremi' + i" class="pointer mb-0">
                                     <div class="row d-flex flex-column justify-content-center">
                                         <img src="../../../assets/simpleicons/Add_Pic.png" width="61px"
@@ -365,8 +365,8 @@
                                         <p class="mb-0">Afegeix foto</p>
                                     </div>
                                 </label>
-                                <img class="image-upload" *ngIf="getInterpolationCondition('fotoPremi', i)" width="100%" height="100%" [src]="getObjectProperty('fotoPremi',i)" alt="your image" />
-
+                                <!-- <img class="image-upload" *ngIf="getInterpolationCondition('fotoPremi', i)" width="100%" height="100%" [src]="getObjectProperty('fotoPremi',i)" alt="your image" /> -->
+                                <div class="image-upload fotoPortadaCss" *ngIf="getInterpolationCondition('fotoPremi', i)" [ngStyle]="{'background-image': 'url(' + getObjectProperty('fotoPremi',i) + ')'}"></div>
                                 <input accept="image/*" formControlName="fotoPremi" [attr.name]="'fotoPremi'+ i" (change)="onFileSelected($event, i)" [id]="'InputFotoPremi' + i" type="file" />
                             </div>
 

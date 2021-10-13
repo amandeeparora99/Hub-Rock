@@ -117,12 +117,12 @@ export class LoginComponent implements OnInit {
             }
             else if(data.code == 304){
               this.toastr.error('Un administrador ha eliminat aquest compte', 'Compte eliminat', {
-                timeOut: 3000,
+                timeOut: 10000,
               })
             }
             else if (data.code == 303) {
               this.toastr.warning('Revisa el correu i valida el compte', 'Compte no verificat', {
-                timeOut: 3000,
+                timeOut: 10000,
               })
             }
             else if (data.code == 534) {

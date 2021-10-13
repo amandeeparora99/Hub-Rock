@@ -252,22 +252,22 @@ export class EditarRepteEsborranyComponent implements OnInit, HasUnsavedData {
               for (let index = 0; index < this.repte.participants.length; index++) {
                 const participant = this.repte.participants[index];
 
-                if (participant.participants_name == "Empreses") {
+                if (participant.participants_name == "empreses") {
                   // this.repteForm.get('checkboxGroup').patchValue({
                   //   empresesCheckbox: [true]
                   // })
                   participantsEmpresa = true;
-                } else if (participant.participants_name == "Startups") {
+                } else if (participant.participants_name == "startups") {
                   // this.repteForm.get('checkboxGroup').patchValue({
                   //   startupsCheckbox: [true]
                   // })
                   participantsStartups = true;
-                } else if (participant.participants_name == "Estudiants") {
+                } else if (participant.participants_name == "estudiants") {
                   // this.repteForm.get('checkboxGroup').patchValue({
                   //   estudiantsCheckbox: [true]
                   // })
                   participantsEstudiants = true;
-                } else if (participant.participants_name == "Experts") {
+                } else if (participant.participants_name == "experts") {
                   // this.repteForm.get('checkboxGroup').patchValue({
                   //   expertsCheckbox: [true]
                   // })

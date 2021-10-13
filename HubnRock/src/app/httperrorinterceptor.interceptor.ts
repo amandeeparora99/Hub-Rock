@@ -31,7 +31,7 @@ export class HttperrorinterceptorInterceptor implements HttpInterceptor {
             errorMessage = 'Error del servidor, Codi: ' + error.status + ' </br> Missatge: ' + error.message + ' </br> Refresca la pàgina o torna a provar-ho més tard';
           }
           this.toastr.error(errorMessage, 'Error', {
-            timeOut: 5000,
+            timeOut: 10000,
             enableHtml: true
           });
 

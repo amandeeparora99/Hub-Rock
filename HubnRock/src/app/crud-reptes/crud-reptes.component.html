@@ -218,17 +218,17 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4">
-                            <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
+                            <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.user.email, repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
                                 Acceptar
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
+                            <div (click)="changeState(repte.user.email, repte.idrepte, 4)" class="btn btn-danger">
                                 Rebutjar
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
+                            <div (click)="changeState(repte.user.email, repte.idrepte, 5)" class="btn eliminat">
                                 Eliminar
                             </div>
                         </div>
@@ -297,17 +297,17 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
+                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.user.email, repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
                                     Acceptar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>
@@ -374,17 +374,17 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4">
-                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
+                                <div *ngIf="canValidateRepte(repte.data_inici)" (click)="changeState(repte.user.email, repte.idrepte, 3, repte.data_inici)" class="btn btn-success">
                                     Acceptar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 4)" class="btn btn-danger">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 4)" class="btn btn-danger">
                                     Rebutjar
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div (click)="changeState(repte.idrepte, 5)" class="btn eliminat">
+                                <div (click)="changeState(repte.user.email, repte.idrepte, 5)" class="btn eliminat">
                                     Eliminar
                                 </div>
                             </div>

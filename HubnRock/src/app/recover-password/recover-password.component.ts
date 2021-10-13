@@ -91,7 +91,7 @@ export class RecoverPasswordComponent implements OnInit {
         data => {
           if (data.code == '1') {
             this.toastr.success('Ja pots iniciar sessió', 'Contrasenya actualitzada', {
-              timeOut: 2000,
+              timeOut: 10000,
             });
             this.router.navigate(["/login"])
           } else {

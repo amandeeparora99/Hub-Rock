@@ -27,11 +27,11 @@ export class ValidateAccountComponent implements OnInit {
           if (data.code == '1') {
             this.router.navigate(["/login"]);
             this.toastr.success('El teu correu ha estat validat correctament', 'Validat', {
-              timeOut: 2000,
+              timeOut: 10000,
             })
           } else {
             this.toastr.error('Error de servidor', 'Error', {
-              timeOut: 2000,
+              timeOut: 10000,
             })
           }
       });
