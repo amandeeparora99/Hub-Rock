@@ -511,7 +511,7 @@ export class EditarSolucioEsborranyComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data)
-            if (data.data == 200) {
+            if (data.data == "success") {
               console.log("Email sent for admin")
             }
             else{

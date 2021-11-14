@@ -134,10 +134,14 @@ app.post("/enviarMail", function (req, res) {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
-      res.sendStatus(400);
+      res.send({
+        data: "error",
+      });
     } else {
       console.log("Correu enviat " + info.response);
-      res.sendStatus(200);
+      res.send({
+        data: "success",
+      });
     }
   });
 
