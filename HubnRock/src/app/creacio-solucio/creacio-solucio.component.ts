@@ -395,7 +395,7 @@ export class CreacioSolucioComponent implements OnInit, HasUnsavedData {
         .subscribe(
           data => {
             console.log(data)
-            if (data.data == "success") {
+            if (data.data == 200) {
               console.log("Email sent for admin")
             }
             else{
