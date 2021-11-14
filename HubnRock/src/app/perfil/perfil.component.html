@@ -192,7 +192,8 @@
                                         </div>
                                         <div class="card-title d-flex">
                                             <img class="align-self-center" style="margin-right: 10px;" width="25px" src="../../assets/illustrations/Time.png" alt="25x25">
-                                            <p class="m-0">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})</p>
+                                            <p class="m-0">{{repte.data_final | date:'dd-MM-yyyy'}} ({{diesRestants(repte.data_inici, repte.data_final)}})</p>
+                                            <!-- <p class="m-0">{{returnDaydddMMMyyy(repte.data_inici | date:'shortDate')}} ({{diesRestants(repte.data_inici, repte.data_final)}})</p> NO FUNCIONA!!!!! -->
                                         </div>
                                         <div class="tags">
                                             <button *ngFor="let participants of repte.participants" type="button" class="tag btn" [ngClass]="{'tag-red': participants.participants_name == 'startups',

@@ -138,12 +138,12 @@ app.post("/enviarMail", function (req, res) {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
-      res.sendStatus({
+      res.send({
         data: "error",
       });
     } else {
       console.log("Correu enviat " + info.response);
-      res.sendStatus({
+      res.send({
         data: "success",
       });
     }
