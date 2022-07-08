@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.hubandrock.com',
+  api: 'http://hubandrock.com:1521',
   localApi: 'https://hubandrock.com:3000'
 };
 /*
